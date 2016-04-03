@@ -22,6 +22,7 @@ namespace EquiposTecnicosSN.Web.Models
         }
 
         //public int? UbicacionId { get; set; }
+        //override usuario ???
     }
 
    /* public static class IdentityExtensions
