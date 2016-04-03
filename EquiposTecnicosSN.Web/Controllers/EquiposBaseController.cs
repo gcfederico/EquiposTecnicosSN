@@ -13,7 +13,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class EquiposBaseController : Controller
     {
-        private EquiposBaseDbContext db = new EquiposBaseDbContext();
+        private EquiposDbContext db = new EquiposDbContext();
 
         // GET: EquiposBase
         public ActionResult Index()
@@ -28,7 +28,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EquipoBase equipoBase = db.Equipos.Find(id);
+            Equipo equipoBase = db.Equipos.Find(id);
             if (equipoBase == null)
             {
                 return HttpNotFound();
@@ -47,7 +47,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] EquipoBase equipoBase)
+        public ActionResult Create([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] Equipo equipoBase)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EquipoBase equipoBase = db.Equipos.Find(id);
+            Equipo equipoBase = db.Equipos.Find(id);
             if (equipoBase == null)
             {
                 return HttpNotFound();
@@ -79,7 +79,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] EquipoBase equipoBase)
+        public ActionResult Edit([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] Equipo equipoBase)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EquipoBase equipoBase = db.Equipos.Find(id);
+            Equipo equipoBase = db.Equipos.Find(id);
             if (equipoBase == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            EquipoBase equipoBase = db.Equipos.Find(id);
+            Equipo equipoBase = db.Equipos.Find(id);
             db.Equipos.Remove(equipoBase);
             db.SaveChanges();
             return RedirectToAction("Index");

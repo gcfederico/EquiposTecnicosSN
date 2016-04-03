@@ -5,6 +5,7 @@ namespace EquiposTecnicosSN.Entities
 {
     public enum TipoDeEquipo
     {
+        [Display(Name = "Climatización")]
         Climatizacion,
         Respirador
     }

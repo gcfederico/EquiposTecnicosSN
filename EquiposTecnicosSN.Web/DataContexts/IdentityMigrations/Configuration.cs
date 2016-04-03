@@ -9,7 +9,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"DataContexts\IdentityMigrations";
         }
 

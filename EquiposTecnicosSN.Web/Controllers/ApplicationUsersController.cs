@@ -17,7 +17,7 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private IdentityDb db = new IdentityDb();
         private ApplicationUserManager _userManager;
-
+        private UsuarioTecnicoDb usuariosDb = new UsuarioTecnicoDb();
 
         public ApplicationUsersController()
         {
@@ -79,6 +79,8 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 db.Users.Add(applicationUser);
                 db.SaveChanges();
+                //usuariosDb.UsuariosTecnicos.Add(new Entities.UsuarioTecnico { })
+
                 return RedirectToAction("Index");
             }
 

@@ -1,4 +1,4 @@
-﻿@model EquiposTecnicosSN.Entities.EquipoBase
+﻿@model EquiposTecnicosSN.Entities.Equipo
 
 @{
     ViewBag.Title = "Delete";
@@ -53,19 +53,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.fechaCompra)
+            @Html.DisplayNameFor(model => model.NumeroInventario)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fechaCompra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.numeroInventario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.numeroInventario)
+            @Html.DisplayFor(model => model.NumeroInventario)
         </dd>
 
     </dl>

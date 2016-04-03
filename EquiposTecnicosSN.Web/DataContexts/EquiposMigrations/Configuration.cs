@@ -5,15 +5,15 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EquiposTecnicosSN.Web.DataContexts.EquiposBaseDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<EquiposTecnicosSN.Web.DataContexts.EquiposDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"DataContexts\EquiposMigrations";
         }
 
-        protected override void Seed(EquiposTecnicosSN.Web.DataContexts.EquiposBaseDbContext context)
+        protected override void Seed(EquiposTecnicosSN.Web.DataContexts.EquiposDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

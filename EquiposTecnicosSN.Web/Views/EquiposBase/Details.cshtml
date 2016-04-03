@@ -1,4 +1,4 @@
-﻿@model EquiposTecnicosSN.Entities.EquipoBase
+﻿@model EquiposTecnicosSN.Entities.Equipo
 
 @{
     ViewBag.Title = "Details";
@@ -52,24 +52,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.fechaCompra)
+            @Html.DisplayNameFor(model => model.NumeroInventario)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fechaCompra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.numeroInventario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.numeroInventario)
+            @Html.DisplayFor(model => model.NumeroInventario)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EquipoId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

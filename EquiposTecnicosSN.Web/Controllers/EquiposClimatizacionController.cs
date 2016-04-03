@@ -8,17 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
+using System.Data.Entity.Validation;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     public class EquiposClimatizacionController : Controller
     {
-        private EquiposClimatizacionDb db = new EquiposClimatizacionDb();
+        private EquiposDbContext db = new EquiposDbContext();
 
         // GET: EquiposClimatizacion
         public ActionResult Index()
         {
-            return View(db.EquiposDeClimatizacion.ToList());
+            var equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion);
+            return View(equipos.ToList());
         }
 
         // GET: EquiposClimatizacion/Details/5
@@ -39,7 +41,11 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET: EquiposClimatizacion/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto");
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
+            var model = new EquipoClimatizacion();
+            model.InformacionComercial = new InformacionComercial();
+            return View(model);
         }
 
         // POST: EquiposClimatizacion/Create
@@ -47,16 +53,34 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] EquipoClimatizacion equipoClimatizacion)
+        public ActionResult Create([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,NumeroInventario,UbicacionId,Estado,ProveedorId,InformacionComercial")] EquipoClimatizacion equipoClimatizacion)
         {
-            if (ModelState.IsValid)
+            
+            try
             {
-                db.EquiposDeClimatizacion.Add(equipoClimatizacion);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (true)//validaciones
+                {
+                    var infCom = equipoClimatizacion.InformacionComercial;
+                    equipoClimatizacion.InformacionComercial = null;
+                    infCom.Proveedor = db.Proveedores.Find(infCom.ProveedorId);
+                    
+                    db.EquiposDeClimatizacion.Add(equipoClimatizacion);
+                    db.SaveChanges();
+
+                    infCom.Equipo = equipoClimatizacion;
+                    db.InformacionesComerciales.Add(infCom);
+                    db.SaveChanges();
+                }   
+            } catch (DbEntityValidationException e)
+            {
+                ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
+                ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
+                return View(equipoClimatizacion);
+
             }
 
-            return View(equipoClimatizacion);
+                return RedirectToAction("Index");
+
         }
 
         // GET: EquiposClimatizacion/Edit/5
@@ -71,6 +95,9 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
             return View(equipoClimatizacion);
         }
 
@@ -79,15 +106,32 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] EquipoClimatizacion equipoClimatizacion)
+        public ActionResult Edit([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,NumeroInventario,UbicacionId,Estado,InformacionComercial")] EquipoClimatizacion equipoClimatizacion)
         {
-            if (ModelState.IsValid)
+
+            try
             {
-                db.Entry(equipoClimatizacion).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (true) //validaciones
+                {
+                    db.Entry(equipoClimatizacion).State = EntityState.Modified;
+                    equipoClimatizacion.InformacionComercial = db.InformacionesComerciales.Find(equipoClimatizacion.EquipoId);
+                    equipoClimatizacion.InformacionComercial.Proveedor = db.Proveedores.Find(equipoClimatizacion.InformacionComercial.ProveedorId);
+                    db.Entry(equipoClimatizacion.InformacionComercial).State = EntityState.Modified;
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            return View(equipoClimatizacion);
+            catch (DbEntityValidationException e)
+            {
+
+                ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
+                ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
+                ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
+                return View(equipoClimatizacion);
+            }
+
+
         }
 
         // GET: EquiposClimatizacion/Delete/5

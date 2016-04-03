@@ -3,7 +3,7 @@
 namespace EquiposTecnicosSN.Entities
 {
     [Table("EquiposClimatizacion")]
-    public class EquipoClimatizacion : EquipoBase
+    public class EquipoClimatizacion : Equipo
     {
         public EquipoClimatizacion() : base()
         {

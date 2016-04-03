@@ -42,13 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntidadBase.cs" />
-    <Compile Include="EquipoBase.cs" />
+    <Compile Include="Equipo.cs" />
     <Compile Include="EquipoClimatizacion.cs" />
     <Compile Include="EquipoRespirador.cs" />
     <Compile Include="EstadoDeEquipo.cs" />
+    <Compile Include="GarantiaContrato.cs" />
+    <Compile Include="InformacionComercial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs" />
     <Compile Include="TipoDeEquipo.cs" />
     <Compile Include="Ubicacion.cs" />
+    <Compile Include="UsuarioTecnico.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

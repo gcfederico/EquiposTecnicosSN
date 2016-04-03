@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,9 +22,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Usuarios", "Index", "ApplicationUsers")</li>
+                    <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
+                    <li>@Html.ActionLink("Info Comercial", "Index", "InformacionesComerciales")</li>
+                    <li>@Html.ActionLink("UsuariosTech", "Index", "UsuariosTecnicos")</li>
+                    <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
                     <li>@Html.ActionLink("Equipos", "Index", "EquiposBase")</li>
                     <li>@Html.ActionLink("Equipos de Climatización", "Index", "EquiposClimatizacion")</li>
-                    <li>@Html.ActionLink("Respiradores", "Index", "EquiposRespirador")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -42,6 +45,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datepicker")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

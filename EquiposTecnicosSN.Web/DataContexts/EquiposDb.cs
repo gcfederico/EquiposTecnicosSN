@@ -5,24 +5,26 @@ using System.Diagnostics;
 namespace EquiposTecnicosSN.Web.DataContexts
 {
 
-    public class EquiposBaseDbContext : DbContext
+    public class EquiposDbContext : DbContext
     {
-        public EquiposBaseDbContext()
+        public EquiposDbContext()
             : base("DefaultConnection")
         {
             Database.Log = log => Debug.Write(log);
         }
 
-        public DbSet<EquipoBase> Equipos { get; set; }
-    }
-
-    public class EquiposClimatizacionDb : EquiposBaseDbContext
-    {
+        public DbSet<Equipo> Equipos { get; set; }
         public DbSet<EquipoClimatizacion> EquiposDeClimatizacion { get; set; }
-    }
-    
-    public class EquiposRespiradorDb : EquiposBaseDbContext
-    {
         public DbSet<EquipoRespirador> EquiposRespiradores { get; set; }
+        public DbSet<Ubicacion> Ubicaciones { get; set; }
+        public DbSet<Proveedor> Proveedores { get; set; }
+        public DbSet<InformacionComercial> InformacionesComerciales { get; set; }
+        public DbSet<UsuarioTecnico> UsuariosTecnicos { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

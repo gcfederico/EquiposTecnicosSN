@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.EquipoBase>
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Equipo>
 
 @{
     ViewBag.Title = "Index";
@@ -7,9 +7,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -26,12 +23,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Modelo)
+        </th>>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroInventario)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fechaCompra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.numeroInventario)
+            @Html.DisplayNameFor(model => model.Ubicacion)
         </th>
         <th></th>
     </tr>
@@ -54,15 +51,10 @@
             @Html.DisplayFor(modelItem => item.Modelo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fechaCompra)
+            @Html.DisplayFor(modelItem => item.NumeroInventario)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.numeroInventario)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Ubicacion.NombreCompleto)
         </td>
     </tr>
 }

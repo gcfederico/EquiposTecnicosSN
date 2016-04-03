@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EquiposTecnicosSN.Entities
@@ -8,10 +9,21 @@ namespace EquiposTecnicosSN.Entities
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int UbicacionId { get; set; }
 
         [Required]
         [MaxLength(255)]
         public string NombreCompleto { get; set; }
+
+        public virtual ICollection<Equipo> EquiposTecnicos { get; set; }
+        
+        public virtual ICollection<UsuarioTecnico> UsuariosTecnicos { get; set; }
+        
+        public Ubicacion()
+        {
+            EquiposTecnicos = new LinkedList<Equipo>();
+            UsuariosTecnicos = new LinkedList<UsuarioTecnico>();
+
+        }
     }
 }
