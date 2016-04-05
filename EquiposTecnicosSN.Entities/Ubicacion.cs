@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +14,7 @@ namespace EquiposTecnicosSN.Entities
 
         [Required]
         [MaxLength(255)]
+        [DisplayName("Nombre completo")]
         public string NombreCompleto { get; set; }
 
         public virtual ICollection<Equipo> EquiposTecnicos { get; set; }

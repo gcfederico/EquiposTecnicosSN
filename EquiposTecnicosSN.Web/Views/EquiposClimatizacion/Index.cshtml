@@ -10,22 +10,16 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-hover table-responsive table-condensed">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.InformacionComercial.NotasGarantia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ubicacion.NombreCompleto)
+            @Html.DisplayNameFor(model => model.Ubicacion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NombreCompleto)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UMDNS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NumeroSerie)
@@ -45,9 +39,6 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.InformacionComercial.NotasGarantia)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Ubicacion.NombreCompleto)
         </td>
         <td>
@@ -56,12 +47,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.UMDNS)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
-        </td>
-        <td>
+        <th>
             @Html.DisplayFor(modelItem => item.NumeroSerie)
-        </td>
+        </th>
         <td>
             @Html.DisplayFor(modelItem => item.Modelo)
         </td>
@@ -74,7 +62,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.EquipoId }) |
             @Html.ActionLink("Details", "Details", new { id=item.EquipoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EquipoId })
+            @Html.ActionLink("Delete", "Delete", new { id=item.EquipoId }) |
+            @Html.ActionLink("Crear Ticket", "CreateForEquipo", "MantenimientosEquipo", new { idEquipo = item.EquipoId }, null)
         </td>
     </tr>
 }

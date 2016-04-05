@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace EquiposTecnicosSN.Entities
 {
-    [Table("EquiposRespirador")]
-    public class EquipoRespirador : Equipo
+    [Table("EquiposCirugia")]
+    public class EquipoCirugia : Equipo
     {
-
+        public EquipoCirugia() : base()
+        {
+            this.InformacionComercial = new InformacionComercial();
+        }
     }
 }

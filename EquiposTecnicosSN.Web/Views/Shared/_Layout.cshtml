@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Usuarios", "Index", "ApplicationUsers")</li>
                     <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
+                    <li>@Html.ActionLink("Mantenimientos", "Index", "MantenimientosEquipo")</li>
                     <li>@Html.ActionLink("Info Comercial", "Index", "InformacionesComerciales")</li>
                     <li>@Html.ActionLink("UsuariosTech", "Index", "UsuariosTecnicos")</li>
                     <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
@@ -45,7 +46,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/datepicker")
+    @Scripts.Render("~/bundles/autocomplete")
     @RenderSection("scripts", required: false)
 
 </body>

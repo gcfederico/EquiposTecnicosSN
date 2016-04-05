@@ -19,7 +19,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET: EquiposClimatizacion
         public ActionResult Index()
         {
-            var equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion);
+            var equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion).Include(e => e.HistorialDeMantenimientos);
             return View(equipos.ToList());
         }
 
@@ -158,6 +158,23 @@ namespace EquiposTecnicosSN.Web.Controllers
             db.EquiposDeClimatizacion.Remove(equipoClimatizacion);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        // GET
+        public ActionResult Autocomplete(string term)
+        {
+            var model =
+                db.EquiposDeClimatizacion
+                .Where(e => e.NombreCompleto.StartsWith(term))
+                .Take(6)
+                .Select(e => new
+                {
+                    label = e.NombreCompleto
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+            
         }
 
         protected override void Dispose(bool disposing)

@@ -222,6 +222,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MantenimientosEquipoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="Controllers\UsuariosTecnicosController.cs" />
@@ -229,6 +230,14 @@
     <Compile Include="DataContexts\EquiposMigrations\201604030114240_Inicial.cs" />
     <Compile Include="DataContexts\EquiposMigrations\201604030114240_Inicial.Designer.cs">
       <DependentUpon>201604030114240_Inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604041754037_Update.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604041754037_Update.Designer.cs">
+      <DependentUpon>201604041754037_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604041956129_Update2.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604041956129_Update2.Designer.cs">
+      <DependentUpon>201604041956129_Update2.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -300,6 +309,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -472,6 +482,13 @@
     <Content Include="Views\InformacionesComerciales\Edit.cshtml" />
     <Content Include="Views\InformacionesComerciales\Index.cshtml" />
     <Content Include="Views\Shared\_InformacionComercial.cshtml" />
+    <Content Include="Views\MantenimientosEquipo\Create.cshtml" />
+    <Content Include="Views\MantenimientosEquipo\Delete.cshtml" />
+    <Content Include="Views\MantenimientosEquipo\Details.cshtml" />
+    <Content Include="Views\MantenimientosEquipo\Edit.cshtml" />
+    <Content Include="Views\MantenimientosEquipo\Index.cshtml" />
+    <Content Include="Views\Shared\_MantenimientoEquipo.cshtml" />
+    <Content Include="Views\MantenimientosEquipo\CreateForEquipo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -493,6 +510,12 @@
   <ItemGroup>
     <EmbeddedResource Include="DataContexts\EquiposMigrations\201604030114240_Inicial.resx">
       <DependentUpon>201604030114240_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604041754037_Update.resx">
+      <DependentUpon>201604041754037_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604041956129_Update2.resx">
+      <DependentUpon>201604041956129_Update2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604021511566_Inicial.resx">
       <DependentUpon>201604021511566_Inicial.cs</DependentUpon>

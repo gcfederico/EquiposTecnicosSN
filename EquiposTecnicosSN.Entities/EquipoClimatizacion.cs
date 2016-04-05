@@ -5,9 +5,6 @@ namespace EquiposTecnicosSN.Entities
     [Table("EquiposClimatizacion")]
     public class EquipoClimatizacion : Equipo
     {
-        public EquipoClimatizacion() : base()
-        {
-            this.Tipo = TipoDeEquipo.Climatizacion;
-        }
+
     }
 }

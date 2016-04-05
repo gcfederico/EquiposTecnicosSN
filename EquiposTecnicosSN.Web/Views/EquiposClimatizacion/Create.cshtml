@@ -18,7 +18,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })
+                
+                <input class="form-control text-box single-line" 
+                       data-sn-autocomplete="@Url.Action("Autocomplete")"
+                       data-val="true" 
+                       data-val-maxlength="The field Nombre completo must be a string or array type with a maximum length of '255'." 
+                       data-val-maxlength-max="255" data-val-required="The Nombre completo field is required." 
+                       id="NombreCompleto" 
+                       name="NombreCompleto" type="text" value="">
+
+                @*Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.NombreCompleto, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,14 +37,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.UMDNS, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UMDNS, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Tipo, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -58,7 +59,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NumeroInventario, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NumeroInventario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NumeroInventario, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.NumeroInventario, "", new { @class = "text-danger" })
             </div>
         </div>
