@@ -1,5 +1,6 @@
 namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
 {
+    using Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +28,19 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Ubicaciones.AddOrUpdate(
+                u => u.NombreCompleto,
+                new Ubicacion { NombreCompleto = "Hospital Zapala" },
+                new Ubicacion { NombreCompleto = "Hospital Neuquén" }
+                );
+
+
+            context.Proveedores.AddOrUpdate(
+                u => u.Nombre,
+                new Proveedor { Nombre = "3M" },
+                new Proveedor { Nombre = "Obras Públicas" }
+                );
         }
     }
 }

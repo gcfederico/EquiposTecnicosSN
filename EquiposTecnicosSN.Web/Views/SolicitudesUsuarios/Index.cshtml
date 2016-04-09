@@ -1,0 +1,38 @@
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.SolicitudUsuario>
+
+@{
+    ViewBag.Title = "Solicitudes de Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UbicacionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ubicacion.NombreCompleto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @*Html.ActionLink("Edit", "Edit", new { id=item.SolicitudUsuarioId }) |
+    @Html.ActionLink("Details", "Details", new { id=item.SolicitudUsuarioId }) |*@
+            @Html.ActionLink("Borrar", "Delete", new { id=item.SolicitudUsuarioId }) |
+            @Html.ActionLink("Crear Usuario", "CreateUser", new { id = item.SolicitudUsuarioId })
+        </td>
+    </tr>
+}
+
+</table>

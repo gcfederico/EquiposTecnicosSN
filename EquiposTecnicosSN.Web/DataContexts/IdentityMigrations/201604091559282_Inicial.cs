@@ -35,6 +35,8 @@ namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        UbicacionId = c.Int(nullable: false),
+                        confirmationToken = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),

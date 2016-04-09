@@ -1,10 +1,14 @@
 namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-
+    using System.Web;
     internal sealed class Configuration : DbMigrationsConfiguration<EquiposTecnicosSN.Web.DataContexts.IdentityDb>
     {
         public Configuration()
@@ -27,6 +31,13 @@ namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            if (!(context.Users.Any(u => u.UserName == "admin@nequenET.com")))
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var userToInsert = new ApplicationUser { UserName = "admin@nequenET.com", Email = "admin@nequenET.com" };
+                userManager.Create(userToInsert, "Admin@2016");
+            }
         }
     }
 }
