@@ -12,6 +12,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.DataContexts;
+using System.Net.Mail;
+using System.Net;
 
 namespace EquiposTecnicosSN.Web
 {
@@ -20,7 +22,38 @@ namespace EquiposTecnicosSN.Web
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+
+            var credentialUserName = "fedegc@outlook.com";
+            var sentFrom = "fedegc@outlook.com";
+            var pwd = "EdefOutlook";
+
+            // Configure the client:
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+
+            // Create the credentials:
+            NetworkCredential credentials = new NetworkCredential(credentialUserName, pwd);
+
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+
+            // Create the message:
+            var mail = new MailMessage(sentFrom, message.Destination);
+
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+
+            // Send:
+            return client.SendMailAsync(mail);
+
+
+
+
+            //return Task.FromResult(0);
         }
     }
 
@@ -119,51 +152,6 @@ namespace EquiposTecnicosSN.Web
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
             return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<IdentityDb>()));
-        }
-    }
-
-    // This is useful if you do not want to tear down the database each time you run the application.
-    // public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
-    // This example shows you how to create a new database if the Model changes
-    public class IdentityDbInitializer : DropCreateDatabaseIfModelChanges<IdentityDb>
-    {
-        protected override void Seed(IdentityDb context)
-        {
-            InitializeIdentityForEF(context);
-            base.Seed(context);
-        }
-
-        //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
-        public static void InitializeIdentityForEF(IdentityDb db)
-        {
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
-            const string name = "admin@example.com";
-            const string password = "Admin@123456";
-            const string roleName = "Admin";
-
-            //Create Role Admin if it does not exist
-            var role = roleManager.FindByName(roleName);
-            if (role == null)
-            {
-                role = new IdentityRole(roleName);
-                var roleresult = roleManager.Create(role);
-            }
-
-            var user = userManager.FindByName(name);
-            if (user == null)
-            {
-                user = new ApplicationUser { UserName = name, Email = name };
-                var result = userManager.Create(user, password);
-                result = userManager.SetLockoutEnabled(user.Id, false);
-            }
-
-            // Add user admin to Role Admin if not already added
-            var rolesForUser = userManager.GetRoles(user.Id);
-            if (!rolesForUser.Contains(role.Name))
-            {
-                var result = userManager.AddToRole(user.Id, role.Name);
-            }
         }
     }
 }

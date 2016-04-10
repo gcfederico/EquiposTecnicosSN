@@ -31,11 +31,11 @@ namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            if (!(context.Users.Any(u => u.UserName == "admin@nequenET.com")))
+            if (!(context.Users.Any(u => u.UserName == "admin@neuquenET.com")))
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                var userToInsert = new ApplicationUser { UserName = "admin@nequenET.com", Email = "admin@nequenET.com" };
+                var userToInsert = new ApplicationUser { UserName = "admin@neuquenET.com", Email = "admin@nequenET.com" };
                 userManager.Create(userToInsert, "Admin@2016");
             }
         }

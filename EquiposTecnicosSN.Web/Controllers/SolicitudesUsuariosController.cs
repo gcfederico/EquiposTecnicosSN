@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -18,23 +19,87 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
 
-        // GET: CreateUser
-        public async Task<ActionResult> CreateUser(int solicitudId) 
+        // GET: /SolicitudesUsuarios/CreateUser
+        public async Task<ActionResult> CreateUser(int id) 
         {
 
-            var solicitud = await db.SolicitudesUsuarios.FindAsync(solicitudId);
+            var solicitud = await db.SolicitudesUsuarios.FindAsync(id);
             var usuario = new ApplicationUser { UserName = solicitud.Email, Email = solicitud.Email };
             var result = await UserManager.CreateAsync(usuario, "1234Qwer!·$");
 
             if (result.Succeeded)
             {
+                // Mandar Email de contraseña
+                var code = await UserManager.GeneratePasswordResetTokenAsync(usuario.Id);
+                var callbackUrl = Url.Action("CreatePassword", "SolicitudesUsuarios", new { userId = usuario.Id, code = code , email = usuario.Email }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(usuario.Id, "Creación de Contraseña", "Para crear su contraseña siga el siguiente el enlace: <a href=\"" + callbackUrl + "\">Clic aquí</a>");
+                
+                db.SolicitudesUsuarios.Remove(solicitud);
+                await db.SaveChangesAsync();
+
+                ViewBag.Message = "Usuario creado.";
+                //return View();
                 return RedirectToAction("Index", "Home");
             }
 
             return View();
         }
 
-        // GET: SolicitudesUsuarios 
+        //
+        // GET: /SolicitudesUsuarios/CreatePassword
+        [AllowAnonymous]
+        public ActionResult CreatePassword(string code)
+        {
+            if (code == null)
+            {
+                View("Error");
+            }
+
+            var model = new CreatePasswordViewModel { Code = code, Email = Request.Params["email"]};
+            return View(model);
+        }
+
+        //
+        // POST: /SolicitudesUsuarios/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePassword(CreatePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("CreatePasswordConfirmation");
+            }
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("CreatePasswordConfirmation");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        //
+        // GET: /SolicitudesUsuarios/ResetPasswordConfirmation
+        [AllowAnonymous]
+        public ActionResult CreatePasswordConfirmation()
+        {
+            return View();
+        }
+
+
+
+
+
+
+
+        // GET: SolicitudesUsuarios/
         public async Task<ActionResult> Index()
         {
             var solicitudesUsuarios = db.SolicitudesUsuarios.Include(s => s.Ubicacion);
@@ -140,6 +205,14 @@ namespace EquiposTecnicosSN.Web.Controllers
             db.SolicitudesUsuarios.Remove(solicitudUsuario);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
         }
 
         protected override void Dispose(bool disposing)
