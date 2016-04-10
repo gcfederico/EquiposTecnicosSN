@@ -93,8 +93,12 @@ namespace EquiposTecnicosSN.Web.Controllers
             return View();
         }
 
-
-
+        // GET: /SolicitudesUsuarios/SolicitudesCount
+        public ActionResult SolicitudesCount()
+        {
+            CountSolicitudesViewModel model = new CountSolicitudesViewModel { SolicitudesCount = db.SolicitudesUsuarios.Count() };
+            return PartialView("_SolicitudesCount", model);
+        }
 
 
 

@@ -28,4 +28,9 @@ namespace EquiposTecnicosSN.Web.Models
 
         public string Code { get; set; }
     }
+
+    public class CountSolicitudesViewModel
+    {
+        public int SolicitudesCount { get; set; }
+    }
 }

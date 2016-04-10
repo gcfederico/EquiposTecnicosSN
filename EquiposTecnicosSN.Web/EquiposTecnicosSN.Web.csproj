@@ -474,10 +474,12 @@
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
+    <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Views\ApplicationBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
