@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<EquiposTecnicosSN.Entities.InformacionComercial>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -12,9 +13,6 @@
     <title>Index</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
     <table class="table">
         <tr>
             <th>
@@ -71,7 +69,6 @@
                 @Html.DisplayFor(modelItem => item.NotasGarantia)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.EquipoId }) |
                 @Html.ActionLink("Details", "Details", new { id=item.EquipoId }) |
                 @Html.ActionLink("Delete", "Delete", new { id=item.EquipoId })
             </td>
