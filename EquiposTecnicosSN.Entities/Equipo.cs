@@ -31,7 +31,7 @@ namespace EquiposTecnicosSN.Entities
         public string Modelo { get; set; }
 
         [DisplayName("Nº de inventario")]
-        public int NumeroInventario { get; set; }
+        public int? NumeroInventario { get; set; }
 
         [Required]
         public int UbicacionId { get; set; }

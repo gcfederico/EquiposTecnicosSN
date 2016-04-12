@@ -231,6 +231,14 @@
     <Compile Include="DataContexts\EquiposMigrations\201604091600278_Inicial.Designer.cs">
       <DependentUpon>201604091600278_Inicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604102228312_Update.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604102228312_Update.Designer.cs">
+      <DependentUpon>201604102228312_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.Designer.cs">
+      <DependentUpon>201604102233565_Update2.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201604091559282_Inicial.cs" />
@@ -497,6 +505,12 @@
   <ItemGroup>
     <EmbeddedResource Include="DataContexts\EquiposMigrations\201604091600278_Inicial.resx">
       <DependentUpon>201604091600278_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102228312_Update.resx">
+      <DependentUpon>201604102228312_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102233565_Update2.resx">
+      <DependentUpon>201604102233565_Update2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604091559282_Inicial.resx">
       <DependentUpon>201604091559282_Inicial.cs</DependentUpon>
