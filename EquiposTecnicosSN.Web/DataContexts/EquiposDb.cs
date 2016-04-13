@@ -21,6 +21,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<InformacionComercial> InformacionesComerciales { get; set; }
         public DbSet<MantenimientoEquipo> MantenimientosEquipo { get; set; }
         public DbSet<SolicitudUsuario> SolicitudesUsuarios { get; set; }
+        public DbSet<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

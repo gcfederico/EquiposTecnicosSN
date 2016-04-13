@@ -50,6 +50,7 @@
     <Compile Include="InformacionComercial.cs" />
     <Compile Include="MantenimientoEquipo.cs" />
     <Compile Include="MantenimientoEstado.cs" />
+    <Compile Include="OrdenDeTrabajo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="SolicitudUsuario.cs" />

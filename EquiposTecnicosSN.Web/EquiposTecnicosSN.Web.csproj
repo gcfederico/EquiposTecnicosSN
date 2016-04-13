@@ -223,6 +223,7 @@
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MantenimientosEquipoController.cs" />
+    <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
@@ -238,6 +239,22 @@
     <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.cs" />
     <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.Designer.cs">
       <DependentUpon>201604102233565_Update2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604130144279_AddOrdenDeTrabajo.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604130144279_AddOrdenDeTrabajo.Designer.cs">
+      <DependentUpon>201604130144279_AddOrdenDeTrabajo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604130152334_Prueba.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604130152334_Prueba.Designer.cs">
+      <DependentUpon>201604130152334_Prueba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604130224212_Prueba2.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604130224212_Prueba2.Designer.cs">
+      <DependentUpon>201604130224212_Prueba2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604130245320_Prueba3.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604130245320_Prueba3.Designer.cs">
+      <DependentUpon>201604130245320_Prueba3.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -483,6 +500,11 @@
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Create.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Delete.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Details.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -511,6 +533,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102233565_Update2.resx">
       <DependentUpon>201604102233565_Update2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604130144279_AddOrdenDeTrabajo.resx">
+      <DependentUpon>201604130144279_AddOrdenDeTrabajo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604130152334_Prueba.resx">
+      <DependentUpon>201604130152334_Prueba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604130224212_Prueba2.resx">
+      <DependentUpon>201604130224212_Prueba2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604130245320_Prueba3.resx">
+      <DependentUpon>201604130245320_Prueba3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604091559282_Inicial.resx">
       <DependentUpon>201604091559282_Inicial.cs</DependentUpon>
