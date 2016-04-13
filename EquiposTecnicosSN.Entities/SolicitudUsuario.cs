@@ -9,22 +9,18 @@ using System.Threading.Tasks;
 
 namespace EquiposTecnicosSN.Entities
 {
-    [Table("UsuariosTecnicos")]
-    public class UsuarioTecnico
+    [Table("SolicitudesUsuario")]
+    public class SolicitudUsuario
     {
         [Key]
-        [Required]
-        public int UsuarioTecnicoId { get; set; }
+        public int SolicitudUsuarioId { get; set; }
 
-        [Required]
+        [Required, EmailAddress]
         public string Email { get; set; }
 
+        [DisplayName("Ubicación")]
         public int UbicacionId { get; set; }
 
-        [ForeignKey("UbicacionId")]
-        [DisplayName("Ubicación")]
         public virtual Ubicacion Ubicacion { get; set; }
-
-        public int ApplicationUserId { get; set; }
     }
 }

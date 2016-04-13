@@ -67,8 +67,13 @@
             @Html.ValueFor(model => model.Estado)
         </dd>
     </dl>
+
     @Html.DisplayFor(model => model.InformacionComercial)
 
+
+    <p>
+        @Html.ActionLink("Create New", "CreateForEquipo", "MantenimientosEquipo", new { idEquipo = Model.EquipoId }, null)
+    </p>
     @Html.Partial("_MantenimientoEquipo", Model.HistorialDeMantenimientos)
 </div>
 <p>

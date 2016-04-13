@@ -12,6 +12,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.DataContexts;
+using System.Net.Mail;
+using System.Net;
 
 namespace EquiposTecnicosSN.Web
 {
@@ -20,7 +22,38 @@ namespace EquiposTecnicosSN.Web
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+
+            var credentialUserName = "fedegc@outlook.com";
+            var sentFrom = "fedegc@outlook.com";
+            var pwd = "EdefOutlook";
+
+            // Configure the client:
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+
+            // Create the credentials:
+            NetworkCredential credentials = new NetworkCredential(credentialUserName, pwd);
+
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+
+            // Create the message:
+            var mail = new MailMessage(sentFrom, message.Destination);
+
+            mail.Subject = message.Subject;
+            mail.Body = message.Body;
+            mail.IsBodyHtml = true;
+
+            // Send:
+            return client.SendMailAsync(mail);
+
+
+
+
+            //return Task.FromResult(0);
         }
     }
 
@@ -105,6 +138,20 @@ namespace EquiposTecnicosSN.Web
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+
+    // Configure the RoleManager used in the application. RoleManager is defined in the ASP.NET Identity core assembly
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
+    {
+        public ApplicationRoleManager(IRoleStore<IdentityRole, string> roleStore)
+            : base(roleStore)
+        {
+        }
+
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+        {
+            return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<IdentityDb>()));
         }
     }
 }

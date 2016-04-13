@@ -26,14 +26,18 @@ namespace EquiposTecnicosSN.Entities
         public string Descripcion { get; set; }
 
         [DisplayName("Fecha de inicio")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime FechaDeInicio { get; set; }
 
         [DisplayName("Fecha de fin")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        //[DataType(DataType.Date)]
-        public DateTime FechaDeFin { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        public DateTime? FechaDeFin { get; set; }
+
+        public MantenimientoEquipo()
+        {
+            this.FechaDeInicio = DateTime.Now;
+        }
+
     }
 
 }

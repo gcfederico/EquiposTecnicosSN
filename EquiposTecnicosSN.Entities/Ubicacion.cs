@@ -19,13 +19,9 @@ namespace EquiposTecnicosSN.Entities
 
         public virtual ICollection<Equipo> EquiposTecnicos { get; set; }
         
-        public virtual ICollection<UsuarioTecnico> UsuariosTecnicos { get; set; }
-        
         public Ubicacion()
         {
             EquiposTecnicos = new LinkedList<Equipo>();
-            UsuariosTecnicos = new LinkedList<UsuarioTecnico>();
-
         }
     }
 }

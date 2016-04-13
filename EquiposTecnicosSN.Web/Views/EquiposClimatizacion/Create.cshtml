@@ -17,8 +17,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                
+            <div class="col-md-10">                
                 <input class="form-control text-box single-line" 
                        data-sn-autocomplete="@Url.Action("Autocomplete")"
                        data-val="true" 

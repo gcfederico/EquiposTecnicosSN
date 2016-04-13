@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using EquiposTecnicosSN.Entities;
 using System.Security.Principal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EquiposTecnicosSN.Web.Models
 {
@@ -21,11 +23,12 @@ namespace EquiposTecnicosSN.Web.Models
             return userIdentity;
         }
 
-        //public int? UbicacionId { get; set; }
-        //override usuario ??? si o no??
+        public int UbicacionId { get; set; }
+
+        public string confirmationToken { get; set; }
     }
 
-   /* public static class IdentityExtensions
+    /*public static class IdentityExtensions
     {
         public static string GetOrganizationId(this IIdentity identity)
         {
@@ -33,6 +36,5 @@ namespace EquiposTecnicosSN.Web.Models
             // Test for null to avoid issues during local testing
             return (claim != null) ? claim.Value : string.Empty;
         }
-    }
-    */
+    }*/
 }

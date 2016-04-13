@@ -73,6 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 }   
             } catch (DbEntityValidationException e)
             {
+                var errores = e.EntityValidationErrors;
                 ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
                 ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
                 return View(equipoClimatizacion);
@@ -124,6 +125,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
             catch (DbEntityValidationException e)
             {
+                var errores = e.EntityValidationErrors;
 
                 ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
                 ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);

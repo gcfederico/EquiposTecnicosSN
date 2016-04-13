@@ -7,13 +7,13 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Update2 : IMigrationMetadata
+    public sealed partial class Update : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Update2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Update));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604041956129_Update2"; }
+            get { return "201604102228312_Update"; }
         }
         
         string IMigrationMetadata.Source

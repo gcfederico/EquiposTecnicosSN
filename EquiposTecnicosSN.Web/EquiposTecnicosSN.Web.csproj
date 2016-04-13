@@ -216,38 +216,36 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\EquiposBaseController.cs" />
     <Compile Include="Controllers\EquiposClimatizacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MantenimientosEquipoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
-    <Compile Include="Controllers\UsuariosTecnicosController.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604030114240_Inicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604030114240_Inicial.Designer.cs">
-      <DependentUpon>201604030114240_Inicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604091600278_Inicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604091600278_Inicial.Designer.cs">
+      <DependentUpon>201604091600278_Inicial.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604041754037_Update.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604041754037_Update.Designer.cs">
-      <DependentUpon>201604041754037_Update.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604102228312_Update.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604102228312_Update.Designer.cs">
+      <DependentUpon>201604102228312_Update.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604041956129_Update2.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604041956129_Update2.Designer.cs">
-      <DependentUpon>201604041956129_Update2.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.Designer.cs">
+      <DependentUpon>201604102233565_Update2.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604021511566_Inicial.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604021511566_Inicial.Designer.cs">
-      <DependentUpon>201604021511566_Inicial.cs</DependentUpon>
+    <Compile Include="DataContexts\IdentityMigrations\201604091559282_Inicial.cs" />
+    <Compile Include="DataContexts\IdentityMigrations\201604091559282_Inicial.Designer.cs">
+      <DependentUpon>201604091559282_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\UbicacionDb.cs" />
-    <Compile Include="DataContexts\UsuarioTecnicoDb.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -256,6 +254,7 @@
     <Compile Include="Models\EquipoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -448,21 +447,11 @@
     <Content Include="Views\EquiposBase\Details.cshtml" />
     <Content Include="Views\EquiposBase\Edit.cshtml" />
     <Content Include="Views\EquiposBase\Index.cshtml" />
-    <Content Include="Views\ApplicationUsers\Create.cshtml" />
-    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
-    <Content Include="Views\ApplicationUsers\Details.cshtml" />
-    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
-    <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\Proveedores\Create.cshtml" />
     <Content Include="Views\Proveedores\Delete.cshtml" />
     <Content Include="Views\Proveedores\Details.cshtml" />
     <Content Include="Views\Proveedores\Edit.cshtml" />
     <Content Include="Views\Proveedores\Index.cshtml" />
-    <Content Include="Views\UsuariosTecnicos\Create.cshtml" />
-    <Content Include="Views\UsuariosTecnicos\Delete.cshtml" />
-    <Content Include="Views\UsuariosTecnicos\Details.cshtml" />
-    <Content Include="Views\UsuariosTecnicos\Edit.cshtml" />
-    <Content Include="Views\UsuariosTecnicos\Index.cshtml" />
     <Content Include="Views\Ubicaciones\Create.cshtml" />
     <Content Include="Views\Ubicaciones\Delete.cshtml" />
     <Content Include="Views\Ubicaciones\Details.cshtml" />
@@ -489,10 +478,16 @@
     <Content Include="Views\MantenimientosEquipo\Index.cshtml" />
     <Content Include="Views\Shared\_MantenimientoEquipo.cshtml" />
     <Content Include="Views\MantenimientosEquipo\CreateForEquipo.cshtml" />
+    <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
+    <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
+    <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
+    <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
+    <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Views\ApplicationBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -508,17 +503,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604030114240_Inicial.resx">
-      <DependentUpon>201604030114240_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604091600278_Inicial.resx">
+      <DependentUpon>201604091600278_Inicial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604041754037_Update.resx">
-      <DependentUpon>201604041754037_Update.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102228312_Update.resx">
+      <DependentUpon>201604102228312_Update.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604041956129_Update2.resx">
-      <DependentUpon>201604041956129_Update2.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102233565_Update2.resx">
+      <DependentUpon>201604102233565_Update2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604021511566_Inicial.resx">
-      <DependentUpon>201604021511566_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604091559282_Inicial.resx">
+      <DependentUpon>201604091559282_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
