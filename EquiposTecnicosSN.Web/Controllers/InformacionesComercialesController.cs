@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
+using EquiposTecnicosSN.Entities.Comercial;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {

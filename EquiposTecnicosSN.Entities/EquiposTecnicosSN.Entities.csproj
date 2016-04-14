@@ -41,21 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Equipo.cs" />
-    <Compile Include="EquipoClimatizacion.cs" />
-    <Compile Include="EquipoCirugia.cs" />
-    <Compile Include="EquipoRespirador.cs" />
-    <Compile Include="EstadoDeEquipo.cs" />
-    <Compile Include="GarantiaContrato.cs" />
-    <Compile Include="InformacionComercial.cs" />
-    <Compile Include="MantenimientoEquipo.cs" />
-    <Compile Include="MantenimientoEstado.cs" />
-    <Compile Include="OrdenDeTrabajo.cs" />
+    <Compile Include="Equipos\Equipo.cs" />
+    <Compile Include="Equipos\EquipoClimatizacion.cs" />
+    <Compile Include="Equipos\EstadoDeEquipo.cs" />
+    <Compile Include="Comercial\GarantiaContrato.cs" />
+    <Compile Include="Comercial\InformacionComercial.cs" />
+    <Compile Include="Mantenimientos\Mantenimiento.cs" />
+    <Compile Include="Mantenimientos\MantenimientoEstado.cs" />
+    <Compile Include="Mantenimientos\OrdenDeTrabajo.cs" />
+    <Compile Include="Otras\Fabricante.cs" />
+    <Compile Include="Otras\Marca.cs" />
+    <Compile Include="Otras\Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proveedor.cs" />
-    <Compile Include="SolicitudUsuario.cs" />
-    <Compile Include="Ubicacion.cs" />
+    <Compile Include="Otras\Proveedor.cs" />
+    <Compile Include="Usuarios\SolicitudUsuario.cs" />
+    <Compile Include="Otras\Traslado.cs" />
+    <Compile Include="Otras\Ubicacion.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

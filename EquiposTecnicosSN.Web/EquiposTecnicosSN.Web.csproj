@@ -218,24 +218,28 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EquiposBaseController.cs" />
     <Compile Include="Controllers\EquiposClimatizacionController.cs" />
+    <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MantenimientosEquipoController.cs" />
+    <Compile Include="Controllers\MantenimientosController.cs" />
+    <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\ModelosController.cs" />
+    <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604132320475_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604132320475_CreateInicial.Designer.cs">
-      <DependentUpon>201604132320475_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.Designer.cs">
+      <DependentUpon>201604142331459_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604132245003_CreateInicial.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604132245003_CreateInicial.Designer.cs">
-      <DependentUpon>201604132245003_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.cs" />
+    <Compile Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.Designer.cs">
+      <DependentUpon>201604142335380_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -432,9 +436,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\TipoDeEquipo.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\EquiposBase\Delete.cshtml" />
     <Content Include="Views\EquiposBase\Details.cshtml" />
     <Content Include="Views\EquiposBase\Edit.cshtml" />
@@ -449,7 +450,6 @@
     <Content Include="Views\Ubicaciones\Details.cshtml" />
     <Content Include="Views\Ubicaciones\Edit.cshtml" />
     <Content Include="Views\Ubicaciones\Index.cshtml" />
-    <Content Include="Views\Shared\InformacionComercial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionComercial.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Create.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Delete.cshtml" />
@@ -458,13 +458,13 @@
     <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
     <Content Include="Views\Shared\_InformacionComercial.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Create.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Delete.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Details.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Edit.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Index.cshtml" />
-    <Content Include="Views\Shared\_MantenimientoEquipo.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\CreateForEquipo.cshtml" />
+    <Content Include="Views\Mantenimientos\Create.cshtml" />
+    <Content Include="Views\Mantenimientos\Delete.cshtml" />
+    <Content Include="Views\Mantenimientos\Details.cshtml" />
+    <Content Include="Views\Mantenimientos\Edit.cshtml" />
+    <Content Include="Views\Mantenimientos\Index.cshtml" />
+    <Content Include="Views\Shared\_MantenimientoEquipoList.cshtml" />
+    <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
@@ -475,6 +475,27 @@
     <Content Include="Views\InformacionesComerciales\Details.cshtml" />
     <Content Include="Views\InformacionesComerciales\Edit.cshtml" />
     <Content Include="Views\InformacionesComerciales\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Create.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Delete.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Details.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\ShowOrdenesForMantenimiento.cshtml" />
+    <Content Include="Views\Fabricantes\Create.cshtml" />
+    <Content Include="Views\Fabricantes\Delete.cshtml" />
+    <Content Include="Views\Fabricantes\Details.cshtml" />
+    <Content Include="Views\Fabricantes\Edit.cshtml" />
+    <Content Include="Views\Fabricantes\Index.cshtml" />
+    <Content Include="Views\Marcas\Create.cshtml" />
+    <Content Include="Views\Marcas\Delete.cshtml" />
+    <Content Include="Views\Marcas\Details.cshtml" />
+    <Content Include="Views\Marcas\Edit.cshtml" />
+    <Content Include="Views\Marcas\Index.cshtml" />
+    <Content Include="Views\Modelos\Create.cshtml" />
+    <Content Include="Views\Modelos\Delete.cshtml" />
+    <Content Include="Views\Modelos\Details.cshtml" />
+    <Content Include="Views\Modelos\Edit.cshtml" />
+    <Content Include="Views\Modelos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -495,11 +516,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604132320475_CreateInicial.resx">
-      <DependentUpon>201604132320475_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.resx">
+      <DependentUpon>201604142331459_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604132245003_CreateInicial.resx">
-      <DependentUpon>201604132245003_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.resx">
+      <DependentUpon>201604142335380_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

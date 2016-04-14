@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.EquipoClimatizacion>
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Equipos.EquipoClimatizacion>
 
 @{
     ViewBag.Title = "Index";
@@ -63,7 +63,7 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.EquipoId }) |
             @Html.ActionLink("Details", "Details", new { id=item.EquipoId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.EquipoId }) |
-            @Html.ActionLink("Crear Ticket", "CreateForEquipo", "MantenimientosEquipo", new { idEquipo = item.EquipoId }, null)
+            @Html.ActionLink("Crear Ticket", "CreateForEquipo", "Mantenimientos", new { idEquipo = item.EquipoId }, null)
         </td>
     </tr>
 }

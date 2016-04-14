@@ -11,6 +11,7 @@ using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
 using Microsoft.AspNet.Identity;
+using EquiposTecnicosSN.Entities.Usuarios;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {

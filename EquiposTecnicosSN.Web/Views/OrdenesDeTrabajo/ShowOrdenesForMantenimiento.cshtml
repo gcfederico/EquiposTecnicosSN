@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimientos.OrdenDeTrabajo>
+
+@{
+    ViewBag.Title = "ShowOrdenesForMantenimiento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowOrdenesForMantenimiento</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MantenimientoEquipo.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diagnostico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Resolucion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MantenimientoEquipo.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diagnostico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resolucion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrdenDeTrabajoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrdenDeTrabajoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrdenDeTrabajoId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
 using System.Data.Entity.Validation;
+using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Comercial;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {

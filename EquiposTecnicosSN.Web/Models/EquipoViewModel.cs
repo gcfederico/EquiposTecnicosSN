@@ -1,4 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities;
+using EquiposTecnicosSN.Entities.Comercial;
+using EquiposTecnicosSN.Entities.Equipos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
