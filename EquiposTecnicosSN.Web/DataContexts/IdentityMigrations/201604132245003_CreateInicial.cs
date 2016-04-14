@@ -3,7 +3,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Inicial : DbMigration
+    public partial class CreateInicial : DbMigration
     {
         public override void Up()
         {

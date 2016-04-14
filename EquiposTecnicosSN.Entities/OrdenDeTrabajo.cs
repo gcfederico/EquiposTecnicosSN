@@ -9,13 +9,12 @@ namespace EquiposTecnicosSN.Entities
     public class OrdenDeTrabajo
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrdenDeTrabajoId { get; set; }
 
-        [ForeignKey("MantenimientoDeEquipo")]
-        public int MantenimientoDeEquipoId { get; set; }
+        [ForeignKey("MantenimientoEquipo")]
+        public int MantenimientoEquipoId { get; set; }
 
-        public virtual MantenimientoEquipo MantenimientoDeEquipo { get; set; }
+        public virtual MantenimientoEquipo MantenimientoEquipo { get; set; }
 
         [DisplayName("Diagnóstico")]
         public string Diagnostico { get; set; }

@@ -56,32 +56,17 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult Create([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,NumeroInventario,UbicacionId,Estado,ProveedorId,InformacionComercial")] EquipoClimatizacion equipoClimatizacion)
         {
             
-            try
+            if (ModelState.IsValid)//validaciones
             {
-                if (true)//validaciones
-                {
-                    var infCom = equipoClimatizacion.InformacionComercial;
-                    equipoClimatizacion.InformacionComercial = null;
-                    infCom.Proveedor = db.Proveedores.Find(infCom.ProveedorId);
-                    
-                    db.EquiposDeClimatizacion.Add(equipoClimatizacion);
-                    db.SaveChanges();
-
-                    infCom.Equipo = equipoClimatizacion;
-                    db.InformacionesComerciales.Add(infCom);
-                    db.SaveChanges();
-                }   
-            } catch (DbEntityValidationException e)
-            {
-                var errores = e.EntityValidationErrors;
-                ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
-                ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
-                return View(equipoClimatizacion);
-
-            }
+                db.EquiposDeClimatizacion.Add(equipoClimatizacion);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
+            }   
 
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
+            return View(equipoClimatizacion);
         }
 
         // GET: EquiposClimatizacion/Edit/5
@@ -110,30 +95,20 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult Edit([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,NumeroInventario,UbicacionId,Estado,InformacionComercial")] EquipoClimatizacion equipoClimatizacion)
         {
 
-            try
+            if (ModelState.IsValid) //validaciones
             {
-                if (true) //validaciones
-                {
-                    db.Entry(equipoClimatizacion).State = EntityState.Modified;
-                    equipoClimatizacion.InformacionComercial = db.InformacionesComerciales.Find(equipoClimatizacion.EquipoId);
-                    equipoClimatizacion.InformacionComercial.Proveedor = db.Proveedores.Find(equipoClimatizacion.InformacionComercial.ProveedorId);
-                    db.Entry(equipoClimatizacion.InformacionComercial).State = EntityState.Modified;
+                db.Entry(equipoClimatizacion).State = EntityState.Modified;
+                db.Entry(equipoClimatizacion.InformacionComercial).State = EntityState.Modified;
+                db.SaveChanges();
 
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (DbEntityValidationException e)
-            {
-                var errores = e.EntityValidationErrors;
-
-                ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
-                ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
-                ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
-                return View(equipoClimatizacion);
+                return RedirectToAction("Index");
             }
 
+            ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
 
+            return View(equipoClimatizacion);
         }
 
         // GET: EquiposClimatizacion/Delete/5

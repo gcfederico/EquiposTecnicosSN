@@ -26,6 +26,8 @@ namespace EquiposTecnicosSN.Web.DataContexts
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<InformacionComercial>().HasRequired<Equipo>(ic => ic.Equipo);
         }
 
     }

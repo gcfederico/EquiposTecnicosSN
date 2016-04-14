@@ -8,7 +8,11 @@ namespace EquiposTecnicosSN.Entities
     [Table("InformacionComercial")]
     public class InformacionComercial
     {
-        [Key, ForeignKey("Equipo")]
+        //public int InformacionComercialId { get; set; }
+
+        [Key]
+        [ForeignKey("Equipo")]
+        [Required]
         public int EquipoId { get; set; }
 
         public virtual Equipo Equipo { get; set; }
@@ -33,11 +37,11 @@ namespace EquiposTecnicosSN.Entities
         [DisplayName("Notas de garantía")]
         public string NotasGarantia { get; set; }
 
+        [Required]
         public int ProveedorId { get; set; }
 
-        [Required]
-        [ForeignKey("ProveedorId")]
         [DisplayName("Proveedor")]
+        [ForeignKey("ProveedorId")]
         public virtual Proveedor Proveedor { get; set; }
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,6 +33,8 @@ namespace EquiposTecnicosSN.Entities
         [DisplayName("Fecha de fin")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime? FechaDeFin { get; set; }
+
+        public virtual ICollection<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
 
         public MantenimientoEquipo()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -16,20 +17,20 @@ namespace EquiposTecnicosSN.Web.Controllers
         private EquiposDbContext db = new EquiposDbContext();
 
         // GET: InformacionesComerciales
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var informacionesComerciales = db.InformacionesComerciales.Include(i => i.Equipo).Include(i => i.Proveedor);
-            return View(informacionesComerciales.ToList());
+            return View(await informacionesComerciales.ToListAsync());
         }
 
         // GET: InformacionesComerciales/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InformacionComercial informacionComercial = db.InformacionesComerciales.Find(id);
+            InformacionComercial informacionComercial = await db.InformacionesComerciales.FindAsync(id);
             if (informacionComercial == null)
             {
                 return HttpNotFound();
@@ -50,12 +51,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EquipoId,FechaCompra,PrecioCompra,ValorRestante,EsGrantiaContrato,FechaFinGarantia,NotasGarantia,ProveedorId")] InformacionComercial informacionComercial)
+        public async Task<ActionResult> Create([Bind(Include = "EquipoId,FechaCompra,PrecioCompra,ValorRestante,EsGrantiaContrato,FechaFinGarantia,NotasGarantia,ProveedorId")] InformacionComercial informacionComercial)
         {
             if (ModelState.IsValid)
             {
                 db.InformacionesComerciales.Add(informacionComercial);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -65,13 +66,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: InformacionesComerciales/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InformacionComercial informacionComercial = db.InformacionesComerciales.Find(id);
+            InformacionComercial informacionComercial = await db.InformacionesComerciales.FindAsync(id);
             if (informacionComercial == null)
             {
                 return HttpNotFound();
@@ -86,12 +87,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EquipoId,FechaCompra,PrecioCompra,ValorRestante,EsGrantiaContrato,FechaFinGarantia,NotasGarantia,ProveedorId")] InformacionComercial informacionComercial)
+        public async Task<ActionResult> Edit([Bind(Include = "EquipoId,FechaCompra,PrecioCompra,ValorRestante,EsGrantiaContrato,FechaFinGarantia,NotasGarantia,ProveedorId")] InformacionComercial informacionComercial)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(informacionComercial).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", informacionComercial.EquipoId);
@@ -100,13 +101,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: InformacionesComerciales/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            InformacionComercial informacionComercial = db.InformacionesComerciales.Find(id);
+            InformacionComercial informacionComercial = await db.InformacionesComerciales.FindAsync(id);
             if (informacionComercial == null)
             {
                 return HttpNotFound();
@@ -117,11 +118,11 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: InformacionesComerciales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            InformacionComercial informacionComercial = db.InformacionesComerciales.Find(id);
+            InformacionComercial informacionComercial = await db.InformacionesComerciales.FindAsync(id);
             db.InformacionesComerciales.Remove(informacionComercial);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

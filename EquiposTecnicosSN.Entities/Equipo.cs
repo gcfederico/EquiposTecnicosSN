@@ -42,6 +42,7 @@ namespace EquiposTecnicosSN.Entities
 
         public EstadoDeEquipo Estado { get; set; }
 
+        [ForeignKey("InformacionComercialId")]
         public virtual InformacionComercial InformacionComercial { get; set; }
 
         public virtual ICollection<MantenimientoEquipo> HistorialDeMantenimientos { get; set; }
