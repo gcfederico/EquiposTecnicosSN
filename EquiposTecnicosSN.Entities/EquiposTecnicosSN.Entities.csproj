@@ -46,6 +46,7 @@
     <Compile Include="Equipos\EstadoDeEquipo.cs" />
     <Compile Include="Comercial\GarantiaContrato.cs" />
     <Compile Include="Comercial\InformacionComercial.cs" />
+    <Compile Include="Mantenimientos\GastoOrdenDeTrabajo.cs" />
     <Compile Include="Mantenimientos\Mantenimiento.cs" />
     <Compile Include="Mantenimientos\MantenimientoEstado.cs" />
     <Compile Include="Mantenimientos\OrdenDeTrabajo.cs" />

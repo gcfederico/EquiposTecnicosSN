@@ -8,8 +8,9 @@ namespace EquiposTecnicosSN.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/autocomplete").Include(
-                        "~/Scripts/autocomplete.js"));
+            bundles.Add(new ScriptBundle("~/bundles/myBundle").Include(
+                        "~/Scripts/autocomplete.js",
+                        "~/Scripts/addGasto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));

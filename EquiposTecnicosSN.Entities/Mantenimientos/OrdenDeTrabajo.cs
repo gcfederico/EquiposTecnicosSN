@@ -12,10 +12,10 @@ namespace EquiposTecnicosSN.Entities.Mantenimientos
         [Key]
         public int OrdenDeTrabajoId { get; set; }
 
-        [ForeignKey("MantenimientoEquipo")]
-        public int MantenimientoEquipoId { get; set; }
+        [ForeignKey("Mantenimiento")]
+        public int MantenimientoId { get; set; }
 
-        public virtual Mantenimiento MantenimientoEquipo { get; set; }
+        public virtual Mantenimiento Mantenimiento { get; set; }
 
         [DisplayName("Diagnóstico")]
         public string Diagnostico { get; set; }
@@ -29,7 +29,6 @@ namespace EquiposTecnicosSN.Entities.Mantenimientos
         [ForeignKey("ProveedorId")]
         public virtual Proveedor Proveedor { get; set; }
 
-        public Dictionary<string, int> Gastos { get; set; }
-
+        public virtual ICollection<GastoOrdenDeTrabajo> Gastos { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@model EquiposTecnicosSN.Entities.Mantenimientos.OrdenDeTrabajo
-
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,19 +6,19 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>OrdenDeTrabajo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.MantenimientoEquipoId, "MantenimientoEquipoId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Mantenimiento, "MantenimientoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("MantenimientoEquipoId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MantenimientoEquipoId, "", new { @class = "text-danger" })
+                @Html.DropDownList("MantenimientoId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MantenimientoId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -42,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProveedorId, "ProveedorId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ProveedorId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("ProveedorId", null, "Ninguno", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ProveedorId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -53,8 +52,19 @@
             </div>
         </div>
     </div>
-}
+        <h4>Gastos</h4>
+     <div class="row">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+     </div>
+        @Html.ActionLink("Añadir Gasto", "AddGastoToOrden", null, new { id = "addGasto" })
+        <div id="tablaGastos">
+            @foreach(var gasto in Model.Gastos)    
+            {
+                Html.Partial("_AddGastoToOrden", gasto);
+            }            
+        </div>
+
+}
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

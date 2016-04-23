@@ -44,10 +44,10 @@
             @Html.DisplayFor(modelItem => item.FechaDeFin)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "MantenimientosEquipo", new { id=item.MantenimientoEquipoId }, null) |
-            @Html.ActionLink("Details", "Details", "MantenimientosEquipo", new { id=item.MantenimientoEquipoId }, null) |
-            @Html.ActionLink("Delete", "Delete", "MantenimientosEquipo", new { id=item.MantenimientoEquipoId }, null) |
-            @Html.ActionLink("Ver Órdendes", "ShowOrdenesForMantenimiento", "OrdenesDeTrabajo", new { id = item.MantenimientoEquipoId }, null)
+            @Html.ActionLink("Edit", "Edit", "MantenimientosEquipo", new { id=item.EquipoId }, null) |
+            @Html.ActionLink("Details", "Details", "MantenimientosEquipo", new { id=item.EquipoId }, null) |
+            @Html.ActionLink("Delete", "Delete", "MantenimientosEquipo", new { id=item.EquipoId }, null) |
+            @Html.ActionLink("Ver Órdendes", "ShowOrdenesForMantenimiento", "OrdenesDeTrabajo", new { id = item.EquipoId }, null)
         </td>
     </tr>
 }

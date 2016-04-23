@@ -51,7 +51,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MantenimientoEquipoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
+        public ActionResult Create([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MantenimientoEquipoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
+        public ActionResult Edit([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
         {
             if (ModelState.IsValid)
             {

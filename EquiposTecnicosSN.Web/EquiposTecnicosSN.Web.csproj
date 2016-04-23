@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
       <Private>True</Private>
@@ -235,6 +239,22 @@
     <Compile Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.Designer.cs">
       <DependentUpon>201604142331459_CreateInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604221812315_UpdateGastosOrdenes.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604221812315_UpdateGastosOrdenes.Designer.cs">
+      <DependentUpon>201604221812315_UpdateGastosOrdenes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604221834329_UpdateGastosOrdenes2.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604221834329_UpdateGastosOrdenes2.Designer.cs">
+      <DependentUpon>201604221834329_UpdateGastosOrdenes2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604222004569_UpdateGastosOrdenes3.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604222004569_UpdateGastosOrdenes3.Designer.cs">
+      <DependentUpon>201604222004569_UpdateGastosOrdenes3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.Designer.cs">
+      <DependentUpon>201604222229439_UpdateGastosOrdenes4.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.cs" />
@@ -250,6 +270,7 @@
     <Compile Include="Models\EquipoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrdenDeTrabajoViewModel.cs" />
     <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -302,6 +323,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\addGasto.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\autocomplete.js" />
@@ -496,6 +518,8 @@
     <Content Include="Views\Modelos\Details.cshtml" />
     <Content Include="Views\Modelos\Edit.cshtml" />
     <Content Include="Views\Modelos\Index.cshtml" />
+    <Content Include="Views\Shared\_AddGastoToOrden.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -518,6 +542,18 @@
   <ItemGroup>
     <EmbeddedResource Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.resx">
       <DependentUpon>201604142331459_CreateInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604221812315_UpdateGastosOrdenes.resx">
+      <DependentUpon>201604221812315_UpdateGastosOrdenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604221834329_UpdateGastosOrdenes2.resx">
+      <DependentUpon>201604221834329_UpdateGastosOrdenes2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604222004569_UpdateGastosOrdenes3.resx">
+      <DependentUpon>201604222004569_UpdateGastosOrdenes3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.resx">
+      <DependentUpon>201604222229439_UpdateGastosOrdenes4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.resx">
       <DependentUpon>201604142335380_CreateInicial.cs</DependentUpon>
