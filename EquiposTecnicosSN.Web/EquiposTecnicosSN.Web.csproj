@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
       <Private>True</Private>
@@ -218,32 +222,44 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EquiposBaseController.cs" />
     <Compile Include="Controllers\EquiposClimatizacionController.cs" />
+    <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MantenimientosEquipoController.cs" />
+    <Compile Include="Controllers\MantenimientosController.cs" />
+    <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\ModelosController.cs" />
+    <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604091600278_Inicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604091600278_Inicial.Designer.cs">
-      <DependentUpon>201604091600278_Inicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.Designer.cs">
+      <DependentUpon>201604142331459_CreateInicial.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604102228312_Update.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604102228312_Update.Designer.cs">
-      <DependentUpon>201604102228312_Update.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604221812315_UpdateGastosOrdenes.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604221812315_UpdateGastosOrdenes.Designer.cs">
+      <DependentUpon>201604221812315_UpdateGastosOrdenes.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604102233565_Update2.Designer.cs">
-      <DependentUpon>201604102233565_Update2.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201604221834329_UpdateGastosOrdenes2.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604221834329_UpdateGastosOrdenes2.Designer.cs">
+      <DependentUpon>201604221834329_UpdateGastosOrdenes2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604222004569_UpdateGastosOrdenes3.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604222004569_UpdateGastosOrdenes3.Designer.cs">
+      <DependentUpon>201604222004569_UpdateGastosOrdenes3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.Designer.cs">
+      <DependentUpon>201604222229439_UpdateGastosOrdenes4.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604091559282_Inicial.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604091559282_Inicial.Designer.cs">
-      <DependentUpon>201604091559282_Inicial.cs</DependentUpon>
+    <Compile Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.cs" />
+    <Compile Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.Designer.cs">
+      <DependentUpon>201604142335380_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -254,6 +270,7 @@
     <Compile Include="Models\EquipoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrdenDeTrabajoViewModel.cs" />
     <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -306,6 +323,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\addGasto.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\autocomplete.js" />
@@ -440,9 +458,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\TipoDeEquipo.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Views\EquiposBase\Delete.cshtml" />
     <Content Include="Views\EquiposBase\Details.cshtml" />
     <Content Include="Views\EquiposBase\Edit.cshtml" />
@@ -457,7 +472,6 @@
     <Content Include="Views\Ubicaciones\Details.cshtml" />
     <Content Include="Views\Ubicaciones\Edit.cshtml" />
     <Content Include="Views\Ubicaciones\Index.cshtml" />
-    <Content Include="Views\Shared\InformacionComercial.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionComercial.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Create.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Delete.cshtml" />
@@ -465,24 +479,47 @@
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
-    <Content Include="Views\InformacionesComerciales\Create.cshtml" />
-    <Content Include="Views\InformacionesComerciales\Delete.cshtml" />
-    <Content Include="Views\InformacionesComerciales\Details.cshtml" />
-    <Content Include="Views\InformacionesComerciales\Edit.cshtml" />
-    <Content Include="Views\InformacionesComerciales\Index.cshtml" />
     <Content Include="Views\Shared\_InformacionComercial.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Create.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Delete.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Details.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Edit.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\Index.cshtml" />
-    <Content Include="Views\Shared\_MantenimientoEquipo.cshtml" />
-    <Content Include="Views\MantenimientosEquipo\CreateForEquipo.cshtml" />
+    <Content Include="Views\Mantenimientos\Create.cshtml" />
+    <Content Include="Views\Mantenimientos\Delete.cshtml" />
+    <Content Include="Views\Mantenimientos\Details.cshtml" />
+    <Content Include="Views\Mantenimientos\Edit.cshtml" />
+    <Content Include="Views\Mantenimientos\Index.cshtml" />
+    <Content Include="Views\Shared\_MantenimientoEquipoList.cshtml" />
+    <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
+    <Content Include="Views\InformacionesComerciales\Create.cshtml" />
+    <Content Include="Views\InformacionesComerciales\Delete.cshtml" />
+    <Content Include="Views\InformacionesComerciales\Details.cshtml" />
+    <Content Include="Views\InformacionesComerciales\Edit.cshtml" />
+    <Content Include="Views\InformacionesComerciales\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Create.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Delete.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Details.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\ShowOrdenesForMantenimiento.cshtml" />
+    <Content Include="Views\Fabricantes\Create.cshtml" />
+    <Content Include="Views\Fabricantes\Delete.cshtml" />
+    <Content Include="Views\Fabricantes\Details.cshtml" />
+    <Content Include="Views\Fabricantes\Edit.cshtml" />
+    <Content Include="Views\Fabricantes\Index.cshtml" />
+    <Content Include="Views\Marcas\Create.cshtml" />
+    <Content Include="Views\Marcas\Delete.cshtml" />
+    <Content Include="Views\Marcas\Details.cshtml" />
+    <Content Include="Views\Marcas\Edit.cshtml" />
+    <Content Include="Views\Marcas\Index.cshtml" />
+    <Content Include="Views\Modelos\Create.cshtml" />
+    <Content Include="Views\Modelos\Delete.cshtml" />
+    <Content Include="Views\Modelos\Details.cshtml" />
+    <Content Include="Views\Modelos\Edit.cshtml" />
+    <Content Include="Views\Modelos\Index.cshtml" />
+    <Content Include="Views\Shared\_AddGastoToOrden.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -503,17 +540,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604091600278_Inicial.resx">
-      <DependentUpon>201604091600278_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604142331459_CreateInicial.resx">
+      <DependentUpon>201604142331459_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102228312_Update.resx">
-      <DependentUpon>201604102228312_Update.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604221812315_UpdateGastosOrdenes.resx">
+      <DependentUpon>201604221812315_UpdateGastosOrdenes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604102233565_Update2.resx">
-      <DependentUpon>201604102233565_Update2.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604221834329_UpdateGastosOrdenes2.resx">
+      <DependentUpon>201604221834329_UpdateGastosOrdenes2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604091559282_Inicial.resx">
-      <DependentUpon>201604091559282_Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604222004569_UpdateGastosOrdenes3.resx">
+      <DependentUpon>201604222004569_UpdateGastosOrdenes3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.resx">
+      <DependentUpon>201604222229439_UpdateGastosOrdenes4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.resx">
+      <DependentUpon>201604142335380_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

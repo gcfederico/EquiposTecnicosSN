@@ -1,4 +1,4 @@
-﻿@model EquiposTecnicosSN.Entities.Equipo
+﻿@model EquiposTecnicosSN.Entities.Equipos.Equipo
 
 @{
     ViewBag.Title = "Edit";
@@ -15,7 +15,7 @@
         <h4>EquipoBase</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.EquipoId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label col-md-2" })

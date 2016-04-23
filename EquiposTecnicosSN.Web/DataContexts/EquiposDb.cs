@@ -1,6 +1,11 @@
 ﻿using System.Data.Entity;
 using EquiposTecnicosSN.Entities;
 using System.Diagnostics;
+using EquiposTecnicosSN.Entities.Otras;
+using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Comercial;
+using EquiposTecnicosSN.Entities.Mantenimientos;
+using EquiposTecnicosSN.Entities.Usuarios;
 
 namespace EquiposTecnicosSN.Web.DataContexts
 {
@@ -15,16 +20,23 @@ namespace EquiposTecnicosSN.Web.DataContexts
 
         public DbSet<Equipo> Equipos { get; set; }
         public DbSet<EquipoClimatizacion> EquiposDeClimatizacion { get; set; }
-        public DbSet<EquipoRespirador> EquiposRespiradores { get; set; }
         public DbSet<Ubicacion> Ubicaciones { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<InformacionComercial> InformacionesComerciales { get; set; }
-        public DbSet<MantenimientoEquipo> MantenimientosEquipo { get; set; }
+        public DbSet<Mantenimiento> MantenimientosEquipo { get; set; }
         public DbSet<SolicitudUsuario> SolicitudesUsuarios { get; set; }
+        public DbSet<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
+        public DbSet<Traslado> Traslados { get; set; }
+        public DbSet<Fabricante> Fabricantes { get; set; }
+        public DbSet<Marca> Marcas { get; set; }
+        public DbSet<Modelo> Modelos { get; set; }
+        public DbSet<GastoOrdenDeTrabajo> GastosOrdenesDeTrabajo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<InformacionComercial>().HasRequired<Equipo>(ic => ic.Equipo);
         }
 
     }

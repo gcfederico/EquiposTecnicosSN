@@ -1,4 +1,4 @@
-﻿@model EquiposTecnicosSN.Entities.EquipoClimatizacion
+﻿@model EquiposTecnicosSN.Entities.Equipos.EquipoClimatizacion
 
 @{
     ViewBag.Title = "Details";
@@ -72,9 +72,9 @@
 
 
     <p>
-        @Html.ActionLink("Create New", "CreateForEquipo", "MantenimientosEquipo", new { idEquipo = Model.EquipoId }, null)
+        @Html.ActionLink("Create New", "CreateForEquipo", "Mantenimientos", new { idEquipo = Model.EquipoId }, null)
     </p>
-    @Html.Partial("_MantenimientoEquipo", Model.HistorialDeMantenimientos)
+    @Html.Partial("_MantenimientoEquipoList", Model.HistorialDeMantenimientos)
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.EquipoId }) |

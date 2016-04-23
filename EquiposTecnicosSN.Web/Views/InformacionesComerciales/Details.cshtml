@@ -1,90 +1,83 @@
-﻿@model EquiposTecnicosSN.Entities.InformacionComercial
+﻿@model EquiposTecnicosSN.Entities.Comercial.InformacionComercial
 
 @{
-    Layout = null;
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>Details</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>InformacionComercial</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Equipo.NombreCompleto)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Equipo.NombreCompleto)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Proveedor.Nombre)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Proveedor.Nombre)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.FechaCompra)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.FechaCompra)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.PrecioCompra)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.PrecioCompra)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ValorRestante)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ValorRestante)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.EsGrantiaContrato)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.EsGrantiaContrato)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.FechaFinGarantia)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.FechaFinGarantia)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.NotasGarantia)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.NotasGarantia)
-            </dd>
-    
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.EquipoId }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
-</html>
+<div>
+    <h4>InformacionComercial</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo.NombreCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedor.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCompra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecioCompra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorRestante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorRestante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsGrantiaContrato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsGrantiaContrato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinGarantia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinGarantia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NotasGarantia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NotasGarantia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EquipoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

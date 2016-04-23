@@ -35,11 +35,15 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
                         <ul class="dropdown-menu">                            
-                        <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
-                        <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
+                            <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
+                            <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
+                            <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
+                            <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
+                            <li>@Html.ActionLink("Modelos", "Index", "Modelos")</li>
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("Mantenimientos", "Index", "MantenimientosEquipo")</li>
+                    <li>@Html.ActionLink("Ordenes de T.", "Index", "OrdenesDeTrabajo")</li>
+                    <li>@Html.ActionLink("Mantenimientos", "Index", "Mantenimientos")</li>
                     <li>@Html.ActionLink("Info Comercial", "Index", "InformacionesComerciales")</li>
                     <li>
                         <a href=@Url.Action("Index", "SolicitudesUsuarios")>
@@ -65,7 +69,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/datepicker")
-    @Scripts.Render("~/bundles/autocomplete")
+    @Scripts.Render("~/bundles/myBundle")
     @RenderSection("scripts", required: false)
 
 </body>

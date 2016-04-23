@@ -1,6 +1,7 @@
 namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
 {
     using Entities;
+    using Entities.Otras;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
