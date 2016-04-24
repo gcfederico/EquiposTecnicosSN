@@ -17,11 +17,24 @@ namespace EquiposTecnicosSN.Web.Controllers
     public class EquiposClimatizacionController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
+        private IdentityDb identityDb = new IdentityDb();
 
         // GET: EquiposClimatizacion
         public ActionResult Index()
         {
-            var equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion).Include(e => e.HistorialDeMantenimientos);
+            var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
+            IQueryable<EquipoClimatizacion> equipos;
+            if (appuser.UbicacionId == 0)
+            {
+                equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion).Include(e => e.HistorialDeMantenimientos);
+            } else
+            {
+                equipos = db.EquiposDeClimatizacion
+                    .Include(e => e.InformacionComercial)
+                    .Include(e => e.Ubicacion)
+                    .Include(e => e.HistorialDeMantenimientos)
+                    .Where(e => e.UbicacionId == appuser.UbicacionId);
+            }
             return View(equipos.ToList());
         }
 
