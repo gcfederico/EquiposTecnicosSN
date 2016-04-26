@@ -1,34 +1,46 @@
 ﻿@model IEnumerable<EquiposTecnicosSN.Entities.Otras.Fabricante>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Fabricantes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.ActionLink("Nuevo", "Create", null, htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Listado de @ViewBag.Title</div>
+            <div class="panel-body">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th></th>
-    </tr>
+                <table class="table table-hover table-responsive table-condensed table-striped">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th></th>
+                    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FabricanteId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FabricanteId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FabricanteId })
-        </td>
-    </tr>
-}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.FabricanteId }) |
+                                @Html.ActionLink("Ver", "Details", new { id = item.FabricanteId }) |
+                                @Html.ActionLink("Borrar", "Delete", new { id = item.FabricanteId })
+                            </td>
+                        </tr>
+                    }
 
-</table>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

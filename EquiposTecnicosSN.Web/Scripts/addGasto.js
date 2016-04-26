@@ -10,4 +10,9 @@
         });
         return false;
     });
+
+    $(document).on("click", "a.deleteGasto", function () {
+        $(this).parents("tr.gastoRow:first").remove();
+        return false;
+    });
 });

@@ -3,12 +3,9 @@
 
 
 <tr class="gastoRow">
-@using (Html.BeginCollectionItem("gastos"))
-{
     @Html.HiddenFor(model => model.OrdenDeTrabajoId)
     @Html.HiddenFor(model => model.GastoOrdenDeTrabajoId)
     <td>@Html.EditorFor(model => model.Concepto, new { htmlAttributes = new { @class = "form-control" } })</td>
     <td>@Html.EditorFor(model => model.Monto, new { htmlAttributes = new { @class = "form-control" } })</td>
     <td><a href="#" class="deleteGasto">Elminar</a></td>
-}
 </tr>

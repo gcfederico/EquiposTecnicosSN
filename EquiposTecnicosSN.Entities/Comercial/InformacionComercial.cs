@@ -37,7 +37,7 @@ namespace EquiposTecnicosSN.Entities.Comercial
         [DisplayName("Notas de garantía")]
         public string NotasGarantia { get; set; }
 
-        public int ProveedorId { get; set; }
+        public int? ProveedorId { get; set; }
 
         [DisplayName("Proveedor")]
         [ForeignKey("ProveedorId")]

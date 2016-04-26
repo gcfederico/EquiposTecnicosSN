@@ -255,6 +255,10 @@
     <Compile Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.Designer.cs">
       <DependentUpon>201604222229439_UpdateGastosOrdenes4.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201604260038517_Update5.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201604260038517_Update5.Designer.cs">
+      <DependentUpon>201604260038517_Update5.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.cs" />
@@ -1215,9 +1219,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\EquiposBase\Delete.cshtml" />
-    <Content Include="Views\EquiposBase\Details.cshtml" />
-    <Content Include="Views\EquiposBase\Edit.cshtml" />
     <Content Include="Views\EquiposBase\Index.cshtml" />
     <Content Include="Views\Proveedores\Create.cshtml" />
     <Content Include="Views\Proveedores\Delete.cshtml" />
@@ -1278,11 +1279,12 @@
     <Content Include="Views\Shared\_AddGastoToOrden.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Equipo.cshtml" />
+    <Content Include="Views\Shared\_GastoOrden.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Views\ApplicationBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1312,6 +1314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\EquiposMigrations\201604222229439_UpdateGastosOrdenes4.resx">
       <DependentUpon>201604222229439_UpdateGastosOrdenes4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604260038517_Update5.resx">
+      <DependentUpon>201604260038517_Update5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604142335380_CreateInicial.resx">
       <DependentUpon>201604142335380_CreateInicial.cs</DependentUpon>
