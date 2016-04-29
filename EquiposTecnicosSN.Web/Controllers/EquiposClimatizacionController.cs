@@ -1,27 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
-using System.Data.Entity.Validation;
 using EquiposTecnicosSN.Entities.Equipos;
-using EquiposTecnicosSN.Entities.Comercial;
+using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     public class EquiposClimatizacionController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
+        private IdentityDb identityDb = new IdentityDb();
 
         // GET: EquiposClimatizacion
         public ActionResult Index()
         {
-            var equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion).Include(e => e.HistorialDeMantenimientos);
+            var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
+            IQueryable<EquipoClimatizacion> equipos;
+            if (appuser.UbicacionId == 0)
+            {
+                equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion).Include(e => e.HistorialDeMantenimientos);
+            } else
+            {
+                equipos = db.EquiposDeClimatizacion
+                    .Include(e => e.InformacionComercial)
+                    .Include(e => e.Ubicacion)
+                    .Include(e => e.HistorialDeMantenimientos)
+                    .Where(e => e.UbicacionId == appuser.UbicacionId);
+            }
             return View(equipos.ToList());
         }
 
@@ -45,8 +53,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto");
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
+            ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
+            ViewBag.MarcaId = new SelectList(Enumerable.Empty<Marca>(), "MarcaId", "Nombre");
+            ViewBag.ModeloId = new SelectList(Enumerable.Empty<Modelo>(), "ModeloId", "Nombre");
+
             var model = new EquipoClimatizacion();
             model.InformacionComercial = new InformacionComercial();
+            model.InformacionHardware = new InformacionHardware();
             return View(model);
         }
 
@@ -55,7 +68,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,NumeroInventario,UbicacionId,Estado,ProveedorId,InformacionComercial")] EquipoClimatizacion equipoClimatizacion)
+        public ActionResult Create([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroMatricula,NumeroInventario,UbicacionId,Estado,ProveedorId,InformacionComercial,InformacionHardware")] EquipoClimatizacion equipoClimatizacion)
         {
             
             if (ModelState.IsValid)//validaciones
@@ -64,7 +77,10 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
-            }   
+            }
+            ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre",equipoClimatizacion.InformacionHardware.FabricanteId);
+            ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
+            ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
@@ -83,9 +99,23 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return HttpNotFound();
             }
+            if (equipoClimatizacion.InformacionHardware == null)
+            {
+                ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
+                ViewBag.MarcaId = new SelectList(db.Marcas, "MarcaId", "Nombre");
+                ViewBag.ModeloId = new SelectList(db.Modelos, "ModeloId", "Nombre");
+            }
+            else
+            {
+                ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipoClimatizacion.InformacionHardware.FabricanteId);
+                ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
+                ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
+            }
+
             ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
+
             return View(equipoClimatizacion);
         }
 
@@ -94,13 +124,14 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,NumeroInventario,UbicacionId,Estado,InformacionComercial")] EquipoClimatizacion equipoClimatizacion)
+        public ActionResult Edit([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroMatricula,NumeroInventario,UbicacionId,Estado,InformacionComercial,InformacionHardware")] EquipoClimatizacion equipoClimatizacion)
         {
 
             if (ModelState.IsValid) //validaciones
             {
                 db.Entry(equipoClimatizacion).State = EntityState.Modified;
                 db.Entry(equipoClimatizacion.InformacionComercial).State = EntityState.Modified;
+                db.Entry(equipoClimatizacion.InformacionHardware).State = EntityState.Modified;
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -109,6 +140,10 @@ namespace EquiposTecnicosSN.Web.Controllers
             ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
+
+            ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipoClimatizacion.InformacionHardware.FabricanteId);
+            ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
+            ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
 
             return View(equipoClimatizacion);
         }

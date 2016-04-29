@@ -1,63 +1,91 @@
-﻿@model EquiposTecnicosSN.Entities.Comercial.InformacionComercial
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@model EquiposTecnicosSN.Entities.Equipos.Info.InformacionComercial
 
 
-<h4>Información Comercial de @Model.Equipo.NombreCompleto</h4>
-<hr />
-<dl class="dl-horizontal">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Información Comercial de @Model.Equipo.NombreCompleto</div>
+            <div class="panel-body">
 
-    <dt>
-        @Html.DisplayNameFor(model => model.Proveedor)
-    </dt>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Proveedor)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Proveedor.Nombre)
+                            </p>
+                        </div>
 
-    <dd>
-        @Html.DisplayFor(model => model.Proveedor.Nombre)
-    </dd>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.FechaCompra)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.FechaCompra)
+                            </p>
+                        </div>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.FechaCompra)
-    </dt>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.PrecioCompra)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.PrecioCompra)
+                            </p>
+                        </div>
 
-    <dd>
-        @Html.DisplayFor(model => model.FechaCompra)
-    </dd>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.Financiamiento)
+                            </label>
+                            <p class="form-control-static">
+                                @Model.Financiamiento.DisplayName()
+                            </p>
+                        </div>
+                    </div>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.PrecioCompra)
-    </dt>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.ValorRestante)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.ValorRestante)
+                            </p>
+                        </div>
 
-    <dd>
-        @Html.DisplayFor(model => model.PrecioCompra)
-    </dd>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.EsGrantiaContrato)
+                            </label>
+                            <p class="form-control-static">
+                                @Model.EsGrantiaContrato.DisplayName()
+                            </p>
+                        </div>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.ValorRestante)
-    </dt>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.FechaFinGarantia)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.FechaFinGarantia)
+                            </p>
+                        </div>
 
-    <dd>
-        @Html.DisplayFor(model => model.ValorRestante)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.EsGrantiaContrato)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.EsGrantiaContrato)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.FechaFinGarantia)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.FechaFinGarantia)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.NotasGarantia)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.NotasGarantia)
-    </dd>
-</dl>
+                        <div class="form-group">
+                            <label>
+                                @Html.DisplayNameFor(model => model.NotasGarantia)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.NotasGarantia)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

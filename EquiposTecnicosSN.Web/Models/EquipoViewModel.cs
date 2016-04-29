@@ -1,10 +1,6 @@
-﻿using EquiposTecnicosSN.Entities;
-using EquiposTecnicosSN.Entities.Comercial;
-using EquiposTecnicosSN.Entities.Equipos;
-using System;
+﻿using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Equipos.Info;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EquiposTecnicosSN.Web.Models

@@ -9,7 +9,9 @@ namespace EquiposTecnicosSN.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/myBundle").Include(
+                        "~/Scripts/sb-admin-2.js",
                         "~/Scripts/autocomplete.js",
+                        "~/Scripts/ddls-info-hardware.js",
                         "~/Scripts/addGasto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
@@ -36,9 +38,18 @@ namespace EquiposTecnicosSN.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap*",
-                      "~/Content/site.css",
-                      "~/Content/themes/base/all.css"));
+                        "~/Content/sb-admin-2.css",
+                        "~/Content/timeline.css",
+                        "~/Content/bootstrap*",
+                        "~/Content/site.css",
+                        "~/Content/themes/base/all.css"));
+
+            bundles.Add(new StyleBundle("~/lib/bower_components/css").Include(
+                        "~/lib/bower_components/font-awesome/css/font-awesome.css",
+                        "~/lib/bower_components/metisMenu/dist/metisMenu.css"));
+
+            bundles.Add(new ScriptBundle("~/lib/bower_components").Include(
+                        "~/lib/bower_components/metisMenu/dist/metisMenu.js"));
         }
     }
 }
