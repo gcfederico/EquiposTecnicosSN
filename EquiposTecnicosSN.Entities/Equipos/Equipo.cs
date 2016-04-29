@@ -1,7 +1,4 @@
-﻿using EquiposTecnicosSN.Entities.Comercial;
-using EquiposTecnicosSN.Entities.Mantenimientos;
-using EquiposTecnicosSN.Entities.Otras;
-using System;
+﻿using EquiposTecnicosSN.Entities.Equipos.Info;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EquiposTecnicosSN.Entities.Equipos
 {
-    
+
     [Table("Equipos")]
     public abstract class Equipo
     {
@@ -26,15 +23,8 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [MaxLength(50)]
         public string UMDNS { get; set; }
 
-        [MaxLength(255)]
-        [DisplayName("Nº de serie")]
-        public string NumeroSerie { get; set;  }
-
-        [MaxLength(255)]
-        public string Modelo { get; set; }
-
-        [DisplayName("Nº de inventario")]
-        public int? NumeroInventario { get; set; }
+        [DisplayName("Nº de matrícula")]
+        public int? NumeroMatricula { get; set; }
 
         [Required]
         public int UbicacionId { get; set; }
@@ -48,6 +38,10 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [ForeignKey("InformacionComercialId")]
         public virtual InformacionComercial InformacionComercial { get; set; }
 
-        public virtual ICollection<Mantenimiento> HistorialDeMantenimientos { get; set; }
+        [ForeignKey("EquipoId")]
+        public virtual InformacionHardware InformacionHardware { get; set; }
+
+        public virtual ICollection<Mantenimiento.Mantenimiento> HistorialDeMantenimientos { get; set; }
+
     }
 }

@@ -47,6 +47,21 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Mantenimiento<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>@Html.ActionLink("Ordenes de Trabajo", "Index", "OrdenesDeTrabajo")</li>
+                                <li>@Html.ActionLink("Mantenimientos", "Index", "Mantenimientos")</li>
+                                <li>@Html.ActionLink("Hardware", "Index", "InformacionHardware")</li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href=@Url.Action("Index", "SolicitudesUsuarios")>
+                                <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
+                                <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-gears fa-fw"></i> Administración<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
@@ -56,20 +71,6 @@
                                 <li>@Html.ActionLink("Modelos", "Index", "Modelos")</li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Mantenimiento<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Ordenes de Trabajo", "Index", "OrdenesDeTrabajo")</li>
-                                <li>@Html.ActionLink("Mantenimientos", "Index", "Mantenimientos")</li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href=@Url.Action("Index", "SolicitudesUsuarios")>
-                                <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
-                                <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>
-                            </a>
                         </li>
                     </ul>
                 </div>

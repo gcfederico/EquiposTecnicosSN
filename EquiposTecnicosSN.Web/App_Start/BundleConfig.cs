@@ -11,6 +11,7 @@ namespace EquiposTecnicosSN.Web
             bundles.Add(new ScriptBundle("~/bundles/myBundle").Include(
                         "~/Scripts/sb-admin-2.js",
                         "~/Scripts/autocomplete.js",
+                        "~/Scripts/ddls-info-hardware.js",
                         "~/Scripts/addGasto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(

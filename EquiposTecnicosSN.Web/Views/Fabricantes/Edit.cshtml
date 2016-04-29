@@ -1,4 +1,4 @@
-﻿@model EquiposTecnicosSN.Entities.Otras.Fabricante
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Fabricante
 
 @{
     ViewBag.Title = "Editar Fabricante";
@@ -8,6 +8,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -18,7 +19,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            @Html.AntiForgeryToken()
+                            
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
                                 @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })

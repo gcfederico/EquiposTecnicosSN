@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.Otras.Proveedor>
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.Proveedor>
 
 @{
     ViewBag.Title = "Proveedores";
@@ -7,39 +7,41 @@
 
 <div class="row">
     <div class="col-lg-12">
-        @Html.ActionLink("Nuevo", "Create", null, htmlAttributes: new { @type = "button", @class = "btn btn-primary" })
-    </div>
-</div>
-<hr />
-<div class="row">
-    <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">Listado de @ViewBag.Title</div>
             <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.ActionLink("Nuevo", "Create", null, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th></th>
+                            </tr>
 
-                <table class="table table-hover table-responsive table-condensed table-striped">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Nombre)
-                        </th>
-                        <th></th>
-                    </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Editar", "Edit", new { id = item.ProveedorId }) |
+                                        @Html.ActionLink("Ver", "Details", new { id = item.ProveedorId }) |
+                                        @Html.ActionLink("Borrar", "Delete", new { id = item.ProveedorId })
+                                    </td>
+                                </tr>
+                            }
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Editar", "Edit", new { id = item.ProveedorId }) |
-                                @Html.ActionLink("Ver", "Details", new { id = item.ProveedorId }) |
-                                @Html.ActionLink("Borrar", "Delete", new { id = item.ProveedorId })
-                            </td>
-                        </tr>
-                    }
-
-                </table>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

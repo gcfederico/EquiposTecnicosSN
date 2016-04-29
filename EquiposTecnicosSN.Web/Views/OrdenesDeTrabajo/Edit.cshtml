@@ -1,87 +1,25 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimientos.OrdenDeTrabajo
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
 @{
     ViewBag.Title = "Editar Orden de Trabajo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">@ViewBag.Title</div>
-                <div class="panel-body">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.AntiForgeryToken()
-                            @Html.HiddenFor(model => model.OrdenDeTrabajoId)
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Mantenimiento, "Mantenimiento", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("MantenimientoId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.MantenimientoId, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Diagnostico, htmlAttributes: new { @class = "control-label" })
-                                @Html.TextAreaFor(model => model.Diagnostico, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Diagnostico, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.ProveedorId, "Proveedor", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("ProveedorId", null, "Ninguno", htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ProveedorId, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Resolucion, htmlAttributes: new { @class = "control-label" })
-                                @Html.TextAreaFor(model => model.Resolucion, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Resolucion, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3>Gastos</h3>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.ActionLink("Añadir Gasto", "AddGastoToOrden", null, new { id = "addGasto" , @class = "btn btn-default" })
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Concepto</th>
-                                        <th>Monto</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaGastos">
-                                    @foreach (var gasto in Model.Gastos)
-                                    {
-                                        <tr class="gastoRow">
-                                            @using (Html.BeginCollectionItem("gastos"))
-                                            {
-                                                @Html.Partial("_GastoOrden", gasto)
-                                            }
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="submit" value="Guardar" class="btn btn-primary" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            @Html.EditorFor(model => model)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
+<hr />
 <div>
     @Html.ActionLink("Volver", "Index")
 </div>

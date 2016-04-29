@@ -9,7 +9,6 @@
 
         <div class="row">
             <div class="col-md-6">
-
                 <div class="form-group">
                     @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label" })
                     <input class="form-control text-box single-line"
@@ -33,29 +32,18 @@
                     @Html.EnumDropDownListFor(model => model.Estado, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
                 </div>
+
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NumeroSerie, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.NumeroSerie, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NumeroSerie, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.NumeroInventario, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.NumeroInventario, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-                    @Html.ValidationMessageFor(model => model.NumeroInventario, "", new { @class = "text-danger" })
-                </div>
-
                 <div class="form-group">
                     @Html.LabelFor(model => model.UbicacionId, "Ubicación", htmlAttributes: new { @class = "control-label" })
                     @Html.DropDownList("UbicacionId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UbicacionId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumeroMatricula, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NumeroMatricula, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                    @Html.ValidationMessageFor(model => model.NumeroMatricula, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>

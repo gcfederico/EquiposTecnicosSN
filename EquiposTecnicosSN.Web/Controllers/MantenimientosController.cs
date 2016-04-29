@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
-using EquiposTecnicosSN.Entities.Mantenimientos;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -39,7 +34,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: MantenimientosEquipo/Create
-        public ActionResult Create()
+        public ActionResult Create(int? mantenimientoId)
         {
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto");
             var model = new Mantenimiento();

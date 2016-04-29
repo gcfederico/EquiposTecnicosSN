@@ -1,55 +1,63 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimientos.Mantenimiento>
+﻿@model EquiposTecnicosSN.Entities.Equipos.Equipo
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Equipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroReferencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaDeInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaDeFin)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Listado de Mantenimientos</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.ActionLink("Nuevo", "CreateForEquipo", "Mantenimientos", new { idEquipo = Model.EquipoId }, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
+                    </div>
+                </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Equipo.NombreCompleto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroReferencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaDeInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaDeFin)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", "MantenimientosEquipo", new { id=item.EquipoId }, null) |
-            @Html.ActionLink("Details", "Details", "MantenimientosEquipo", new { id=item.EquipoId }, null) |
-            @Html.ActionLink("Delete", "Delete", "MantenimientosEquipo", new { id=item.EquipoId }, null) |
-            @Html.ActionLink("Ver Órdendes", "ShowOrdenesForMantenimiento", "OrdenesDeTrabajo", new { id = item.EquipoId }, null)
-        </td>
-    </tr>
-}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped">
+                            <tr>
+                                <th>
+                                    Nº de Referencia
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                                <th>
+                                    Fecha de Inicio
+                                </th>
+                                <th>
+                                    Descripción
+                                </th>
+                                <th></th>
+                            </tr>
 
-</table>
+                            @foreach (var item in Model.HistorialDeMantenimientos)
+                            {
+                                <tr>
+                                    <td class="center">
+                                        @Html.DisplayFor(modelItem => item.NumeroReferencia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Estado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FechaDeInicio)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descripcion)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Editar", "Edit", "MantenimientosEquipo", new { id = item.EquipoId }, null) |
+                                        @Html.ActionLink("Ver", "Details", "MantenimientosEquipo", new { id = item.EquipoId }, null) |
+                                        @Html.ActionLink("Borrar", "Delete", "MantenimientosEquipo", new { id = item.EquipoId }, null) |
+                                        @Html.ActionLink("Ver Órdendes", "IndexForMantenimiento", "OrdenesDeTrabajo", new { mantenimientoId = item.MantenimientoId, equipoId = item.EquipoId }, null)
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

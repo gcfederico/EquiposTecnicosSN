@@ -1,11 +1,9 @@
 ﻿using System.Data.Entity;
-using EquiposTecnicosSN.Entities;
 using System.Diagnostics;
-using EquiposTecnicosSN.Entities.Otras;
 using EquiposTecnicosSN.Entities.Equipos;
-using EquiposTecnicosSN.Entities.Comercial;
-using EquiposTecnicosSN.Entities.Mantenimientos;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Entities.Usuarios;
+using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.DataContexts
 {
@@ -31,6 +29,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
         public DbSet<GastoOrdenDeTrabajo> GastosOrdenesDeTrabajo { get; set; }
+        public DbSet<InformacionHardware> InformacionesHardware { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,6 +37,5 @@ namespace EquiposTecnicosSN.Web.DataContexts
 
             //modelBuilder.Entity<InformacionComercial>().HasRequired<Equipo>(ic => ic.Equipo);
         }
-
     }
 }

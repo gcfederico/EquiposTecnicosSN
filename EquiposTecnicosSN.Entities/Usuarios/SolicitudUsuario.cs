@@ -1,12 +1,7 @@
-﻿using EquiposTecnicosSN.Entities.Otras;
-using System;
-using System.Collections.Generic;
+﻿using EquiposTecnicosSN.Entities.Equipos.Info;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquiposTecnicosSN.Entities.Usuarios
 {

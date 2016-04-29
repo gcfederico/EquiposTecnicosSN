@@ -1,82 +1,37 @@
 ﻿@model EquiposTecnicosSN.Entities.Equipos.EquipoClimatizacion
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Equipo de Climatización";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>EquipoClimatizacion</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ubicacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ubicacion.NombreCompleto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NombreCompleto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NombreCompleto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UMDNS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UMDNS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroSerie)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumeroSerie)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Modelo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Modelo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumeroInventario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumeroInventario)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-
-        <dd>
-            @Html.ValueFor(model => model.Estado)
-        </dd>
-    </dl>
-
-    @Html.DisplayFor(model => model.InformacionComercial)
-
-
-    <p>
-        @Html.ActionLink("Create New", "CreateForEquipo", "Mantenimientos", new { idEquipo = Model.EquipoId }, null)
-    </p>
-    @Html.Partial("_MantenimientoEquipoList", Model.HistorialDeMantenimientos)
+<div class="row">
+    <div class="col-lg-12">
+        @Html.DisplayFor(model => model)
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EquipoId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@if (Model.InformacionHardware != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.DisplayFor(model => model.InformacionHardware)
+        </div>
+    </div>
+}
+
+@if (Model.InformacionComercial != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.DisplayFor(model => model.InformacionComercial)
+        </div>
+    </div>
+}
+
+@Html.Partial("_MantenimientoEquipoList", Model)
+
+<hr />
+@Html.ActionLink("Editar", "Edit", new { id = Model.EquipoId }) |
+@Html.ActionLink("Volver", "Index")
+

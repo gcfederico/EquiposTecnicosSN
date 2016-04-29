@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
-using EquiposTecnicosSN.Entities.Mantenimientos;
-using EquiposTecnicosSN.Web.Models;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
+    [Authorize]
     public class OrdenesDeTrabajoController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
@@ -23,11 +20,46 @@ namespace EquiposTecnicosSN.Web.Controllers
             return PartialView("_AddGastoToOrden", new GastoOrdenDeTrabajo());
         }
 
-        // GET: OrdenesDeTrabajo/ShowOrdenesForMantenimiento/5
-        public async Task<ActionResult> ShowOrdenesForMantenimiento(int? idMantenimiento)
+        // GET: OrdenesDeTrabajo/IndexForMantenimiento/5
+        public async Task<ActionResult> IndexForMantenimiento(int mantenimientoId, int equipoId)
         {
-            var ordenesForMantenimiento = db.OrdenesDeTrabajo.Where(o => o.MantenimientoId == idMantenimiento); //.Include(o => o.MantenimientoEquipo).Include(o => o.Proveedor);
+            ViewBag.MantenimientoId = mantenimientoId;
+            ViewBag.EquipoId = equipoId;
+            var ordenesForMantenimiento = db.OrdenesDeTrabajo.Where(o => o.MantenimientoId == mantenimientoId);
             return View(await ordenesForMantenimiento.ToListAsync());
+        }
+
+        // GET: OrdenesDeTrabajo/CreateForMantenimiento/5
+        public ActionResult CreateForMantenimiento(int mantenimientoId, int equipoId)
+        {
+            var model = new OrdenDeTrabajo();
+            model.MantenimientoId = mantenimientoId;
+            model.Gastos = new List<GastoOrdenDeTrabajo>();
+            ViewBag.MantenimientoId = new SelectList(db.MantenimientosEquipo, "MantenimientoId", "Descripcion", mantenimientoId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
+            ViewBag.EquipoId = equipoId;
+            return View(model);
+        }
+
+        // POST: OrdenesDeTrabajo/CreateForMantenimiento
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateForMantenimiento([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos, int equipoId)
+        {
+            if (ModelState.IsValid)
+            {
+                ordenDeTrabajo.Gastos = (ICollection<GastoOrdenDeTrabajo>)gastos;
+                db.OrdenesDeTrabajo.Add(ordenDeTrabajo);
+                await db.SaveChangesAsync();
+                return RedirectToAction("IndexForMantenimiento",new { mantenimientoId = ordenDeTrabajo.MantenimientoId, equipoId = equipoId });
+            }
+
+            ViewBag.MantenimientoId = new SelectList(db.MantenimientosEquipo, "MantenimientoId", "Descripcion", ordenDeTrabajo.MantenimientoId);
+            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", ordenDeTrabajo.ProveedorId);
+            ViewBag.EquipoId = equipoId;
+            return View(ordenDeTrabajo);
         }
 
 
@@ -42,7 +74,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                     .Include(o => o.Mantenimiento)
                     .Include(o => o.Proveedor)
                     .ToListAsync());
-            } else
+            }
+            else
             {
                 return View(await 
                     db.OrdenesDeTrabajo
@@ -73,13 +106,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             ViewBag.MantenimientoId = new SelectList(db.MantenimientosEquipo, "MantenimientoId", "Descripcion");
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
-            var gastosList = new GastoOrdenDeTrabajo[]
-                {
-                    new GastoOrdenDeTrabajo { Concepto = "lala", Monto = 2 },
-                    new GastoOrdenDeTrabajo { Concepto = "lele", Monto = 33332 }
-                };
-            var model = new OrdenDeTrabajo{ Gastos = gastosList };
-            ViewBag.gastos = gastosList;
+            var model = new OrdenDeTrabajo();
+            model.Gastos = new List<GastoOrdenDeTrabajo>();
             return View(model);
         }
 
@@ -130,25 +158,29 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var gastosEntidad = await db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId).ToListAsync();
 
-                var gastosOriginales = await db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId).ToListAsync();
-
-                foreach (var gasto in gastos)
+                foreach(var gastoE in gastosEntidad)
                 {
-                    if (gasto.GastoOrdenDeTrabajoId == 0)
+                    if (gastos.Any(g => g.GastoOrdenDeTrabajoId == gastoE.GastoOrdenDeTrabajoId))
                     {
-                        gasto.OrdenDeTrabajoId = ordenDeTrabajo.OrdenDeTrabajoId;
-                        db.GastosOrdenesDeTrabajo.Add(gasto);
-                    }
-                    else if (gastosOriginales.Any(g => g.GastoOrdenDeTrabajoId == gasto.GastoOrdenDeTrabajoId))
-                    {
-                        db.Entry(gasto).State = EntityState.Modified;
+                        var edicion = gastos.Where(g => g.GastoOrdenDeTrabajoId == gastoE.GastoOrdenDeTrabajoId).Single();
+                        gastoE.Monto = edicion.Monto;
+                        gastoE.Concepto = edicion.Concepto;
+                        db.Entry(gastoE).State = EntityState.Modified;
                     }
                     else
                     {
-                        db.GastosOrdenesDeTrabajo.Remove(gasto);
+                        db.GastosOrdenesDeTrabajo.Remove(gastoE);
                     }
                 }
+
+                var nuevosGastos = gastos.Where(g => g.GastoOrdenDeTrabajoId == 0).ToList();
+                nuevosGastos.ForEach(g => {
+                    g.OrdenDeTrabajoId = ordenDeTrabajo.OrdenDeTrabajoId;
+                    db.GastosOrdenesDeTrabajo.Add(g);
+                });
+
                 db.Entry(ordenDeTrabajo).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

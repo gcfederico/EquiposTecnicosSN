@@ -1,17 +1,14 @@
 namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
 {
-    using Entities;
-    using Entities.Otras;
-    using System;
-    using System.Data.Entity;
+    using Entities.Equipos.Info;
+    using Entities.Mantenimiento;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<EquiposTecnicosSN.Web.DataContexts.EquiposDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"DataContexts\EquiposMigrations";
         }
 
