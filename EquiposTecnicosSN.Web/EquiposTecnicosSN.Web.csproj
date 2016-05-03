@@ -779,7 +779,7 @@
     <Content Include="lib\bower_components\raphael\license.txt" />
     <Content Include="lib\bower_components\raphael\raphael-min.js" />
     <Content Include="lib\bower_components\raphael\raphael.js" />
-    <Content Include="Scripts\addGasto.js" />
+    <Content Include="Scripts\add-gasto.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\autocomplete.js" />

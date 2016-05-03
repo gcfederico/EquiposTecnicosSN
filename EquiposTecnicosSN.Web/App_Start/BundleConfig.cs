@@ -12,7 +12,7 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/sb-admin-2.js",
                         "~/Scripts/autocomplete.js",
                         "~/Scripts/ddls-info-hardware.js",
-                        "~/Scripts/addGasto.js"));
+                        "~/Scripts/add-gasto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -46,10 +46,16 @@ namespace EquiposTecnicosSN.Web
 
             bundles.Add(new StyleBundle("~/lib/bower_components/css").Include(
                         "~/lib/bower_components/font-awesome/css/font-awesome.css",
-                        "~/lib/bower_components/metisMenu/dist/metisMenu.css"));
+                        "~/lib/bower_components/metisMenu/dist/metisMenu.css"//,
+//                         "~/lib/bower_components/datatables/media/js/dataTables.bootstrap.css",
+//                         "~/lib/bower_components/datatables/media/js/jquery.dataTables.css"
+                         ));
 
             bundles.Add(new ScriptBundle("~/lib/bower_components").Include(
-                        "~/lib/bower_components/metisMenu/dist/metisMenu.js"));
+                        "~/lib/bower_components/metisMenu/dist/metisMenu.js",
+                        "~/lib/bower_components/datatables/media/js/jquery.dataTables.js"//,
+//                        "~/lib/bower_components/datatables/media/js/dataTables.bootstrap.js"
+                        ));
         }
     }
 }

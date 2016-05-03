@@ -7,7 +7,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
     public class IdentityDb : IdentityDbContext<ApplicationUser>
     {
         public IdentityDb()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("EquiposTecnicosDbContext", throwIfV1Schema: false)
         {
         }
 
