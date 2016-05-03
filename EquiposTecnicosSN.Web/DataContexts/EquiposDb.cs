@@ -11,7 +11,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
     public class EquiposDbContext : DbContext
     {
         public EquiposDbContext()
-            : base("DefaultConnection")
+            : base("EquiposTecnicosDbContext")
         {
             Database.Log = log => Debug.Write(log);
         }
