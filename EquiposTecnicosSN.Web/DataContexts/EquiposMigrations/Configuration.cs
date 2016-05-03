@@ -28,9 +28,9 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             //
 
             context.Ubicaciones.AddOrUpdate(
-                u => u.NombreCompleto,
-                new Ubicacion { NombreCompleto = "Hospital Zapala" },
-                new Ubicacion { NombreCompleto = "Hospital Neuquén" }
+                u => u.Nombre,
+                new Ubicacion { Nombre = "Hospital Zapala" },
+                new Ubicacion { Nombre = "Hospital Neuquén" }
                 );
 
 

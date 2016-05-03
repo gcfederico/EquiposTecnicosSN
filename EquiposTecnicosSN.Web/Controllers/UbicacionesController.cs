@@ -43,7 +43,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UbicacionId,NombreCompleto")] Ubicacion ubicacion)
+        public ActionResult Create([Bind(Include = "UbicacionId,Nombre")] Ubicacion ubicacion)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UbicacionId,NombreCompleto")] Ubicacion ubicacion)
+        public ActionResult Edit([Bind(Include = "UbicacionId,Nombre")] Ubicacion ubicacion)
         {
             if (ModelState.IsValid)
             {

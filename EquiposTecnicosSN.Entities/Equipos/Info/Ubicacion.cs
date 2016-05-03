@@ -15,8 +15,8 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
 
         [Required]
         [MaxLength(255)]
-        [DisplayName("Nombre completo")]
-        public string NombreCompleto { get; set; }
+        [DisplayName("Nombre")]
+        public string Nombre { get; set; }
 
         public virtual ICollection<Equipo> EquiposTecnicos { get; set; }
         
