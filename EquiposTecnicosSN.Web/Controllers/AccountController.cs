@@ -409,6 +409,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             if (disposing)
             {
+                db.Dispose();
+
                 if (_userManager != null)
                 {
                     _userManager.Dispose();

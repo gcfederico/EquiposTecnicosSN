@@ -173,6 +173,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (disposing)
             {
                 db.Dispose();
+                identityDb.Dispose();
             }
             base.Dispose(disposing);
         }

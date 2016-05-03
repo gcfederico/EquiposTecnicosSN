@@ -23,6 +23,40 @@ namespace EquiposTecnicosSN.Web.Controllers
             return View(db.Equipos.ToList());
         }
 
+        // GET
+        public ActionResult AutocompleteNombreUMDNS(string term)
+        {
+            var model =
+                db.Umdns
+                .Where(u => u.NombreCompleto.StartsWith(term))
+                .Take(6)
+                .Select(e => new
+                {
+                    label = e.NombreCompleto,
+                    value = e.Codigo
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
+        // GET
+        public ActionResult AutocompleteCodigoUMDNS(string term)
+        {
+            var model =
+                db.Umdns
+                .Where(u => u.Codigo.StartsWith(term))
+                .Take(6)
+                .Select(e => new
+                {
+                    label = e.Codigo,
+                    value = e.NombreCompleto
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
         public void SetViewBagValues(Equipo equipo)
         {
             if (equipo.EquipoId == 0)
@@ -32,7 +66,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
                 ViewBag.MarcaId = new SelectList(Enumerable.Empty<Marca>(), "MarcaId", "Nombre");
                 ViewBag.ModeloId = new SelectList(Enumerable.Empty<Modelo>(), "ModeloId", "Nombre");
-            } else
+            }
+            else
             {
                 ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipo.InformacionHardware.FabricanteId);
                 ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipo.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipo.InformacionHardware.MarcaId);

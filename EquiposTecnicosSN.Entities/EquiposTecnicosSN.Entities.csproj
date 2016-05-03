@@ -48,6 +48,7 @@
     <Compile Include="Equipos\Info\GarantiaContrato.cs" />
     <Compile Include="Equipos\Info\InformacionComercial.cs" />
     <Compile Include="Equipos\Info\InformacionHardware.cs" />
+    <Compile Include="Equipos\Info\Umdns.cs" />
     <Compile Include="Mantenimiento\GastoOrdenDeTrabajo.cs" />
     <Compile Include="Mantenimiento\Mantenimiento.cs" />
     <Compile Include="Mantenimiento\MantenimientoTipo.cs" />

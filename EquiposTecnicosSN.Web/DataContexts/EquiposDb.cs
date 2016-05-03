@@ -30,6 +30,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Modelo> Modelos { get; set; }
         public DbSet<GastoOrdenDeTrabajo> GastosOrdenesDeTrabajo { get; set; }
         public DbSet<InformacionHardware> InformacionesHardware { get; set; }
+        public DbSet<Umdns> Umdns { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
