@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.Otras.Ubicacion>
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Equipos.Info.Ubicacion>
 
 @{
     ViewBag.Title = "Ubicaciones";
@@ -21,7 +21,7 @@
                         <table class="table table-hover table-responsive table-condensed table-striped">
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.NombreCompleto)
+                                    @Html.DisplayNameFor(model => model.Nombre)
                                 </th>
                                 <th></th>
                             </tr>
@@ -30,7 +30,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.NombreCompleto)
+                                        @Html.DisplayFor(modelItem => item.Nombre)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Editar", "Edit", new { id = item.UbicacionId }) |

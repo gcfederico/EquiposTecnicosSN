@@ -1,4 +1,4 @@
-﻿@model EquiposTecnicosSN.Entities.Otras.Ubicacion
+﻿@model EquiposTecnicosSN.Entities.Equipos.Info.Ubicacion
 
 @{
     ViewBag.Title = "Ubicación";
@@ -19,9 +19,9 @@
                         <div class="col-md-6">
                             @Html.AntiForgeryToken()
                             <div class="form-group">
-                                @Html.LabelFor(model => model.NombreCompleto, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.NombreCompleto, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NombreCompleto, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>

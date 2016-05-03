@@ -9,13 +9,13 @@ using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    public class EquiposClimatizacionController : Controller
+    public class EquiposClimatizacionController : EquiposBaseController
     {
         private EquiposDbContext db = new EquiposDbContext();
         private IdentityDb identityDb = new IdentityDb();
 
         // GET: EquiposClimatizacion
-        public ActionResult Index()
+        public override ActionResult Index()
         {
             var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
             IQueryable<EquipoClimatizacion> equipos;
@@ -34,7 +34,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: EquiposClimatizacion/Details/5
-        public ActionResult Details(int? id)
+        public override ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -51,15 +51,10 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET: EquiposClimatizacion/Create
         public ActionResult Create()
         {
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto");
-            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
-            ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
-            ViewBag.MarcaId = new SelectList(Enumerable.Empty<Marca>(), "MarcaId", "Nombre");
-            ViewBag.ModeloId = new SelectList(Enumerable.Empty<Modelo>(), "ModeloId", "Nombre");
-
             var model = new EquipoClimatizacion();
             model.InformacionComercial = new InformacionComercial();
             model.InformacionHardware = new InformacionHardware();
+            base.SetViewBagValues(model);
             return View(model);
         }
 
@@ -78,12 +73,8 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre",equipoClimatizacion.InformacionHardware.FabricanteId);
-            ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
-            ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
 
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
-            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
+            base.SetViewBagValues(equipoClimatizacion);
             return View(equipoClimatizacion);
         }
 
@@ -99,6 +90,8 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return HttpNotFound();
             }
+            base.SetViewBagValues(equipoClimatizacion);
+            /*
             if (equipoClimatizacion.InformacionHardware == null)
             {
                 ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
@@ -113,9 +106,9 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
 
             ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre", equipoClimatizacion.UbicacionId);
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
-
+            */
             return View(equipoClimatizacion);
         }
 
@@ -136,7 +129,8 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-
+            base.SetViewBagValues(equipoClimatizacion);
+            /*
             ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
@@ -144,7 +138,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipoClimatizacion.InformacionHardware.FabricanteId);
             ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
             ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
-
+            */
             return View(equipoClimatizacion);
         }
 
@@ -174,28 +168,12 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
-        // GET
-        public ActionResult Autocomplete(string term)
-        {
-            var model =
-                db.EquiposDeClimatizacion
-                .Where(e => e.NombreCompleto.StartsWith(term))
-                .Take(6)
-                .Select(e => new
-                {
-                    label = e.NombreCompleto
-                });
-
-            return Json(model, JsonRequestBehavior.AllowGet);
-            
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 db.Dispose();
+                identityDb.Dispose();
             }
             base.Dispose(disposing);
         }

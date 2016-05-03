@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -17,13 +18,67 @@ namespace EquiposTecnicosSN.Web.Controllers
         private EquiposDbContext db = new EquiposDbContext();
 
         // GET: EquiposBase
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View(db.Equipos.ToList());
         }
 
+        // GET
+        public ActionResult AutocompleteNombreUMDNS(string term)
+        {
+            var model =
+                db.Umdns
+                .Where(u => u.NombreCompleto.StartsWith(term))
+                .Take(6)
+                .Select(e => new
+                {
+                    label = e.NombreCompleto,
+                    value = e.Codigo
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
+        // GET
+        public ActionResult AutocompleteCodigoUMDNS(string term)
+        {
+            var model =
+                db.Umdns
+                .Where(u => u.Codigo.StartsWith(term))
+                .Take(6)
+                .Select(e => new
+                {
+                    label = e.Codigo,
+                    value = e.NombreCompleto
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public void SetViewBagValues(Equipo equipo)
+        {
+            if (equipo.EquipoId == 0)
+            {
+                ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
+                ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
+                ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
+                ViewBag.MarcaId = new SelectList(Enumerable.Empty<Marca>(), "MarcaId", "Nombre");
+                ViewBag.ModeloId = new SelectList(Enumerable.Empty<Modelo>(), "ModeloId", "Nombre");
+            }
+            else
+            {
+                ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipo.InformacionHardware.FabricanteId);
+                ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipo.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipo.InformacionHardware.MarcaId);
+                ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipo.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipo.InformacionHardware.ModeloId);
+                ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre", equipo.UbicacionId);
+                ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipo.InformacionComercial.ProveedorId);
+            }
+        }
+
         // GET: EquiposBase/Details/5
-        public ActionResult Details(int? id)
+        public virtual ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -35,86 +90,6 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return HttpNotFound();
             }
             return View(equipoBase);
-        }
-
-        // GET: EquiposBase/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: EquiposBase/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] Equipo equipoBase)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Equipos.Add(equipoBase);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(equipoBase);
-        }
-
-        // GET: EquiposBase/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Equipo equipoBase = db.Equipos.Find(id);
-            if (equipoBase == null)
-            {
-                return HttpNotFound();
-            }
-            return View(equipoBase);
-        }
-
-        // POST: EquiposBase/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NombreCompleto,UMDNS,Tipo,NumeroSerie,Modelo,fechaCompra,numeroInventario")] Equipo equipoBase)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(equipoBase).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(equipoBase);
-        }
-
-        // GET: EquiposBase/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Equipo equipoBase = db.Equipos.Find(id);
-            if (equipoBase == null)
-            {
-                return HttpNotFound();
-            }
-            return View(equipoBase);
-        }
-
-        // POST: EquiposBase/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Equipo equipoBase = db.Equipos.Find(id);
-            db.Equipos.Remove(equipoBase);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
