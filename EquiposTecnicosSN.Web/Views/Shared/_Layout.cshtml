@@ -56,6 +56,9 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
+                            <a href=@Url.Action("Index", "Traslados")><i class="fa fa-truck fa-fw"></i> Traslados</a>
+                        </li>
+                        <li>
                             <a href=@Url.Action("Index", "SolicitudesUsuarios")>
                                 <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
                                 <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>

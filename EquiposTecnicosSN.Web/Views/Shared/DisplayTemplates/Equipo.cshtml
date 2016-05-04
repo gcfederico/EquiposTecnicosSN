@@ -23,6 +23,10 @@
                             </label>
                             <p class="form-control-static">
                                 @Html.DisplayFor(model => model.Ubicacion.Nombre)
+                                @if (Model.Traslados.Count != 0)
+                                {
+                                    <a href="#">Ver Traslados</a>
+                                }
                             </p>
                         </div>
 

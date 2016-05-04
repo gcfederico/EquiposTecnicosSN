@@ -14,56 +14,13 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         EquipoId = c.Int(nullable: false, identity: true),
                         NombreCompleto = c.String(nullable: false, maxLength: 255),
                         UMDNS = c.String(nullable: false, maxLength: 50),
-                        NumeroSerie = c.String(maxLength: 255),
                         NumeroMatricula = c.Int(),
                         UbicacionId = c.Int(nullable: false),
                         Estado = c.Int(nullable: false),
-                        FabricanteId = c.Int(nullable: false),
-                        MarcaId = c.Int(nullable: false),
-                        ModeloId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.EquipoId)
-                .ForeignKey("dbo.Fabricantes", t => t.FabricanteId, cascadeDelete: true)
-                .ForeignKey("dbo.Marcas", t => t.MarcaId, cascadeDelete: true)
-                .ForeignKey("dbo.Modelos", t => t.ModeloId, cascadeDelete: true)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionId, cascadeDelete: true)
-                .Index(t => t.UbicacionId)
-                .Index(t => t.FabricanteId)
-                .Index(t => t.MarcaId)
-                .Index(t => t.ModeloId);
-            
-            CreateTable(
-                "dbo.Fabricantes",
-                c => new
-                    {
-                        FabricanteId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.FabricanteId);
-            
-            CreateTable(
-                "dbo.Marcas",
-                c => new
-                    {
-                        MarcaId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
-                        FabricanteId = c.Int(),
-                    })
-                .PrimaryKey(t => t.MarcaId)
-                .ForeignKey("dbo.Fabricantes", t => t.FabricanteId)
-                .Index(t => t.FabricanteId);
-            
-            CreateTable(
-                "dbo.Modelos",
-                c => new
-                    {
-                        ModeloId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false),
-                        MarcaId = c.Int(),
-                    })
-                .PrimaryKey(t => t.ModeloId)
-                .ForeignKey("dbo.Marcas", t => t.MarcaId)
-                .Index(t => t.MarcaId);
+                .Index(t => t.UbicacionId);
             
             CreateTable(
                 "dbo.Mantenimientos",
@@ -91,6 +48,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         Diagnostico = c.String(),
                         Resolucion = c.String(),
                         ProveedorId = c.Int(),
+                        FechaCreacion = c.DateTime(),
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.Mantenimientos", t => t.MantenimientoId, cascadeDelete: true)
@@ -132,6 +90,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         FechaFinGarantia = c.DateTime(),
                         NotasGarantia = c.String(),
                         ProveedorId = c.Int(),
+                        Financiamiento = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.EquipoId)
                 .ForeignKey("dbo.Equipos", t => t.EquipoId)
@@ -140,11 +99,82 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 .Index(t => t.ProveedorId);
             
             CreateTable(
+                "dbo.InformacionHardware",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                        NumeroSerie = c.String(maxLength: 255),
+                        FabricanteId = c.Int(nullable: false),
+                        MarcaId = c.Int(nullable: false),
+                        ModeloId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .ForeignKey("dbo.Fabricantes", t => t.FabricanteId, cascadeDelete: true)
+                .ForeignKey("dbo.Marcas", t => t.MarcaId, cascadeDelete: true)
+                .ForeignKey("dbo.Modelos", t => t.ModeloId, cascadeDelete: true)
+                .Index(t => t.EquipoId)
+                .Index(t => t.FabricanteId)
+                .Index(t => t.MarcaId)
+                .Index(t => t.ModeloId);
+            
+            CreateTable(
+                "dbo.Fabricantes",
+                c => new
+                    {
+                        FabricanteId = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.FabricanteId);
+            
+            CreateTable(
+                "dbo.Marcas",
+                c => new
+                    {
+                        MarcaId = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false),
+                        FabricanteId = c.Int(),
+                    })
+                .PrimaryKey(t => t.MarcaId)
+                .ForeignKey("dbo.Fabricantes", t => t.FabricanteId)
+                .Index(t => t.FabricanteId);
+            
+            CreateTable(
+                "dbo.Modelos",
+                c => new
+                    {
+                        ModeloId = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false),
+                        MarcaId = c.Int(),
+                    })
+                .PrimaryKey(t => t.ModeloId)
+                .ForeignKey("dbo.Marcas", t => t.MarcaId)
+                .Index(t => t.MarcaId);
+            
+            CreateTable(
+                "dbo.Traslados",
+                c => new
+                    {
+                        TrasladoId = c.Int(nullable: false, identity: true),
+                        EquipoId = c.Int(nullable: false),
+                        FechaTraslado = c.DateTime(nullable: false),
+                        UbicacionOrigenId = c.Int(nullable: false),
+                        UbicacionDestinoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.TrasladoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: false)
+                .ForeignKey("dbo.Ubicaciones", t => t.UbicacionDestinoId, cascadeDelete: false)
+                .ForeignKey("dbo.Ubicaciones", t => t.UbicacionOrigenId, cascadeDelete: false)
+                .Index(t => t.EquipoId)
+                .Index(t => t.UbicacionOrigenId)
+                .Index(t => t.UbicacionDestinoId);
+            
+            CreateTable(
                 "dbo.Ubicaciones",
                 c => new
                     {
                         UbicacionId = c.Int(nullable: false, identity: true),
-                        NombreCompleto = c.String(nullable: false, maxLength: 255),
+                        Nombre = c.String(nullable: false, maxLength: 255),
                     })
                 .PrimaryKey(t => t.UbicacionId);
             
@@ -161,23 +191,14 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 .Index(t => t.UbicacionId);
             
             CreateTable(
-                "dbo.Traslados",
+                "dbo.UMDNS",
                 c => new
                     {
-                        EquipoId = c.Int(nullable: false),
-                        FechaTraslado = c.DateTime(nullable: false),
-                        UbicacionOrigenId = c.Int(nullable: false),
-                        UbicacionDestinoId = c.Int(nullable: false),
-                        UbicacionDestino_UbicacionId = c.Int(),
-                        UbicacionOrigen_UbicacionId = c.Int(),
+                        UmdnsId = c.Int(nullable: false, identity: true),
+                        Codigo = c.String(nullable: false),
+                        NombreCompleto = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.EquipoId)
-                .ForeignKey("dbo.Equipos", t => t.EquipoId)
-                .ForeignKey("dbo.Ubicaciones", t => t.UbicacionDestino_UbicacionId)
-                .ForeignKey("dbo.Ubicaciones", t => t.UbicacionOrigen_UbicacionId)
-                .Index(t => t.EquipoId)
-                .Index(t => t.UbicacionDestino_UbicacionId)
-                .Index(t => t.UbicacionOrigen_UbicacionId);
+                .PrimaryKey(t => t.UmdnsId);
             
             CreateTable(
                 "dbo.EquiposClimatizacion",
@@ -194,51 +215,55 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
         public override void Down()
         {
             DropForeignKey("dbo.EquiposClimatizacion", "EquipoId", "dbo.Equipos");
-            DropForeignKey("dbo.Traslados", "UbicacionOrigen_UbicacionId", "dbo.Ubicaciones");
-            DropForeignKey("dbo.Traslados", "UbicacionDestino_UbicacionId", "dbo.Ubicaciones");
-            DropForeignKey("dbo.Traslados", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.SolicitudesUsuario", "UbicacionId", "dbo.Ubicaciones");
+            DropForeignKey("dbo.Traslados", "UbicacionOrigenId", "dbo.Ubicaciones");
+            DropForeignKey("dbo.Traslados", "UbicacionDestinoId", "dbo.Ubicaciones");
             DropForeignKey("dbo.Equipos", "UbicacionId", "dbo.Ubicaciones");
-            DropForeignKey("dbo.Equipos", "ModeloId", "dbo.Modelos");
-            DropForeignKey("dbo.Equipos", "MarcaId", "dbo.Marcas");
+            DropForeignKey("dbo.Traslados", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.InformacionHardware", "ModeloId", "dbo.Modelos");
+            DropForeignKey("dbo.InformacionHardware", "MarcaId", "dbo.Marcas");
+            DropForeignKey("dbo.InformacionHardware", "FabricanteId", "dbo.Fabricantes");
+            DropForeignKey("dbo.Modelos", "MarcaId", "dbo.Marcas");
+            DropForeignKey("dbo.Marcas", "FabricanteId", "dbo.Fabricantes");
+            DropForeignKey("dbo.InformacionHardware", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.OrdenesDeTrabajo", "ProveedorId", "dbo.Proveedores");
             DropForeignKey("dbo.InformacionComercial", "ProveedorId", "dbo.Proveedores");
             DropForeignKey("dbo.InformacionComercial", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.OrdenesDeTrabajo", "MantenimientoId", "dbo.Mantenimientos");
             DropForeignKey("dbo.GastosOrdenesDeTrabajo", "OrdenDeTrabajoId", "dbo.OrdenesDeTrabajo");
             DropForeignKey("dbo.Mantenimientos", "EquipoId", "dbo.Equipos");
-            DropForeignKey("dbo.Equipos", "FabricanteId", "dbo.Fabricantes");
-            DropForeignKey("dbo.Modelos", "MarcaId", "dbo.Marcas");
-            DropForeignKey("dbo.Marcas", "FabricanteId", "dbo.Fabricantes");
             DropIndex("dbo.EquiposClimatizacion", new[] { "EquipoId" });
-            DropIndex("dbo.Traslados", new[] { "UbicacionOrigen_UbicacionId" });
-            DropIndex("dbo.Traslados", new[] { "UbicacionDestino_UbicacionId" });
-            DropIndex("dbo.Traslados", new[] { "EquipoId" });
             DropIndex("dbo.SolicitudesUsuario", new[] { "UbicacionId" });
+            DropIndex("dbo.Traslados", new[] { "UbicacionDestinoId" });
+            DropIndex("dbo.Traslados", new[] { "UbicacionOrigenId" });
+            DropIndex("dbo.Traslados", new[] { "EquipoId" });
+            DropIndex("dbo.Modelos", new[] { "MarcaId" });
+            DropIndex("dbo.Marcas", new[] { "FabricanteId" });
+            DropIndex("dbo.InformacionHardware", new[] { "ModeloId" });
+            DropIndex("dbo.InformacionHardware", new[] { "MarcaId" });
+            DropIndex("dbo.InformacionHardware", new[] { "FabricanteId" });
+            DropIndex("dbo.InformacionHardware", new[] { "EquipoId" });
             DropIndex("dbo.InformacionComercial", new[] { "ProveedorId" });
             DropIndex("dbo.InformacionComercial", new[] { "EquipoId" });
             DropIndex("dbo.GastosOrdenesDeTrabajo", new[] { "OrdenDeTrabajoId" });
             DropIndex("dbo.OrdenesDeTrabajo", new[] { "ProveedorId" });
             DropIndex("dbo.OrdenesDeTrabajo", new[] { "MantenimientoId" });
             DropIndex("dbo.Mantenimientos", new[] { "EquipoId" });
-            DropIndex("dbo.Modelos", new[] { "MarcaId" });
-            DropIndex("dbo.Marcas", new[] { "FabricanteId" });
-            DropIndex("dbo.Equipos", new[] { "ModeloId" });
-            DropIndex("dbo.Equipos", new[] { "MarcaId" });
-            DropIndex("dbo.Equipos", new[] { "FabricanteId" });
             DropIndex("dbo.Equipos", new[] { "UbicacionId" });
             DropTable("dbo.EquiposClimatizacion");
-            DropTable("dbo.Traslados");
+            DropTable("dbo.UMDNS");
             DropTable("dbo.SolicitudesUsuario");
             DropTable("dbo.Ubicaciones");
+            DropTable("dbo.Traslados");
+            DropTable("dbo.Modelos");
+            DropTable("dbo.Marcas");
+            DropTable("dbo.Fabricantes");
+            DropTable("dbo.InformacionHardware");
             DropTable("dbo.InformacionComercial");
             DropTable("dbo.Proveedores");
             DropTable("dbo.GastosOrdenesDeTrabajo");
             DropTable("dbo.OrdenesDeTrabajo");
             DropTable("dbo.Mantenimientos");
-            DropTable("dbo.Modelos");
-            DropTable("dbo.Marcas");
-            DropTable("dbo.Fabricantes");
             DropTable("dbo.Equipos");
         }
     }

@@ -14,27 +14,31 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
     public class Traslado
     {
         [Key]
+        public int TrasladoId { get; set; }
+
         [ForeignKey("Equipo")]
         [Required]
         [DisplayName("Equipo")]
         public int EquipoId { get; set; }
+
+        public virtual Equipo Equipo { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         [DisplayName("Fecha de traslado")]
         public DateTime FechaTraslado { get; set; }
 
         [Required]
+        [DisplayName("Ubicación de origen")]
         public int UbicacionOrigenId { get; set; }
 
         [Required]
+        [DisplayName("Ubicación de destino")]
         public int UbicacionDestinoId { get; set; }
 
-        public virtual Equipo Equipo { get; set; }
-
-        [DisplayName("Ubicación de origen")]
+        [ForeignKey("UbicacionOrigenId")]
         public virtual Ubicacion UbicacionOrigen { get; set; }
 
-        [DisplayName("Ubicación de destino")]
+        [ForeignKey("UbicacionDestinoId")]
         public virtual Ubicacion UbicacionDestino { get; set; }
     }
 }

@@ -43,5 +43,7 @@ namespace EquiposTecnicosSN.Entities.Equipos
 
         public virtual ICollection<Mantenimiento.Mantenimiento> HistorialDeMantenimientos { get; set; }
 
+        public virtual ICollection<Traslado> Traslados { get; set; }
+
     }
 }

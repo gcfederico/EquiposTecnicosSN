@@ -40,7 +40,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Find(id);
+            EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
             if (equipoClimatizacion == null)
             {
                 return HttpNotFound();
