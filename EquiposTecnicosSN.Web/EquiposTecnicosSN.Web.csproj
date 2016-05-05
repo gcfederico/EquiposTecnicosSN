@@ -242,6 +242,10 @@
     <Compile Include="DataContexts\EquiposMigrations\201605040209178_CreateInicial.Designer.cs">
       <DependentUpon>201605040209178_CreateInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\EquiposMigrations\201605052147526_Update.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201605052147526_Update.Designer.cs">
+      <DependentUpon>201605052147526_Update.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.cs" />
@@ -1225,13 +1229,12 @@
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
-    <Content Include="Views\Shared\_InformacionComercial.cshtml" />
     <Content Include="Views\Mantenimientos\Create.cshtml" />
     <Content Include="Views\Mantenimientos\Delete.cshtml" />
     <Content Include="Views\Mantenimientos\Details.cshtml" />
     <Content Include="Views\Mantenimientos\Edit.cshtml" />
     <Content Include="Views\Mantenimientos\Index.cshtml" />
-    <Content Include="Views\Shared\_MantenimientoEquipoList.cshtml" />
+    <Content Include="Views\Shared\_MantenimientosEquipo.cshtml" />
     <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
@@ -1280,6 +1283,8 @@
     <Content Include="Views\Traslados\Details.cshtml" />
     <Content Include="Views\Traslados\Edit.cshtml" />
     <Content Include="Views\Traslados\Index.cshtml" />
+    <Content Include="Views\Shared\_TrasladosEquipoModal.cshtml" />
+    <Content Include="Views\EquiposBase\ShowTraslados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1301,6 +1306,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DataContexts\EquiposMigrations\201605040209178_CreateInicial.resx">
       <DependentUpon>201605040209178_CreateInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605052147526_Update.resx">
+      <DependentUpon>201605052147526_Update.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

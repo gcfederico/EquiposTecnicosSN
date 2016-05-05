@@ -8,6 +8,11 @@ namespace EquiposTecnicosSN.Web.CustomExtensions
     {
         public static string DisplayName(this Enum value)
         {
+            if (value == null)
+            {
+                return "";
+            }
+
             Type enumType = value.GetType();
             var enumValue = Enum.GetName(enumType, value);
             MemberInfo member = enumType.GetMember(enumValue)[0];

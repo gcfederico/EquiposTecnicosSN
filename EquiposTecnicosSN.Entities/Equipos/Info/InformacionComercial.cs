@@ -27,7 +27,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public int? ValorRestante { get; set; }
 
         [DisplayName("Garantía/Contrato")]
-        public GarantiaContrato EsGrantiaContrato { get;set; }
+        public GarantiaContrato? EsGrantiaContrato { get;set; }
 
         [DisplayName("Fecha de fin de garantía")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
@@ -42,7 +42,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         [ForeignKey("ProveedorId")]
         public virtual Proveedor Proveedor { get; set; }
 
-        public Financiamiento Financiamiento { get; set; }
+        public Financiamiento? Financiamiento { get; set; }
     }
 }
 

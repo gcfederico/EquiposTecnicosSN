@@ -29,7 +29,9 @@
     </div>
 }
 
-@Html.Partial("_MantenimientoEquipoList", Model)
+@Html.Partial("_MantenimientosEquipo", Model)
+
+@Html.Partial("_TrasladosEquipoModal", Model.Traslados)
 
 <hr />
 @Html.ActionLink("Editar", "Edit", new { id = Model.EquipoId }) |
