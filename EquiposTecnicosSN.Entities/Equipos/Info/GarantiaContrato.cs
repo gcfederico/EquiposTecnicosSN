@@ -9,9 +9,8 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
 {
     public enum GarantiaContrato
     {
-        Ninguna = 0,
         [Display(Name="Garantía")]
-        Garantia = 1,
-        Contrato = 2
+        Garantia = 0,
+        Contrato = 1
     }
 }

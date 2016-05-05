@@ -12,8 +12,6 @@
                 $.each(marcas, function (i, marca) {
                     $(".ddl-marca").append('<option value="' + marca.MarcaId + '">' +
                          marca.Nombre + '</option>');                                                                                                
-                    // here we are adding option for States
- 
                 });
             },
             error: function (ex) {
@@ -36,8 +34,6 @@
                 $.each(modelos, function (i, modelo) {
                     $(".ddl-modelo").append('<option value="' + modelo.ModeloId + '">' +
                          modelo.Nombre + '</option>');
-                    // here we are adding option for States
-
                 });
             },
             error: function (ex) {

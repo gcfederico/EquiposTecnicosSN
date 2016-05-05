@@ -234,36 +234,17 @@
     <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
+    <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604272335020_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604272335020_CreateInicial.Designer.cs">
-      <DependentUpon>201604272335020_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201605040209178_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201605040209178_CreateInicial.Designer.cs">
+      <DependentUpon>201605040209178_CreateInicial.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604281852451_Update.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604281852451_Update.Designer.cs">
-      <DependentUpon>201604281852451_Update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604282249387_Update2.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604282249387_Update2.Designer.cs">
-      <DependentUpon>201604282249387_Update2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201604282346308_Update3.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201604282346308_Update3.Designer.cs">
-      <DependentUpon>201604282346308_Update3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201605030006431_Update1.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605030006431_Update1.Designer.cs">
-      <DependentUpon>201605030006431_Update1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201605030028229_Update21.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605030028229_Update21.Designer.cs">
-      <DependentUpon>201605030028229_Update21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\EquiposMigrations\201605030105299_Update22.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605030105299_Update22.Designer.cs">
-      <DependentUpon>201605030105299_Update22.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201605052147526_Update.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201605052147526_Update.Designer.cs">
+      <DependentUpon>201605052147526_Update.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1108,8 +1089,10 @@
     <Content Include="lib\bower_components\morrisjs\spec\viz\run.sh" />
     <Content Include="lib\bower_components\raphael\.bower.json" />
     <Content Include="lib\bower_components\raphael\bower.json" />
+    <None Include="Properties\PublishProfiles\neuquen.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\date-picker-ready.js" />
+    <Content Include="Scripts\ddl-traslado.js" />
     <Content Include="Scripts\ddls-info-hardware.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
     <Content Include="Scripts\jquery-2.2.2.min.js" />
@@ -1192,7 +1175,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1244,13 +1229,12 @@
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
-    <Content Include="Views\Shared\_InformacionComercial.cshtml" />
     <Content Include="Views\Mantenimientos\Create.cshtml" />
     <Content Include="Views\Mantenimientos\Delete.cshtml" />
     <Content Include="Views\Mantenimientos\Details.cshtml" />
     <Content Include="Views\Mantenimientos\Edit.cshtml" />
     <Content Include="Views\Mantenimientos\Index.cshtml" />
-    <Content Include="Views\Shared\_MantenimientoEquipoList.cshtml" />
+    <Content Include="Views\Shared\_MantenimientosEquipo.cshtml" />
     <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
@@ -1294,6 +1278,13 @@
     <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajo.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionHardware.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Mantenimiento.cshtml" />
+    <Content Include="Views\Traslados\Create.cshtml" />
+    <Content Include="Views\Traslados\Delete.cshtml" />
+    <Content Include="Views\Traslados\Details.cshtml" />
+    <Content Include="Views\Traslados\Edit.cshtml" />
+    <Content Include="Views\Traslados\Index.cshtml" />
+    <Content Include="Views\Shared\_TrasladosEquipoModal.cshtml" />
+    <Content Include="Views\EquiposBase\ShowTraslados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1313,26 +1304,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604272335020_CreateInicial.resx">
-      <DependentUpon>201604272335020_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605040209178_CreateInicial.resx">
+      <DependentUpon>201605040209178_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604281852451_Update.resx">
-      <DependentUpon>201604281852451_Update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604282249387_Update2.resx">
-      <DependentUpon>201604282249387_Update2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201604282346308_Update3.resx">
-      <DependentUpon>201604282346308_Update3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605030006431_Update1.resx">
-      <DependentUpon>201605030006431_Update1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605030028229_Update21.resx">
-      <DependentUpon>201605030028229_Update21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605030105299_Update22.resx">
-      <DependentUpon>201605030105299_Update22.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605052147526_Update.resx">
+      <DependentUpon>201605052147526_Update.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

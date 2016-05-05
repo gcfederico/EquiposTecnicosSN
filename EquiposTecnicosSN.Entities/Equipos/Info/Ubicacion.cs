@@ -19,7 +19,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public string Nombre { get; set; }
 
         public virtual ICollection<Equipo> EquiposTecnicos { get; set; }
-        
+
         public Ubicacion()
         {
             EquiposTecnicos = new LinkedList<Equipo>();

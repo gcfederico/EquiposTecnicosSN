@@ -9,6 +9,7 @@ using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
+    [Authorize]
     public class EquiposClimatizacionController : EquiposBaseController
     {
         private EquiposDbContext db = new EquiposDbContext();
@@ -40,7 +41,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Find(id);
+            EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
             if (equipoClimatizacion == null)
             {
                 return HttpNotFound();
@@ -91,24 +92,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return HttpNotFound();
             }
             base.SetViewBagValues(equipoClimatizacion);
-            /*
-            if (equipoClimatizacion.InformacionHardware == null)
-            {
-                ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre");
-                ViewBag.MarcaId = new SelectList(db.Marcas, "MarcaId", "Nombre");
-                ViewBag.ModeloId = new SelectList(db.Modelos, "ModeloId", "Nombre");
-            }
-            else
-            {
-                ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipoClimatizacion.InformacionHardware.FabricanteId);
-                ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
-                ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
-            }
 
-            ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre", equipoClimatizacion.UbicacionId);
-            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
-            */
             return View(equipoClimatizacion);
         }
 
@@ -130,15 +114,6 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return RedirectToAction("Index");
             }
             base.SetViewBagValues(equipoClimatizacion);
-            /*
-            ViewBag.EquipoId = new SelectList(db.InformacionesComerciales, "EquipoId", "NotasGarantia", equipoClimatizacion.EquipoId);
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", equipoClimatizacion.UbicacionId);
-            ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", equipoClimatizacion.InformacionComercial.ProveedorId);
-
-            ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", equipoClimatizacion.InformacionHardware.FabricanteId);
-            ViewBag.MarcaId = new SelectList(db.Marcas.Where(m => m.FabricanteId == equipoClimatizacion.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipoClimatizacion.InformacionHardware.MarcaId);
-            ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipoClimatizacion.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipoClimatizacion.InformacionHardware.ModeloId);
-            */
             return View(equipoClimatizacion);
         }
 

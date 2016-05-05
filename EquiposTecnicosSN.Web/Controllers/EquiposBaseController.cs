@@ -57,6 +57,12 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         }
 
+        public void ShowTraslados(int equipoID)
+        {
+
+        }
+
+
         public void SetViewBagValues(Equipo equipo)
         {
             if (equipo.EquipoId == 0)
