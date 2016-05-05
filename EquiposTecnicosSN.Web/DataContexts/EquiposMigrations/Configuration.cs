@@ -27,6 +27,14 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             //    );
             //
 
+            var fabricanteDemo = new Fabricante { Nombre = "Fabricante Demo" };
+            var marcaDemo = new Marca { Nombre = "Marca Demo", Fabricante = fabricanteDemo };
+            var modeloDemo = new Modelo { Nombre = "Modelo Demo", Marca = marcaDemo };
+
+            context.Fabricantes.AddOrUpdate(f => f.Nombre, fabricanteDemo);
+            context.Marcas.AddOrUpdate(f => f.Nombre, marcaDemo);
+            context.Modelos.AddOrUpdate(f => f.Nombre, modeloDemo);
+
             context.Ubicaciones.AddOrUpdate(
                 u => u.Nombre,
                 new Ubicacion { Nombre = "Hospital Zapala" },
@@ -40,7 +48,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 new Proveedor { Nombre = "Obras Públicas" }
                 );
 
-            var umdnsExample = new[]
+            var ejemplosUMDNS = new[]
             {
                 new Umdns { Codigo = "10-003", NombreCompleto ="Fajas, Abdominales"},
                 new Umdns { Codigo = "10-014", NombreCompleto ="Kits para Acupuntura"},
@@ -125,13 +133,10 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             };
 
 
-            foreach(var umdns in umdnsExample)
-            {
-                context.Umdns.AddOrUpdate(
-                u => u.Codigo,
-                    umdns
-                );
-            }
+            context.Umdns.AddOrUpdate(
+            u => u.Codigo,
+                ejemplosUMDNS
+            );
         }
     }
 }

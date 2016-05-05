@@ -1085,6 +1085,7 @@
     <Content Include="lib\bower_components\morrisjs\spec\viz\run.sh" />
     <Content Include="lib\bower_components\raphael\.bower.json" />
     <Content Include="lib\bower_components\raphael\bower.json" />
+    <None Include="Properties\PublishProfiles\neuquen.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\date-picker-ready.js" />
     <Content Include="Scripts\ddl-traslado.js" />
@@ -1170,7 +1171,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
