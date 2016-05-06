@@ -57,6 +57,7 @@ namespace EquiposTecnicosSN.Web
                         "~/lib/bower_components/datatables/media/js/jquery.dataTables.js"//,
 //                        "~/lib/bower_components/datatables/media/js/dataTables.bootstrap.js"
                         ));
+
         }
     }
 }

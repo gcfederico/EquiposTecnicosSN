@@ -26,3 +26,8 @@ textarea {
 .btn-table-create {
     margin-bottom: 15px;
 }
+
+.app-logo {
+    float: none; 
+    padding-left: 5px;
+}

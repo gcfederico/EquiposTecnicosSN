@@ -10,80 +10,86 @@
 
 </head>
 <body>
-@if (Request.IsAuthenticated)
-{
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-
-            @Html.Partial("_LoginPartial")
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-
-                        <li>
-                            <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Inicio</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-medkit fa-fw"></i> Equipos<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    @Html.ActionLink("Equipos de Climatización", "Index", "EquiposClimatizacion")
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Todos los Equipos", "Index", "EquiposBase")
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Mantenimiento<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Ordenes de Trabajo", "Index", "OrdenesDeTrabajo")</li>
-                                <li>@Html.ActionLink("Mantenimientos", "Index", "Mantenimientos")</li>
-                                <li>@Html.ActionLink("Hardware", "Index", "InformacionHardware")</li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href=@Url.Action("Index", "Traslados")><i class="fa fa-truck fa-fw"></i> Traslados</a>
-                        </li>
-                        <li>
-                            <a href=@Url.Action("Index", "SolicitudesUsuarios")>
-                                <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
-                                <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gears fa-fw"></i> Administración<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
-                                <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
-                                <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
-                                <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
-                                <li>@Html.ActionLink("Modelos", "Index", "Modelos")</li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
+    @if (Request.IsAuthenticated)
+    {
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="@Url.Action("Index", "Home", new { area = "" })"
+                       class="navbar-brand app-logo">
+                        <img src="@Url.Content("Content/images/logo-nqn.png")"
+                             alt="Equipos Tecnicos"
+                             style="max-height: 50px" />
+                        Application name
+                    </a>                    
                 </div>
-                <!-- /.sidebar-collapse -->
-            </div>
 
-        </nav>
-    </div>
+                @Html.Partial("_LoginPartial")
 
-}
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+
+                            <li>
+                                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Inicio</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-medkit fa-fw"></i> Equipos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        @Html.ActionLink("Equipos de Climatización", "Index", "EquiposClimatizacion")
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Todos los Equipos", "Index", "EquiposBase")
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Mantenimiento<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Ordenes de Trabajo", "Index", "OrdenesDeTrabajo")</li>
+                                    <li>@Html.ActionLink("Mantenimientos", "Index", "Mantenimientos")</li>
+                                    <li>@Html.ActionLink("Hardware", "Index", "InformacionHardware")</li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href=@Url.Action("Index", "Traslados")><i class="fa fa-truck fa-fw"></i> Traslados</a>
+                            </li>
+                            <li>
+                                <a href=@Url.Action("Index", "SolicitudesUsuarios")>
+                                    <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
+                                    <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-gears fa-fw"></i> Administración<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
+                                    <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
+                                    <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
+                                    <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
+                                    <li>@Html.ActionLink("Modelos", "Index", "Modelos")</li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+
+            </nav>
+        </div>
+
+                                        }
 
     <div id="page-wrapper">
         <div class="container body-content">
@@ -96,14 +102,14 @@
         </div>
     </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/lib/bower_components")
-@Scripts.Render("~/bundles/datepicker")
-@Scripts.Render("~/bundles/myBundle")
-   
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/lib/bower_components")
+    @Scripts.Render("~/bundles/datepicker")
+    @Scripts.Render("~/bundles/myBundle")
+
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>
