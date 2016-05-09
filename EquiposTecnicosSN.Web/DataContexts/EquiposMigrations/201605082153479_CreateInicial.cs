@@ -28,12 +28,12 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                     {
                         MantenimientoId = c.Int(nullable: false, identity: true),
                         EquipoId = c.Int(nullable: false),
-                        NumeroReferencia = c.Int(nullable: false),
+                        NumeroReferencia = c.String(nullable: false),
                         Estado = c.Int(nullable: false),
                         Descripcion = c.String(),
                         FechaDeInicio = c.DateTime(nullable: false),
                         FechaDeFin = c.DateTime(),
-                        Tipo = c.Int(nullable: false),
+                        MantenimientoTipo = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.MantenimientoId)
                 .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: true)
@@ -86,11 +86,11 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         FechaCompra = c.DateTime(),
                         PrecioCompra = c.Int(),
                         ValorRestante = c.Int(),
-                        EsGrantiaContrato = c.Int(nullable: false),
+                        EsGrantiaContrato = c.Int(),
                         FechaFinGarantia = c.DateTime(),
                         NotasGarantia = c.String(),
                         ProveedorId = c.Int(),
-                        Financiamiento = c.Int(nullable: false),
+                        Financiamiento = c.Int(),
                     })
                 .PrimaryKey(t => t.EquipoId)
                 .ForeignKey("dbo.Equipos", t => t.EquipoId)
@@ -162,7 +162,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         UbicacionDestinoId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TrasladoId)
-                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: false)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: true)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionDestinoId, cascadeDelete: false)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionOrigenId, cascadeDelete: false)
                 .Index(t => t.EquipoId)

@@ -24,16 +24,16 @@
 
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Ubicacion)
+                                    @Html.DisplayNameFor(model => model.UMDNS)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.NombreCompleto)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.UMDNS)
+                                    @Html.DisplayNameFor(model => model.Estado)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Estado)
+                                    @Html.DisplayNameFor(model => model.Ubicacion)
                                 </th>
                                 <th></th>
                             </tr>
@@ -45,16 +45,16 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Ubicacion.Nombre)
+                                        @Html.DisplayFor(modelItem => item.UMDNS)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NombreCompleto)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.UMDNS)
+                                        @Html.DisplayFor(modelItem => item.Estado)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Estado)
+                                        @Html.DisplayFor(modelItem => item.Ubicacion.Nombre)
                                     </td>
                                     <td>
                                         <a class="btn btn-default btn-xs"

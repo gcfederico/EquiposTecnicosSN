@@ -12,38 +12,43 @@
             <div class="panel-body">
 
                 <table class="table table-striped table-hover table-responsive table-condensed">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NombreCompleto)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UMDNS)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Estado)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Ubicacion)
-                        </th>
-                    </tr>
+                    <thead>
 
-                    @foreach (var item in Model)
-                    {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombreCompleto)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UMDNS)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Estado)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ubicacion.Nombre)
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NombreCompleto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UMDNS)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Estado)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Ubicacion)
+                            </th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UMDNS)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Estado)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ubicacion.Nombre)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>

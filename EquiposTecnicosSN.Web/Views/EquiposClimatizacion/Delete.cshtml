@@ -28,13 +28,16 @@
     </div>
 }
 
+@Html.Partial("_MantenimientosEquipo", Model)
+
+@Html.Partial("_TrasladosEquipoModal", Model.Traslados)
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Borrar" class="btn btn-danger" /> |
-        @Html.ActionLink("Volver", "Index")
+        <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+        <input type="submit" value="Borrar" class="btn btn-danger" />
     </div>
 }
-</div>

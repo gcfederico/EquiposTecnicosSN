@@ -12,31 +12,37 @@
             <div class="panel-body">
 
                 <table class="table table-hover table-responsive table-condensed table-striped">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Email)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UbicacionId)
-                        </th>
-                        <th></th>
-                    </tr>
+                    <thead>
 
-                    @foreach (var item in Model)
-                    {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Ubicacion.NombreCompleto)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Borrar", "Delete", new { id = item.SolicitudUsuarioId }) |
-                                @Html.ActionLink("Crear Usuario", "CreateUser", new { id = item.SolicitudUsuarioId })
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UbicacionId)
+                            </th>
+                            <th></th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ubicacion.Nombre)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Borrar", "Delete", new { id = item.SolicitudUsuarioId }) |
+                                    @Html.ActionLink("Crear Usuario", "CreateUser", new { id = item.SolicitudUsuarioId })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>

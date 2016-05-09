@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using EquiposTecnicosSN.Web.Services;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -14,24 +15,13 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
         private IdentityDb identityDb = new IdentityDb();
-
+        private EquiposService equiposService = new EquiposService();
         // GET: EquiposClimatizacion
         public override ActionResult Index()
         {
             var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
-            IQueryable<EquipoClimatizacion> equipos;
-            if (appuser.UbicacionId == 0)
-            {
-                equipos = db.EquiposDeClimatizacion.Include(e => e.InformacionComercial).Include(e => e.Ubicacion).Include(e => e.HistorialDeMantenimientos);
-            } else
-            {
-                equipos = db.EquiposDeClimatizacion
-                    .Include(e => e.InformacionComercial)
-                    .Include(e => e.Ubicacion)
-                    .Include(e => e.HistorialDeMantenimientos)
-                    .Where(e => e.UbicacionId == appuser.UbicacionId);
-            }
-            return View(equipos.ToList());
+            var equipos = equiposService.EquiposClimatizacionDeUbicacion(appuser.UbicacionId);
+            return View(equipos);
         }
 
         // GET: EquiposClimatizacion/Details/5
@@ -71,6 +61,8 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 db.EquiposDeClimatizacion.Add(equipoClimatizacion);
                 db.SaveChanges();
+                ViewBag.CssClass = "success";
+                ViewBag.Message = "Equipo creado.";
 
                 return RedirectToAction("Index");
             }

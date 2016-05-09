@@ -30,4 +30,5 @@ textarea {
 .app-logo {
     float: none; 
     padding-left: 5px;
+    vertical-align: sub;
 }

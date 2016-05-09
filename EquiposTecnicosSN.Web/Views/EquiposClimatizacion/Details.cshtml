@@ -33,7 +33,6 @@
 
 @Html.Partial("_TrasladosEquipoModal", Model.Traslados)
 
-<hr />
-@Html.ActionLink("Editar", "Edit", new { id = Model.EquipoId }) |
-@Html.ActionLink("Volver", "Index")
+<a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+<a href="@Url.Action("Edit")" class="btn btn-warning"> Editar</a>
 

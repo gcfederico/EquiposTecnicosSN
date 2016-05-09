@@ -4,7 +4,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
     public enum MantenimientoTipo
     {
-        Preventivo = 1,
-        Correctivo = 2
+        Preventivo = 0,
+        Correctivo = 1
     }
 }

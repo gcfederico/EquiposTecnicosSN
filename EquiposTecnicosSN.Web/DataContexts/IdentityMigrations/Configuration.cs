@@ -31,13 +31,49 @@ namespace EquiposTecnicosSN.Web.DataContexts.IdentityMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            if (!(context.Users.Any(u => u.UserName == "admin@neuquenET.com")))
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            var adminRole = new IdentityRole { Name = "admin" };
+            var userRole = new IdentityRole { Name = "user" };
+
+            if (context.Roles.Any(r => r.Name == "admin"))
             {
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                var userToInsert = new ApplicationUser { UserName = "admin@neuquenET.com", Email = "admin@nequenET.com" };
-                userManager.Create(userToInsert, "Admin@2016");
+                roleManager.Update(adminRole);
             }
+            else
+            {
+                roleManager.Create(adminRole);
+            }
+
+
+            if (context.Roles.Any(r => r.Name == "user"))
+            {
+                roleManager.Update(userRole);
+            }
+            else
+            {
+                roleManager.Create(userRole);
+            }
+
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var adminUser = new ApplicationUser { UserName = "admin@neuquenET.com", Email = "admin@nequenET.com" };
+            var testUser = new ApplicationUser { UserName = "usuario@neuquenET.com", Email = "usuario@nequenET.com" };
+
+
+
+            if (!context.Users.Any(u => u.UserName == "admin@neuquenET.com"))
+            {
+                userManager.Create(adminUser, "Admin@2016");
+                userManager.AddToRole(adminUser.Id, adminRole.Name);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "usuario@neuquenET.com"))
+            {
+                userManager.Create(testUser, "Usuario@2016");
+                userManager.AddToRole(testUser.Id, userRole.Name);
+            }
+
         }
     }
 }
