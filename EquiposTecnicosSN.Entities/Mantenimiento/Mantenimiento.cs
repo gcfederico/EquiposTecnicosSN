@@ -20,7 +20,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         [Required]
         [DisplayName("Nº de referencia")]
-        public int NumeroReferencia { get; set; }
+        public string NumeroReferencia { get; set; }
 
         public MantenimientoEstado Estado { get; set; }
 
@@ -37,7 +37,8 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         public virtual ICollection<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
 
-        public MantenimientoTipo Tipo { get; set; }
+        [DisplayName("Tipo")]
+        public MantenimientoTipo MantenimientoTipo { get; set; }
 
         public Mantenimiento()
         {

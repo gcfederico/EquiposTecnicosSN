@@ -4,12 +4,18 @@ using System.Net;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Mantenimiento;
+using System;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     public class MantenimientosController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
+
+        public string GetNextMantenimiento()
+        {
+            return DateTime.Now.ToString("yyyyMMddHHmmss");
+        }
 
         // GET: MantenimientosEquipo
         public ActionResult Index()
@@ -26,6 +32,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Mantenimiento mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
+            ViewBag.MantenimientoId = mantenimientoEquipo.MantenimientoId;
+            ViewBag.EquipoId = mantenimientoEquipo.EquipoId;
             if (mantenimientoEquipo == null)
             {
                 return HttpNotFound();
@@ -37,7 +45,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult Create(int? mantenimientoId)
         {
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto");
-            var model = new Mantenimiento();
+            var nRef = GetNextMantenimiento();
+            var model = new Mantenimiento { NumeroReferencia = nRef };
             return View(model);
         }
 
@@ -63,24 +72,24 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult CreateForEquipo(int idEquipo)
         {
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", idEquipo);
-            var model = new Mantenimiento { EquipoId = idEquipo };
+            var model = new Mantenimiento { EquipoId = idEquipo, NumeroReferencia = GetNextMantenimiento() };
             return View(model);
         }
 
         // POST: MantenimientosEquipo/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateForEquipo(Mantenimiento mantenimiento)
+        public ActionResult CreateForEquipo([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
         {
             if (ModelState.IsValid)
             {
-                db.MantenimientosEquipo.Add(mantenimiento);
+                db.MantenimientosEquipo.Add(mantenimientoEquipo);
                 db.SaveChanges();
-                return RedirectToAction("Details", "EquiposClimatizacion", new { id = mantenimiento.EquipoId });
+                return RedirectToAction("Details", "EquiposClimatizacion", new { id = mantenimientoEquipo.EquipoId });
             }
 
-            ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", mantenimiento.EquipoId);
-            return View(mantenimiento);
+            ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", mantenimientoEquipo.EquipoId);
+            return View(mantenimientoEquipo);
         }
 
         // GET: MantenimientosEquipo/Edit/5

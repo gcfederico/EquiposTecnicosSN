@@ -1,7 +1,7 @@
 ﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Mantenimiento
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Mantenimiento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm())
@@ -15,12 +15,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
-<hr />
-<div>
-    @Html.ActionLink("Volver", "Index")
-</div>

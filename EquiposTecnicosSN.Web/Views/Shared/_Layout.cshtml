@@ -22,13 +22,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    
+                    <img src="@Url.Content("/Content/images/logo-nqn.png")"
+                         alt="Equipos Tecnicos"
+                         style="max-height: 50px; padding-left: 5px;" />
+                        
                     <a href="@Url.Action("Index", "Home", new { area = "" })"
                        class="navbar-brand app-logo">
-                        <img src="@Url.Content("Content/images/logo-nqn.png")"
-                             alt="Equipos Tecnicos"
-                             style="max-height: 50px" />
                         Application name
-                    </a>                    
+                    </a>
                 </div>
 
                 @Html.Partial("_LoginPartial")
@@ -55,32 +57,34 @@
                             <li>
                                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Mantenimiento<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Mantenimientos de Equipos", "Index", "Mantenimientos")</li>
                                     <li>@Html.ActionLink("Ordenes de Trabajo", "Index", "OrdenesDeTrabajo")</li>
-                                    <li>@Html.ActionLink("Mantenimientos", "Index", "Mantenimientos")</li>
-                                    <li>@Html.ActionLink("Hardware", "Index", "InformacionHardware")</li>
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>
                             <li>
                                 <a href=@Url.Action("Index", "Traslados")><i class="fa fa-truck fa-fw"></i> Traslados</a>
                             </li>
-                            <li>
-                                <a href=@Url.Action("Index", "SolicitudesUsuarios")>
-                                    <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
-                                    <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-gears fa-fw"></i> Administración<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
-                                    <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
-                                    <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
-                                    <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
-                                    <li>@Html.ActionLink("Modelos", "Index", "Modelos")</li>
-                                </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
+                            @if (User.IsInRole("admin"))
+                            {
+                                <li>
+                                    <a href=@Url.Action("Index", "SolicitudesUsuarios")>
+                                        <i class="fa fa-users fa-fw"></i> Solicitudes de Usuario
+                                        <span class="badge">@{ Html.RenderAction("SolicitudesCount", "SolicitudesUsuarios", null); }</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-gears fa-fw"></i> Administración<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
+                                        <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
+                                        <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
+                                        <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
+                                        <li>@Html.ActionLink("Modelos", "Index", "Modelos")</li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                                            }
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->
@@ -89,7 +93,7 @@
             </nav>
         </div>
 
-                                        }
+                                            }
 
     <div id="page-wrapper">
         <div class="container body-content">
@@ -98,6 +102,13 @@
                     <h1 class="page-header">@ViewBag.Title</h1>
                 </div>
             </div>
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-@ViewBag.CssClass alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    @ViewBag.Message
+                </div>
+            }
             @RenderBody()
         </div>
     </div>

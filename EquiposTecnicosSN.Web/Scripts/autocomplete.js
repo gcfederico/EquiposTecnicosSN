@@ -1,20 +1,5 @@
 ﻿$(function () {
 
-/*    var createAutocomplete = function () {
-        var $input = $(this);
-        var options = {
-            source: $input.attr("data-sn-autocomplete"),
-            select: function (event, ui) {
-                $("#NombreCompleto").val(ui.item.label);
-                $("#UMDNS").val(ui.item.value);
-                event.stopPropagation();
-                return false;
-            }
-        };
-
-        $input.autocomplete(options);
-    };
-    */
     var autocompleteNombreOptions = {
         source: $("input[data-umdns-autocomplete-nombre]").attr("data-umdns-autocomplete-nombre"),
         select: function (event, ui) {
@@ -22,6 +7,9 @@
             $("#UMDNS").val(ui.item.value);
             event.stopPropagation();
             return false;
+        },
+        focus: function (event, ui) {
+            event.preventDefault();
         }
     };
 
@@ -32,6 +20,10 @@
             $("#UMDNS").val(ui.item.label);
             event.stopPropagation();
             return false;
+        },
+        focus: function (event, ui) {
+            event.stopPropagation();
+            event.preventDefault();
         }
     };
 

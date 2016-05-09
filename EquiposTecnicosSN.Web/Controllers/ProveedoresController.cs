@@ -7,6 +7,7 @@ using EquiposTecnicosSN.Entities.Mantenimiento;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ProveedoresController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();

@@ -15,7 +15,7 @@ using EquiposTecnicosSN.Entities.Usuarios;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class SolicitudesUsuariosController : IdentityController
     {
         private EquiposDbContext db = new EquiposDbContext();
@@ -38,12 +38,14 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.SolicitudesUsuarios.Remove(solicitud);
                 await db.SaveChangesAsync();
 
-                ViewBag.Message = "Usuario creado.";
+                ViewBag.CssClass = "success";
+                ViewBag.Message = "Usuario creado exitosamente.";
                 //return View();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
-
-            return View();
+            ViewBag.CssClass = "danger";
+            ViewBag.Message = "Ocurrió un error. " + result.Errors.First();
+            return View("Index", db.SolicitudesUsuarios.Include(s => s.Ubicacion).ToList());
         }
 
         //
@@ -130,7 +132,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         [AllowAnonymous]
         public ActionResult Create()
         {
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto");
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
             return View();
         }
 
@@ -149,7 +151,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "NombreCompleto", solicitudUsuario.UbicacionId);
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre", solicitudUsuario.UbicacionId);
             return View(solicitudUsuario);
         }
 

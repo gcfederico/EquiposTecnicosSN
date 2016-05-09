@@ -1,15 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.DataContexts;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {

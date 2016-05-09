@@ -9,12 +9,11 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
 {
     public enum Financiamiento
     {
-        Ninguno = 0,
         [Display(Name = "Fondos Provinciales")]
-        FondosProvinciales = 1,
+        FondosProvinciales = 0,
         [Display(Name = "Donación de Nación")]
-        DonacionNacion = 2,
+        DonacionNacion = 1,
         [Display(Name = "Donación de Particular")]
-        DonacionParticular = 3
+        DonacionParticular = 2
     }
 }

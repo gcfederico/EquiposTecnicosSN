@@ -15,15 +15,7 @@
             @Html.EditorFor(model => model.InformacionComercial)
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
-    <hr />
+    
+    <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+    <input type="submit" value="Guardar" class="btn btn-primary" />
 }
-<div>
-    @Html.ActionLink("Volver", "Index")
-</div>

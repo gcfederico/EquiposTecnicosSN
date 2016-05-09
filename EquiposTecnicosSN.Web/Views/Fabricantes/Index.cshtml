@@ -18,27 +18,43 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <table class="table table-hover table-responsive table-condensed table-striped">
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Nombre)
-                                </th>
-                                <th></th>
-                            </tr>
+                            <thead>
 
-                            @foreach (var item in Model)
-                            {
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Nombre)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Editar", "Edit", new { id = item.FabricanteId }) |
-                                        @Html.ActionLink("Ver", "Details", new { id = item.FabricanteId }) |
-                                        @Html.ActionLink("Borrar", "Delete", new { id = item.FabricanteId })
-                                    </td>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Nombre)
+                                    </th>
+                                    <th></th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nombre)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Edit", new { id = item.FabricanteId })"
+                                               title="Editar Fabricante">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </a>
 
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Details", new { id = item.FabricanteId })"
+                                               title="Ver Fabricante">
+                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            </a>
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Delete", new { id = item.FabricanteId })"
+                                               title="Eliminar Fabricante">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
                         </table>
                     </div>
                 </div>
