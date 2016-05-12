@@ -31,7 +31,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mantenimiento mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
+            MantenimientoEquipo mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
             ViewBag.MantenimientoId = mantenimientoEquipo.MantenimientoId;
             ViewBag.EquipoId = mantenimientoEquipo.EquipoId;
             if (mantenimientoEquipo == null)
@@ -46,7 +46,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto");
             var nRef = GetNextMantenimiento();
-            var model = new Mantenimiento { NumeroReferencia = nRef };
+            var model = new MantenimientoEquipo { NumeroReferencia = nRef };
             return View(model);
         }
 
@@ -55,7 +55,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
+        public ActionResult Create([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] MantenimientoEquipo mantenimientoEquipo)
         {
             if (ModelState.IsValid)
             {
@@ -72,14 +72,14 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult CreateForEquipo(int idEquipo)
         {
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", idEquipo);
-            var model = new Mantenimiento { EquipoId = idEquipo, NumeroReferencia = GetNextMantenimiento() };
+            var model = new MantenimientoEquipo { EquipoId = idEquipo, NumeroReferencia = GetNextMantenimiento() };
             return View(model);
         }
 
         // POST: MantenimientosEquipo/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateForEquipo([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
+        public ActionResult CreateForEquipo([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] MantenimientoEquipo mantenimientoEquipo)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mantenimiento mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
+            MantenimientoEquipo mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
             if (mantenimientoEquipo == null)
             {
                 return HttpNotFound();
@@ -113,7 +113,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] Mantenimiento mantenimientoEquipo)
+        public ActionResult Edit([Bind(Include = "MantenimientoId,EquipoId,NumeroReferencia,Estado,Descripcion,FechaDeInicio,FechaDeFin")] MantenimientoEquipo mantenimientoEquipo)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +132,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mantenimiento mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
+            MantenimientoEquipo mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
             if (mantenimientoEquipo == null)
             {
                 return HttpNotFound();
@@ -145,7 +145,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Mantenimiento mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
+            MantenimientoEquipo mantenimientoEquipo = db.MantenimientosEquipo.Find(id);
             db.MantenimientosEquipo.Remove(mantenimientoEquipo);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -23,7 +23,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Ubicacion> Ubicaciones { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<InformacionComercial> InformacionesComerciales { get; set; }
-        public DbSet<Mantenimiento> MantenimientosEquipo { get; set; }
+        public DbSet<MantenimientoEquipo> MantenimientosEquipo { get; set; }
         public DbSet<SolicitudUsuario> SolicitudesUsuarios { get; set; }
         public DbSet<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
         public DbSet<Traslado> Traslados { get; set; }

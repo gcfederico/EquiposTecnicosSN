@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
     [Table("Mantenimientos")]
-    public class Mantenimiento
+    public class MantenimientoEquipo
     {
         [Key]
         public int MantenimientoId { get; set; }
@@ -40,7 +40,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayName("Tipo")]
         public MantenimientoTipo MantenimientoTipo { get; set; }
 
-        public Mantenimiento()
+        public MantenimientoEquipo()
         {
             this.FechaDeInicio = DateTime.Now;
             this.Estado = MantenimientoEstado.Abierto;

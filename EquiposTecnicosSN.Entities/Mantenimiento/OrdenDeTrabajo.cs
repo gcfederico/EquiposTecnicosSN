@@ -15,7 +15,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [ForeignKey("Mantenimiento")]
         public int MantenimientoId { get; set; }
 
-        public virtual Mantenimiento Mantenimiento { get; set; }
+        public virtual MantenimientoEquipo Mantenimiento { get; set; }
 
         [DisplayName("Diagnóstico")]
         public string Diagnostico { get; set; }

@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
 
 

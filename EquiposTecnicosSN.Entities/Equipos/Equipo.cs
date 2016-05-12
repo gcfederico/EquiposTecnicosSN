@@ -41,7 +41,7 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [ForeignKey("EquipoId")]
         public virtual InformacionHardware InformacionHardware { get; set; }
 
-        public virtual ICollection<Mantenimiento.Mantenimiento> HistorialDeMantenimientos { get; set; }
+        public virtual ICollection<Mantenimiento.MantenimientoEquipo> HistorialDeMantenimientos { get; set; }
 
         public virtual ICollection<Traslado> Traslados { get; set; }
 
