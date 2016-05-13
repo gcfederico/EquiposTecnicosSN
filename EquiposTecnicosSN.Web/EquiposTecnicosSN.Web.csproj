@@ -241,19 +241,19 @@
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\InformacionHardwareController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MantenimientosController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
     <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
+    <Compile Include="Controllers\OrdenesDeTrabajoController_old.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605082153479_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605082153479_CreateInicial.Designer.cs">
-      <DependentUpon>201605082153479_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201605122228388_initialCreate.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201605122228388_initialCreate.Designer.cs">
+      <DependentUpon>201605122228388_initialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -285,6 +285,8 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\logo-nqn.png" />
@@ -777,6 +779,8 @@
     <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1252,12 +1256,12 @@
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Create.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Delete.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Details.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\IndexForMantenimiento.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Create.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Delete.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Details.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Edit.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\IndexForMantenimiento.cshtml" />
     <Content Include="Views\Fabricantes\Create.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
     <Content Include="Views\Fabricantes\Details.cshtml" />
@@ -1279,7 +1283,7 @@
     <Content Include="Views\Shared\EditorTemplates\Equipo.cshtml" />
     <Content Include="Views\Shared\_GastoOrden.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Equipo.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\CreateForMantenimiento.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\CreateForMantenimiento.cshtml" />
     <Content Include="Views\InformacionHardware\Create.cshtml" />
     <Content Include="Views\InformacionHardware\Delete.cshtml" />
     <Content Include="Views\InformacionHardware\Details.cshtml" />
@@ -1299,6 +1303,13 @@
     <Content Include="Views\Shared\DisplayTemplates\Mantenimiento.cshtml" />
     <Content Include="Views\Shared\_OrdenesDeTrabajo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreateUser.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Create.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Delete.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Details.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\CreateForEquipo.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\Diagnose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1318,8 +1329,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605082153479_CreateInicial.resx">
-      <DependentUpon>201605082153479_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605122228388_initialCreate.resx">
+      <DependentUpon>201605122228388_initialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

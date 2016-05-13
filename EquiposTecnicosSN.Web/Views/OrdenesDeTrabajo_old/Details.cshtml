@@ -1,0 +1,51 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrdenDeTrabajo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mantenimiento.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mantenimiento.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proveedor.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnostico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnostico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resolucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resolucion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrdenDeTrabajoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

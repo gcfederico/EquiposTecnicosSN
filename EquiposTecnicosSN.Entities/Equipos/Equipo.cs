@@ -1,4 +1,5 @@
 ﻿using EquiposTecnicosSN.Entities.Equipos.Info;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -41,7 +42,7 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [ForeignKey("EquipoId")]
         public virtual InformacionHardware InformacionHardware { get; set; }
 
-        public virtual ICollection<Mantenimiento.MantenimientoEquipo> HistorialDeMantenimientos { get; set; }
+        public virtual ICollection<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
 
         public virtual ICollection<Traslado> Traslados { get; set; }
 

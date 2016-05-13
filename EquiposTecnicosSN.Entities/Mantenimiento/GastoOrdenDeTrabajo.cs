@@ -23,7 +23,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public string Concepto { get; set; }
 
         [Required]
-        public int Monto { get; set; }
+        public Decimal Monto { get; set; }
 
         public virtual OrdenDeTrabajo OrdenDeTrabajo { get; set; }
     }

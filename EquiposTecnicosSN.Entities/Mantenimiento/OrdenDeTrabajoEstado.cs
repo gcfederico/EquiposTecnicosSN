@@ -2,7 +2,7 @@
 
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
-    public enum MantenimientoEstado
+    public enum OrdenDeTrabajoEstado
     {
         Abierto = 1,
         Cerrado = 2,

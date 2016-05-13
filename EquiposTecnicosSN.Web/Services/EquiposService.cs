@@ -23,7 +23,7 @@ namespace EquiposTecnicosSN.Web.Services
             var equiposC = equiposDb.EquiposDeClimatizacion.
                 Include(e => e.InformacionComercial).
                 Include(e => e.Ubicacion).
-                Include(e => e.HistorialDeMantenimientos);
+                Include(e => e.OrdenesDeTrabajo);
 
             if (ubicacionId != 0)
             {

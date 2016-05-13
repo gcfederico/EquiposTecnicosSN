@@ -36,14 +36,16 @@ namespace EquiposTecnicosSN.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-switch.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/sb-admin-2.css",
                         "~/Content/timeline.css",
                         "~/Content/bootstrap*",
                         "~/Content/site.css",
-                        "~/Content/themes/base/all.css"));
+                        "~/Content/themes/base/all.css",
+                        "~/Content/bootstrap-switch.css"));
 
             bundles.Add(new StyleBundle("~/lib/bower_components/css").Include(
                         "~/lib/bower_components/font-awesome/css/font-awesome.css",
