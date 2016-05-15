@@ -26,7 +26,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult CreateForEquipo(int id)
         {
             var equipo = db.Equipos.Find(id);
-            var model = new OrdenDeTrabajo {
+            var model = new OrdenDeTrabajo
+            {
                 EquipoId = equipo.EquipoId,
                 Equipo = equipo,
                 Estado = OrdenDeTrabajoEstado.Abierto,
@@ -75,22 +76,22 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> FillDiagnose(OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            if (ordenDeTrabajo.Diagnostico != null)
+            if (ordenDeTrabajo.Descripcion == null && ordenDeTrabajo.Gastos == null)
             {
-                var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
-                //datos de diagnostico
-                orden.Diagnostico = ordenDeTrabajo.Diagnostico;
-                orden.FechaDiagnostico = DateTime.Now;
-                orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
-                //gastos
-                orden.Gastos = (ICollection<GastoOrdenDeTrabajo>)gastos;
-
-                db.Entry(orden).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Details", "EquiposClimatizacion", new { id = orden.EquipoId });
+                return View(ordenDeTrabajo);
             }
 
-            return View(ordenDeTrabajo);
+            var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
+            //datos de diagnostico
+            orden.Diagnostico = ordenDeTrabajo.Diagnostico;
+            orden.FechaDiagnostico = DateTime.Now;
+            orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
+            //gastos
+            orden.Gastos = (ICollection<GastoOrdenDeTrabajo>)gastos;
+
+            db.Entry(orden).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Details", "EquiposClimatizacion", new { id = orden.EquipoId });
         }
 
         // GET: OrdenesDeTrabajo/FillRepair/id
@@ -106,9 +107,9 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> FillRepair(OrdenDeTrabajo ordenDeTrabajo)
         {
             var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
-            orden.Diagnostico = ordenDeTrabajo.Diagnostico;
-            orden.FechaDiagnostico = DateTime.Now;
-            orden.UsuarioDiagnosticoId = 1;
+            orden.FechaReparacion = DateTime.Now;
+            orden.UsuarioReparacionId = 1; //HARDCODE
+
             db.Entry(orden).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
