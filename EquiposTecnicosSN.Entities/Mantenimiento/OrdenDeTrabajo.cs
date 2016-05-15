@@ -21,6 +21,8 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         public virtual Equipo Equipo { get; set; }
 
+        public OrdenDeTrabajoPrioridad Prioridad { get; set; }
+
         public OrdenDeTrabajoEstado Estado { get; set; }
 
         [DisplayName("Fecha de incio")]
@@ -28,8 +30,6 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public DateTime FechaInicio { get; set; }
 
         public int UsuarioInicioId { get; set; }
-
-        public PrioridadOrdenDeTrabajo Prioridad { get; set; }
 
         public bool EquipoParado { get; set; }
 

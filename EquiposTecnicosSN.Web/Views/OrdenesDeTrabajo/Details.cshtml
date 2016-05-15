@@ -1,147 +1,38 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@model OrdenDeTrabajo
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Orden de Trabajo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>OrdenDeTrabajo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Equipo.NombreCompleto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Equipo.NombreCompleto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaInicio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaInicio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsuarioInicioId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsuarioInicioId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Prioridad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Prioridad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EquipoParado)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EquipoParado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Diagnostico)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Diagnostico)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DetalleReparacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DetalleReparacion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CausaRaiz)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CausaRaiz)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaDiagnostico)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaDiagnostico)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsuarioDiagnosticoId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsuarioDiagnosticoId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaReparacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaReparacion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsuarioReparacionId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsuarioReparacionId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaCierre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaCierre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UsuarioCierreId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UsuarioCierreId)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.DisplayFor(model => model)
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OrdenDeTrabajoId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+            @if (OrdenDeTrabajoEstado.Abierto.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
+            {
+                <a href="@Url.Action("OrderReplacement",new { id = Model.OrdenDeTrabajoId })" class="btn btn-info"> Solicitar Repuesto</a>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function() {
+            $("#EquipoParado").bootstrapSwitch({
+                onColor: "danger",
+                onText: "Si",
+                offText: "No",
+                disabled: "disabled"
+            });
+        });
+    </script>
+}

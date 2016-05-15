@@ -16,7 +16,13 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
 
-        // GET: OrdenesDeTrabajo/CreateForEquipo/5
+        // GET: OrdenesDeTrabajo/AddGasto
+        public ActionResult AddGasto()
+        {
+            return PartialView("_AddGasto", new GastoOrdenDeTrabajo());
+        }
+
+        // GET: OrdenesDeTrabajo/CreateForEquipo/id
         public ActionResult CreateForEquipo(int id)
         {
             var equipo = db.Equipos.Find(id);
@@ -25,7 +31,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Equipo = equipo,
                 Estado = OrdenDeTrabajoEstado.Abierto,
                 FechaInicio = DateTime.Now,
-                NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff")
+                NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
+                Prioridad = OrdenDeTrabajoPrioridad.Normal
             };
             return View(model);
         }
@@ -44,43 +51,96 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 if (action.Equals("Guardar"))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "EquiposClimatizacion", new { id = ordenDeTrabajo.EquipoId });
                 }
                 else
                 {
-                    return RedirectToAction("Diagnose", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+                    return RedirectToAction("FillDiagnose", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
                 }
             }
 
             return View(ordenDeTrabajo);
         }
 
-        // GET: OrdenesDeTrabajo/Diagnose/5
-        public ActionResult Diagnose(int id)
+        // GET: OrdenesDeTrabajo/FillDiagnose/id
+        public ActionResult FillDiagnose(int id)
         {
             var model = db.OrdenesDeTrabajo.Find(id);
             return View(model);
         }
 
-        // POST: OrdenesDeTrabajo/Diagnose
+        // POST: OrdenesDeTrabajo/FillDiagnose
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Diagnose(OrdenDeTrabajo ordenDeTrabajo)
+        public async Task<ActionResult> FillDiagnose(OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            if (ordenDeTrabajo.Diagnostico.Length != 0)
+            if (ordenDeTrabajo.Diagnostico != null)
             {
                 var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
+                //datos de diagnostico
                 orden.Diagnostico = ordenDeTrabajo.Diagnostico;
                 orden.FechaDiagnostico = DateTime.Now;
-                orden.UsuarioDiagnosticoId = 1;
+                orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
+                //gastos
+                orden.Gastos = (ICollection<GastoOrdenDeTrabajo>)gastos;
+
                 db.Entry(orden).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "EquiposClimatizacion", new { id = orden.EquipoId });
             }
 
             return View(ordenDeTrabajo);
         }
+
+        // GET: OrdenesDeTrabajo/FillRepair/id
+        public ActionResult FillRepair(int id)
+        {
+            var model = db.OrdenesDeTrabajo.Find(id);
+            return View(model);
+        }
+
+        // POST: OrdenesDeTrabajo/FillRepair
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> FillRepair(OrdenDeTrabajo ordenDeTrabajo)
+        {
+            var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
+            orden.Diagnostico = ordenDeTrabajo.Diagnostico;
+            orden.FechaDiagnostico = DateTime.Now;
+            orden.UsuarioDiagnosticoId = 1;
+            db.Entry(orden).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        // GET: OrdenesDeTrabajo/OrderReplacement/id
+        public ActionResult OrderReplacement(int id)
+        {
+            var model = db.OrdenesDeTrabajo.Find(id);
+            return View(model);
+        }
+
+        // POST: OrdenesDeTrabajo/OrderReplacement
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> OrderReplacement(OrdenDeTrabajo ordenDeTrabajo)
+        {
+            var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
+            orden.Diagnostico = ordenDeTrabajo.Diagnostico;
+            orden.FechaDiagnostico = DateTime.Now;
+            orden.UsuarioDiagnosticoId = 1;
+            db.Entry(orden).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
 
 
         // GET: OrdenesDeTrabajo/Create

@@ -1249,7 +1249,7 @@
     <Content Include="Views\Mantenimientos\Details.cshtml" />
     <Content Include="Views\Mantenimientos\Edit.cshtml" />
     <Content Include="Views\Mantenimientos\Index.cshtml" />
-    <Content Include="Views\Shared\_MantenimientosEquipo.cshtml" />
+    <Content Include="Views\Shared\_OrdenesDeTrabajoEquipo.cshtml" />
     <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
@@ -1309,7 +1309,10 @@
     <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
     <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
     <Content Include="Views\OrdenesDeTrabajo\CreateForEquipo.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Diagnose.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\FillDiagnose.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\FillRepair.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\OrdenDeTrabajo.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\_AddGasto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

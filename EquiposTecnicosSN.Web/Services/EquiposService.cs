@@ -32,5 +32,20 @@ namespace EquiposTecnicosSN.Web.Services
 
             return equiposC.ToList();
         }
+
+
+        public Equipo GetEquipo(int id)
+        {
+            var equipo = equiposDb.Equipos
+                .Include(e => e.Traslados)
+                .Include(e => e.OrdenesDeTrabajo)
+                .Include(e => e.InformacionComercial)
+                .Include(e => e.InformacionHardware)
+                .Where(e => e.EquipoId == id).Single();
+
+            equipo.OrdenesDeTrabajo = equipo.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
+
+            return equipo;
+        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
-    public enum PrioridadOrdenDeTrabajo
+    public enum OrdenDeTrabajoPrioridad
     {
-        Emergancia = 0,
-        Urgente = 1,
+        Emergencia = 0,
+        Urgencia = 1,
         Normal = 2
     }
 }

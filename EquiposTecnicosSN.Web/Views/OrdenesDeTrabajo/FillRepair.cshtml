@@ -70,12 +70,34 @@
                     <hr />
                     <div class="row">
                         <div class="col-md-12">
-                            @Html.LabelFor(model => model.Diagnostico, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.Diagnostico, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Diagnostico, "", new { @class = "text-danger" })
+                            <label>
+                                @Html.DisplayNameFor(model => model.Diagnostico)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Diagnostico)
+                            </p>
                         </div>
                     </div>
-
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.DetalleReparacion, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.DetalleReparacion, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DetalleReparacion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- REPUESTOS-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.CausaRaiz, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.CausaRaiz, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CausaRaiz, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
