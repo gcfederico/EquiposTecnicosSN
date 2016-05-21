@@ -52,18 +52,20 @@
                                         @Html.ActionLink("Todos los Equipos", "Index", "EquiposBase")
                                     </li>
                                 </ul>
-                                <!-- /.nav-second-level -->
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Mantenimiento<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>@Html.ActionLink("Ordenes de Trabajo", "Index", "OrdenesDeTrabajo")</li>
-                                </ul>
-                                <!-- /.nav-second-level -->
+                                <a href="@Url.Action("Index", "OrdenesDeTrabajo")"><i class="fa fa-wrench fa-fw"></i> Ordenes de Trabajo</a>
                             </li>
                             <li>
                                 <a href=@Url.Action("Index", "Traslados")><i class="fa fa-truck fa-fw"></i> Traslados</a>
                             </li>
+                            <li>
+                                <a href=@Url.Action("Index", "StockRepuestos")><i class="fa fa-archive fa-fw"></i> Stock de Repuestos</a>
+                            </li>
+                            <li>
+                                <a href=@Url.Action("Index", "Repuestos")><i class="fa fa-gear fa-fw"></i> Repuestos</a>
+                            </li>
+
                             @if (User.IsInRole("admin"))
                             {
                                 <li>
@@ -83,7 +85,7 @@
                                     </ul>
                                     <!-- /.nav-second-level -->
                                 </li>
-                                            }
+                            }
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->

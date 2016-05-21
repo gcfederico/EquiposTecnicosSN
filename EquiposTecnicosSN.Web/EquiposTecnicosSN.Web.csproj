@@ -246,14 +246,16 @@
     <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
     <Compile Include="Controllers\OrdenesDeTrabajoController_old.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\RepuestosController.cs" />
+    <Compile Include="Controllers\SolicitudesRepuestoServicioController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605122228388_initialCreate.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605122228388_initialCreate.Designer.cs">
-      <DependentUpon>201605122228388_initialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201605182018499_InitialCreate.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201605182018499_InitialCreate.Designer.cs">
+      <DependentUpon>201605182018499_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1185,10 +1187,14 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\modal-detalle-solicitud.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
+    <Content Include="Scripts\switch-start.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1313,10 +1319,23 @@
     <Content Include="Views\OrdenesDeTrabajo\FillRepair.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\OrdenDeTrabajo.cshtml" />
     <Content Include="Views\OrdenesDeTrabajo\_AddGasto.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\OrderReplacementService.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SolicitudRepuestoServicio.cshtml" />
+    <Content Include="Views\Repuestos\Create.cshtml" />
+    <Content Include="Views\Repuestos\Delete.cshtml" />
+    <Content Include="Views\Repuestos\Details.cshtml" />
+    <Content Include="Views\Repuestos\Edit.cshtml" />
+    <Content Include="Views\Repuestos\Index.cshtml" />
+    <Content Include="Views\Shared\_EditGastos.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo\EditGastos.cshtml" />
+    <Content Include="Views\Shared\_DetailSolicitudRepuestoServicioModal.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SolicitudRepuestoServicio.cshtml" />
+    <Content Include="Views\Shared\_DetailSolicitudRepuestoServicioContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Views\SolicitudesRepuestoServicio\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1332,8 +1351,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605122228388_initialCreate.resx">
-      <DependentUpon>201605122228388_initialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605182018499_InitialCreate.resx">
+      <DependentUpon>201605182018499_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

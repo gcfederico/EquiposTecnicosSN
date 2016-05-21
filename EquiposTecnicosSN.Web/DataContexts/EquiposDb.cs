@@ -31,7 +31,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Umdns> Umdns { get; set; }
         public DbSet<Repuesto> Repuestos { get; set; }
         public DbSet<StockRepuesto> StockRepuestos { get; set; }
-        public DbSet<SolicitudRepuesto> SolicitudesRepuestos { get; set; }
+        public DbSet<SolicitudRepuestoServicio> SolicitudesRepuestosServicios { get; set; }
 
         public DbSet<Ubicacion> Ubicaciones { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }

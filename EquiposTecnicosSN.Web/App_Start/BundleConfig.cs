@@ -13,6 +13,7 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/autocomplete.js",
                         "~/Scripts/ddls-info-hardware.js",
                         "~/Scripts/ddl-traslado.js",
+                        "~/Scripts/modal-detalle-solicitud.js",
                         "~/Scripts/add-gasto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
@@ -40,12 +41,12 @@ namespace EquiposTecnicosSN.Web
                       "~/Scripts/bootstrap-switch.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/sb-admin-2.css",
                         "~/Content/timeline.css",
                         "~/Content/bootstrap*",
                         "~/Content/site.css",
                         "~/Content/themes/base/all.css",
-                        "~/Content/bootstrap-switch.css"));
+                        "~/Content/bootstrap-switch.css",
+                        "~/Content/sb-admin-2.css"));
 
             bundles.Add(new StyleBundle("~/lib/bower_components/css").Include(
                         "~/lib/bower_components/font-awesome/css/font-awesome.css",

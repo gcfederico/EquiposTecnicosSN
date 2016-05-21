@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.Repuesto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Costo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Proveedor.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Costo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RepuestoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RepuestoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RepuestoId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,11 +1,12 @@
-﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Mantenimiento
 @model OrdenDeTrabajo
 
 <div class="row">
     <div class="col-md-12">
 
         <div class="panel panel-default">
-            <div class="panel-heading">Detalle de Orden de Trabajo Nº @Model.NumeroReferencia</div>
+            <div class="panel-heading">Detalle de Orden de Trabajo Nº @Model.NumeroReferencia - <b>ESTADO: @Model.Estado.DisplayName()</b></div>
             <div class="panel-body">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.OrdenDeTrabajoId)
@@ -31,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label switch-label">¿El equipo se encuentra parado?</label>
-                            @Html.EditorFor(model => model.EquipoParado, new { @class = "form-control" })
+                            @Html.EditorFor(model => model.EquipoParado, new { @class = "form-control bootstrap-switch-readonly" })
                         </div>
                     </div>
 
@@ -134,53 +135,88 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <!-- GASTOS -->
-        <div class="panel panel-default">
-            <div class="panel-heading">Gastos</div>
-            <div class="panel-body">
+@if (Model.Gastos != null && Model.Gastos.Count != 0)
+{
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table class="table table-hover table-responsive table-condensed table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Concepto</th>
-                                    <th>Monto ($)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var gasto in Model.Gastos)
-                                {
+    <div class="row">
+        <div class="col-md-12">
+            <!-- GASTOS -->
+            <div class="panel panel-default">
+                <div class="panel-heading">Gastos</div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-hover table-responsive table-condensed table-striped">
+                                <thead>
                                     <tr>
-                                        <td>@Html.DisplayFor(item => gasto.Concepto)</td>
-                                        <td>@Html.DisplayFor(item => gasto.Monto)</td>
+                                        <th>Concepto</th>
+                                        <th>Monto ($)</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var gasto in Model.Gastos)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(item => gasto.Concepto)</td>
+                                            <td>@Html.DisplayFor(item => gasto.Monto)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
 
-<div class="row">
-    <div class="col-md-12">
-        <!-- REPUESTOS-->
-        <div class="panel panel-default">
-            <div class="panel-heading">Repuestos</div>
-            <div class="panel-body">
+@if (Model.SolicitudesRespuestos != null && Model.SolicitudesRespuestos.Count != 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <!-- REPUESTOS-->
+            <div class="panel panel-default">
+                <div class="panel-heading">Repuestos</div>
+                <div class="panel-body">
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        REPUESTOS
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-hover table-responsive table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Repuesto</th>
+                                        <th>Proveedor</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.SolicitudesRespuestos != null)
+                                    {
+                                        foreach (var sr in Model.SolicitudesRespuestos)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(item => sr.Repuesto.Nombre)</td>
+                                                <td>@Html.DisplayFor(item => sr.Proveedor.Nombre)</td>
+                                                <td>
+                                                    <a class="btn btn-default btn-xs"
+                                                       data-toggle="modal" data-target="#modalSolicitudRepuestoServicioEquipo"
+                                                       data-solicitud-id="@sr.SolicitudRepuestoServicioId"
+                                                       title="Ver Equipo">
+                                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}

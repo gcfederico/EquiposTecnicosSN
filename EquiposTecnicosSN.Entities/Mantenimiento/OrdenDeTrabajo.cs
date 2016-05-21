@@ -44,7 +44,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayName("Detalle de la reparación")]
         public string DetalleReparacion { get; set; }
 
-        public ICollection<SolicitudRepuesto> SolicitudesRespuestos;
+        public ICollection<SolicitudRepuestoServicio> SolicitudesRespuestos;
 
         [DisplayName("Causa raíz")]
         public string CausaRaiz { get; set; }

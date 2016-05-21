@@ -12,21 +12,35 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="form-group">
             <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
             @if (OrdenDeTrabajoEstado.Abierto.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
             {
-                <a href="@Url.Action("OrderReplacement",new { id = Model.OrdenDeTrabajoId })" class="btn btn-info"> Solicitar Repuesto</a>
+                <a href="@Url.Action("OrderReplacementService",new { id = Model.OrdenDeTrabajoId })" class="btn btn-info"> Solicitar Repuesto</a>
             }
+
+            <a href="@Url.Action("EditGastos", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar Gastos</a>
+
+
+            @if (Model.Diagnostico == null || Model.Diagnostico.Length == 0)
+            {
+                <a href="@Url.Action("FillDiagnose", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Diagnosticar</a>
+            }
+
+            @if (Model.DetalleReparacion == null || Model.DetalleReparacion.Length == 0)
+            {
+                <a href="@Url.Action("FillRepair", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Reparar y Cerrar</a>
+            }
+
         </div>
     </div>
 </div>
-
+@Html.Partial("_DetailSolicitudRepuestoServicioModal")
 @section Scripts {
     <script type="text/javascript">
 
-        $(function() {
+        $(function () {
             $("#EquipoParado").bootstrapSwitch({
                 onColor: "danger",
                 onText: "Si",

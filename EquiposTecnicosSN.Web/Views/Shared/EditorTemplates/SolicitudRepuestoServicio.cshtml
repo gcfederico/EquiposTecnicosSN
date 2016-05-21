@@ -1,0 +1,38 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Repuesto.Codigo, htmlAttributes: new { @class = "control-label" })
+            <input class="form-control text-box single-line"
+                   data-autocomplete-codigo-repuesto="@Url.Action("AutocompleteCodigoRepuesto", "Repuestos")"
+                   data-val="true"
+                   data-val-maxlength="The field Nombre completo must be a string or array type with a maximum length of '255'."
+                   data-val-maxlength-max="255" data-val-required="The Nombre completo field is required."
+                   id="@Html.IdFor(model => model.Repuesto.Codigo)"
+                   name="@Html.NameFor(model => model.Repuesto.Codigo)" type="text" value="@Model.Repuesto.Codigo">
+
+            @Html.ValidationMessageFor(model => model.Repuesto.Codigo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CantidadRepuesto, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.CantidadRepuesto, new { htmlAttributes = new { @class = "form-control", data_stock_repuesto = Url.Action("CheckStockRepuesto") } })
+            @Html.ValidationMessageFor(model => model.CantidadRepuesto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Repuesto.Nombre, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Repuesto.Nombre, new { htmlAttributes = new { @class = "form-control", data_stock_repuesto = Url.Action("CheckStockRepuesto") } })
+            @Html.ValidationMessageFor(model => model.Repuesto.Nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="NotificacionStock"></div>
+    </div>
+</div>

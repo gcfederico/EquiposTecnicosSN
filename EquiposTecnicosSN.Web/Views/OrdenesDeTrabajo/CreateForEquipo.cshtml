@@ -18,13 +18,13 @@
                     @Html.HiddenFor(model => model.EquipoId)
                     @Html.HiddenFor(model => model.Estado)
                     @Html.HiddenFor(model => model.NumeroReferencia)
-                    @Html.HiddenFor(model => model.FechaInicio)
-                    
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
                                     @Html.DisplayNameFor(model => model.FechaInicio)
+                                    @Html.HiddenFor(model => model.FechaInicio)
                                 </label>
                                 <p class="form-control-static">
                                     @Html.DisplayFor(model => model.FechaInicio)
@@ -96,11 +96,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group">
-                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
-                <input type="submit" name="action" value="Guardar" class="btn btn-primary" />
-                <input type="submit" name="action" value="Guardar y diagnosticar" class="btn btn-info" />
+                <a href="@Url.Action("Index")" class="btn btn-default" style="margin-bottom:5px;"> Volver</a>
+                <input type="submit" name="action" value="Guardar" class="btn btn-primary" style="margin-bottom:5px;" />
+                <input type="submit" name="action" value="Guardar y diagnosticar" class="btn btn-info" style="margin-bottom:5px;" />
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
 @section Scripts {
     <script type="text/javascript">
 
-        $(function() {
+        $(function () {
             $("#EquipoParado").bootstrapSwitch({
                 onColor: "danger",
                 onText: "Si",

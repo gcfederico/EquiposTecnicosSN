@@ -1,0 +1,64 @@
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.FechaInicio)
+                @Html.HiddenFor(model => model.FechaInicio)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.FechaInicio)
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.Proveedor)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Proveedor.Nombre)
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Comentarios)
+            </p>
+        </div>
+    </div>
+</div>
+<hr />
+<h4>Repuesto</h4>
+<div class="row">
+    <div class="col-md-2">
+        <label>
+            @Html.DisplayNameFor(model => model.Repuesto.Codigo)
+        </label>
+        <p class="form-control-static">
+            @Html.DisplayFor(model => model.Repuesto.Codigo)
+        </p>
+    </div>
+    <div class="col-md-2">
+        <label>
+            @Html.DisplayNameFor(model => model.CantidadRepuesto)
+        </label>
+        <p class="form-control-static">
+            @Html.DisplayFor(model => model.CantidadRepuesto)
+        </p>
+    </div>
+    <div class="col-md-8">
+        <label>
+            @Html.DisplayNameFor(model => model.Repuesto)
+        </label>
+        <p class="form-control-static">
+            @Html.DisplayFor(model => model.Repuesto.Nombre)
+        </p>
+    </div>
+</div>
