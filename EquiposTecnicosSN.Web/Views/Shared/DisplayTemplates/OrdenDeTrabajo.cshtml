@@ -15,13 +15,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>
-                                @Html.DisplayNameFor(model => model.FechaInicio)
-                                @Html.HiddenFor(model => model.FechaInicio)
+                                @Html.DisplayNameFor(model => model.NumeroReferencia)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.FechaInicio)
+                                @Html.DisplayFor(model => model.NumeroReferencia)
                             </p>
                         </div>
+
                         <div class="form-group">
                             <label>
                                 @Html.DisplayNameFor(model => model.Equipo)
@@ -39,38 +39,45 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>
-                                @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                @Html.DisplayNameFor(model => model.FechaInicio)
+                                @Html.HiddenFor(model => model.FechaInicio)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.NumeroReferencia)
+                                @Html.DisplayFor(model => model.FechaInicio)
                             </p>
                         </div>
 
                         <div class="form-group">
-                            <label>
-                                @Html.DisplayNameFor(model => model.Equipo.Ubicacion)
-                            </label>
-                            <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Equipo.Ubicacion.Nombre)
-                            </p>
+                                <label>&nbsp;
+                                    @if (Model.FechaCierre != null)
+                                    {
+                                        @Html.DisplayNameFor(model => model.FechaCierre)
+                                        @Html.HiddenFor(model => model.FechaCierre)
+                                    }   
+                                </label>
+                                <p class="form-control-static">&nbsp;
+                                    @if (Model.FechaCierre != null)
+                                    {
+                                        @Html.DisplayFor(model => model.FechaCierre)
+                                    }
+                                </p>
                         </div>
 
                         <div class="form-group">
-                            <div class="form-group">
-                                <label class="control-label switch-label">Prioridad</label>
-                                <div class="btn-group" data-toggle="buttons">
-                                    <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Prioridad) ? " active" : "")">
-                                        @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
-                                    </label>
-                                    <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Prioridad) ? " active" : "")">
-                                        @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
-                                    </label>
-                                    <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Prioridad) ? " active" : "")">
-                                        @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
-                                    </label>
-                                </div>
+                            <label class="control-label switch-label">Prioridad</label>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Prioridad) ? " active" : "")">
+                                    @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
+                                </label>
+                                <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Prioridad) ? " active" : "")">
+                                    @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
+                                </label>
+                                <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Prioridad) ? " active" : "")">
+                                    @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
+                                </label>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <hr />
@@ -130,6 +137,40 @@
                     </div>
                 }
 
+                @if (Model.Observaciones != null)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Observaciones)
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Observaciones)
+                            </p>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.FechaCierre != null)
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label switch-label">El equipo queda funcionando</label>
+                                @Html.EditorFor(model => model.VerificacionFuncionamiento, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
+                                @Html.EditorFor(model => model.Limpieza, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                }
+
+
             </div>
         </div>
     </div>
@@ -137,86 +178,10 @@
 
 @if (Model.Gastos != null && Model.Gastos.Count != 0)
 {
-
-    <div class="row">
-        <div class="col-md-12">
-            <!-- GASTOS -->
-            <div class="panel panel-default">
-                <div class="panel-heading">Gastos</div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table class="table table-hover table-responsive table-condensed table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Concepto</th>
-                                        <th>Monto ($)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var gasto in Model.Gastos)
-                                    {
-                                        <tr>
-                                            <td>@Html.DisplayFor(item => gasto.Concepto)</td>
-                                            <td>@Html.DisplayFor(item => gasto.Monto)</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_ListGastos", Model.Gastos)
 }
 
-@if (Model.SolicitudesRespuestos != null && Model.SolicitudesRespuestos.Count != 0)
+@if (Model.SolicitudesRespuestos != null && Model.SolicitudesRespuestos.Count > 0)
 {
-    <div class="row">
-        <div class="col-md-12">
-            <!-- REPUESTOS-->
-            <div class="panel panel-default">
-                <div class="panel-heading">Repuestos</div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table class="table table-hover table-responsive table-condensed table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Repuesto</th>
-                                        <th>Proveedor</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.SolicitudesRespuestos != null)
-                                    {
-                                        foreach (var sr in Model.SolicitudesRespuestos)
-                                        {
-                                            <tr>
-                                                <td>@Html.DisplayFor(item => sr.Repuesto.Nombre)</td>
-                                                <td>@Html.DisplayFor(item => sr.Proveedor.Nombre)</td>
-                                                <td>
-                                                    <a class="btn btn-default btn-xs"
-                                                       data-toggle="modal" data-target="#modalSolicitudRepuestoServicioEquipo"
-                                                       data-solicitud-id="@sr.SolicitudRepuestoServicioId"
-                                                       title="Ver Equipo">
-                                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_ListSolicitudes", Model.SolicitudesRespuestos)
 }

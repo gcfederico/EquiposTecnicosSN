@@ -1,4 +1,5 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@model OrdenDeTrabajo
 @{
     ViewBag.Title = "Orden de Trabajo";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,11 +20,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.FechaInicio)
-                                    @Html.HiddenFor(model => model.FechaInicio)
+                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.FechaInicio)
+                                    @Html.DisplayFor(model => model.NumeroReferencia)
                                 </p>
                             </div>
                             <div class="form-group">
@@ -34,25 +34,42 @@
                                     @Html.DisplayFor(model => model.Equipo.NombreCompleto)
                                 </p>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">¿El equipo se encuentra parado?</label>
+                                @Html.EditorFor(model => model.EquipoParado, new { @class = "form-control bootstrap-switch-readonly" })
+                            </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => model.FechaInicio)
+                                    @Html.HiddenFor(model => model.FechaInicio)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.NumeroReferencia)
+                                    @Html.DisplayFor(model => model.FechaInicio)
                                 </p>
                             </div>
 
                             <div class="form-group">
-                                <label>
-                                    @Html.DisplayNameFor(model => model.Equipo.Ubicacion)
-                                </label>
-                                <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Equipo.Ubicacion.Nombre)
-                                </p>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label switch-label">Prioridad</label>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
+                                        </label>
+                                        <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
+                                        </label>
+                                        <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,11 +103,7 @@
                             @Html.ValidationMessageFor(model => model.DetalleReparacion, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- REPUESTOS-->
-                        </div>
-                    </div>
+                    <hr />
                     <div class="row">
                         <div class="col-md-12">
                             @Html.LabelFor(model => model.CausaRaiz, htmlAttributes: new { @class = "control-label" })
@@ -98,17 +111,71 @@
                             @Html.ValidationMessageFor(model => model.CausaRaiz, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.Observaciones, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label switch-label">El equipo queda funcionando</label>
+                                @Html.EditorFor(model => model.VerificacionFuncionamiento, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
+                                @Html.EditorFor(model => model.Limpieza, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    @Html.Partial("_EditGastos", Model.Gastos)
+    @Html.Partial("_ListSolicitudes", Model.SolicitudesRespuestos)
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <input type="submit" value="Cerrar Orden de Trabajo" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#@Html.IdFor(model  => model.EquipoParado)").bootstrapSwitch({
+                onColor: "danger",
+                onText: "Si",
+                offText: "No",
+                disabled: "disabled"
+            });
+
+            $("#@Html.IdFor(model  => model.VerificacionFuncionamiento)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "danger",
+                offText: "No"
+            });
+
+            $("#@Html.IdFor(model  => model.Limpieza)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "primary",
+                offText: "No"
+            });
+        });
+    </script>
+}

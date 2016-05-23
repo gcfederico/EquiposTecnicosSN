@@ -253,9 +253,9 @@
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605182018499_InitialCreate.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605182018499_InitialCreate.Designer.cs">
-      <DependentUpon>201605182018499_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201605222212473_InitialCreate.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201605222212473_InitialCreate.Designer.cs">
+      <DependentUpon>201605222212473_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1192,9 +1192,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
-    <Content Include="Scripts\switch-start.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Scripts\start-home.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1331,6 +1329,8 @@
     <Content Include="Views\Shared\_DetailSolicitudRepuestoServicioModal.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SolicitudRepuestoServicio.cshtml" />
     <Content Include="Views\Shared\_DetailSolicitudRepuestoServicioContent.cshtml" />
+    <Content Include="Views\Shared\_ListSolicitudes.cshtml" />
+    <Content Include="Views\Shared\_ListGastos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1351,8 +1351,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605182018499_InitialCreate.resx">
-      <DependentUpon>201605182018499_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605222212473_InitialCreate.resx">
+      <DependentUpon>201605222212473_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

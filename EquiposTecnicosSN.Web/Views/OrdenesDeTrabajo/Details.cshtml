@@ -15,22 +15,27 @@
     <div class="col-md-12">
         <div class="form-group">
             <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
-            @if (OrdenDeTrabajoEstado.Abierto.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
+
+            <a href="@Url.Action("EditGastos", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar Gastos</a>
+
+            @if (Model.Diagnostico == null)
+            {
+                <a href="@Url.Action("FillDiagnose", new { id = Model.OrdenDeTrabajoId })" class="btn btn-primary"> Diagnosticar Problema</a>
+            }
+
+            @if (Model.Diagnostico != null && 
+                    (OrdenDeTrabajoEstado.Abierto.Equals(Model.Estado) || 
+                    OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado)))
             {
                 <a href="@Url.Action("OrderReplacementService",new { id = Model.OrdenDeTrabajoId })" class="btn btn-info"> Solicitar Repuesto</a>
             }
 
-            <a href="@Url.Action("EditGastos", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar Gastos</a>
 
-
-            @if (Model.Diagnostico == null || Model.Diagnostico.Length == 0)
+            @if (Model.Diagnostico != null && 
+                (Model.DetalleReparacion == null || 
+                Model.DetalleReparacion.Length == 0))
             {
-                <a href="@Url.Action("FillDiagnose", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Diagnosticar</a>
-            }
-
-            @if (Model.DetalleReparacion == null || Model.DetalleReparacion.Length == 0)
-            {
-                <a href="@Url.Action("FillRepair", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Reparar y Cerrar</a>
+                <a href="@Url.Action("FillRepair", new { id = Model.OrdenDeTrabajoId})" class="btn btn-primary">Reparar y Cerrar</a>
             }
 
         </div>
@@ -41,9 +46,26 @@
     <script type="text/javascript">
 
         $(function () {
-            $("#EquipoParado").bootstrapSwitch({
+
+            $("#@Html.IdFor(model  => model.EquipoParado)").bootstrapSwitch({
                 onColor: "danger",
                 onText: "Si",
+                offText: "No",
+                disabled: "disabled"
+            });
+
+            $("#@Html.IdFor(model  => model.VerificacionFuncionamiento)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "danger",
+                offText: "No",
+                disabled: "disabled"
+            });
+
+            $("#@Html.IdFor(model  => model.Limpieza)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offColor: "primary",
                 offText: "No",
                 disabled: "disabled"
             });

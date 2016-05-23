@@ -126,6 +126,9 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         UsuarioReparacionId = c.Int(),
                         FechaCierre = c.DateTime(),
                         UsuarioCierreId = c.Int(),
+                        Observaciones = c.String(),
+                        Limpieza = c.Boolean(nullable: false),
+                        VerificacionFuncionamiento = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: true)
@@ -180,7 +183,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         Costo = c.Decimal(nullable: false, precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.RepuestoId)
-                .ForeignKey("dbo.Proveedores", t => t.ProveedorId, cascadeDelete: true)
+                .ForeignKey("dbo.Proveedores", t => t.ProveedorId, cascadeDelete: false)
                 .Index(t => t.ProveedorId);
             
             CreateTable(

@@ -17,6 +17,20 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
 
+
+        // GET: OrdenesDeTrabajo/OrdenesPorPrioridadCount
+        [HttpPost]
+        public JsonResult OrdenesPorPrioridadCount()
+        {
+            var counts = new {
+                Emergencia = db.OrdenesDeTrabajo.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Emergencia).Count(),
+                Urgente = db.OrdenesDeTrabajo.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Urgencia).Count(),
+                Normal = db.OrdenesDeTrabajo.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Normal).Count()
+            };
+
+            return Json(counts);
+        }
+
         // GET: OrdenesDeTrabajo/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -94,7 +108,9 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> FillDiagnose(OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            if (ordenDeTrabajo.Descripcion == null && ordenDeTrabajo.Gastos == null)
+            if (ordenDeTrabajo.Diagnostico == null && 
+                ordenDeTrabajo.Gastos == null &&
+                gastos == null)
             {
                 return View(ordenDeTrabajo);
             }
@@ -106,7 +122,10 @@ namespace EquiposTecnicosSN.Web.Controllers
             orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
 
             //gastos
-            SaveGastos(gastos, orden.OrdenDeTrabajoId);
+            if (gastos != null)
+            {
+                SaveGastos(gastos, orden.OrdenDeTrabajoId);
+            }
 
             db.Entry(orden).State = EntityState.Modified;
             await db.SaveChangesAsync();
@@ -123,16 +142,52 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> FillRepair(OrdenDeTrabajo ordenDeTrabajo)
+        public async Task<ActionResult> FillRepair(OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            var orden = db.OrdenesDeTrabajo.Find(ordenDeTrabajo.OrdenDeTrabajoId);
-            //falta guardar y cerrar
-            orden.FechaReparacion = DateTime.Now;
-            orden.UsuarioReparacionId = 1; //HARDCODE
+            var orden = await  db.OrdenesDeTrabajo
+                .Include(o => o.SolicitudesRespuestos)
+                .Where(o => o.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId)
+                .SingleOrDefaultAsync();
 
-            db.Entry(orden).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-            return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+            if (orden == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (ordenDeTrabajo.DetalleReparacion != null && 
+                ordenDeTrabajo.CausaRaiz != null)
+            {
+                orden.DetalleReparacion = ordenDeTrabajo.DetalleReparacion;
+                orden.CausaRaiz = ordenDeTrabajo.CausaRaiz;
+                orden.Limpieza = ordenDeTrabajo.Limpieza;
+                orden.VerificacionFuncionamiento = ordenDeTrabajo.VerificacionFuncionamiento;
+                if (ordenDeTrabajo.Observaciones != null)
+                {
+                    orden.Observaciones = ordenDeTrabajo.Observaciones;
+                }
+                orden.Estado = OrdenDeTrabajoEstado.Cerrada;
+                orden.FechaReparacion = DateTime.Now;
+                orden.FechaCierre = DateTime.Now;
+                orden.UsuarioReparacionId = 1; //HARDCODE
+                orden.UsuarioCierreId = 1; //HARDCODE
+
+                //gastos
+                SaveGastos(gastos, orden.OrdenDeTrabajoId);
+
+                //solicitudes
+                foreach(var s in orden.SolicitudesRespuestos)
+                {
+                    s.FechaCierre = DateTime.Now;
+                    db.Entry(s).State = EntityState.Modified;
+                }
+
+                db.Entry(orden).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+
+            }
+
+            return View(ordenDeTrabajo);
         }
 
         // GET: OrdenesDeTrabajo/OrderReplacementService/id
@@ -234,11 +289,14 @@ namespace EquiposTecnicosSN.Web.Controllers
                 }
             }
 
-            var nuevosGastos = gastos.Where(g => g.GastoOrdenDeTrabajoId == 0).ToList();
-            nuevosGastos.ForEach(g => {
-                g.OrdenDeTrabajoId = ordenDeTrabajoId;
-                db.GastosOrdenesDeTrabajo.Add(g);
-            });
+            var nuevosGastos = gastos.Where(g => g.GastoOrdenDeTrabajoId == 0);
+            if (nuevosGastos.Count() > 0)
+            {
+                nuevosGastos.ToList().ForEach(g => {
+                    g.OrdenDeTrabajoId = ordenDeTrabajoId;
+                    db.GastosOrdenesDeTrabajo.Add(g);
+                });
+            }
         }
 
         // GET: OrdenesDeTrabajo/CountOrdenesPrioridad
@@ -330,7 +388,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET: OrdenesDeTrabajo
         public async Task<ActionResult> Index(String prioridad)
         {
-            if (prioridad.Equals(OrdenDeTrabajoPrioridad.Emergencia.DisplayName()))
+            if (prioridad == null)
+            {
+                var ordenesDeTrabajo = db.OrdenesDeTrabajo;
+                return View(await ordenesDeTrabajo.ToListAsync());
+            }
+            else if (prioridad.Equals(OrdenDeTrabajoPrioridad.Emergencia.DisplayName()))
             {
                 var ordenesDeTrabajo = db.OrdenesDeTrabajo.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Emergencia);
                 return View(await ordenesDeTrabajo.ToListAsync());

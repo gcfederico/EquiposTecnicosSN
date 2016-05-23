@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo>
+﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+@model IEnumerable<OrdenDeTrabajo>
 
 @{
     ViewBag.Title = "Ordenes de tabajo";
@@ -12,7 +13,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <table class="table table-hover table-responsive table-condensed table-striped">
+                        <table class="table table-hover table-responsive table-condensed">
                             <tr>
                                 <th>
                                     Nº de Referencia
@@ -31,8 +32,36 @@
 
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td class="center">
+
+                                string cssClass;
+
+                                if (item.Estado != OrdenDeTrabajoEstado.Cerrada)
+                                {
+                                    switch (item.Prioridad)
+                                    {
+                                        case OrdenDeTrabajoPrioridad.Emergencia:
+                                            cssClass = "danger";
+                                            break;
+
+                                        case OrdenDeTrabajoPrioridad.Urgencia:
+                                            cssClass = "warning";
+                                            break;
+
+                                        case OrdenDeTrabajoPrioridad.Normal:
+                                            cssClass = "success";
+                                            break;
+
+                                        default:
+                                            cssClass = "info";
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    cssClass = "info";
+                                }
+                                <tr class="@cssClass">
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.NumeroReferencia)
                                     </td>
                                     <td>

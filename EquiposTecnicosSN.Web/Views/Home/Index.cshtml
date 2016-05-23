@@ -1,10 +1,35 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Inicio";
 }
 
 <div class="row">
+    <div class="col-md-4">
+            
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="EquiposUsuarioCount" class="huge"></div>
+                        <div>Equipos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "EquiposClimatizacion")">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Todos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
     <div class="col-md-4">
         <div class="panel panel-red">
             <div class="panel-heading">
@@ -13,8 +38,33 @@
                         <i class="fa fa-wrench fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">@{ Html.RenderAction("CountOrdenesPrioridad", "OrdenesDeTrabajo", new { prioridad = OrdenDeTrabajoPrioridad.Emergencia.DisplayName() }); }</div>
-                        <div>Ordenes de trabajo urgentes abiertas</div>
+                        <div id="OrdenesEmergenciaCount" class="huge"></div>
+                        <div>ODTs urgentes abiertas</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "OrdenesDeTrabajo")">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Todas</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <!--
+            
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="OrdenesUrgenciaCount"class="huge"></div>
+                        <div>New Orders!</div>
                     </div>
                 </div>
             </div>
@@ -26,11 +76,9 @@
                 </div>
             </a>
         </div>
+        -->
     </div>
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-    </div>
+
 </div>
 <!--
 

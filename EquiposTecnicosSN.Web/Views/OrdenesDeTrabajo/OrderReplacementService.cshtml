@@ -55,11 +55,10 @@
             <div class="form-group">
                 <a href="@Url.Action("Details", new { id = Model.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
                 <input type="submit" value="Guardar" class="btn btn-primary"/>
-                @if (Model.FechaCierre == null)
+                @*if (Model.FechaCierre == null)
                 {
                     <a href="@Url.Action("CloseOrdenDeTrabajo", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Cerrar Solcitud de Repuesto</a>
-                }
-
+                }*@
             </div>
         </div>
     </div>

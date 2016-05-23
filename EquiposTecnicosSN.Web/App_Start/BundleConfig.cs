@@ -14,6 +14,7 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/ddls-info-hardware.js",
                         "~/Scripts/ddl-traslado.js",
                         "~/Scripts/modal-detalle-solicitud.js",
+                        "~/Scripts/start-home.js",
                         "~/Scripts/add-gasto.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(

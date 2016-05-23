@@ -32,11 +32,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.FechaInicio)
-                                    @Html.HiddenFor(model => model.FechaInicio)
+                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.FechaInicio)
+                                    @Html.DisplayFor(model => model.NumeroReferencia)
                                 </p>
                             </div>
                             <div class="form-group">
@@ -56,20 +55,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => model.FechaInicio)
+                                    @Html.HiddenFor(model => model.FechaInicio)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.NumeroReferencia)
+                                    @Html.DisplayFor(model => model.FechaInicio)
                                 </p>
                             </div>
-
                             <div class="form-group">
-                                <label>
-                                    @Html.DisplayNameFor(model => model.Equipo.Ubicacion)
-                                </label>
-                                <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Equipo.Ubicacion.Nombre)
-                                </p>
+
                             </div>
                             <div class="form-group">
                                 <label class="control-label switch-label">Prioridad</label>

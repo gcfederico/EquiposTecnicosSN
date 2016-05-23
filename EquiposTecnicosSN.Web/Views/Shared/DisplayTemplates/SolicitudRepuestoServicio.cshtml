@@ -4,14 +4,11 @@
         <div class="form-group">
             <label>
                 @Html.DisplayNameFor(model => model.FechaInicio)
-                @Html.HiddenFor(model => model.FechaInicio)
             </label>
             <p class="form-control-static">
                 @Html.DisplayFor(model => model.FechaInicio)
             </p>
         </div>
-    </div>
-    <div class="col-md-6">
         <div class="form-group">
             <label>
                 @Html.DisplayNameFor(model => model.Proveedor)
@@ -19,6 +16,20 @@
             <p class="form-control-static">
                 @Html.DisplayFor(model => model.Proveedor.Nombre)
             </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="form-group">
+            @if (Model.FechaCierre != null)
+            {
+                <label>
+                    @Html.DisplayNameFor(model => model.FechaCierre)
+                </label>
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.FechaCierre)
+                </p>
+            }
         </div>
     </div>
 </div>
@@ -32,33 +43,5 @@
                 @Html.DisplayFor(model => model.Comentarios)
             </p>
         </div>
-    </div>
-</div>
-<hr />
-<h4>Repuesto</h4>
-<div class="row">
-    <div class="col-md-2">
-        <label>
-            @Html.DisplayNameFor(model => model.Repuesto.Codigo)
-        </label>
-        <p class="form-control-static">
-            @Html.DisplayFor(model => model.Repuesto.Codigo)
-        </p>
-    </div>
-    <div class="col-md-2">
-        <label>
-            @Html.DisplayNameFor(model => model.CantidadRepuesto)
-        </label>
-        <p class="form-control-static">
-            @Html.DisplayFor(model => model.CantidadRepuesto)
-        </p>
-    </div>
-    <div class="col-md-8">
-        <label>
-            @Html.DisplayNameFor(model => model.Repuesto)
-        </label>
-        <p class="form-control-static">
-            @Html.DisplayFor(model => model.Repuesto.Nombre)
-        </p>
     </div>
 </div>

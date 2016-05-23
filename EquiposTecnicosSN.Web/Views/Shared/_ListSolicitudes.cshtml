@@ -1,0 +1,49 @@
+﻿@model ICollection<EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- REPUESTOS-->
+        <div class="panel panel-default">
+            <div class="panel-heading">Repuestos</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-hover table-responsive table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Cantidad</th>
+                                    <th>Repuesto</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var sr in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(item => sr.Repuesto.Codigo)</td>
+                                            <td>@Html.DisplayFor(item => sr.CantidadRepuesto)</td>
+                                            <td>@Html.DisplayFor(item => sr.Repuesto.Nombre)</td>
+                                            <td>
+                                                <a class="btn btn-default btn-xs"
+                                                   data-toggle="modal" data-target="#modalSolicitudRepuestoServicioEquipo"
+                                                   data-solicitud-id="@sr.SolicitudRepuestoServicioId"
+                                                   title="Ver Equipo">
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

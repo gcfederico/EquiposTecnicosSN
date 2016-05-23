@@ -18,6 +18,7 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
 
+
         // GET: EquiposBase
         public virtual ActionResult Index()
         {
