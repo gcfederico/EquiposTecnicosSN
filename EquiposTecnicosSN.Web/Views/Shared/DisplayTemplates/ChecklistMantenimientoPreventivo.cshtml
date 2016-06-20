@@ -1,16 +1,13 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Mantenimiento
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.ChecklistMantenimientoPreventivo
 
 <div class="panel panel-default">
-    <div class="panel-heading">@ViewBag.Title</div>
+    <div class="panel-heading"><i class="fa fa-list-alt fa-fw"></i> @ViewBag.Title</div>
     <div class="panel-body">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MantenimientoId)
+        @Html.HiddenFor(model => model.ChecklistMantenimientoPreventivoId)
 
         <div class="row">
             <div class="col-md-6">
-
-
-
                 <div class="form-group">
                     <label>
                         @Html.DisplayNameFor(model => model.Equipo)

@@ -14,9 +14,11 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [Key]
         public int GastoOrdenDeTrabajoId { get; set; }
 
-        [ForeignKey("OrdenDeTrabajo")]
         [Required]
         public int OrdenDeTrabajoId { get; set; }
+
+        [ForeignKey("OrdenDeTrabajoId")]
+        public virtual OrdenDeTrabajo OrdenDeTrabajo { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -25,11 +27,9 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [Required]
         public Decimal Monto { get; set; }
 
-        [ForeignKey("SolicitudRepuestoServicio")]
         public int? SolicitudRepuestoServicioId { get; set; }
 
+        [ForeignKey("SolicitudRepuestoServicioId")]
         public virtual SolicitudRepuestoServicio SolicitudRepuestoServicio { get; set; }
-
-        public virtual OrdenDeTrabajo OrdenDeTrabajo { get; set; }
     }
 }

@@ -15,7 +15,9 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/ddl-traslado.js",
                         "~/Scripts/modal-detalle-solicitud.js",
                         "~/Scripts/start-home.js",
-                        "~/Scripts/add-gasto.js"));
+                        "~/Scripts/add-gasto.js",
+                        "~/Scripts/close-solicitud.js",
+                        "~/Scripts/tooltips.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -39,7 +41,8 @@ namespace EquiposTecnicosSN.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/bootstrap-switch.js"));
+                      "~/Scripts/bootstrap-switch.js",
+                      "~/Scripts/bootstrap-filestyle.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/timeline.css",

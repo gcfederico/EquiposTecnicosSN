@@ -1,25 +1,23 @@
-﻿@using EquiposTecnicosSN.Web.CustomExtensions
-@using EquiposTecnicosSN.Entities.Mantenimiento
-@{
+﻿@{
     ViewBag.Title = "Inicio";
 }
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
             
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
+                        <i class="fa fa-medkit fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="EquiposUsuarioCount" class="huge"></div>
+                        <div id="EquiposUsuarioCount" class="big">1</div>
                         <div>Equipos</div>
                     </div>
                 </div>
             </div>
-            <a href="@Url.Action("Index", "EquiposClimatizacion")">
+            <a href="@Url.Action("Index", "EquiposBase")">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Todos</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -30,7 +28,7 @@
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="panel panel-red">
             <div class="panel-heading">
                 <div class="row">
@@ -38,14 +36,14 @@
                         <i class="fa fa-wrench fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="OrdenesEmergenciaCount" class="huge"></div>
-                        <div>ODTs urgentes abiertas</div>
+                        <div id="ODTMantenimientoPreventivoCount" class="big"></div>
+                        <div>Mantenimientos Correctivos</div>
                     </div>
                 </div>
             </div>
-            <a href="@Url.Action("Index", "OrdenesDeTrabajo")">
+            <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Todas</span>
+                    <span class="pull-left">Ver Urgentes</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -53,30 +51,52 @@
         </div>
     </div>
 
-    <div class="col-md-4">
-        <!--
-            
-        <div class="panel panel-yellow">
+    <div class="col-md-3">            
+        <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
+                        <i class="fa fa-calendar fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="OrdenesUrgenciaCount"class="huge"></div>
-                        <div>New Orders!</div>
+                        <div id="ODTMantenimientoPreventivoCount"class="huge"></div>
+                        <div>Mantenimientos Preventivos</div>
                     </div>
                 </div>
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Todas</span>
+                    <span class="pull-left">Ver Próximas</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
             </a>
         </div>
-        -->
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-gears fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="StockRepuestosCount" class="huge"></div>
+                        <div>Repuestos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Críticos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+
     </div>
 
 </div>

@@ -1,12 +1,12 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
-@model OrdenDeTrabajo
+@model OrdenDeTrabajoMantenimientoCorrectivo
 
 <div class="row">
     <div class="col-md-12">
 
         <div class="panel panel-default">
-            <div class="panel-heading">Detalle de Orden de Trabajo Nº @Model.NumeroReferencia - <b>ESTADO: @Model.Estado.DisplayName()</b></div>
+            <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> <b>La orden de trabajo se encuentra <span id="ordenEstado">@Model.Estado.DisplayName()</span></b></div>
             <div class="panel-body">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.OrdenDeTrabajoId)
@@ -27,7 +27,7 @@
                                 @Html.DisplayNameFor(model => model.Equipo)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+                                @Html.ActionLink(Model.Equipo.NombreCompleto, "Details", "EquiposBase", new { id = Model.Equipo.EquipoId }, null)
                             </p>
                         </div>
                         <div class="form-group">

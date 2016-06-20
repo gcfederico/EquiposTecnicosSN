@@ -27,17 +27,21 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Traslado> Traslados { get; set; }
 
         public DbSet<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
+        public DbSet<OrdenDeTrabajoMantenimientoCorrectivo> ODTMantenimientosCorrectivos { get; set; }
+        public DbSet<OrdenDeTrabajoMantenimientoPreventivo> ODTMantenimientosPreventivos { get; set; }
         public DbSet<GastoOrdenDeTrabajo> GastosOrdenesDeTrabajo { get; set; }
-        public DbSet<Umdns> Umdns { get; set; }
-        public DbSet<Repuesto> Repuestos { get; set; }
-        public DbSet<StockRepuesto> StockRepuestos { get; set; }
         public DbSet<SolicitudRepuestoServicio> SolicitudesRepuestosServicios { get; set; }
 
+        public DbSet<Repuesto> Repuestos { get; set; }
+        public DbSet<StockRepuesto> StockRepuestos { get; set; }
+
+        public DbSet<Umdns> Umdns { get; set; }
         public DbSet<Ubicacion> Ubicaciones { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Fabricante> Fabricantes { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
+        public DbSet<ChecklistMantenimientoPreventivo> ChecklistsMantenimientoPreventivo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

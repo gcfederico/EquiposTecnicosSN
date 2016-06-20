@@ -8,58 +8,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
     [Table("OrdenesDeTrabajo")]
-    public class OrdenDeTrabajo
+    public abstract class OrdenDeTrabajo
     {
         [Key]
+        [Required]
         public int OrdenDeTrabajoId { get; set; }
 
         [DisplayName("Nº Referencia")]
+        [Required]
         public string NumeroReferencia { get; set; }
-
-        [ForeignKey("Equipo")]
+        
+        [Required]
         public int EquipoId { get; set; }
 
+        [ForeignKey("EquipoId")]
+        [Column("Equipo")]
         public virtual Equipo Equipo { get; set; }
-
-        public OrdenDeTrabajoPrioridad Prioridad { get; set; }
-
-        public OrdenDeTrabajoEstado Estado { get; set; }
 
         [DisplayName("Fecha de incio")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        [Required]
         public DateTime FechaInicio { get; set; }
 
+        [Required]
         public int UsuarioInicioId { get; set; }
-
-        public bool EquipoParado { get; set; }
 
         public virtual ICollection<GastoOrdenDeTrabajo> Gastos { get; set; }
 
-        [DisplayName("Descripción del problema")]
-        public string Descripcion { get; set; }
-
-        [DisplayName("Diagnóstico")]
-        public string Diagnostico { get; set; }
-
-        [DisplayName("Detalle de la reparación")]
-        public string DetalleReparacion { get; set; }
-
         public virtual ICollection<SolicitudRepuestoServicio> SolicitudesRespuestos { get; set; }
 
-        [DisplayName("Causa raíz")]
-        public string CausaRaiz { get; set; }
-
-        [DisplayName("Fecha de diagnóstico")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
-        public DateTime? FechaDiagnostico { get; set; }
-
-        public int? UsuarioDiagnosticoId { get; set; }
-
-        [DisplayName("Fecha de reparación")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
-        public DateTime? FechaReparacion { get; set; }
-
-        public int? UsuarioReparacionId { get; set; }
+        public string Observaciones { get; set; }
 
         [DisplayName("Fecha de cierre")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
@@ -67,10 +45,8 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         public int? UsuarioCierreId { get; set; }
 
-        public string Observaciones { get; set; }
+        public OrdenDeTrabajoPrioridad Prioridad { get; set; }
 
-        public bool Limpieza { get; set; }
-
-        public bool VerificacionFuncionamiento { get; set; }
+        public OrdenDeTrabajoEstado Estado { get; set; }
     }
 }

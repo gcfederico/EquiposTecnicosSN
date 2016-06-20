@@ -50,12 +50,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateForMantenimiento([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos, int equipoId)
+        public async Task<ActionResult> CreateForMantenimiento([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos, int equipoId)
         {
             if (ModelState.IsValid)
             {
                 ordenDeTrabajo.Gastos = (ICollection<GastoOrdenDeTrabajo>)gastos;
-                db.OrdenesDeTrabajo.Add(ordenDeTrabajo);
+                db.ODTMantenimientosCorrectivos.Add(ordenDeTrabajo);
                 await db.SaveChangesAsync();
                 //return RedirectToAction("IndexForMantenimiento",new { mantenimientoId = ordenDeTrabajo.MantenimientoId, equipoId = equipoId });
                 return View(ordenDeTrabajo);
@@ -99,7 +99,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrdenDeTrabajo ordenDeTrabajo = await db.OrdenesDeTrabajo.FindAsync(id);
+            OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);
             if (ordenDeTrabajo == null)
             {
                 return HttpNotFound();
@@ -112,7 +112,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             //ViewBag.MantenimientoId = new SelectList(db.MantenimientosEquipo, "MantenimientoId", "Descripcion");
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
-            var model = new OrdenDeTrabajo();
+            var model = new OrdenDeTrabajoMantenimientoCorrectivo();
             model.Gastos = new List<GastoOrdenDeTrabajo>();
             return View(model);
         }
@@ -123,12 +123,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<ActionResult> Create(NewOrdenDeTrabajoViewModel newOrdenViewModel)
-        public async Task<ActionResult> Create([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> Create([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
             if (ModelState.IsValid)
             {
                 ordenDeTrabajo.Gastos = (ICollection<GastoOrdenDeTrabajo>) gastos;
-                db.OrdenesDeTrabajo.Add(ordenDeTrabajo);
+                db.ODTMantenimientosCorrectivos.Add(ordenDeTrabajo);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -145,7 +145,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrdenDeTrabajo ordenDeTrabajo = await db.OrdenesDeTrabajo.FindAsync(id);
+            OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);
             if (ordenDeTrabajo == null)
             {
                 return HttpNotFound();
@@ -160,7 +160,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> Edit([Bind(Include = "OrdenDeTrabajoId,MantenimientoId,Diagnostico,Resolucion,ProveedorId")] OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
             if (ModelState.IsValid)
             {
@@ -203,7 +203,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrdenDeTrabajo ordenDeTrabajo = await db.OrdenesDeTrabajo.FindAsync(id);
+            OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);
             if (ordenDeTrabajo == null)
             {
                 return HttpNotFound();
@@ -216,8 +216,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            OrdenDeTrabajo ordenDeTrabajo = await db.OrdenesDeTrabajo.FindAsync(id);
-            db.OrdenesDeTrabajo.Remove(ordenDeTrabajo);
+            OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);
+            db.ODTMantenimientosCorrectivos.Remove(ordenDeTrabajo);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

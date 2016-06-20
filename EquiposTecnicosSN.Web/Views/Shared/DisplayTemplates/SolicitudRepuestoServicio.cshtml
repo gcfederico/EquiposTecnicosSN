@@ -1,6 +1,6 @@
 ﻿@model EquiposTecnicosSN.Entities.Mantenimiento.SolicitudRepuestoServicio
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
         <div class="form-group">
             <label>
                 @Html.DisplayNameFor(model => model.FechaInicio)
@@ -9,38 +9,77 @@
                 @Html.DisplayFor(model => model.FechaInicio)
             </p>
         </div>
-        <div class="form-group">
-            <label>
-                @Html.DisplayNameFor(model => model.Proveedor)
-            </label>
-            <p class="form-control-static">
-                @Html.DisplayFor(model => model.Proveedor.Nombre)
-            </p>
-        </div>
+        @if (Model.Proveedor != null)
+        {
+            <div class="form-group">
+                <label>
+                    @Html.DisplayNameFor(model => model.Proveedor)
+                </label>
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Proveedor.Nombre)
+                </p>
+            </div>
+        }
     </div>
-    <div class="col-md-6">
-
-        <div class="form-group">
-            @if (Model.FechaCierre != null)
-            {
+    @if (Model.FechaCierre != null)
+    {
+        <div class="col-sm-6">
+            <div class="form-group">
                 <label>
                     @Html.DisplayNameFor(model => model.FechaCierre)
                 </label>
                 <p class="form-control-static">
                     @Html.DisplayFor(model => model.FechaCierre)
                 </p>
-            }
+            </div>
+        </div>
+    }
+</div>
+@if (Model.Comentarios != null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>
+                    @Html.DisplayNameFor(model => model.Comentarios)
+                </label>
+                <p class="form-control-static">
+                    @Html.DisplayFor(model => model.Comentarios)
+                </p>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.Repuesto)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Repuesto.Nombre)
+            </p>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-6">
         <div class="form-group">
             <label>
-                @Html.DisplayNameFor(model => model.Comentarios)
+                @Html.DisplayNameFor(model => model.Repuesto.Codigo)
             </label>
             <p class="form-control-static">
-                @Html.DisplayFor(model => model.Comentarios)
+                @Html.DisplayFor(model => model.Repuesto.Codigo)
+            </p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>
+                @Html.DisplayNameFor(model => model.CantidadRepuesto)
+            </label>
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.CantidadRepuesto)
             </p>
         </div>
     </div>

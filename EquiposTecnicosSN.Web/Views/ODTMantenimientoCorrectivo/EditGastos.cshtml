@@ -1,8 +1,9 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo
+﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
 @{
-    ViewBag.Title = "Orden de Trabajo";
+    ViewBag.Title = "Editar Gastos de Orden de Trabajo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -10,7 +11,7 @@
         <div class="col-md-12">
 
             <div class="panel panel-default">
-                <div class="panel-heading">@ViewBag.Title</div>
+                <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> @ViewBag.Title</div>
                 <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.OrdenDeTrabajoId)
@@ -40,12 +41,12 @@
                             <div class="form-group">
                                 <label>
                                     @Html.DisplayNameFor(model => model.FechaInicio)
-                                    @Html.HiddenFor(model => model.FechaInicio)
                                 </label>
                                 <p class="form-control-static">
                                     @Html.DisplayFor(model => model.FechaInicio)
                                 </p>
                             </div>
+                            
 
                             <div class="form-group">
 
@@ -53,6 +54,7 @@
                         </div>
                     </div>
                     <hr />
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <label>
@@ -63,15 +65,50 @@
                             </p>
                         </div>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.LabelFor(model => model.Diagnostico, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.Diagnostico, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Diagnostico, "", new { @class = "text-danger" })
+                    @if (Model.Diagnostico != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.Diagnostico)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.Diagnostico)
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    @if (Model.DetalleReparacion != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.DetalleReparacion)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.DetalleReparacion)
+                                </p>
 
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.CausaRaiz != null)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>
+                                    @Html.DisplayNameFor(model => model.CausaRaiz)
+                                </label>
+                                <p class="form-control-static">
+                                    @Html.DisplayFor(model => model.CausaRaiz)
+                                </p>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -79,48 +116,14 @@
 
     @Html.Partial("_EditGastos", Model.Gastos)
 
-    <!--
-        
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Gastos</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @*Html.ActionLink("Añadir Gasto", "AddGasto", null, new { @id = "addGasto", @class = "btn btn-default" })*@
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Concepto</th>
-                                        <th>Monto</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaGastos">
-                                    @*foreach (var gasto in Model.Gastos) *@
-                                    {
-                                        <tr class="gastoRow">
-                                            @*Html.Partial("_AddGasto", gasto)*@
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
-
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <input type="submit" value="Guardar Gastos" class="btn btn-primary" />
             </div>
         </div>
     </div>
+
 }
 

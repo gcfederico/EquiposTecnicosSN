@@ -1,7 +1,7 @@
 ﻿$(function () {
     $.ajax({
         type: 'POST',
-        url: '/OrdenesDeTrabajo/OrdenesPorPrioridadCount',
+        url: '/ODTMantenimientoCorrectivo/OrdenesPorPrioridadCount',
         dataType: 'json',
         success: function (counts) {
             $("#OrdenesEmergenciaCount").html(counts.Emergencia);            

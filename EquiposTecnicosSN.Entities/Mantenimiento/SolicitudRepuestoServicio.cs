@@ -11,9 +11,9 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [Key]
         public int SolicitudRepuestoServicioId { get; set; }
 
-        [ForeignKey("OrdenDeTrabajo")]
         public int OrdenDeTrabajoId { get; set; }
 
+        [ForeignKey("OrdenDeTrabajoId")]
         public virtual OrdenDeTrabajo OrdenDeTrabajo { get; set; }
 
         [DisplayName("Fecha de inicio")]
@@ -26,17 +26,17 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime? FechaCierre { get; set; }
 
-        [ForeignKey("Proveedor")]
         public int? ProveedorId { get; set; }
 
         [DisplayName("Cantidad")]
         public int CantidadRepuesto { get; set; }
 
+        [ForeignKey("ProveedorId")]
         public virtual Proveedor Proveedor { get; set; }
 
-        [ForeignKey("Repuesto")]
         public int RepuestoId { get; set; }
 
+        [ForeignKey("RepuestoId")]
         public virtual Repuesto Repuesto { get; set; }
 
         public int? UsuarioSolicitudId { get; set; }

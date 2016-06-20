@@ -20,10 +20,10 @@ namespace EquiposTecnicosSN.Web.Services
 
         public List<EquipoClimatizacion> EquiposClimatizacionDeUbicacion(int ubicacionId)
         {
-            var equiposC = equiposDb.EquiposDeClimatizacion.
-                Include(e => e.InformacionComercial).
-                Include(e => e.Ubicacion).
-                Include(e => e.OrdenesDeTrabajo);
+            var equiposC = equiposDb.EquiposDeClimatizacion
+                .Include(e => e.InformacionComercial)
+                .Include(e => e.Ubicacion)
+                .Include(e => e.OrdenesDeTrabajo);
 
             if (ubicacionId != 0)
             {
