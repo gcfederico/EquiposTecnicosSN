@@ -1,6 +1,107 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Inicio";
 }
+
+<div class="row">
+    <div class="col-md-3">
+            
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-medkit fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="EquiposUsuarioCount" class="big">1</div>
+                        <div>Equipos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("Index", "EquiposBase")">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Todos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-wrench fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="ODTMantenimientoPreventivoCount" class="big"></div>
+                        <div>Mantenimientos Correctivos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Urgentes</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-3">            
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-calendar fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="ODTMantenimientoPreventivoCount"class="huge"></div>
+                        <div>Mantenimientos Preventivos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Próximas</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-gears fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div id="StockRepuestosCount" class="huge"></div>
+                        <div>Repuestos</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Críticos</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+<!--
+
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
@@ -29,3 +130,4 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+-->

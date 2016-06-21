@@ -7,6 +7,7 @@ using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
 using EquiposTecnicosSN.Web.Services;
+using System.Diagnostics;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -31,12 +32,15 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
-            if (equipoClimatizacion == null)
+            //EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
+            //equipoClimatizacion.OrdenesDeTrabajo = equipoClimatizacion.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
+            var model = equiposService.GetEquipo((int) id);
+
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(equipoClimatizacion);
+            return View(model);
         }
 
         // GET: EquiposClimatizacion/Create

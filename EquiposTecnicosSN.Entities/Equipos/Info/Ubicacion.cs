@@ -14,7 +14,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public int UbicacionId { get; set; }
 
         [Required]
-        [MaxLength(255)]
+        [StringLength(150)]
         [DisplayName("Nombre")]
         public string Nombre { get; set; }
 

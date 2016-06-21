@@ -44,7 +44,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProveedorId,Nombre")] Proveedor proveedor)
+        public ActionResult Create( Proveedor proveedor)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProveedorId,Nombre")] Proveedor proveedor)
+        public ActionResult Edit( Proveedor proveedor)
         {
             if (ModelState.IsValid)
             {

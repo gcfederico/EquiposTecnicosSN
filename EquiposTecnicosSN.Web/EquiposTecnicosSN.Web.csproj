@@ -48,6 +48,10 @@
       <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
       <Private>True</Private>
@@ -233,6 +237,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChecklistsMantenimientoPreventivoController.cs" />
     <Compile Include="Controllers\EquiposBaseController.cs" />
     <Compile Include="Controllers\EquiposClimatizacionController.cs" />
     <Compile Include="Controllers\FabricantesController.cs" />
@@ -241,19 +246,26 @@
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\InformacionHardwareController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MantenimientosController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
-    <Compile Include="Controllers\OrdenesDeTrabajoController.cs" />
+    <Compile Include="Controllers\ODTController.cs" />
+    <Compile Include="Controllers\ODTMantenimientoCorrectivoController.cs" />
+    <Compile Include="Controllers\ODTMantenimientoPreventivoController.cs" />
+    <Compile Include="Controllers\OrdenesDeTrabajoController_old.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
+    <Compile Include="Controllers\RepuestosController.cs" />
+    <Compile Include="Controllers\SolicitudesRepuestoServicioController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
+    <Compile Include="Controllers\StockRepuestosController.cs" />
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
+    <Compile Include="CustomExtensions\EquiposExtension.cs" />
+    <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605082153479_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201605082153479_CreateInicial.Designer.cs">
-      <DependentUpon>201605082153479_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.Designer.cs">
+      <DependentUpon>201606201628242_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -285,6 +297,8 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\logo-nqn.png" />
@@ -777,6 +791,10 @@
     <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-filestyle.js" />
+    <Content Include="Scripts\bootstrap-filestyle.min.js" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1102,6 +1120,7 @@
     <Content Include="lib\bower_components\raphael\bower.json" />
     <None Include="Properties\PublishProfiles\neuquen.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
+    <Content Include="Scripts\close-solicitud.js" />
     <Content Include="Scripts\date-picker-ready.js" />
     <Content Include="Scripts\ddl-traslado.js" />
     <Content Include="Scripts\ddls-info-hardware.js" />
@@ -1181,10 +1200,13 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\modal-detalle-solicitud.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
+    <Content Include="Scripts\start-home.js" />
+    <Content Include="Scripts\tooltips.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1245,19 +1267,19 @@
     <Content Include="Views\Mantenimientos\Details.cshtml" />
     <Content Include="Views\Mantenimientos\Edit.cshtml" />
     <Content Include="Views\Mantenimientos\Index.cshtml" />
-    <Content Include="Views\Shared\_MantenimientosEquipo.cshtml" />
+    <Content Include="Views\Shared\_OrdenesDeTrabajoEquipo.cshtml" />
     <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Create.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Delete.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Details.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Edit.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\Index.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\IndexForMantenimiento.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Create.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Delete.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Details.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Edit.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\Index.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\IndexForMantenimiento.cshtml" />
     <Content Include="Views\Fabricantes\Create.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
     <Content Include="Views\Fabricantes\Details.cshtml" />
@@ -1279,16 +1301,16 @@
     <Content Include="Views\Shared\EditorTemplates\Equipo.cshtml" />
     <Content Include="Views\Shared\_GastoOrden.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Equipo.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo\CreateForMantenimiento.cshtml" />
+    <Content Include="Views\OrdenesDeTrabajo_old\CreateForMantenimiento.cshtml" />
     <Content Include="Views\InformacionHardware\Create.cshtml" />
     <Content Include="Views\InformacionHardware\Delete.cshtml" />
     <Content Include="Views\InformacionHardware\Details.cshtml" />
     <Content Include="Views\InformacionHardware\Edit.cshtml" />
     <Content Include="Views\InformacionHardware\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionHardware.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajoMantenimientoCorrectivo.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionHardware.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Mantenimiento.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ChecklistMantenimientoPreventivo.cshtml" />
     <Content Include="Views\Traslados\Create.cshtml" />
     <Content Include="Views\Traslados\Delete.cshtml" />
     <Content Include="Views\Traslados\Details.cshtml" />
@@ -1296,13 +1318,52 @@
     <Content Include="Views\Traslados\Index.cshtml" />
     <Content Include="Views\Shared\_TrasladosEquipoModal.cshtml" />
     <Content Include="Views\EquiposBase\ShowTraslados.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Mantenimiento.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ChecklistMantenimientoPreventivo.cshtml" />
     <Content Include="Views\Shared\_OrdenesDeTrabajo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreateUser.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Create.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Delete.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Details.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Edit.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Index.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\CreateForEquipo.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\FillDiagnose.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\Close.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\OrdenDeTrabajoMantenimientoCorrectivo.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\_AddGasto.cshtml" />
+    <Content Include="Views\SolicitudesRepuestoServicio\OrderReplacementService.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SolicitudRepuestoServicio.cshtml" />
+    <Content Include="Views\Repuestos\Create.cshtml" />
+    <Content Include="Views\Repuestos\Delete.cshtml" />
+    <Content Include="Views\Repuestos\Details.cshtml" />
+    <Content Include="Views\Repuestos\Edit.cshtml" />
+    <Content Include="Views\Repuestos\Index.cshtml" />
+    <Content Include="Views\Shared\_EditGastos.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\EditGastos.cshtml" />
+    <Content Include="Views\Shared\_DetailSolicitudRepuestoServicioModal.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SolicitudRepuestoServicio.cshtml" />
+    <Content Include="Views\Shared\_DetailSolicitudRepuestoServicioContent.cshtml" />
+    <Content Include="Views\Shared\_ListSolicitudes.cshtml" />
+    <Content Include="Views\Shared\_ListGastos.cshtml" />
+    <Content Include="Views\StockRepuestos\Index.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\Index.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\Create.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\Edit.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\CreateForEquipo.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\Details.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\OrdenDeTrabajoMantenimientoPreventivo.cshtml" />
+    <Content Include="Views\EquiposBase\Details.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\EditGastos.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\Close.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajoMantenimientoPreventivo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Proveedor.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Proveedor.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Repuesto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
+    <Folder Include="Scripts\custom\" />
+    <Folder Include="Views\ODT\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1318,8 +1379,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201605082153479_CreateInicial.resx">
-      <DependentUpon>201605082153479_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.resx">
+      <DependentUpon>201606201628242_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

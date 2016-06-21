@@ -32,3 +32,66 @@ textarea {
     padding-left: 5px;
     vertical-align: sub;
 }
+
+.switch-label {
+    margin-right: 20px;
+}
+
+
+/* Outline Buttons */
+.btn-success-outline {
+    color: #5cb85c;
+    background-color: transparent;
+    background-image: none;
+    border-color: #5cb85c;
+}
+/* Success */
+.btn-success-outline:hover {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+.btn-success-outline.active {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+/* Warning */
+.btn-warning-outline {
+    color: #f0ad4e;
+    background-color: transparent;
+    background-image: none;
+    border-color: #f0ad4e;
+}
+
+.btn-warning-outline:hover {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+
+.btn-warning-outline.active {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+/* Danger*/
+.btn-danger-outline {
+    color: #d9534f;
+    background-color: transparent;
+    background-image: none;
+    border-color: #d9534f;
+}
+
+.btn-danger-outline:hover {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+.btn-danger-outline.active {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}

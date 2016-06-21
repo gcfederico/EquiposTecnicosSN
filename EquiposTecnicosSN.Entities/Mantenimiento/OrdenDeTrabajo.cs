@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EquiposTecnicosSN.Entities.Equipos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,32 +8,47 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
     [Table("OrdenesDeTrabajo")]
-    public class OrdenDeTrabajo
+    public abstract class OrdenDeTrabajo
     {
         [Key]
+        [Required]
         public int OrdenDeTrabajoId { get; set; }
 
-        [ForeignKey("Mantenimiento")]
-        public int MantenimientoId { get; set; }
+        [DisplayName("Nº Referencia")]
+        [Required]
+        [StringLength(20)]
+        public string NumeroReferencia { get; set; }
+        
+        [Required]
+        public int EquipoId { get; set; }
 
-        public virtual MantenimientoEquipo Mantenimiento { get; set; }
+        [ForeignKey("EquipoId")]
+        [Column("Equipo")]
+        public virtual Equipo Equipo { get; set; }
 
-        [DisplayName("Diagnóstico")]
-        public string Diagnostico { get; set; }
+        [DisplayName("Fecha de incio")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        [Required]
+        public DateTime FechaInicio { get; set; }
 
-        [DisplayName("Resolución")]
-        public string Resolucion { get; set; }
-
-        public int? ProveedorId { get; set; }
-
-        [DisplayName("Fecha de creación")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
-        public DateTime? FechaCreacion { get; set; }
-
-        [DisplayName("Proveedor")]
-        [ForeignKey("ProveedorId")]
-        public virtual Proveedor Proveedor { get; set; }
+        [Required]
+        public int UsuarioInicioId { get; set; }
 
         public virtual ICollection<GastoOrdenDeTrabajo> Gastos { get; set; }
+
+        public virtual ICollection<SolicitudRepuestoServicio> SolicitudesRespuestos { get; set; }
+
+        [StringLength(500)]
+        public string Observaciones { get; set; }
+
+        [DisplayName("Fecha de cierre")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
+        public DateTime? FechaCierre { get; set; }
+
+        public int? UsuarioCierreId { get; set; }
+
+        public OrdenDeTrabajoPrioridad Prioridad { get; set; }
+
+        public OrdenDeTrabajoEstado Estado { get; set; }
     }
 }

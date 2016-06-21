@@ -10,7 +10,7 @@ namespace EquiposTecnicosSN.Web.Models
 
     public class NewOrdenDeTrabajoViewModel
     {
-        public OrdenDeTrabajo NewOrden { get; set; }
+        public OrdenDeTrabajoMantenimientoCorrectivo NewOrden { get; set; }
 
         public ICollection<GastoOrdenDeTrabajo> Gastos { get; set; }
     }

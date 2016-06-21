@@ -15,6 +15,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public int FabricanteId { get; set; }
 
         [Required]
+        [StringLength(150)]
         public string Nombre { get; set; }
 
         public virtual ICollection<Marca> Marcas { get; set; }

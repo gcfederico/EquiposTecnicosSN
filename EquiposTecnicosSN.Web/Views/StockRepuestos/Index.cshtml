@@ -1,0 +1,80 @@
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.StockRepuesto>
+@{
+    ViewBag.Title = "Stock de Repuestos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">@ViewBag.Title</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table id="table-equipos-climatizacion" class="table table-hover table-responsive table-condensed table-striped">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Repuesto.Codigo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Repuesto.Nombre)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CantidadDisponible)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Repuesto.Codigo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Repuesto.Nombre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CantidadDisponible)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Edit", new { id = item.StockRepuestoId })"
+                                               title="Editar Equipo">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </a>
+
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Details", new { id = item.StockRepuestoId })"
+                                               title="Ver Equipo">
+                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                            </a>
+                                            <a class="btn btn-default btn-xs"
+                                               href="@Url.Action("Delete", new { id = item.StockRepuestoId })"
+                                               title="Eliminar Equipo">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

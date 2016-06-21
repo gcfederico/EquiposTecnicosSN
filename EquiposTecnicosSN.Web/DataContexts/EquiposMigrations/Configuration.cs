@@ -26,6 +26,45 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            context.Proveedores.AddOrUpdate(
+                u => u.Nombre,
+                new Proveedor { Nombre = "3M" },
+                new Proveedor { Nombre = "Obras Públicas" }
+                );
+
+            var repuestos = new[]
+            {
+                new Repuesto { Codigo = "0001", Nombre = "Repuestp #1", ProveedorId = 1 },
+                new Repuesto { Codigo = "0002", Nombre = "Repuestp #2", ProveedorId = 1 },
+                new Repuesto { Codigo = "0003", Nombre = "Repuestp #3", ProveedorId = 1 },
+                new Repuesto { Codigo = "0004", Nombre = "Repuestp #4", ProveedorId = 1 },
+                new Repuesto { Codigo = "0005", Nombre = "Repuestp #5", ProveedorId = 1 },
+                new Repuesto { Codigo = "0006", Nombre = "Repuestp #6", ProveedorId = 1 },
+                new Repuesto { Codigo = "0007", Nombre = "Repuestp #7", ProveedorId = 1 },
+                new Repuesto { Codigo = "0008", Nombre = "Repuestp #8", ProveedorId = 1 }
+            };
+
+            context.Repuestos.AddOrUpdate(
+                u => u.Codigo,
+                repuestos
+                );
+
+            var stockRepuestos = new[]
+            {
+                new StockRepuesto {  CantidadDisponible = 5, RepuestoId = 1 },
+                new StockRepuesto {  CantidadDisponible = 10, RepuestoId = 2 },
+                new StockRepuesto {  CantidadDisponible = 15, RepuestoId = 3 },
+                new StockRepuesto {  CantidadDisponible = 1, RepuestoId = 4 },
+                new StockRepuesto {  CantidadDisponible = 0, RepuestoId = 5 },
+                new StockRepuesto {  CantidadDisponible = 2, RepuestoId = 6 },
+                new StockRepuesto {  CantidadDisponible = 500, RepuestoId = 7 },
+                new StockRepuesto {  CantidadDisponible = 0, RepuestoId = 8 }
+            };
+            context.StockRepuestos.AddOrUpdate(
+                sr => sr.RepuestoId,
+                stockRepuestos
+                );
+
 
             var ubicaciones = new[]
             {
@@ -101,12 +140,6 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             context.Fabricantes.AddOrUpdate(f => f.Nombre, fabricanteDemo);
             context.Marcas.AddOrUpdate(f => f.Nombre, marcaDemo);
             context.Modelos.AddOrUpdate(f => f.Nombre, modeloDemo);
-
-            context.Proveedores.AddOrUpdate(
-                u => u.Nombre,
-                new Proveedor { Nombre = "3M" },
-                new Proveedor { Nombre = "Obras Públicas" }
-                );
 
             var ejemplosUMDNS = new[]
            {

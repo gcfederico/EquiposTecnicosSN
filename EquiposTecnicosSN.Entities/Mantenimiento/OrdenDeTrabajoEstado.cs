@@ -2,12 +2,12 @@
 
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
-    public enum MantenimientoEstado
+    public enum OrdenDeTrabajoEstado
     {
-        Abierto = 1,
-        Cerrado = 2,
-        Cancelado = 3,
+        Abierta = 0,
         [Display(Name ="A la espera de repuestos")]
-        EsperaRepuesto = 4
+        EsperaRepuesto = 1,
+        Cerrada = 2,
+        Cancelada = 3
     }
 }

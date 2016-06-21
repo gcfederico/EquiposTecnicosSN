@@ -1,0 +1,29 @@
+﻿@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.GastoOrdenDeTrabajo>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Gastos</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ActionLink("Añadir Gasto", "AddGasto", null, new { @id = "addGasto", @class = "btn btn-default" })
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Monto</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaGastos">
+                        @foreach (var gasto in Model)
+                        {
+                            <tr class="gastoRow">
+                                @Html.Partial("_AddGastoToOrden", gasto)
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

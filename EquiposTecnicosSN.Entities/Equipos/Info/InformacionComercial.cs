@@ -21,10 +21,10 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public DateTime? FechaCompra { get; set; }
 
         [DisplayName("Precio de compra")]
-        public int? PrecioCompra { get; set; }
+        public Decimal PrecioCompra { get; set; }
 
         [DisplayName("Valor restante")]
-        public int? ValorRestante { get; set; }
+        public Decimal ValorRestante { get; set; }
 
         [DisplayName("Garantía/Contrato")]
         public GarantiaContrato? EsGrantiaContrato { get;set; }
@@ -34,6 +34,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public DateTime? FechaFinGarantia { get; set; }
 
         [DisplayName("Notas de garantía")]
+        [StringLength(150)]
         public string NotasGarantia { get; set; }
 
         public int? ProveedorId { get; set; }
