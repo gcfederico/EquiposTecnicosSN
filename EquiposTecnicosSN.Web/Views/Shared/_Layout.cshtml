@@ -53,19 +53,17 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Ordenes de Trabajo</a>
-                            </li>
-                            <li>
-                                <a href=@Url.Action("Index", "Traslados")><i class="fa fa-truck fa-fw"></i> Traslados</a>
-                            </li>
-                            <li>
-                                <a href=@Url.Action("Index", "StockRepuestos")><i class="fa fa-archive fa-fw"></i> Stock de Repuestos</a>
-                            </li>
-                            <li>
-                                <a href=@Url.Action("Index", "Repuestos")><i class="fa fa-gears fa-fw"></i> Repuestos</a>
-                            </li>
 
+                            <li>
+                                <a href="#"><i class="fa fa-gears fa-fw"></i> Repuestos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Stock", "Index", "StockRepuestos")</li>
+                                    <li>@Html.ActionLink("Listado", "Index", "Repuestos")</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href=@Url.Action("Index", "Proveedores")><i class="fa fa-truck fa-fw"></i> Provedores</a>
+                            </li>
                             @if (User.IsInRole("admin"))
                             {
                                 <li>
@@ -78,7 +76,6 @@
                                     <a href="#"><i class="fa fa-gear fa-fw"></i> Administración<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>@Html.ActionLink("Checklists MP", "Index", "ChecklistsMantenimientoPreventivo")</li>
-                                        <li>@Html.ActionLink("Proveedores", "Index", "Proveedores")</li>
                                         <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
                                         <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>
                                         <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>

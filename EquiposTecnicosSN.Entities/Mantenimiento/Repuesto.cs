@@ -14,6 +14,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayName("Código")]
         public string Codigo { get; set; }
 
+        [StringLength(255)]
         public string Nombre { get; set; }
 
         [ForeignKey("Proveedor")]

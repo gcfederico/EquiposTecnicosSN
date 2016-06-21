@@ -54,10 +54,10 @@
                 codigo: $("#Repuesto_Codigo").val(),
                 cantidad: $("#CantidadRepuesto").val()
             },
-            success: function (hayStock) {
+            success: function (response) {
 
                 var color, mensaje;
-                if (hayStock) {
+                if (response.hayStock) {
                     color = "success";
                     mensaje = "Hay en stock";
                 } else {
@@ -70,6 +70,8 @@
                                 '</div>';
 
                 $("#NotificacionStock").empty().append(alertHTML);
+
+                $("#ProveedorId").val(response.proveedorId);
 
             },
             error: function (ex) {

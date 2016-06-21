@@ -1,4 +1,5 @@
-﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Mantenimiento
 @model OrdenDeTrabajoMantenimientoCorrectivo
 
 @{
@@ -14,7 +15,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+            <a href="@Url.Action("Details", Model.Equipo.WebController() ,new { id = Model.Equipo.EquipoId })" class="btn btn-default"> Volver</a>
 
             @if (OrdenDeTrabajoEstado.Abierta.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
             {

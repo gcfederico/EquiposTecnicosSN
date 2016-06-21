@@ -7,8 +7,8 @@
             <input class="form-control text-box single-line"
                    data-autocomplete-codigo-repuesto="@Url.Action("AutocompleteCodigoRepuesto", "Repuestos")"
                    data-val="true"
-                   data-val-maxlength="The field Nombre completo must be a string or array type with a maximum length of '255'."
-                   data-val-maxlength-max="255" data-val-required="The Nombre completo field is required."
+                   data-val-maxlength="El campo Nombre completo debe tener menos de 50 caracteres."
+                   data-val-maxlength-max="50"
                    id="@Html.IdFor(model => model.Repuesto.Codigo)"
                    name="@Html.NameFor(model => model.Repuesto.Codigo)" type="text" value="@Model.Repuesto.Codigo">
 

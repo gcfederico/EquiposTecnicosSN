@@ -21,7 +21,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public virtual OrdenDeTrabajo OrdenDeTrabajo { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(100)]
         public string Concepto { get; set; }
 
         [Required]

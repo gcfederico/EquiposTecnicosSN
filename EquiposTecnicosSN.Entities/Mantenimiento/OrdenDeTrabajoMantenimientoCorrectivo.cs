@@ -12,15 +12,19 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         
         [DisplayName("Descripción del problema")]
         [Required]
+        [StringLength(500)]
         public string Descripcion { get; set; }
 
         [DisplayName("Diagnóstico")]
+        [StringLength(500)]
         public string Diagnostico { get; set; }
 
         [DisplayName("Detalle de la reparación")]
+        [StringLength(500)]
         public string DetalleReparacion { get; set; }
 
         [DisplayName("Causa raíz")]
+        [StringLength(500)]
         public string CausaRaiz { get; set; }
 
         [DisplayName("Fecha de diagnóstico")]

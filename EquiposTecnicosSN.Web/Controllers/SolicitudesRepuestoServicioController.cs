@@ -1,4 +1,5 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
+using EquiposTecnicosSN.Web.CustomExtensions;
 using EquiposTecnicosSN.Web.DataContexts;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                     db.Entry(orden).State = EntityState.Modified;
 
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Details", new { id = solicitud.OrdenDeTrabajoId });
+                    return RedirectToAction("Details", orden.WebController() ,new { id = solicitud.OrdenDeTrabajoId });
                 }
             }
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", solicitud.ProveedorId);

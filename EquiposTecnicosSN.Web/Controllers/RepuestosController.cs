@@ -19,19 +19,16 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET
         public async Task<JsonResult> CheckStockRepuesto(string codigo, int cantidad)
         {
-            Boolean hayStock = false;
             var stock = await db.StockRepuestos.Where(s => s.Repuesto.Codigo == codigo).SingleOrDefaultAsync();
 
-            if (stock != null && stock.CantidadDisponible >= cantidad)
-            {
-                hayStock = true;
-            }
+            var response = new {
+                hayStock = stock != null && stock.CantidadDisponible >= cantidad,
+                proveedorId = stock.Repuesto.ProveedorId
+            };
 
-            return Json(hayStock, JsonRequestBehavior.AllowGet);
+            return Json(response, JsonRequestBehavior.AllowGet);
 
         }
-
-
 
 
         // GET

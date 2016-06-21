@@ -11,6 +11,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public int MarcaId { get; set; }
 
         [Required]
+        [StringLength(150)]
         public string Nombre { get; set; }
 
         public int? FabricanteId { get; set; }

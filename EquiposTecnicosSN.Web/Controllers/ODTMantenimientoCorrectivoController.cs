@@ -69,7 +69,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: OrdenesDeTrabajo/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateForEquipo(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo, string action)
+        public async Task<ActionResult> CreateForEquipo(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo)
         {
             if (ModelState.IsValid)
             {
@@ -78,14 +78,16 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.ODTMantenimientosCorrectivos.Add(ordenDeTrabajo);
                 await db.SaveChangesAsync();
 
-                if (action.Equals("Guardar"))
+                return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+
+                /*if (action.Equals("Guardar"))
                 {
                     return RedirectToAction("Details", "EquiposClimatizacion", new { id = ordenDeTrabajo.EquipoId });
                 }
                 else
                 {
                     return RedirectToAction("FillDiagnose", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
-                }
+                }*/
             }
 
             return View(ordenDeTrabajo);

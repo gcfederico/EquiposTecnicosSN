@@ -16,6 +16,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         [DisplayName("Nº Referencia")]
         [Required]
+        [StringLength(20)]
         public string NumeroReferencia { get; set; }
         
         [Required]
@@ -37,6 +38,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         public virtual ICollection<SolicitudRepuestoServicio> SolicitudesRespuestos { get; set; }
 
+        [StringLength(500)]
         public string Observaciones { get; set; }
 
         [DisplayName("Fecha de cierre")]

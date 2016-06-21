@@ -1,27 +1,18 @@
 ﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Proveedor
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle de Proveedor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Proveedor</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
+@Html.DisplayFor(model => model)
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProveedorId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

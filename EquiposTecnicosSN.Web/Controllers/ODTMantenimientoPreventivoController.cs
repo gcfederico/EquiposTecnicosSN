@@ -41,7 +41,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: ODTMantenimientoPreventivoController/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateForEquipo([Bind(Include = "OrdenDeTrabajoId,EquipoId,Estado,NumeroReferencia,ChecklistId,FechaInicio,Prioridad,Observaciones")]OrdenDeTrabajoMantenimientoPreventivo ordenDeTrabajo)
+        public async Task<ActionResult> CreateForEquipo(OrdenDeTrabajoMantenimientoPreventivo ordenDeTrabajo)
         {
             if (ordenDeTrabajo.ChecklistId != 0)
             {
@@ -53,7 +53,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.ODTMantenimientosPreventivos.Add(ordenDeTrabajo);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("Details", "EquiposClimatizacion", new { id = ordenDeTrabajo.EquipoId });
+                return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
             }
 
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre", ordenDeTrabajo.ChecklistId);

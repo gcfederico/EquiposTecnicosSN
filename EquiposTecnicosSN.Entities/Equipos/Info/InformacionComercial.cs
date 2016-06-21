@@ -34,6 +34,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public DateTime? FechaFinGarantia { get; set; }
 
         [DisplayName("Notas de garantía")]
+        [StringLength(150)]
         public string NotasGarantia { get; set; }
 
         public int? ProveedorId { get; set; }

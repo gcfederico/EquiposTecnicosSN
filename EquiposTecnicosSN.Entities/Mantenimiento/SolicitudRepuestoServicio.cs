@@ -20,6 +20,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime FechaInicio { get; set; }
 
+        [StringLength(500)]
         public string Comentarios { get; set; }
 
         [DisplayName("Fecha de cierre")]

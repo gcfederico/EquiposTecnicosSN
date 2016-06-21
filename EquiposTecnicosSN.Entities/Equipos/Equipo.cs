@@ -16,12 +16,12 @@ namespace EquiposTecnicosSN.Entities.Equipos
         public int EquipoId { get; set; }
 
         [Required]
-        [MaxLength(255)]
+        [StringLength(255)]
         [DisplayName("Nombre completo")]
         public string NombreCompleto { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [StringLength(50)]
         public string UMDNS { get; set; }
 
         [DisplayName("Nº de matrícula")]

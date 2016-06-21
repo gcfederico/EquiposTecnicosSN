@@ -260,10 +260,12 @@
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
+    <Compile Include="CustomExtensions\EquiposExtension.cs" />
+    <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201606162301448_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201606162301448_CreateInicial.Designer.cs">
-      <DependentUpon>201606162301448_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.Designer.cs">
+      <DependentUpon>201606201628242_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1352,13 +1354,15 @@
     <Content Include="Views\Shared\DisplayTemplates\OrdenDeTrabajoMantenimientoPreventivo.cshtml" />
     <Content Include="Views\EquiposBase\Details.cshtml" />
     <Content Include="Views\ODTMantenimientoPreventivo\EditGastos.cshtml" />
-    <Content Include="Views\Shared\_AddGasto.cshtml" />
     <Content Include="Views\ODTMantenimientoPreventivo\Close.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajoMantenimientoPreventivo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Proveedor.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Proveedor.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Repuesto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
+    <Folder Include="Scripts\custom\" />
     <Folder Include="Views\ODT\" />
   </ItemGroup>
   <ItemGroup>
@@ -1375,8 +1379,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201606162301448_CreateInicial.resx">
-      <DependentUpon>201606162301448_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.resx">
+      <DependentUpon>201606201628242_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>
