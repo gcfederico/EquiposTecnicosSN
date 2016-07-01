@@ -32,6 +32,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             var model = new SolicitudRepuestoServicio
             {
                 OrdenDeTrabajoId = id,
+                OrdenDeTrabajo = odt,
                 FechaInicio = DateTime.Now,
                 Repuesto = new Repuesto(),
             };

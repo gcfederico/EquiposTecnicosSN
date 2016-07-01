@@ -25,6 +25,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public string Concepto { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:#.##}", ApplyFormatInEditMode = true)]
         public Decimal Monto { get; set; }
 
         public int? SolicitudRepuestoServicioId { get; set; }

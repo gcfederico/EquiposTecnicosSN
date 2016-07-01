@@ -1,4 +1,5 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
 @{
     ViewBag.Title = "Editar Gastos de Orden de Trabajo";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -119,7 +120,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <a href="@Url.Action("Details", Model.WebController(), new { id = Model.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
                 <input type="submit" value="Guardar Gastos" class="btn btn-primary" />
             </div>
         </div>

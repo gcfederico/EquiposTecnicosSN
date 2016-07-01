@@ -1,4 +1,5 @@
-﻿@using EquiposTecnicosSN.Entities.Mantenimiento
+﻿@using EquiposTecnicosSN.Web.CustomExtensions
+@using EquiposTecnicosSN.Entities.Mantenimiento
 @model OrdenDeTrabajoMantenimientoCorrectivo
 @{
     ViewBag.Title = "Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Correctivo";
@@ -113,14 +114,6 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-md-12">
-                            @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.Observaciones, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label switch-label">El equipo queda funcionando</label>
@@ -154,7 +147,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <a href="@Url.Action("Details", Model.WebController(), new { id = Model.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
                 <input type="submit" value="Cerrar Orden de Trabajo" class="btn btn-primary" />
             </div>
         </div>

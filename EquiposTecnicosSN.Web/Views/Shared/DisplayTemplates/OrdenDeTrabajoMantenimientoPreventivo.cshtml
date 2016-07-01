@@ -105,6 +105,18 @@
                         </div>
                     </div>
                 }
+                @if (OrdenDeTrabajoEstado.Cerrada.Equals(Model.Estado))
+                {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label switch-label">Checklist Completo</label>
+                                @Html.EditorFor(model => model.ChecklistCompleto, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

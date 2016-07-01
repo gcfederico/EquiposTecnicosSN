@@ -51,7 +51,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
 
             var nuevosGastos = gastos.Where(g => g.GastoOrdenDeTrabajoId == 0);
-            if (nuevosGastos.Count() > 0)
+            if (nuevosGastos!= null && nuevosGastos.Count() > 0)
             {
                 nuevosGastos.ToList().ForEach(g => {
                     g.OrdenDeTrabajoId = ordenDeTrabajoId;

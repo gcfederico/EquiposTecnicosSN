@@ -115,35 +115,39 @@ namespace EquiposTecnicosSN.Web.Controllers
             try
             {
 
-            OrdenDeTrabajoMantenimientoPreventivo orden = await db.ODTMantenimientosPreventivos
-                .Include(o => o.SolicitudesRespuestos)
-                .Where(o => o.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId)
-                .SingleOrDefaultAsync();
+                OrdenDeTrabajoMantenimientoPreventivo orden = await db.ODTMantenimientosPreventivos
+                    .Include(o => o.SolicitudesRespuestos)
+                    .Where(o => o.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId)
+                    .SingleOrDefaultAsync();
 
-            if (orden == null)
-            {
-                return HttpNotFound();
+                if (orden == null)
+                {
+                    return HttpNotFound();
+                }
+
+                if (ordenDeTrabajo.Observaciones != null)
+                {
+                    orden.Observaciones = ordenDeTrabajo.Observaciones;
+                }
+                orden.ChecklistCompleto = ordenDeTrabajo.ChecklistCompleto;
+                orden.Estado = OrdenDeTrabajoEstado.Cerrada;
+                orden.FechaCierre = DateTime.Now;
+                orden.UsuarioCierreId = 1; //HARDCODE
+
+                //gastos
+                if (gastos != null && gastos.Count() > 0)
+                {
+                    SaveGastos(gastos, orden.OrdenDeTrabajoId);
+                }
+
+                //solicitudes
+                CloseSolicitudesRepuestos(orden);
+
+                db.Entry(orden).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+
             }
-
-            if (ordenDeTrabajo.Observaciones != null)
-            {
-                orden.Observaciones = ordenDeTrabajo.Observaciones;
-            }
-            orden.Estado = OrdenDeTrabajoEstado.Cerrada;
-            orden.FechaCierre = DateTime.Now;
-            orden.UsuarioCierreId = 1; //HARDCODE
-
-            //gastos
-            SaveGastos(gastos, orden.OrdenDeTrabajoId);
-
-            //solicitudes
-            CloseSolicitudesRepuestos(orden);
-
-            db.Entry(orden).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-
-
-            } 
             catch (DbEntityValidationException e)
             {
                 Debug.WriteLine(e.Data);

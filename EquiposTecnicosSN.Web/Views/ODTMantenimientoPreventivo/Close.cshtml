@@ -111,6 +111,15 @@
                             @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label switch-label">Checklist Completo</label>
+                                @Html.EditorFor(model => model.ChecklistCompleto, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,6 +144,20 @@
 @Html.Partial("_DetailSolicitudRepuestoServicioModal")
 
 
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#@Html.IdFor(model  => model.ChecklistCompleto)").bootstrapSwitch({
+                onColor: "success",
+                onText: "Si",
+                offText: "No",
+                offColor: "danger"
+            });
+        });
+    </script>
+}
 
 
 

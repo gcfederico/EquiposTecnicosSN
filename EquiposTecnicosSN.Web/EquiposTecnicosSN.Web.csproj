@@ -263,9 +263,9 @@
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.Designer.cs">
-      <DependentUpon>201606201628242_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201607011951029_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201607011951029_CreateInicial.Designer.cs">
+      <DependentUpon>201607011951029_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1379,8 +1379,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201606201628242_CreateInicial.resx">
-      <DependentUpon>201606201628242_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201607011951029_CreateInicial.resx">
+      <DependentUpon>201607011951029_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

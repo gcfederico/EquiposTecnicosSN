@@ -20,5 +20,9 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         [Required]
         public int UsuarioCreacionId { get; set; }
+
+        [DisplayName("Checklist Completo")]
+        public bool ChecklistCompleto { get; set; }
+
     }
 }

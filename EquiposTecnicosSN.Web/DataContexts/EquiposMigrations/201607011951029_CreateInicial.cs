@@ -31,7 +31,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         Estado = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.EquipoId)
-                .ForeignKey("dbo.Ubicaciones", t => t.UbicacionId, cascadeDelete: false)
+                .ForeignKey("dbo.Ubicaciones", t => t.UbicacionId, cascadeDelete: true)
                 .Index(t => t.UbicacionId);
             
             CreateTable(
@@ -81,9 +81,9 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                     })
                 .PrimaryKey(t => t.EquipoId)
                 .ForeignKey("dbo.Equipos", t => t.EquipoId)
-                .ForeignKey("dbo.Fabricantes", t => t.FabricanteId, cascadeDelete: false)
-                .ForeignKey("dbo.Marcas", t => t.MarcaId, cascadeDelete: false)
-                .ForeignKey("dbo.Modelos", t => t.ModeloId, cascadeDelete: false)
+                .ForeignKey("dbo.Fabricantes", t => t.FabricanteId, cascadeDelete: true)
+                .ForeignKey("dbo.Marcas", t => t.MarcaId, cascadeDelete: true)
+                .ForeignKey("dbo.Modelos", t => t.ModeloId, cascadeDelete: true)
                 .Index(t => t.EquipoId)
                 .Index(t => t.FabricanteId)
                 .Index(t => t.MarcaId)
@@ -293,6 +293,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         ChecklistId = c.Int(nullable: false),
                         fechaCreacion = c.DateTime(nullable: false),
                         UsuarioCreacionId = c.Int(nullable: false),
+                        ChecklistCompleto = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId)

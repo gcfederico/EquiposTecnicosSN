@@ -38,7 +38,7 @@
             (Model.DetalleReparacion == null ||
             Model.DetalleReparacion.Length == 0))
                 {
-                    <a href="@Url.Action("FillRepair", new { id = Model.OrdenDeTrabajoId})" class="btn btn-primary">Reparar y Cerrar</a>
+                    <a href="@Url.Action("Close", new { id = Model.OrdenDeTrabajoId})" class="btn btn-primary">Reparar y Cerrar</a>
                 }
             }
 
