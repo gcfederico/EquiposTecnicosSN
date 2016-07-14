@@ -12,16 +12,18 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public int RepuestoId { get; set; }
 
         [DisplayName("Código")]
+        [Required]
         public string Codigo { get; set; }
 
         [StringLength(255)]
+        [Required]
         public string Nombre { get; set; }
 
         [ForeignKey("Proveedor")]
-        public int ProveedorId { get; set; }
+        public int? ProveedorId { get; set; }
 
         public virtual Proveedor Proveedor { get; set; }
 
-        public Decimal Costo { get; set; }
+        public Decimal? Costo { get; set; }
     }
 }

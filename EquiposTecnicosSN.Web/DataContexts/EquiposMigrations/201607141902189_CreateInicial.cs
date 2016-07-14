@@ -55,21 +55,6 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 .Index(t => t.ProveedorId);
             
             CreateTable(
-                "dbo.Proveedores",
-                c => new
-                    {
-                        ProveedorId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false, maxLength: 50),
-                        Tipo = c.Int(nullable: false),
-                        Direccion = c.String(maxLength: 255),
-                        Telefono = c.String(maxLength: 50),
-                        Website = c.String(maxLength: 255),
-                        Email = c.String(maxLength: 50),
-                        Servicios = c.String(maxLength: 255),
-                    })
-                .PrimaryKey(t => t.ProveedorId);
-            
-            CreateTable(
                 "dbo.InformacionHardware",
                 c => new
                     {
@@ -180,17 +165,32 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 .Index(t => t.RepuestoId);
             
             CreateTable(
+                "dbo.Proveedores",
+                c => new
+                    {
+                        ProveedorId = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false, maxLength: 50),
+                        Tipo = c.Int(nullable: false),
+                        Direccion = c.String(maxLength: 255),
+                        Telefono = c.String(maxLength: 50),
+                        Website = c.String(maxLength: 255),
+                        Email = c.String(maxLength: 50),
+                        Servicios = c.String(maxLength: 255),
+                    })
+                .PrimaryKey(t => t.ProveedorId);
+            
+            CreateTable(
                 "dbo.Repuestos",
                 c => new
                     {
                         RepuestoId = c.Int(nullable: false, identity: true),
-                        Codigo = c.String(),
-                        Nombre = c.String(maxLength: 255),
-                        ProveedorId = c.Int(nullable: false),
-                        Costo = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Codigo = c.String(nullable: false),
+                        Nombre = c.String(nullable: false, maxLength: 255),
+                        ProveedorId = c.Int(),
+                        Costo = c.Decimal(precision: 18, scale: 2),
                     })
                 .PrimaryKey(t => t.RepuestoId)
-                .ForeignKey("dbo.Proveedores", t => t.ProveedorId, cascadeDelete: true)
+                .ForeignKey("dbo.Proveedores", t => t.ProveedorId)
                 .Index(t => t.ProveedorId);
             
             CreateTable(
@@ -255,7 +255,137 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 .PrimaryKey(t => t.UmdnsId);
             
             CreateTable(
+                "dbo.EquipamientosEdilicios",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposCirugia",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
                 "dbo.EquiposClimatizacion",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposEndoscopia",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposGasesMedicinales",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposImagenes",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposInformatica",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposLuces",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposMonitoreo",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposOdontologia",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposPruebasDeDiagnostico",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposSoporteDeVida",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposTerapeutica",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.EquiposOtros",
                 c => new
                     {
                         EquipoId = c.Int(nullable: false),
@@ -301,16 +431,42 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 .Index(t => t.OrdenDeTrabajoId)
                 .Index(t => t.ChecklistId);
             
+            CreateTable(
+                "dbo.EquiposRehabilitacion",
+                c => new
+                    {
+                        EquipoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.EquipoId)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId)
+                .Index(t => t.EquipoId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.EquiposRehabilitacion", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.OrdenesDeTrabajoMantenimientoPreventivo", "ChecklistId", "dbo.ChecklistsMantenimientoPreventivo");
             DropForeignKey("dbo.OrdenesDeTrabajoMantenimientoPreventivo", "OrdenDeTrabajoId", "dbo.OrdenesDeTrabajo");
             DropForeignKey("dbo.OrdenesDeTrabajoMantenimientoCorrectivo", "OrdenDeTrabajoId", "dbo.OrdenesDeTrabajo");
+            DropForeignKey("dbo.EquiposOtros", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposTerapeutica", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposSoporteDeVida", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposPruebasDeDiagnostico", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposOdontologia", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposMonitoreo", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposLuces", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposInformatica", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposImagenes", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposGasesMedicinales", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposEndoscopia", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.EquiposClimatizacion", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquiposCirugia", "EquipoId", "dbo.Equipos");
+            DropForeignKey("dbo.EquipamientosEdilicios", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.StockRepuestos", "RepuestoId", "dbo.Repuestos");
             DropForeignKey("dbo.SolicitudesUsuario", "UbicacionId", "dbo.Ubicaciones");
+            DropForeignKey("dbo.InformacionComercial", "ProveedorId", "dbo.Proveedores");
+            DropForeignKey("dbo.InformacionComercial", "EquipoId", "dbo.Equipos");
             DropForeignKey("dbo.Traslados", "UbicacionOrigenId", "dbo.Ubicaciones");
             DropForeignKey("dbo.Traslados", "UbicacionDestinoId", "dbo.Ubicaciones");
             DropForeignKey("dbo.Equipos", "UbicacionId", "dbo.Ubicaciones");
@@ -328,12 +484,24 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             DropForeignKey("dbo.Modelos", "MarcaId", "dbo.Marcas");
             DropForeignKey("dbo.Marcas", "FabricanteId", "dbo.Fabricantes");
             DropForeignKey("dbo.InformacionHardware", "EquipoId", "dbo.Equipos");
-            DropForeignKey("dbo.InformacionComercial", "ProveedorId", "dbo.Proveedores");
-            DropForeignKey("dbo.InformacionComercial", "EquipoId", "dbo.Equipos");
+            DropIndex("dbo.EquiposRehabilitacion", new[] { "EquipoId" });
             DropIndex("dbo.OrdenesDeTrabajoMantenimientoPreventivo", new[] { "ChecklistId" });
             DropIndex("dbo.OrdenesDeTrabajoMantenimientoPreventivo", new[] { "OrdenDeTrabajoId" });
             DropIndex("dbo.OrdenesDeTrabajoMantenimientoCorrectivo", new[] { "OrdenDeTrabajoId" });
+            DropIndex("dbo.EquiposOtros", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposTerapeutica", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposSoporteDeVida", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposPruebasDeDiagnostico", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposOdontologia", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposMonitoreo", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposLuces", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposInformatica", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposImagenes", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposGasesMedicinales", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposEndoscopia", new[] { "EquipoId" });
             DropIndex("dbo.EquiposClimatizacion", new[] { "EquipoId" });
+            DropIndex("dbo.EquiposCirugia", new[] { "EquipoId" });
+            DropIndex("dbo.EquipamientosEdilicios", new[] { "EquipoId" });
             DropIndex("dbo.StockRepuestos", new[] { "RepuestoId" });
             DropIndex("dbo.SolicitudesUsuario", new[] { "UbicacionId" });
             DropIndex("dbo.Traslados", new[] { "UbicacionDestinoId" });
@@ -355,15 +523,30 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             DropIndex("dbo.InformacionComercial", new[] { "ProveedorId" });
             DropIndex("dbo.InformacionComercial", new[] { "EquipoId" });
             DropIndex("dbo.Equipos", new[] { "UbicacionId" });
+            DropTable("dbo.EquiposRehabilitacion");
             DropTable("dbo.OrdenesDeTrabajoMantenimientoPreventivo");
             DropTable("dbo.OrdenesDeTrabajoMantenimientoCorrectivo");
+            DropTable("dbo.EquiposOtros");
+            DropTable("dbo.EquiposTerapeutica");
+            DropTable("dbo.EquiposSoporteDeVida");
+            DropTable("dbo.EquiposPruebasDeDiagnostico");
+            DropTable("dbo.EquiposOdontologia");
+            DropTable("dbo.EquiposMonitoreo");
+            DropTable("dbo.EquiposLuces");
+            DropTable("dbo.EquiposInformatica");
+            DropTable("dbo.EquiposImagenes");
+            DropTable("dbo.EquiposGasesMedicinales");
+            DropTable("dbo.EquiposEndoscopia");
             DropTable("dbo.EquiposClimatizacion");
+            DropTable("dbo.EquiposCirugia");
+            DropTable("dbo.EquipamientosEdilicios");
             DropTable("dbo.UMDNS");
             DropTable("dbo.StockRepuestos");
             DropTable("dbo.SolicitudesUsuario");
             DropTable("dbo.Ubicaciones");
             DropTable("dbo.Traslados");
             DropTable("dbo.Repuestos");
+            DropTable("dbo.Proveedores");
             DropTable("dbo.SolicitudesRepuestosServicios");
             DropTable("dbo.GastosOrdenesDeTrabajo");
             DropTable("dbo.OrdenesDeTrabajo");
@@ -371,7 +554,6 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             DropTable("dbo.Marcas");
             DropTable("dbo.Fabricantes");
             DropTable("dbo.InformacionHardware");
-            DropTable("dbo.Proveedores");
             DropTable("dbo.InformacionComercial");
             DropTable("dbo.Equipos");
             DropTable("dbo.ChecklistsMantenimientoPreventivo");

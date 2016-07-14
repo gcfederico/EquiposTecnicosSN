@@ -1,0 +1,38 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.EquipoEndoscopia
+
+@{
+    ViewBag.Title = "Equipo de Endoscopía";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        @Html.DisplayFor(model => model)
+    </div>
+</div>
+
+@if (Model.InformacionHardware != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.DisplayFor(model => model.InformacionHardware)
+        </div>
+    </div>
+}
+
+@if (Model.InformacionComercial != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.DisplayFor(model => model.InformacionComercial)
+        </div>
+    </div>
+}
+
+@Html.Partial("_OrdenesDeTrabajoEquipo", Model)
+
+@Html.Partial("_TrasladosEquipoModal", Model.Traslados)
+
+<a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+<a href="@Url.Action("Edit")" class="btn btn-warning"> Editar</a>
+
