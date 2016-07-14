@@ -1,0 +1,21 @@
+﻿@model EquiposTecnicosSN.Entities.Equipos.EquipoMonitoreo
+
+@{
+    ViewBag.Title = "Nuevo Equipo de Monitoreo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-12">
+            @Html.EditorFor(model => model)
+            @Html.EditorFor(model => model.InformacionHardware)
+            @Html.EditorFor(model => model.InformacionComercial)
+        </div>
+    </div>
+    
+    <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+    <input type="submit" value="Guardar" class="btn btn-primary" />
+}

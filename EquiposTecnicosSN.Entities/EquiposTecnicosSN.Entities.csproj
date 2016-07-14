@@ -41,8 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Equipos\EquipoOtro.cs" />
+    <Compile Include="Equipos\EquipoTerapeutica.cs" />
+    <Compile Include="Equipos\EquipoRehabilitacion.cs" />
+    <Compile Include="Equipos\EquipoPruebaDeDiagnostico.cs" />
+    <Compile Include="Equipos\EquipoOdontologia.cs" />
+    <Compile Include="Equipos\EquipoInformatica.cs" />
+    <Compile Include="Equipos\EquipoMonitoreo.cs" />
+    <Compile Include="Equipos\EquipoLuces.cs" />
+    <Compile Include="Equipos\EquipoImagen.cs" />
+    <Compile Include="Equipos\EquipoGasesMedicinales.cs" />
+    <Compile Include="Equipos\EquipoSoporteDeVida.cs" />
     <Compile Include="Equipos\Equipo.cs" />
+    <Compile Include="Equipos\EquipoCirugia.cs" />
     <Compile Include="Equipos\EquipoClimatizacion.cs" />
+    <Compile Include="Equipos\EquipamientoEdilicio.cs" />
+    <Compile Include="Equipos\EquipoEndoscopia.cs" />
     <Compile Include="Equipos\EstadoDeEquipo.cs" />
     <Compile Include="Equipos\Info\Financiamiento.cs" />
     <Compile Include="Equipos\Info\GarantiaContrato.cs" />

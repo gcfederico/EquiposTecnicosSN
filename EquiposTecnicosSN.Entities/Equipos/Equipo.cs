@@ -45,5 +45,7 @@ namespace EquiposTecnicosSN.Entities.Equipos
         public virtual ICollection<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
 
         public virtual ICollection<Traslado> Traslados { get; set; }
+
+        public abstract string Tipo();
     }
 }
