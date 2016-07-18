@@ -9,6 +9,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"DataContexts\EquiposMigrations";
         }
 
@@ -34,14 +35,14 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
 
             var repuestos = new[]
             {
-                new Repuesto { Codigo = "0001", Nombre = "Repuestp #1", ProveedorId = 1 },
-                new Repuesto { Codigo = "0002", Nombre = "Repuestp #2", ProveedorId = 1 },
-                new Repuesto { Codigo = "0003", Nombre = "Repuestp #3", ProveedorId = 1 },
-                new Repuesto { Codigo = "0004", Nombre = "Repuestp #4", ProveedorId = 1 },
-                new Repuesto { Codigo = "0005", Nombre = "Repuestp #5", ProveedorId = 1 },
-                new Repuesto { Codigo = "0006", Nombre = "Repuestp #6", ProveedorId = 1 },
-                new Repuesto { Codigo = "0007", Nombre = "Repuestp #7", ProveedorId = 1 },
-                new Repuesto { Codigo = "0008", Nombre = "Repuestp #8", ProveedorId = 1 }
+                new Repuesto { Codigo = "0001", Nombre = "Repuesto #1", ProveedorId = 1 },
+                new Repuesto { Codigo = "0002", Nombre = "Repuesto #2", ProveedorId = 1 },
+                new Repuesto { Codigo = "0003", Nombre = "Repuesto #3", ProveedorId = 1 },
+                new Repuesto { Codigo = "0004", Nombre = "Repuesto #4", ProveedorId = 1 },
+                new Repuesto { Codigo = "0005", Nombre = "Repuesto #5", ProveedorId = 1 },
+                new Repuesto { Codigo = "0006", Nombre = "Repuesto #6", ProveedorId = 1 },
+                new Repuesto { Codigo = "0007", Nombre = "Repuesto #7", ProveedorId = 1 },
+                new Repuesto { Codigo = "0008", Nombre = "Repuesto #8", ProveedorId = 1 }
             };
 
             context.Repuestos.AddOrUpdate(
