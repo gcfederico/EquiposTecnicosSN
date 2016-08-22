@@ -78,7 +78,7 @@
                         },
                         "item": {
                             "font-color": "#444",
-                            "font-size": 9,
+                            "font-size": 10,
                             "angle": -30
                         },
                         "tick": {

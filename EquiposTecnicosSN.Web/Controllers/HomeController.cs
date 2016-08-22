@@ -1,12 +1,8 @@
 ﻿using EquiposTecnicosSN.Entities.Equipos;
-using EquiposTecnicosSN.Entities.Equipos.Info;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
-using EquiposTecnicosSN.Web.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EquiposTecnicosSN.Web.Controllers
@@ -26,16 +22,25 @@ namespace EquiposTecnicosSN.Web.Controllers
             return Json(count);
         }
 
-        public ActionResult Index(BuscarEquipoViewModel vm)
+        public ActionResult Index()
         {
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
-            return View(new BuscarEquipoViewModel());
+            return View(new HomeViewModel());
         }
 
-
-        public ActionResult SearchEquipos(string buscarNombreCompleto, string buscarUMDNS, int? UbicacionId, int? SectorId, int? Estado, int? NumeroMatricula)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buscarNombreCompleto"></param>
+        /// <param name="buscarUMDNS"></param>
+        /// <param name="UbicacionId"></param>
+        /// <param name="SectorId"></param>
+        /// <param name="Estado"></param>
+        /// <param name="NumeroMatricula"></param>
+        /// <returns></returns>
+        public ActionResult SearchEquipos(string buscarNombreCompleto, string buscarUMDNS, int? UbicacionId, int? SectorId, int? EstadoEquipo, int? NumeroMatricula)
         {
             var result = db.Equipos
                 .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Equals(buscarNombreCompleto))
@@ -45,15 +50,35 @@ namespace EquiposTecnicosSN.Web.Controllers
                 .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula))
                 .ToList();
 
-            if (Estado != 0)
+            if (EstadoEquipo != 0)
             {
-                EstadoDeEquipo estadoFiltro = (EstadoDeEquipo)Estado;
+                EstadoDeEquipo estadoFiltro = (EstadoDeEquipo)EstadoEquipo;
                 result = result.Where(e => e.Estado.Equals(estadoFiltro)).ToList();
             }
             
             return PartialView("_SearchEquipos", result);
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buscarNumeroReferencia"></param>
+        /// <param name="EstadoODT"></param>
+        /// <returns></returns>
+        public ActionResult SearchODT(string buscarNumeroReferencia, int? EstadoODT)
+        {
+            var result = db.OrdenesDeTrabajo
+                .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia))
+                .ToList();
+
+            if (EstadoODT != 0)
+            {
+                OrdenDeTrabajoEstado estadoFiltro = (OrdenDeTrabajoEstado) EstadoODT;
+                result = result.Where(odt => odt.Estado.Equals(estadoFiltro)).ToList();
+            }
+
+            return PartialView("_SearchODTs", result);
+        }
+
     }
 }

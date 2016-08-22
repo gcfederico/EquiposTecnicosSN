@@ -1340,7 +1340,6 @@
     <Content Include="Views\Shared\_TrasladosEquipoModal.cshtml" />
     <Content Include="Views\EquiposBase\ShowTraslados.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ChecklistMantenimientoPreventivo.cshtml" />
-    <Content Include="Views\Shared\_OrdenesDeTrabajo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreateUser.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Create.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Delete.cshtml" />
@@ -1454,6 +1453,7 @@
     <Content Include="Views\Shared\_AddObservaciones.cshtml" />
     <Content Include="Views\Shared\_SearchEquipos.cshtml" />
     <Content Include="Views\Indicadores\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchODTs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

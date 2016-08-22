@@ -1,5 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using EquiposTecnicosSN.Entities.Mantenimiento;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +24,7 @@ namespace EquiposTecnicosSN.Web.Models
         public IEnumerable<SelectListItem> UbicacionId { get; set; }
     }
 
-    public class BuscarEquipoViewModel
+    public class HomeViewModel
     {
         [StringLength(255)]
         [DisplayName("Nombre completo")]
@@ -44,8 +45,10 @@ namespace EquiposTecnicosSN.Web.Models
 
         public virtual Sector Sector { get; set; }
 
-        public EstadoDeEquipo Estado { get; set; }
+        public EstadoDeEquipo EstadoEquipo { get; set; }
 
-        public List<Equipo> Equipos { get; set; }
+        public OrdenDeTrabajoEstado EstadoODT { get; set; }
+
+
     }
 }

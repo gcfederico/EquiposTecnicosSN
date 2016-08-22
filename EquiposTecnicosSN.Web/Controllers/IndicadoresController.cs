@@ -21,9 +21,12 @@ namespace EquiposTecnicosSN.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Devuelve la lista de todos los sectores.
+        /// </summary>
+        /// <returns>Lista de Sectores JSON.</returns>
         public JsonResult GetSectores()
         {
-
             var sectores = db.Sectores
                 .Select(s => new
                 {
@@ -33,23 +36,26 @@ namespace EquiposTecnicosSN.Web.Controllers
             return Json(sectores, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult ParetoPorSectoresJSON(string sectoresIds)
         {
             Dictionary<string, double> chartData = new Dictionary<string, double>();
-            List<Entities.Equipos.Info.Sector> sectores = GetSectoresList(sectoresIds);
+            List<Sector> sectores = GetSectoresList(sectoresIds);
 
-            var i = 10;
             foreach (var sector in sectores)
             {
                 chartData.Add(sector.Nombre, indicadoresSrv.TiempoMedioDeReparacionPorSector(sector.SectorId));
-                //chartData.Add(sector.Nombre, i);
-                i--;
             }
 
-            return Json(chartData, JsonRequestBehavior.AllowGet);
+            var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key,r => r.Value);
+
+            return Json(orderedData, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Devuelve una lista de objetos de tipo Serctor a partir de un string con todos los ids separados por coma.
+        /// </summary>
+        /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
+        /// <returns>Lista de objetos de tipo Sector.</returns>
         private List<Sector> GetSectoresList(string sectoresIds)
         {
             var noBrackets = sectoresIds.Substring(1, sectoresIds.Length - 2);
