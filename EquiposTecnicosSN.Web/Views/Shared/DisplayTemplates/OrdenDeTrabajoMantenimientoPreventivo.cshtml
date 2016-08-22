@@ -93,18 +93,8 @@
 
                     </div>
                 </div>
-                @if (Model.Observaciones != null)
-                {
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.LabelFor(model => model.Observaciones)
-                            <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Observaciones)
-                            </p>
-                        </div>
-                    </div>
-                }
+                @Html.Partial("_ListObservaciones", Model)
+
                 @if (OrdenDeTrabajoEstado.Cerrada.Equals(Model.Estado))
                 {
                     <hr />

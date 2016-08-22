@@ -1,4 +1,8 @@
-﻿using EquiposTecnicosSN.Web.DataContexts;
+﻿using EquiposTecnicosSN.Entities.Equipos;
+using EquiposTecnicosSN.Entities.Equipos.Info;
+using EquiposTecnicosSN.Web.DataContexts;
+using EquiposTecnicosSN.Web.Models;
+using EquiposTecnicosSN.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +16,7 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
 
+
         // POST: EquiposBase/EquiposDeUsuarioCount
         [HttpPost]
         public JsonResult EquiposDeUsuarioCount()
@@ -21,23 +26,34 @@ namespace EquiposTecnicosSN.Web.Controllers
             return Json(count);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(BuscarEquipoViewModel vm)
         {
-            return View();
+
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
+            ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
+            return View(new BuscarEquipoViewModel());
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+        public ActionResult SearchEquipos(string buscarNombreCompleto, string buscarUMDNS, int? UbicacionId, int? SectorId, int? Estado, int? NumeroMatricula)
+        {
+            var result = db.Equipos
+                .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Equals(buscarNombreCompleto))
+                .Where(e => buscarUMDNS.Equals("") || e.UMDNS.Equals(buscarUMDNS))
+                .Where(e => UbicacionId == null || e.UbicacionId == UbicacionId)
+                .Where(e => SectorId == null || e.SectorId == SectorId)
+                .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula))
+                .ToList();
+
+            if (Estado != 0)
+            {
+                EstadoDeEquipo estadoFiltro = (EstadoDeEquipo)Estado;
+                result = result.Where(e => e.Estado.Equals(estadoFiltro)).ToList();
+            }
+            
+            return PartialView("_SearchEquipos", result);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

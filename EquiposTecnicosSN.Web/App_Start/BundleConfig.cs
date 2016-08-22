@@ -17,7 +17,14 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/start-home.js",
                         "~/Scripts/add-gasto.js",
                         "~/Scripts/close-solicitud.js",
-                        "~/Scripts/tooltips.js"));
+                        "~/Scripts/tooltips.js",
+                        "~/Scripts/zingchart.min.js",
+                        "~/Scripts/indicadores.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/zingCharts").Include(
+                        "~/Scripts/zingchart.min.js",
+                        "~/Scripts/zingmodules/zingchart-pareto.min.js",
+                        "~/Scripts/zingmodules/zingchart-grid.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));

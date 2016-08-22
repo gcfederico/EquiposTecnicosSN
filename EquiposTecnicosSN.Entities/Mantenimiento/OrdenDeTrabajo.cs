@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+/// <summary>
+/// Clase que representa una orden de trabajo base.
+/// </summary>
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
     [Table("OrdenesDeTrabajo")]
@@ -38,8 +41,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         public virtual ICollection<SolicitudRepuestoServicio> SolicitudesRespuestos { get; set; }
 
-        [StringLength(500)]
-        public string Observaciones { get; set; }
+        public virtual ICollection<ObservacionOrdenDeTrabajo> Observaciones { get; set; }
 
         [DisplayName("Fecha de cierre")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]

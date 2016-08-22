@@ -1,10 +1,11 @@
-﻿@{
+﻿@model EquiposTecnicosSN.Web.Models.BuscarEquipoViewModel
+@{
     ViewBag.Title = "Inicio";
 }
 
 <div class="row">
     <div class="col-md-3">
-            
+
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -51,7 +52,7 @@
         </div>
     </div>
 
-    <div class="col-md-3">            
+    <div class="col-md-3">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -59,7 +60,7 @@
                         <i class="fa fa-calendar fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="ODTMantenimientoPreventivoCount"class="huge"></div>
+                        <div id="ODTMantenimientoPreventivoCount" class="huge"></div>
                         <div>Mantenimientos Preventivos</div>
                     </div>
                 </div>
@@ -100,6 +101,83 @@
     </div>
 
 </div>
+<hr />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar equipo</div>
+
+            <div class="panel-body">
+                <form id="FormBuscar" method="get" data-nqn-ajax="true" action="@Url.Action("SearchEquipos", "Home")" data-nqn-target="#searchResults">
+
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nombre Completo</label>
+
+                                <input class="form-control text-box single-line"
+                                       data-umdns-autocomplete-nombre="@Url.Action("AutocompleteNombreUMDNS", "EquiposBase")"
+                                       data-val="true"
+                                       data-val-maxlength="The field Nombre completo must be a string or array type with a maximum length of '255'."
+                                       data-val-maxlength-max="255" data-val-required="The Nombre completo field is required."
+                                       id="buscarNombreCompleto"
+                                       name="buscarNombreCompleto" type="text" value="@Model.NombreCompleto">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">UMDNS</label>
+                                <input class="form-control text-box single-line"
+                                       data-umdns-autocomplete-codigo="@Url.Action("AutocompleteCodigoUMDNS", "EquiposBase")"
+                                       data-val="true"
+                                       data-val-maxlength="The field UMDNS must be a string or array type with a maximum length of '255'."
+                                       data-val-maxlength-max="255" data-val-required="The UMDNS field is required."
+                                       id="buscarUMDNS"
+                                       name="buscarUMDNS" type="text" value="@Model.UMDNS">
+
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label" })
+                                @Html.EnumDropDownListFor(model => model.Estado, "Todos", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UbicacionId, "Ubicación", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("UbicacionId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SectorId, "Sector", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("SectorId", null, "Todas", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NumeroMatricula, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.NumeroMatricula, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input id="BuscarEquipo" type="submit" value="Buscar" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-lg-12">                       
+                       <div id="searchResults">
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!--
 
 

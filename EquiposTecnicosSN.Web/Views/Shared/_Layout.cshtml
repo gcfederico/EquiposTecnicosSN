@@ -43,6 +43,9 @@
                                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Inicio</a>
                             </li>
                             <li>
+                                <a href=@Url.Action("Index", "Indicadores")><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores</a>
+                            </li>
+                            <li>
                                 <a href="#"><i class="fa fa-medkit fa-fw"></i> Equipos<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
@@ -95,7 +98,6 @@
                                     </li>
                                 </ul>
                             </li>
-
                             <li>
                                 <a href="#"><i class="fa fa-gears fa-fw"></i> Repuestos<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
@@ -160,6 +162,7 @@
     @Scripts.Render("~/lib/bower_components")
     @Scripts.Render("~/bundles/datepicker")
     @Scripts.Render("~/bundles/myBundle")
+    @Scripts.Render("~/bundles/zingCharts")    
 
     @RenderSection("scripts", required: false)
 

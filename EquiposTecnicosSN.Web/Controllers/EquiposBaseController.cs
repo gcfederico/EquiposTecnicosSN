@@ -64,6 +64,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (equipo.EquipoId == 0)
             {
                 ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
+                ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
                 ViewBag.ProveedorId = new SelectList(db.Proveedores.OrderBy(u => u.Nombre), "ProveedorId", "Nombre");
                 ViewBag.FabricanteId = new SelectList(db.Fabricantes.OrderBy(u => u.Nombre), "FabricanteId", "Nombre");
                 ViewBag.MarcaId = new SelectList(Enumerable.Empty<Marca>(), "MarcaId", "Nombre");
@@ -75,6 +76,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 ViewBag.MarcaId = new SelectList(db.Marcas.OrderBy(u => u.Nombre).Where(m => m.FabricanteId == equipo.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipo.InformacionHardware.MarcaId);
                 ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipo.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipo.InformacionHardware.ModeloId);
                 ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre", equipo.UbicacionId);
+                ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre", equipo.SectorId);
                 ViewBag.ProveedorId = new SelectList(db.Proveedores.OrderBy(u => u.Nombre), "ProveedorId", "Nombre", equipo.InformacionComercial.ProveedorId);
             }
         }

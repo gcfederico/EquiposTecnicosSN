@@ -4,6 +4,7 @@ using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Entities.Usuarios;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using System.Linq;
 using System;
 using System.Threading.Tasks;
 
@@ -52,6 +53,7 @@ namespace EquiposTecnicosSN.Web.DataContexts
 
         public DbSet<Umdns> Umdns { get; set; }
         public DbSet<Ubicacion> Ubicaciones { get; set; }
+        public DbSet<Sector> Sectores { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<Fabricante> Fabricantes { get; set; }
         public DbSet<Marca> Marcas { get; set; }

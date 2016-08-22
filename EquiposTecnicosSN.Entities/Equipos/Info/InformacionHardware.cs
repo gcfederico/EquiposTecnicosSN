@@ -16,6 +16,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
 
         [MaxLength(255)]
         [DisplayName("Nº de serie")]
+        [Required]
         public string NumeroSerie { get; set; }
 
         [Required]

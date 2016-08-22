@@ -1,0 +1,37 @@
+﻿@model EquiposTecnicosSN.Web.Models.MViewModel
+
+@*
+<label>Observaciones </label>
+if (Model.Odt.Observaciones != null)
+    
+{
+    foreach (var observacion in Model.Odt.Observaciones)
+    {
+        if (observacion.Observacion != null)
+        {
+            <div class="form-group">
+                <label>Fecha: </label>
+                @Html.DisplayFor(obs => observacion.Fecha)
+                <br />
+                <label>Usuario: </label>
+                @Html.DisplayFor(obs => observacion.UsuarioId)
+                <br />
+                @Html.DisplayFor(obs => observacion.Observacion)
+            </div>
+        }
+    }
+}
+*@
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @*Html.HiddenFor(model => model.Odt.OrdenDeTrabajoId)*@
+            @Html.HiddenFor(model => model.NuevaObservacion.ObservacionOrdenDeTrabajoId)
+            @Html.HiddenFor(model => model.NuevaObservacion.Fecha)
+            @Html.HiddenFor(model => model.NuevaObservacion.UsuarioId)
+            @Html.LabelFor(model => model.NuevaObservacion, htmlAttributes: new { @class = "control-label" })
+            @Html.TextAreaFor(model => model.NuevaObservacion.Observacion, htmlAttributes: new { @class = "form-control", rows = "5" })
+        </div>
+    </div>
+</div>

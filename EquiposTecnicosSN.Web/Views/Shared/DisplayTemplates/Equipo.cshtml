@@ -52,6 +52,15 @@
 
                         <div class="form-group">
                             <label>
+                                @Html.DisplayNameFor(model => model.Sector)
+                            </label>
+                            <p class="form-control-static">
+                                @Html.DisplayFor(model => model.Sector.Nombre)
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
                                 @Html.DisplayNameFor(model => model.Estado)
                             </label>
                             <p class="form-control-static">

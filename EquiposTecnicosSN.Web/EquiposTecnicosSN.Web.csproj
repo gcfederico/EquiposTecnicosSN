@@ -257,6 +257,7 @@
     <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
+    <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\InformacionHardwareController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -265,7 +266,6 @@
     <Compile Include="Controllers\ODTController.cs" />
     <Compile Include="Controllers\ODTMantenimientoCorrectivoController.cs" />
     <Compile Include="Controllers\ODTMantenimientoPreventivoController.cs" />
-    <Compile Include="Controllers\OrdenesDeTrabajoController_old.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RepuestosController.cs" />
     <Compile Include="Controllers\SolicitudesRepuestoServicioController.cs" />
@@ -277,9 +277,9 @@
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201607141902189_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201607141902189_CreateInicial.Designer.cs">
-      <DependentUpon>201607141902189_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201607252107276_CreateIncial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201607252107276_CreateIncial.Designer.cs">
+      <DependentUpon>201607252107276_CreateIncial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -297,9 +297,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrdenDeTrabajoViewModel.cs" />
+    <Compile Include="Models\ParetoChartModel.cs" />
     <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\EquiposService.cs" />
+    <Compile Include="Services\IndicadoresService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1138,6 +1141,7 @@
     <Content Include="Scripts\date-picker-ready.js" />
     <Content Include="Scripts\ddl-traslado.js" />
     <Content Include="Scripts\ddls-info-hardware.js" />
+    <Content Include="Scripts\indicadores.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
     <Content Include="Scripts\jquery-2.2.2.min.js" />
     <Content Include="Scripts\jquery-2.2.2.min.map" />
@@ -1221,6 +1225,9 @@
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\start-home.js" />
     <Content Include="Scripts\tooltips.js" />
+    <Content Include="Scripts\zingchart.min.js" />
+    <Content Include="Scripts\zingmodules\zingchart-grid.min.js" />
+    <Content Include="Scripts\zingmodules\zingchart-pareto.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1443,6 +1450,10 @@
     <Content Include="Views\EquiposOtros\Details.cshtml" />
     <Content Include="Views\EquiposOtros\Edit.cshtml" />
     <Content Include="Views\EquiposOtros\Index.cshtml" />
+    <Content Include="Views\Shared\_ListObservaciones.cshtml" />
+    <Content Include="Views\Shared\_AddObservaciones.cshtml" />
+    <Content Include="Views\Shared\_SearchEquipos.cshtml" />
+    <Content Include="Views\Indicadores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1463,8 +1474,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201607141902189_CreateInicial.resx">
-      <DependentUpon>201607141902189_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201607252107276_CreateIncial.resx">
+      <DependentUpon>201607252107276_CreateIncial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

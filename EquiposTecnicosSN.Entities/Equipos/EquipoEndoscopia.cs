@@ -5,9 +5,9 @@ namespace EquiposTecnicosSN.Entities.Equipos
     [Table("EquiposEndoscopia")]
     public class EquipoEndoscopia : Equipo
     {
-        public override string Tipo()
+        public override TipoEquipo Tipo()
         {
-            return "Equipo de Endoscopía";
+            return TipoEquipo.Endoscopia;
         }
     }
 }

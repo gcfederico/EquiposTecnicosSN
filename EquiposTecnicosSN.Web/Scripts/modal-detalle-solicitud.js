@@ -5,7 +5,7 @@
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
-        $(".modal-body").html("Cargando...");
+        $(".modal-body").html("<div class='loader'></div>");
 
         $.ajax({
             type: 'GET',

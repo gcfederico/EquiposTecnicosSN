@@ -13,10 +13,8 @@ using EquiposTecnicosSN.Web.DataContexts;
 
 namespace EquiposTecnicosSN.Web.Services
 {
-    public class EquiposService
+    public class EquiposService : BaseService
     {
-        private EquiposDbContext equiposDb = new EquiposDbContext();
-        private IdentityDb identityDb = new IdentityDb();
 
         public List<EquipoClimatizacion> EquiposClimatizacionDeUbicacion(int ubicacionId)
         {
