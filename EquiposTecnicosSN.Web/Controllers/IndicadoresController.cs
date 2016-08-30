@@ -4,7 +4,6 @@ using EquiposTecnicosSN.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EquiposTecnicosSN.Web.Controllers
@@ -15,9 +14,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         private EquiposDbContext db = new EquiposDbContext();
         private IndicadoresService indicadoresSrv = new IndicadoresService();
 
-        // GET: Indicadores
+        /// <summary>
+        /// Acción Web Index.
+        /// </summary>
+        /// <returns>View Model</returns>
         public ActionResult Index()
         {
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             return View();
         }
 
@@ -36,17 +39,64 @@ namespace EquiposTecnicosSN.Web.Controllers
             return Json(sectores, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ParetoPorSectoresJSON(string sectoresIds)
+        /// <summary>
+        /// Calcula los tiempos medios de reparación de los equipos para los sectores y ubicación pasadas como parámetros.
+        /// </summary>
+        /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
+        /// <param name="ubicacionId">Id de la ubicación seleccionada por el usuario.</param>
+        /// <returns>Devuelve un diccionario en formato JSON con los tiempos medios de reparación de los equipos.</returns>
+        public JsonResult ParetoTMRData(string sectoresIds, int? ubicacionId)
         {
             Dictionary<string, double> chartData = new Dictionary<string, double>();
             List<Sector> sectores = GetSectoresList(sectoresIds);
 
             foreach (var sector in sectores)
             {
-                chartData.Add(sector.Nombre, indicadoresSrv.TiempoMedioDeReparacionPorSector(sector.SectorId));
+                chartData.Add(sector.Nombre, indicadoresSrv.TiempoMedioDeReparacionPorSector(sector.SectorId, ubicacionId));
             }
 
             var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key,r => r.Value);
+
+            return Json(orderedData, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// Calcula los tiempos de medios entre fallas de los equipos para los sectores y ubicación pasadas como parámetros.
+        /// </summary>
+        /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
+        /// <param name="ubicacionId">Id de la ubicación seleccionada por el usuario.</param>
+        /// <returns>Devuelve un diccionario en formato JSON con los tiempos medios entre fallas de los equipos.</returns>
+        public JsonResult ParetoTMEFData(string sectoresIds, int? ubicacionId)
+        {
+            Dictionary<string, double> chartData = new Dictionary<string, double>();
+            List<Sector> sectores = GetSectoresList(sectoresIds);
+
+            foreach (var sector in sectores)
+            {
+                chartData.Add(sector.Nombre, indicadoresSrv.TiempoMedioEntreFallasPorSector(sector.SectorId, ubicacionId));
+            }
+
+            var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key, r => r.Value);
+
+            return Json(orderedData, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Calcula los tiempos de indisponibolidad de los equipos para los sectores y ubicación pasadas como parámetros.
+        /// </summary>
+        /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
+        /// <param name="ubicacionId">Id de la ubicación seleccionada por el usuario.</param>
+        /// <returns>Devuelve un diccionario en formato JSON con los tiempos de indisponibilidad de los equipos.</returns>
+        public JsonResult ParetoTIData(string sectoresIds, int? ubicacionId)
+        {
+            Dictionary<string, double> chartData = new Dictionary<string, double>();
+            List<Sector> sectores = GetSectoresList(sectoresIds);
+
+            foreach (var sector in sectores)
+            {
+                chartData.Add(sector.Nombre, indicadoresSrv.TiempoIndisponibilidadPorSector(sector.SectorId, ubicacionId));
+            }
+
+            var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key, r => r.Value);
 
             return Json(orderedData, JsonRequestBehavior.AllowGet);
         }

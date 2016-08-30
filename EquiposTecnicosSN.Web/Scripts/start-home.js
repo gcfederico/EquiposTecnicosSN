@@ -1,30 +1,8 @@
 ﻿$(function () {
-    $.ajax({
-        type: 'POST',
-        url: '/ODTMantenimientoCorrectivo/OrdenesPorPrioridadCount',
-        dataType: 'json',
-        success: function (counts) {
-            $("#OrdenesEmergenciaCount").html(counts.Emergencia);            
-        },
-        error: function (ex) {
-            console.log(ex);
-        }
-    });
-
-    $.ajax({
-        type: 'POST',
-        url: '/Home/EquiposDeUsuarioCount',
-        dataType: 'json',
-        success: function (count) {
-            $("#EquiposUsuarioCount").html(count);
-        },
-        error: function (ex) {
-            console.log(ex);
-        }
-    });
 
     var ajaxSubmit = function () {
         var $form = $(this);
+        var targetRow = Boolean($form.attr("data-nqn-target-row"));
         var $target = $($form.attr("data-nqn-target"));
         $target.html("<div class='loader'></div>");
 
@@ -35,18 +13,20 @@
         };
 
         $.ajax(options).done(function (data) {
-            $target.html(data);
+
+            if (targetRow) {
+                $target = $($target.selector + "-" + data.RowId);
+                $target.html(data.Value);
+            } else {
+                $target.html(data);
+            }
+
             $target.effect("highlight");
         });
 
         return false;
     }
 
-
     $("form[data-nqn-ajax='true']").submit(ajaxSubmit);
-
-    
-
-
 });
 

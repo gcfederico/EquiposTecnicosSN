@@ -15,12 +15,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class ODTMantenimientoPreventivoController : ODTController
     {
-
-        public override ActionResult CountOrdenesPrioridad(string prioridad)
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpGet]
         public override ActionResult CreateForEquipo(int id)
         {
@@ -46,7 +40,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: ODTMantenimientoPreventivoController/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateForEquipo(MPViewModel vm)
+        public ActionResult CreateForEquipo(MPViewModel vm)
         {
             if (vm.Odt.ChecklistId != 0)
             {
@@ -56,7 +50,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 vm.Odt.fechaCreacion = vm.Odt.FechaInicio;
                 SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
                 db.ODTMantenimientosPreventivos.Add(vm.Odt);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
 
                 return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
             }
@@ -77,29 +71,32 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ordenDeTrabajo.SolicitudesRespuestos = db.SolicitudesRepuestosServicios.Where(s => s.OrdenDeTrabajoId == id).ToList();
-            ordenDeTrabajo.Equipo = db.Equipos.Find(ordenDeTrabajo.EquipoId);
+            ordenDeTrabajo.SolicitudesRespuestos = odtsService.BuscarSolicitudes(id);
+            ordenDeTrabajo.Equipo = equiposService.BuscarEquipo(ordenDeTrabajo.EquipoId);
+
             return View(ordenDeTrabajo);
         }
 
         [HttpGet]
         override public ActionResult EditGastos(int id)
         {
-            var model = db.ODTMantenimientosPreventivos.Find(id);
+            var model = odtsService.BuscarMPreventivo(id);
             return View(model);
         }
 
         // POST: OrdenesDeTrabajo/EditGastos
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public ActionResult EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);
+            var orden = odtsService.BuscarMPreventivo(ordenDeTrabajoId);
+           
             //gastos
             SaveGastos(gastos, orden.OrdenDeTrabajoId);
 
-            db.Entry(orden).State = EntityState.Modified;
-            await db.SaveChangesAsync();
+            //db.Entry(orden).State = EntityState.Modified;
+            //db.SaveChanges();
+            odtsService.Update(orden);
             return RedirectToAction("Details", new { id = orden.OrdenDeTrabajoId });
         }
 
@@ -122,7 +119,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             try
             {
-
                 OrdenDeTrabajoMantenimientoPreventivo orden = await db.ODTMantenimientosPreventivos
                     .Include(o => o.SolicitudesRespuestos)
                     .Where(o => o.OrdenDeTrabajoId == vm.Odt.OrdenDeTrabajoId)
@@ -159,6 +155,15 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Debug.WriteLine(e.Data);
             }
             return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
+        {
+            return View(odtsService.ProximosPreventivos());
         }
     }
 }

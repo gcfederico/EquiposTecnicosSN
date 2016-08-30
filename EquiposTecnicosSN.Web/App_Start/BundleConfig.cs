@@ -19,7 +19,8 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/close-solicitud.js",
                         "~/Scripts/tooltips.js",
                         "~/Scripts/zingchart.min.js",
-                        "~/Scripts/indicadores.js"));
+                        "~/Scripts/indicadores.js",
+                        "~/Scripts/odts.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/zingCharts").Include(
                         "~/Scripts/zingchart.min.js",

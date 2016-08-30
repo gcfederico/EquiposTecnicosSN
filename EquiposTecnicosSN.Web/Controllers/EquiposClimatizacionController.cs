@@ -34,7 +34,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
             //EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
             //equipoClimatizacion.OrdenesDeTrabajo = equipoClimatizacion.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
-            var model = equiposService.GetEquipo((int) id);
+            var model = equiposService.BuscarEquipo((int) id);
 
             if (model == null)
             {
@@ -58,7 +58,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroMatricula,NumeroInventario,UbicacionId,Estado,ProveedorId,InformacionComercial,InformacionHardware")] EquipoClimatizacion equipoClimatizacion)
+        public ActionResult Create(EquipoClimatizacion equipoClimatizacion)
         {
             
             if (ModelState.IsValid)//validaciones
@@ -68,7 +68,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 ViewBag.CssClass = "success";
                 ViewBag.Message = "Equipo creado.";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "EquiposBase");
             }
 
             base.SetViewBagValues(equipoClimatizacion);

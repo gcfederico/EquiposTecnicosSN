@@ -1,5 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
+using EquiposTecnicosSN.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,6 +23,14 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// DbContext de usuarios
         /// </summary>
         protected IdentityDb usuariosdb = new IdentityDb();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ODTsService odtsService = new ODTsService();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected EquiposService equiposService = new EquiposService();
 
         /// <summary>
         /// Acción que carga los datos de una orden de trabajo.
@@ -35,12 +44,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         abstract public ActionResult CreateForEquipo(int id);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prioridad"></param>
-        /// <returns></returns>
-        abstract public ActionResult CountOrdenesPrioridad(String prioridad);
         /// <summary>
         /// 
         /// </summary>
@@ -70,7 +73,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="ordenDeTrabajoId">Id de la orden de trabajo</param>
         protected void SaveGastos(IEnumerable<GastoOrdenDeTrabajo> gastos, int ordenDeTrabajoId)
         {
-            var gastosEntidad = db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajoId).ToList();
+            var gastosEntidad = odtsService.BuscarGastos(ordenDeTrabajoId);
+                //db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajoId).ToList();
 
             foreach (var gastoE in gastosEntidad)
             {
@@ -80,6 +84,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                     gastoE.Monto = edicion.Monto;
                     gastoE.Concepto = edicion.Concepto;
                     db.Entry(gastoE).State = EntityState.Modified;
+                    //odtsService.Update(gastoE);
                 }
                 else
                 {
@@ -146,6 +151,44 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Fecha = DateTime.Now,
                 UsuarioId = 1 //TODO: hardcode
             };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buscarNumeroReferencia"></param>
+        /// <param name="EstadoODT"></param>
+        /// <returns></returns>
+        public ActionResult SearchODT(string buscarNumeroReferencia, int? EstadoODT, int? TipoODT)
+        {
+            var result = db.OrdenesDeTrabajo
+                .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia))
+                .ToList();
+
+            if (EstadoODT != 0)
+            {
+                OrdenDeTrabajoEstado estadoFiltro = (OrdenDeTrabajoEstado)EstadoODT;
+                result = result.Where(odt => odt.Estado.Equals(estadoFiltro)).ToList();
+            }
+
+            if (TipoODT != 0)
+            {
+                OrdenDeTrabajoTipo tipoFiltro = (OrdenDeTrabajoTipo)TipoODT;
+
+                switch (tipoFiltro)
+                {
+                    case OrdenDeTrabajoTipo.Correctivo:
+                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoCorrectivo).ToList();
+                        break;
+
+                    case OrdenDeTrabajoTipo.Preventivo:
+                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoPreventivo).ToList();
+                        break;
+                }
+
+            }
+
+            return PartialView("_SearchODTsResults", result.OrderByDescending(odt => odt.FechaInicio));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace EquiposTecnicosSN.Web.Services
 
         public List<EquipoClimatizacion> EquiposClimatizacionDeUbicacion(int ubicacionId)
         {
-            var equiposC = equiposDb.EquiposDeClimatizacion
+            var equiposC = db.EquiposDeClimatizacion
                 .Include(e => e.InformacionComercial)
                 .Include(e => e.Ubicacion)
                 .Include(e => e.OrdenesDeTrabajo);
@@ -32,9 +32,9 @@ namespace EquiposTecnicosSN.Web.Services
         }
 
 
-        public Equipo GetEquipo(int id)
+        public Equipo BuscarEquipo(int id)
         {
-            var equipo = equiposDb.Equipos
+            var equipo = db.Equipos
                 .Include(e => e.Traslados)
                 .Include(e => e.OrdenesDeTrabajo)
                 .Include(e => e.InformacionComercial)
@@ -44,6 +44,22 @@ namespace EquiposTecnicosSN.Web.Services
             equipo.OrdenesDeTrabajo = equipo.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
 
             return equipo;
+        }
+
+        public List<Equipo> EquiposFuncionales ()
+        {
+            return db.Equipos
+                .Where(e => e.Estado == EstadoDeEquipo.Funcional || e.Estado == EstadoDeEquipo.FuncionalRequiereReparacion)
+                .OrderBy(e => e.NombreCompleto)
+                .ToList();
+        }
+
+        public int EquiposFuncionalesCount()
+        {
+            return db.Equipos
+                .Where(e => e.Estado == EstadoDeEquipo.Funcional || e.Estado == EstadoDeEquipo.FuncionalRequiereReparacion)
+                .OrderBy(e => e.NombreCompleto)
+                .Count();
         }
     }
 }

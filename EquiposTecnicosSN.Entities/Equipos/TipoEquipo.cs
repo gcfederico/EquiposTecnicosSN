@@ -9,35 +9,35 @@ namespace EquiposTecnicosSN.Entities.Equipos
 {
     public enum TipoEquipo
     {
+        [Display(Name = "Equipo de Climatización")]
+        Climatizacion = 1,
         [Display(Name = "Equipo de Cirugía")]
-        Climatizacion,
-        [Display(Name = "Equipo de Cirugía")]
-        Cirugia,
+        Cirugia = 2,
         [Display(Name = "Equipo de Endoscopía")]
-        Endoscopia,
+        Endoscopia = 3,
         [Display(Name = "Equipamiento Edilicio")]
-        Edilicio,
+        Edilicio = 4,
         [Display(Name = "Equipo de Soporte de Vida")]
-        SoporteDeVida,
+        SoporteDeVida = 5,
         [Display(Name = "Equipo de Gases Medicinales")]
-        GasesMedicinales,
+        GasesMedicinales = 6,
         [Display(Name = "Equipo de Imágenes")]
-        Imagenes,
+        Imagenes = 7,
         [Display(Name = "Equipo de Luces")]
-        Luces,
+        Luces = 8,
         [Display(Name = "Equipo de Monitoreo")]
-        Monitoreo,
+        Monitoreo = 9,
         [Display(Name = "Equipo de Informática")]
-        Informatica,
+        Informatica = 10,
         [Display(Name = "Equipo de Odontología")]
-        Odontologia,
+        Odontologia = 11,
         [Display(Name = "Equipo de Pruebas de Diagnóstico")]
-        PruebasDeDiagnostico,
+        PruebasDeDiagnostico = 12,
         [Display(Name = "Equipo de Rehabilitacion")]
-        Rehabilitacion,
+        Rehabilitacion = 13,
         [Display(Name = "Equipo de Terapéutica")]
-        Terapeutica,
+        Terapeutica = 14,
         [Display(Name = "Otros Equipos")]
-        Otros
+        Otros = 15
     }
 }

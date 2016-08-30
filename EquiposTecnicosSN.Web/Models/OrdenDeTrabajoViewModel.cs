@@ -5,9 +5,11 @@ using System;
 
 namespace EquiposTecnicosSN.Web.Models
 {
-    public class OrdenDeTrabajoViewModel
+    public class SearchOdtViewModel
     {
+        public OrdenDeTrabajoEstado EstadoODT { get; set; }
 
+        public OrdenDeTrabajoTipo TipoODT { get; set; }
     }
 
     public class NewOrdenDeTrabajoViewModel

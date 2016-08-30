@@ -33,7 +33,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var model = equiposService.GetEquipo((int) id);
+            var model = equiposService.BuscarEquipo((int) id);
 
             if (model == null)
             {
@@ -67,7 +67,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 ViewBag.CssClass = "success";
                 ViewBag.Message = "Equipo creado.";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "EquiposBase");
             }
 
             base.SetViewBagValues(equipoCirugia);

@@ -2,9 +2,9 @@
 
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
-    public enum MantenimientoTipo
+    public enum OrdenDeTrabajoTipo
     {
-        Preventivo = 0,
-        Correctivo = 1
+        Preventivo = 1,
+        Correctivo = 2
     }
 }

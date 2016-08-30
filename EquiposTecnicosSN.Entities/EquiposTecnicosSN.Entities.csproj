@@ -74,7 +74,7 @@
     <Compile Include="Mantenimiento\Repuesto.cs" />
     <Compile Include="Mantenimiento\SolicitudRepuestoServicio.cs" />
     <Compile Include="Mantenimiento\GastoOrdenDeTrabajo.cs" />
-    <Compile Include="Mantenimiento\MantenimientoTipo.cs" />
+    <Compile Include="Mantenimiento\OrdenDeTrabajoTipo.cs" />
     <Compile Include="Mantenimiento\OrdenDeTrabajoEstado.cs" />
     <Compile Include="Mantenimiento\OrdenDeTrabajoMantenimientoCorrectivo.cs" />
     <Compile Include="Equipos\Info\Fabricante.cs" />

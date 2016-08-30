@@ -51,12 +51,7 @@
 
         $(function () {
 
-            $("#@Html.IdFor(model  => model.EquipoParado)").bootstrapSwitch({
-                onColor: "danger",
-                onText: "Si",
-                offText: "No",
-                disabled: "disabled"
-            });
+            $("#@Html.IdFor(model  => model.EquipoParado)").bootstrapSwitch('disabled', true);
 
             $("#@Html.IdFor(model  => model.VerificacionFuncionamiento)").bootstrapSwitch({
                 onColor: "success",

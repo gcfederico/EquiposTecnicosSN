@@ -303,6 +303,7 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\EquiposService.cs" />
     <Compile Include="Services\IndicadoresService.cs" />
+    <Compile Include="Services\ODTsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1220,6 +1221,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modal-detalle-solicitud.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\odts.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
@@ -1451,14 +1453,20 @@
     <Content Include="Views\EquiposOtros\Index.cshtml" />
     <Content Include="Views\Shared\_ListObservaciones.cshtml" />
     <Content Include="Views\Shared\_AddObservaciones.cshtml" />
-    <Content Include="Views\Shared\_SearchEquipos.cshtml" />
+    <Content Include="Views\Shared\_SearchEquiposResults.cshtml" />
     <Content Include="Views\Indicadores\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchODTsResults.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchEquipos.cshtml" />
     <Content Include="Views\Shared\_SearchODTs.cshtml" />
+    <Content Include="Views\Shared\_TrasladarEquipoModal.cshtml" />
+    <Content Include="Views\Shared\_TrasladarEquipoContent.cshtml" />
+    <Content Include="Views\Indicadores\TiempoMedioReparacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\custom\" />
-    <Folder Include="Views\ODT\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

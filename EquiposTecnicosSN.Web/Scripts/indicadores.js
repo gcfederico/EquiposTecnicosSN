@@ -1,14 +1,24 @@
 ﻿$(function () {
 
-    $("#seleccionarToggle").on("click", function () {
+    $("#seleccionarSectoresToggle").on("click", function () {
         var check = $("[name='sectores']").is(":checked");
         
         $("[name='sectores']").each(function (i, element) {
             element.checked = !check;            
         });
     });
+
+    $("#seleccionarUbicacionesToggle").on("click", function () {
+        var check = $("[name='ubicaciones']").is(":checked");
+
+        $("[name='ubicaciones']").each(function (i, element) {
+            element.checked = !check;
+        });
+    });
     
     var getChartData = function () {
+
+        var indicador = $(this).data("nqn-indicador");
 
         var sectoresIds = [];
 
@@ -18,11 +28,11 @@
             }
         });
 
-        $("#ParetoChart").empty();
+        $("#ParetoChartContainer").empty();
 
         if (sectoresIds.length < 2) {
             var errorContent = "<div class='alert alert-danger'>Debe seleccionar al menos dos sectores.</div>";
-            $("#ParetoChart").html(errorContent);
+            $("#ParetoChartContainer").html(errorContent);
             return false;
         }
 
@@ -30,14 +40,13 @@
 
         $.ajax({
             type: 'GET',
-            url: '/Indicadores/ParetoPorSectoresJSON',
+            url: '/Indicadores/Pareto' + indicador + 'Data',
             dataType: 'json',
             data: {
-                sectoresIds: JSON.stringify(sectoresIds)
+                sectoresIds: JSON.stringify(sectoresIds),
+                ubicacionId: $("#UbicacionId").val()
             },
             success: function (response) {
-                //var keys = Object.keys(response);
-                //var values = new Array;
                 var keys = [];
                 var values = [];
 
@@ -45,10 +54,6 @@
                     keys.push(key);
                     values.push(response[key]);
                 }
-
-                //for (i in keys) {
-                //    values.push(response[keys[i]]);
-                //}
 
                 var paretoChartConfig = {
                     "type": "pareto",
@@ -91,11 +96,11 @@
                 paretoChartConfig["scale-x"]["values"] = keys;
                 paretoChartConfig.series.push({ "values": values });
 
-                zingchart.exec('ParetoChart', 'destroy');
-                $("#ParetoChart").empty();
+                zingchart.exec('ParetoChartContainer', 'destroy');
+                $("#ParetoChartContainer").empty();
 
                 zingchart.render({
-                    id: 'ParetoChart',
+                    id: 'ParetoChartContainer',
                     data: paretoChartConfig,
                     height: "100%",
                     width: "100%"
@@ -106,10 +111,12 @@
                 alert('Failed to retrieve data.' + ex);
             }
         });
+
+        return false;
     };
 
 
-    $("#GenerateParetoChart").on("click", getChartData);
+    $("[id$=Chart]").on("click", getChartData);
 
     
 });

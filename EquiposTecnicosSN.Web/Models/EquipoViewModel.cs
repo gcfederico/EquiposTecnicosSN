@@ -26,13 +26,21 @@ namespace EquiposTecnicosSN.Web.Models
 
     public class HomeViewModel
     {
-        [StringLength(255)]
-        [DisplayName("Nombre completo")]
-        public string NombreCompleto { get; set; }
+        public SearchEquipoViewModel searchEquipo { get; set; }
+        
+        public SearchOdtViewModel searchOdt { get; set; }
 
-        [StringLength(50)]
-        public string UMDNS { get; set; }
+        public int CorrectivosCount { get; set; }
 
+        public int PreventivosCount { get; set; }
+
+        public int EquiposFuncionalesCount { get; set; }
+
+        public int RepuestosCount { get; set; }
+    }
+
+    public class SearchEquipoViewModel
+    {
         [DisplayName("Nº de matrícula")]
         public int? NumeroMatricula { get; set; }
 
@@ -47,8 +55,9 @@ namespace EquiposTecnicosSN.Web.Models
 
         public EstadoDeEquipo EstadoEquipo { get; set; }
 
-        public OrdenDeTrabajoEstado EstadoODT { get; set; }
-
-
+        public TipoEquipo SearchTipoEquipo { get; set; }
     }
+
+
+
 }

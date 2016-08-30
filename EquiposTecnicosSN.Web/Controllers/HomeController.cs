@@ -2,6 +2,7 @@
 using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
+using EquiposTecnicosSN.Web.Services;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -11,7 +12,14 @@ namespace EquiposTecnicosSN.Web.Controllers
     public class HomeController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
-
+        /// <summary>
+        /// 
+        /// </summary>
+        protected ODTsService odtsService = new ODTsService();
+        /// <summary>
+        /// 
+        /// </summary>
+        protected EquiposService equiposService = new EquiposService();
 
         // POST: EquiposBase/EquiposDeUsuarioCount
         [HttpPost]
@@ -22,62 +30,28 @@ namespace EquiposTecnicosSN.Web.Controllers
             return Json(count);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Index View Model</returns>
         public ActionResult Index()
         {
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
-            return View(new HomeViewModel());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="buscarNombreCompleto"></param>
-        /// <param name="buscarUMDNS"></param>
-        /// <param name="UbicacionId"></param>
-        /// <param name="SectorId"></param>
-        /// <param name="Estado"></param>
-        /// <param name="NumeroMatricula"></param>
-        /// <returns></returns>
-        public ActionResult SearchEquipos(string buscarNombreCompleto, string buscarUMDNS, int? UbicacionId, int? SectorId, int? EstadoEquipo, int? NumeroMatricula)
-        {
-            var result = db.Equipos
-                .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Equals(buscarNombreCompleto))
-                .Where(e => buscarUMDNS.Equals("") || e.UMDNS.Equals(buscarUMDNS))
-                .Where(e => UbicacionId == null || e.UbicacionId == UbicacionId)
-                .Where(e => SectorId == null || e.SectorId == SectorId)
-                .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula))
-                .ToList();
-
-            if (EstadoEquipo != 0)
+            //ViewBag.UbicacionOrigenId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
+            //ViewBag.UbicacionDestinoId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
+            var vm = new HomeViewModel
             {
-                EstadoDeEquipo estadoFiltro = (EstadoDeEquipo)EstadoEquipo;
-                result = result.Where(e => e.Estado.Equals(estadoFiltro)).ToList();
-            }
-            
-            return PartialView("_SearchEquipos", result);
-        }
+                searchEquipo = new SearchEquipoViewModel(),
+                searchOdt = new SearchOdtViewModel(),
+                CorrectivosCount = odtsService.CorrectivosAbiertosCount(),
+                EquiposFuncionalesCount = equiposService.EquiposFuncionalesCount(),
+                PreventivosCount = odtsService.PreventivosAbiertosCount(),
+                RepuestosCount = db.Repuestos.Count()
+            };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="buscarNumeroReferencia"></param>
-        /// <param name="EstadoODT"></param>
-        /// <returns></returns>
-        public ActionResult SearchODT(string buscarNumeroReferencia, int? EstadoODT)
-        {
-            var result = db.OrdenesDeTrabajo
-                .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia))
-                .ToList();
-
-            if (EstadoODT != 0)
-            {
-                OrdenDeTrabajoEstado estadoFiltro = (OrdenDeTrabajoEstado) EstadoODT;
-                result = result.Where(odt => odt.Estado.Equals(estadoFiltro)).ToList();
-            }
-
-            return PartialView("_SearchODTs", result);
+            return View(vm);
         }
 
     }

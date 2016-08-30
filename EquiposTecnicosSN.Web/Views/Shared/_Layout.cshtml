@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Sistema de Gesti&oacute;n de Recursos F&iacute;sicos - Salud Neuqu&eacute;n</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/lib/bower_components/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -29,7 +29,7 @@
                         
                     <a href="@Url.Action("Index", "Home", new { area = "" })"
                        class="navbar-brand app-logo">
-                        Application name
+                        SGRF - Salud Neuqu&eacute;n
                     </a>
                 </div>
 
@@ -43,60 +43,16 @@
                                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Inicio</a>
                             </li>
                             <li>
-                                <a href=@Url.Action("Index", "Indicadores")><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores</a>
+                                <!--
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Tiempo Medio de Reparación", "TiempoMedioReparacion", "Indicadores")</li>
+                                </ul>
+                                -->
+                                <a href="@Url.Action("Index", "Indicadores")"><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-medkit fa-fw"></i> Equipos<span class="fa arrow"></span></a>
-                                <ul class="nav nav-second-level">
-                                    <li>
-                                        @Html.ActionLink("Equipos de Cirugía", "Index", "EquiposCirugia")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Endoscopía", "Index", "EquiposEndoscopia")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Climatización", "Index", "EquiposClimatizacion")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipamiento Edilicio", "Index", "EquipamientosEdilicios")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Soporte de Vida", "Index", "EquiposSoporteDeVida")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Gases Medicinales", "Index", "EquiposGasesMedicinales")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Imágenes", "Index", "EquiposImagenes")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Luces", "Index", "EquiposLuces")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Monitoreo", "Index", "EquiposMonitoreo")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Informática", "Index", "EquiposInformatica")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Odontología", "Index", "EquiposOdontologia")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Pruebas de Diágnostico", "Index", "EquiposPruebasDeDiagnostico")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Rehabilitacion", "Index", "EquiposRehabilitacion")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Equipos de Terapéutica", "Index", "EquiposTerapeutica")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Otros", "Index", "EquiposOtros")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Todos los Equipos", "Index", "EquiposBase")
-                                    </li>
-                                </ul>
+                                <a href="@Url.Action("Index", "EquiposBase")"><i class="fa fa-medkit fa-fw"></i> Equipos</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-gears fa-fw"></i> Repuestos<span class="fa arrow"></span></a>
@@ -119,6 +75,7 @@
                                 <li>
                                     <a href="#"><i class="fa fa-gear fa-fw"></i> Administración<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
+                                        <li>@Html.ActionLink("Traslados", "Index", "Traslados")</li>
                                         <li>@Html.ActionLink("Checklists MP", "Index", "ChecklistsMantenimientoPreventivo")</li>
                                         <li>@Html.ActionLink("Ubicaciones", "Index", "Ubicaciones")</li>
                                         <li>@Html.ActionLink("Fabricantes", "Index", "Fabricantes")</li>

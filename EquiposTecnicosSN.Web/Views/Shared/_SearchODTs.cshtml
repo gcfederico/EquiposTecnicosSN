@@ -1,73 +1,50 @@
-﻿@using EquiposTecnicosSN.Web.CustomExtensions
-@using EquiposTecnicosSN.Entities.Mantenimiento
-@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo>
+﻿@model EquiposTecnicosSN.Web.Models.SearchOdtViewModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar Orden de Trabajo</div>
 
-<hr />
-<table class="table table-hover table-responsive table-condensed table-striped">
-    <thead>
+            <div class="panel-body">
+                <form id="FormBuscarODT" method="get" data-nqn-ajax="true" action="@Url.Action("SearchODT", "ODTMantenimientoPreventivo")" data-nqn-target="#searchODTResults">
 
-        <tr>
-            <th>
-                Nº de Referencia
-            </th>
-            <th>
-                Estado
-            </th>
-            <th>
-                Fecha de Inicio
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nº Referencia</label>
 
-        @foreach (var item in Model)
-        {
-            string cssClass;
+                                <input class="form-control text-box single-line"
+                                       id="buscarNumeroReferencia"
+                                       name="buscarNumeroReferencia" type="text" value="">
 
-            if (item.Estado != OrdenDeTrabajoEstado.Cerrada)
-            {
-                switch (item.Prioridad)
-                {
-                    case OrdenDeTrabajoPrioridad.Emergencia:
-                        cssClass = "danger";
-                        break;
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Tipo de Mantenimiento</label>
+                                @Html.EnumDropDownListFor(model => model.TipoODT, "Todos", htmlAttributes: new { @class = "form-control" })
+                            </div>
 
-                    case OrdenDeTrabajoPrioridad.Urgencia:
-                        cssClass = "warning";
-                        break;
-
-                    case OrdenDeTrabajoPrioridad.Normal:
-                        cssClass = "success";
-                        break;
-
-                    default:
-                        cssClass = "";
-                        break;
-                }
-            }
-            else
-            {
-                cssClass = "info";
-            }
-            <tr class="@cssClass">
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroReferencia)
-                </td>
-                <td>
-                    @item.Estado.DisplayName()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaInicio)
-                </td>
-                <td>
-                    <a class="btn btn-default btn-xs"
-                        href="@Url.Action("Details", item.WebController(), new { id = item.OrdenDeTrabajoId }, null)"
-                        title="Ver Orden de trabajo">
-                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Estado</label>
+                                @Html.EnumDropDownListFor(model => model.EstadoODT, "Todos", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input id="buscarODT" type="submit" value="Buscar" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="searchODTResults">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
