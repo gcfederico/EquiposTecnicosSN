@@ -27,19 +27,37 @@ namespace EquiposTecnicosSN.Web.Models
 
     public class MCViewModel : MViewModel
     {
-
         public  OrdenDeTrabajoMantenimientoCorrectivo Odt { get; set; }
-
-        //[DisplayName("Nueva Observación")]
-        //public ObservacionOrdenDeTrabajo NuevaObservacion { get; set; }
     }
 
     public class MPViewModel : MViewModel
     {
-
         public  OrdenDeTrabajoMantenimientoPreventivo Odt { get; set; }
+    }
 
-        //[DisplayName("Nueva Observación")]
-        //public ObservacionOrdenDeTrabajo NuevaObservacion { get; set; }
+    public class  MCIndexViewModel
+    {
+        public SearchOdtViewModel Search { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoCorrectivo> Emergencias { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoCorrectivo> Urgencias { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoCorrectivo> Normales { get; set; }
+    }
+    
+    public class MPIndexViewModel
+    {
+        public SearchOdtViewModel Search { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> Emergencias { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> Urgencias { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> Normales { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> Proximas { get; set; }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> Abiertas { get; set; }
     }
 }

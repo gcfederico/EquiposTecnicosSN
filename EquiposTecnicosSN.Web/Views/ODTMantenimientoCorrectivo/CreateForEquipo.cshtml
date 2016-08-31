@@ -115,13 +115,13 @@
     <script type="text/javascript">
 
         $(function () {
-            $("#EquipoParado").bootstrapSwitch({
+            $("#@Html.IdFor(model => model.Odt.EquipoParado)").bootstrapSwitch({
                 onColor: "danger",
                 onText: "Si",
                 offText: "No"
             });
 
-            $("#EquipoParado").on("switchChange.bootstrapSwitch", function (event, state) {
+            $("#@Html.IdFor(model => model.Odt.EquipoParado)").on("switchChange.bootstrapSwitch", function (event, state) {
                 if (state) {
                     $("#Emergencia").click();
                 }

@@ -1,48 +1,14 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
-using EquiposTecnicosSN.Web.Services;
-using System.Diagnostics;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     [Authorize]
     public class EquiposClimatizacionController : EquiposBaseController
     {
-        private EquiposDbContext db = new EquiposDbContext();
-        private IdentityDb identityDb = new IdentityDb();
-        private EquiposService equiposService = new EquiposService();
-        // GET: EquiposClimatizacion
-        public override ActionResult Index()
-        {
-            var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
-            var equipos = equiposService.EquiposClimatizacionDeUbicacion(appuser.UbicacionId);
-            return View(equipos);
-        }
-
-        // GET: EquiposClimatizacion/Details/5
-        public override ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
-            //equipoClimatizacion.OrdenesDeTrabajo = equipoClimatizacion.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
-            var model = equiposService.BuscarEquipo((int) id);
-
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(model);
-        }
-
         // GET: EquiposClimatizacion/Create
         public ActionResult Create()
         {
@@ -144,7 +110,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (disposing)
             {
                 db.Dispose();
-                identityDb.Dispose();
             }
             base.Dispose(disposing);
         }

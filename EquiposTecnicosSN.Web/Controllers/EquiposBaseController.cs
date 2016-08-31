@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
@@ -16,7 +12,7 @@ namespace EquiposTecnicosSN.Web.Controllers
     [Authorize]
     public class EquiposBaseController : Controller
     {
-        private EquiposDbContext db = new EquiposDbContext();
+        protected EquiposDbContext db = new EquiposDbContext();
 
         // GET: EquiposBase
         public virtual ActionResult Index()

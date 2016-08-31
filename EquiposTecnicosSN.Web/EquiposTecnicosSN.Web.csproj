@@ -1462,6 +1462,10 @@
     <Content Include="Views\Shared\_TrasladarEquipoModal.cshtml" />
     <Content Include="Views\Shared\_TrasladarEquipoContent.cshtml" />
     <Content Include="Views\Indicadores\TiempoMedioReparacion.cshtml" />
+    <Content Include="Views\Shared\_ListODTsMC.cshtml" />
+    <Content Include="Views\Shared\_ListODTsMP.cshtml" />
+    <Content Include="Views\Shared\_SearchODTsMP.cshtml" />
+    <Content Include="Views\Shared\_SearchODTsMC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

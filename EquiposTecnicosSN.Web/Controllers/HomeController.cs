@@ -39,8 +39,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
-            //ViewBag.UbicacionOrigenId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
-            //ViewBag.UbicacionDestinoId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
             var vm = new HomeViewModel
             {
                 searchEquipo = new SearchEquipoViewModel(),

@@ -15,6 +15,21 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class ODTMantenimientoPreventivoController : ODTController
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
+        {
+            var model = new MPIndexViewModel
+            {
+                Search = new SearchOdtViewModel(),
+                Proximas = odtsService.ProximosPreventivos()
+            };
+
+            return View(model);
+        }
+
         [HttpGet]
         public override ActionResult CreateForEquipo(int id)
         {
@@ -72,7 +87,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return HttpNotFound();
             }
             ordenDeTrabajo.SolicitudesRespuestos = odtsService.BuscarSolicitudes(id);
-            ordenDeTrabajo.Equipo = equiposService.BuscarEquipo(ordenDeTrabajo.EquipoId);
+            ordenDeTrabajo.Equipo = db.Equipos.Find(ordenDeTrabajo.EquipoId);
 
             return View(ordenDeTrabajo);
         }
@@ -157,13 +172,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View(odtsService.ProximosPreventivos());
-        }
+
     }
 }

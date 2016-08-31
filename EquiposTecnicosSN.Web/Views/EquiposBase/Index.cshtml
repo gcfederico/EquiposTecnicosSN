@@ -8,6 +8,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- BUSCAR EQUIPO -->
+@Html.Partial("_SearchEquipos", new SearchEquipoViewModel())
+
 <!-- NUEVO EQUIPO -->
 <div class="row">
     <div class="col-lg-12">
@@ -51,9 +54,6 @@
         </div>
     </div>
 </div>
-
-<!-- BUSCAR EQUIPO -->
-@Html.Partial("_SearchEquipos", new SearchEquipoViewModel())
 
 <!-- TRASLADAR EQUIPO -->
 @Html.Partial("_TrasladarEquipoModal")

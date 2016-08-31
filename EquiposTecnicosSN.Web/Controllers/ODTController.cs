@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace EquiposTecnicosSN.Web.Controllers
@@ -84,7 +83,6 @@ namespace EquiposTecnicosSN.Web.Controllers
                     gastoE.Monto = edicion.Monto;
                     gastoE.Concepto = edicion.Concepto;
                     db.Entry(gastoE).State = EntityState.Modified;
-                    //odtsService.Update(gastoE);
                 }
                 else
                 {

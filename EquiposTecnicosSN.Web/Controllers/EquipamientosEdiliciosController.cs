@@ -1,46 +1,14 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
-using EquiposTecnicosSN.Web.Services;
-using System.Diagnostics;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     [Authorize]
     public class EquipamientosEdiliciosController : EquiposBaseController
     {
-        private EquiposDbContext db = new EquiposDbContext();
-        private IdentityDb identityDb = new IdentityDb();
-        private EquiposService equiposService = new EquiposService();
-        // GET: EquiposClimatizacion
-        public override ActionResult Index()
-        {
-            var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
-            var equipos = db.EquipamientosEdilicios.ToList();
-            return View(equipos);
-        }
-
-        // GET: EquiposClimatizacion/Details/5
-        public override ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var model = equiposService.BuscarEquipo((int) id);
-
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(model);
-        }
 
         // GET: EquiposClimatizacion/Create
         public ActionResult Create()
@@ -143,7 +111,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (disposing)
             {
                 db.Dispose();
-                identityDb.Dispose();
             }
             base.Dispose(disposing);
         }

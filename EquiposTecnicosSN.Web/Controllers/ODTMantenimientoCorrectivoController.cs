@@ -5,11 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Mantenimiento;
-using EquiposTecnicosSN.Web.DataContexts;
-using EquiposTecnicosSN.Web.CustomExtensions;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Entities.Equipos;
 
@@ -18,6 +15,22 @@ namespace EquiposTecnicosSN.Web.Controllers
     [Authorize]
     public class ODTMantenimientoCorrectivoController : ODTController
     {
+        /// <summary>
+        /// Action Index
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
+        {
+            var model = new MCIndexViewModel
+            {
+                Emergencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Emergencia),
+                Urgencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Urgencia),
+                Normales = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Normal),
+                Search = new SearchOdtViewModel()
+            };
+
+            return View(model);
+        }
 
         // GET: OrdenesDeTrabajo/Details/5
         [HttpGet]
@@ -68,7 +81,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 vm.Odt.FechaInicio = DateTime.Now;
                 vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
                 //estado del equipo
-                var equipo = equiposService.BuscarEquipo(vm.Odt.EquipoId);//db.Equipos.Find(vm.Odt.EquipoId);
+                var equipo = db.Equipos.Find(vm.Odt.EquipoId);
                 equipo.Estado = (vm.Odt.EquipoParado ? EstadoDeEquipo.NoFuncionalRequiereReparacion : EstadoDeEquipo.FuncionalRequiereReparacion);
                 db.Entry(equipo).State = EntityState.Modified;
 
@@ -207,31 +220,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Details", new { id = orden.OrdenDeTrabajoId });
         }
 
-        // GET: OrdenesDeTrabajo/Create
-        public ActionResult Create()
-        {
-            ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto");
-            return View();
-        }
-
-        // POST: OrdenesDeTrabajo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ODTMantenimientosCorrectivos.Add(ordenDeTrabajo);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", ordenDeTrabajo.EquipoId);
-            return View(ordenDeTrabajo);
-        }
-
         // GET: OrdenesDeTrabajo/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -268,17 +256,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", ordenDeTrabajo.EquipoId);
             return View(ordenDeTrabajo);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View(odtsService.EmergenciasAbiertas());
-        }
-
-
 
         // GET: OrdenesDeTrabajo/Delete/5
         public async Task<ActionResult> Delete(int? id)

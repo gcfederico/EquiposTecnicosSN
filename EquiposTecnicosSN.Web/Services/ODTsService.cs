@@ -9,19 +9,17 @@ namespace EquiposTecnicosSN.Web.Services
 {
     public class ODTsService : BaseService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<OrdenDeTrabajoMantenimientoCorrectivo> EmergenciasAbiertas()
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoCorrectivo> MCorrectivosAbiertos(OrdenDeTrabajoPrioridad prioridad)
         {
-            var ordenesDeTrabajoEmergencia = db.ODTMantenimientosCorrectivos
+            var mcAbiertos = db.ODTMantenimientosCorrectivos
                 .Where(odt => odt.Estado == OrdenDeTrabajoEstado.Abierta || odt.Estado == OrdenDeTrabajoEstado.EsperaRepuesto)
-                .Where(odt => odt.Prioridad == OrdenDeTrabajoPrioridad.Emergencia)
+                .Where(odt => odt.Prioridad == prioridad)
                 .OrderBy(odt => odt.FechaInicio);
 
-            return ordenesDeTrabajoEmergencia.ToList();
+            return mcAbiertos.ToList();
         }
+
         /// <summary>
         /// 
         /// </summary>
