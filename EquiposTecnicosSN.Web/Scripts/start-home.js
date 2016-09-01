@@ -28,5 +28,30 @@
     }
 
     $("form[data-nqn-ajax='true']").submit(ajaxSubmit);
+
+    var getPage = function () {
+        var $a = $(this);
+
+        if ($a.parent().hasClass("disabled")) {
+            return false;
+        }
+
+        var $form = $($a.parents("div.pagedList").attr("data-nqn-form"));
+
+        var options = {
+            url : $a.attr("href"),
+            type : "get",
+            data : $form.serialize() 
+        };
+        
+        $.ajax(options).done(function (data) {
+            var target = $a.parents("div.pagedList").attr("data-nqn-target");
+            $(target).html(data);
+        });
+
+        return false;
+    };
+
+    $(".body-content").on("click", ".pagedList a", getPage)
 });
 

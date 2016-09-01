@@ -1,7 +1,9 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
-@model IEnumerable<EquiposTecnicosSN.Entities.Equipos.Equipo>
+@model IPagedList<EquiposTecnicosSN.Entities.Equipos.Equipo>
+<div class="pagedList" data-nqn-target="#searchEquipoResults" data-nqn-form="#formBuscarEquipo">
+    @Html.PagedListPager(Model, page => Url.Action("SearchEquipos", "EquiposBase", new { page = page }), PagedListRenderOptions.Classic)
+</div>
 
-<hr />
 <table class="table table-striped table-hover table-responsive table-condensed">
     <thead>
 

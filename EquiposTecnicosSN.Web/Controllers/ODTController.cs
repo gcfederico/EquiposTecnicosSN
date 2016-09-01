@@ -1,6 +1,7 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Services;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -157,36 +158,34 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="buscarNumeroReferencia"></param>
         /// <param name="EstadoODT"></param>
         /// <returns></returns>
-        public ActionResult SearchODT(string buscarNumeroReferencia, int? EstadoODT, int? TipoODT)
+        public ActionResult SearchODT(string buscarNumeroReferencia = "", int? EstadoODT = 0, int? TipoODT = 0, int page = 1)
         {
             var result = db.OrdenesDeTrabajo
-                .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia))
-                .ToList();
+                .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia));
 
             if (EstadoODT != 0)
             {
                 OrdenDeTrabajoEstado estadoFiltro = (OrdenDeTrabajoEstado)EstadoODT;
-                result = result.Where(odt => odt.Estado.Equals(estadoFiltro)).ToList();
+                result = result.Where(odt => odt.Estado == estadoFiltro);
             }
 
             if (TipoODT != 0)
             {
-                OrdenDeTrabajoTipo tipoFiltro = (OrdenDeTrabajoTipo)TipoODT;
+                OrdenDeTrabajoTipo tipoFiltro = (OrdenDeTrabajoTipo) TipoODT;
 
                 switch (tipoFiltro)
                 {
                     case OrdenDeTrabajoTipo.Correctivo:
-                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoCorrectivo).ToList();
+                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoCorrectivo);
                         break;
 
                     case OrdenDeTrabajoTipo.Preventivo:
-                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoPreventivo).ToList();
+                        result = result.Where(odt => odt is OrdenDeTrabajoMantenimientoPreventivo);
                         break;
                 }
-
             }
 
-            return PartialView("_SearchODTsResults", result.OrderByDescending(odt => odt.FechaInicio));
+            return PartialView("_SearchODTsResults", result.OrderByDescending(odt => odt.FechaInicio).ToPagedList(page, 5));
         }
     }
 }

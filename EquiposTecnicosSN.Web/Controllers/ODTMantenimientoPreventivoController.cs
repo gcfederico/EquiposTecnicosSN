@@ -24,7 +24,8 @@ namespace EquiposTecnicosSN.Web.Controllers
             var model = new MPIndexViewModel
             {
                 Search = new SearchOdtViewModel(),
-                Proximas = odtsService.ProximosPreventivos()
+                Proximas = odtsService.MPreventivosProximos(),
+                Abiertas = odtsService.MPreventivosAbiertos(null)
             };
 
             return View(model);
@@ -95,7 +96,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult EditGastos(int id)
         {
-            var model = odtsService.BuscarMPreventivo(id);
+            var model = db.ODTMantenimientosPreventivos.Find(id);
             return View(model);
         }
 
@@ -104,8 +105,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            var orden = odtsService.BuscarMPreventivo(ordenDeTrabajoId);
-           
+            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);//odtsService.BuscarMPreventivo(ordenDeTrabajoId);
+
             //gastos
             SaveGastos(gastos, orden.OrdenDeTrabajoId);
 

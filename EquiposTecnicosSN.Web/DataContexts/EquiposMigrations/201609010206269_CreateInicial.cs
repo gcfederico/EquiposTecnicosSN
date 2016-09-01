@@ -3,7 +3,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateIncial : DbMigration
+    public partial class CreateInicial : DbMigration
     {
         public override void Up()
         {
@@ -43,8 +43,8 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                     {
                         EquipoId = c.Int(nullable: false),
                         FechaCompra = c.DateTime(),
-                        PrecioCompra = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        ValorRestante = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        PrecioCompra = c.Decimal(precision: 18, scale: 2),
+                        ValorRestante = c.Decimal(precision: 18, scale: 2),
                         EsGrantiaContrato = c.Int(),
                         FechaFinGarantia = c.DateTime(),
                         NotasGarantia = c.String(maxLength: 150),
@@ -434,17 +434,17 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 c => new
                     {
                         OrdenDeTrabajoId = c.Int(nullable: false),
-                        EquipoParado = c.Boolean(nullable: false),
                         Descripcion = c.String(nullable: false, maxLength: 500),
                         Diagnostico = c.String(maxLength: 500),
-                        DetalleReparacion = c.String(maxLength: 500),
-                        CausaRaiz = c.String(maxLength: 500),
                         FechaDiagnostico = c.DateTime(),
                         UsuarioDiagnosticoId = c.Int(),
+                        DetalleReparacion = c.String(maxLength: 500),
                         FechaReparacion = c.DateTime(),
                         UsuarioReparacionId = c.Int(),
+                        CausaRaiz = c.String(maxLength: 500),
                         Limpieza = c.Boolean(nullable: false),
                         VerificacionFuncionamiento = c.Boolean(nullable: false),
+                        EquipoParado = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId)

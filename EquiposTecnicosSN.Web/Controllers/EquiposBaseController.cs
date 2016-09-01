@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -104,22 +105,21 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="Estado"></param>
         /// <param name="NumeroMatricula"></param>
         /// <returns></returns>
-        public ActionResult SearchEquipos(string buscarNombreCompleto, string buscarUMDNS, int? UbicacionId, int? SectorId, int? EstadoEquipo, int? NumeroMatricula, int? SearchTipoEquipo)
+        public ActionResult SearchEquipos(int? UbicacionId, int? SectorId, int? NumeroMatricula, int? SearchTipoEquipo = 0, int? EstadoEquipo = 0, string buscarNombreCompleto = "", string buscarUMDNS = "", int page = 1)
         {
 
             var result = db.Equipos
-                .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Equals(buscarNombreCompleto))
-                .Where(e => buscarUMDNS.Equals("") || e.UMDNS.Equals(buscarUMDNS))
+                .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Contains(buscarNombreCompleto))
+                .Where(e => buscarUMDNS.Equals("") || e.UMDNS.Contains(buscarUMDNS))
                 .Where(e => UbicacionId == null || e.UbicacionId == UbicacionId)
                 .Where(e => SectorId == null || e.SectorId == SectorId)
-                .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula))
-                .ToList();
+                .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula));
 
 
             if (EstadoEquipo != 0)
             {
                 EstadoDeEquipo estadoFiltro = (EstadoDeEquipo)EstadoEquipo;
-                result = result.Where(e => e.Estado.Equals(estadoFiltro)).ToList();
+                result = result.Where(e => e.Estado == estadoFiltro);
             }
 
             if (SearchTipoEquipo != 0)
@@ -129,68 +129,68 @@ namespace EquiposTecnicosSN.Web.Controllers
                 switch (tipo)
                 {
                     case TipoEquipo.Cirugia:
-                        result = result.Where(e => e is EquipoCirugia).ToList();
+                        result = result.Where(e => e is EquipoCirugia);
                         break;
 
                     case TipoEquipo.Climatizacion:
-                        result = result.Where(e => e is EquipoClimatizacion).ToList();
+                        result = result.Where(e => e is EquipoClimatizacion);
                         break;
 
                     case TipoEquipo.Edilicio:
-                        result = result.Where(e => e is EquipamientoEdilicio).ToList();
+                        result = result.Where(e => e is EquipamientoEdilicio);
                         break;
 
                     case TipoEquipo.Endoscopia:
-                        result = result.Where(e => e is EquipoEndoscopia).ToList();
+                        result = result.Where(e => e is EquipoEndoscopia);
                         break;
 
                     case TipoEquipo.GasesMedicinales:
-                        result = result.Where(e => e is EquipoGasesMedicinales).ToList();
+                        result = result.Where(e => e is EquipoGasesMedicinales);
                         break;
 
                     case TipoEquipo.Imagenes:
-                        result = result.Where(e => e is EquipoImagen).ToList();
+                        result = result.Where(e => e is EquipoImagen);
                         break;
 
                     case TipoEquipo.Informatica:
-                        result = result.Where(e => e is EquipoInformatica).ToList();
+                        result = result.Where(e => e is EquipoInformatica);
                         break;
 
                     case TipoEquipo.Luces:
-                        result = result.Where(e => e is EquipoLuces).ToList();
+                        result = result.Where(e => e is EquipoLuces);
                         break;
 
                     case TipoEquipo.Monitoreo:
-                        result = result.Where(e => e is EquipoMonitoreo).ToList();
+                        result = result.Where(e => e is EquipoMonitoreo);
                         break;
 
                     case TipoEquipo.Odontologia:
-                        result = result.Where(e => e is EquipoOdontologia).ToList();
+                        result = result.Where(e => e is EquipoOdontologia);
                         break;
 
                     case TipoEquipo.Otros:
-                        result = result.Where(e => e is EquipoOtro).ToList();
+                        result = result.Where(e => e is EquipoOtro);
                         break;
 
                     case TipoEquipo.PruebasDeDiagnostico:
-                        result = result.Where(e => e is EquipoPruebaDeDiagnostico).ToList();
+                        result = result.Where(e => e is EquipoPruebaDeDiagnostico);
                         break;
 
                     case TipoEquipo.Rehabilitacion:
-                        result = result.Where(e => e is EquipoRehabilitacion).ToList();
+                        result = result.Where(e => e is EquipoRehabilitacion);
                         break;
 
                     case TipoEquipo.SoporteDeVida:
-                        result = result.Where(e => e is EquipoSoporteDeVida).ToList();
+                        result = result.Where(e => e is EquipoSoporteDeVida);
                         break;
 
                     case TipoEquipo.Terapeutica:
-                        result = result.Where(e => e is EquipoTerapeutica).ToList();
+                        result = result.Where(e => e is EquipoTerapeutica);
                         break;
                 }
             }
 
-            return PartialView("_SearchEquiposResults", result.OrderByDescending(e => e.NombreCompleto));
+            return PartialView("_SearchEquiposResults", result.OrderByDescending(e => e.NombreCompleto).ToPagedList(page, 5));
         }
 
         protected override void Dispose(bool disposing)

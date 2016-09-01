@@ -43,9 +43,9 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 searchEquipo = new SearchEquipoViewModel(),
                 searchOdt = new SearchOdtViewModel(),
-                CorrectivosCount = odtsService.CorrectivosAbiertosCount(),
+                CorrectivosCount = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Emergencia).Count(),
                 EquiposFuncionalesCount = equiposService.EquiposFuncionalesCount(),
-                PreventivosCount = odtsService.PreventivosAbiertosCount(),
+                PreventivosCount = odtsService.MPreventivosProximos().Count(),
                 RepuestosCount = db.Repuestos.Count()
             };
 

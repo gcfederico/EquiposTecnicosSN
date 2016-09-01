@@ -1,8 +1,10 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
-@model IEnumerable<EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajo>
+@model IPagedList<OrdenDeTrabajo>
 
-<hr />
+<div class="pagedList" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
+    @Html.PagedListPager(Model, page => Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { page = page }), PagedListRenderOptions.Classic)
+</div>
 <table class="table table-hover table-responsive table-condensed table-striped">
     <thead>
 

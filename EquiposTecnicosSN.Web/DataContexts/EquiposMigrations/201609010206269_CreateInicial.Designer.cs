@@ -7,13 +7,13 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CreateIncial : IMigrationMetadata
+    public sealed partial class CreateInicial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateIncial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateInicial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607252107276_CreateIncial"; }
+            get { return "201609010206269_CreateInicial"; }
         }
         
         string IMigrationMetadata.Source

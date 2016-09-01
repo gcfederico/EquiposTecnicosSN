@@ -2,22 +2,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace EquiposTecnicosSN.Web.Services
 {
     public class ODTsService : BaseService
     {
 
-        public IEnumerable<OrdenDeTrabajoMantenimientoCorrectivo> MCorrectivosAbiertos(OrdenDeTrabajoPrioridad prioridad)
+        public IEnumerable<OrdenDeTrabajoMantenimientoCorrectivo> MCorrectivosAbiertos(OrdenDeTrabajoPrioridad? prioridad)
         {
             var mcAbiertos = db.ODTMantenimientosCorrectivos
                 .Where(odt => odt.Estado == OrdenDeTrabajoEstado.Abierta || odt.Estado == OrdenDeTrabajoEstado.EsperaRepuesto)
-                .Where(odt => odt.Prioridad == prioridad)
+                .Where(odt => prioridad == null || odt.Prioridad == prioridad)
                 .OrderBy(odt => odt.FechaInicio);
 
             return mcAbiertos.ToList();
+        }
+
+        public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> MPreventivosAbiertos(OrdenDeTrabajoPrioridad? prioridad)
+        {
+            var mpAbiertos = db.ODTMantenimientosPreventivos
+                .Where(odt => odt.Estado == OrdenDeTrabajoEstado.Abierta || odt.Estado == OrdenDeTrabajoEstado.EsperaRepuesto)
+                .Where(odt => prioridad == null || odt.Prioridad == prioridad)
+                .OrderBy(odt => odt.FechaInicio);
+
+            return mpAbiertos.ToList();
         }
 
         /// <summary>
@@ -44,7 +52,7 @@ namespace EquiposTecnicosSN.Web.Services
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<OrdenDeTrabajoMantenimientoPreventivo> ProximosPreventivos()
+        public List<OrdenDeTrabajoMantenimientoPreventivo> MPreventivosProximos()
         {
             var proximos = db.ODTMantenimientosPreventivos
                 .Where(odt => odt.FechaInicio >= DateTime.Now)
@@ -61,16 +69,6 @@ namespace EquiposTecnicosSN.Web.Services
         {
             return db.SolicitudesRepuestosServicios.Where(s => s.OrdenDeTrabajoId == odtId).ToList();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="odtId"></param>
-        /// <returns></returns>
-        public OrdenDeTrabajoMantenimientoPreventivo BuscarMPreventivo(int odtId)
-        {
-            return db.ODTMantenimientosPreventivos.Find(odtId);
-        }
-
         public ICollection<GastoOrdenDeTrabajo> BuscarGastos(int ordenDeTrabajoId)
         {
             return db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajoId).ToList();

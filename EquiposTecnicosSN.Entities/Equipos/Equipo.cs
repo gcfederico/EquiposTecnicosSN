@@ -41,6 +41,7 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [ForeignKey("SectorId")]
         public virtual Sector Sector { get; set; }
 
+        [Required]
         public EstadoDeEquipo Estado { get; set; }
 
         [ForeignKey("InformacionComercialId")]
