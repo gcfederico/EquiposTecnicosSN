@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -13,9 +14,19 @@ namespace EquiposTecnicosSN.Web.Controllers
         private EquiposDbContext db = new EquiposDbContext();
 
         // GET: Ubicaciones
-        public ActionResult Index()
+        public ActionResult Index(string searchUbicacion = null, int page = 1)
         {
-            return View(db.Ubicaciones.ToList());
+            var listPage = db.Ubicaciones
+                .Where(u => searchUbicacion == null || u.Nombre.Contains(searchUbicacion))
+                .OrderBy(u => u.Nombre)
+                .ToPagedList(page, 10);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_UbicacionesList", listPage);
+            }
+
+            return View(listPage);
         }
 
         // GET: Ubicaciones/Details/5
@@ -103,14 +114,25 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // POST: Ubicaciones/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id, FormCollection collection)
         {
-            Ubicacion ubicacion = db.Ubicaciones.Find(id);
-            db.Ubicaciones.Remove(ubicacion);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var equiposCount = db.Equipos
+                .Where(e => e.UbicacionId == id)
+                .Count();
+
+            var ubicacion = db.Ubicaciones.Find(id);
+
+            if (equiposCount == 0)
+            {
+                db.Ubicaciones.Remove(ubicacion);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "La ubicación no puede eliminarse ya que posee equipos asociados.");
+            return View(ubicacion);
         }
 
         protected override void Dispose(bool disposing)

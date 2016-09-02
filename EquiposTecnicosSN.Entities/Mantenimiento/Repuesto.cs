@@ -24,6 +24,6 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         public virtual Proveedor Proveedor { get; set; }
 
-        public Decimal? Costo { get; set; }
+        public decimal? Costo { get; set; }
     }
 }

@@ -1,51 +1,15 @@
 ﻿@model EquiposTecnicosSN.Entities.Mantenimiento.Repuesto
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle de Repuesto";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Repuesto</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Proveedor.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Proveedor.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Costo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Costo)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-lg-12">
+        @Html.DisplayFor(model => model)
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RepuestoId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+<a href="@Url.Action("Edit", new { id = Model.RepuestoId })" class="btn btn-warning"> Editar</a>

@@ -276,18 +276,20 @@
     <Compile Include="Controllers\ODTMantenimientoPreventivoController.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RepuestosController.cs" />
+    <Compile Include="Controllers\SectoresController.cs" />
     <Compile Include="Controllers\SolicitudesRepuestoServicioController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\StockRepuestosController.cs" />
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
+    <Compile Include="Controllers\UmdnsController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609012259171_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609012259171_CreateInicial.Designer.cs">
-      <DependentUpon>201609012259171_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201609022212540_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201609022212540_CreateInicial.Designer.cs">
+      <DependentUpon>201609022212540_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1294,24 +1296,12 @@
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
-    <Content Include="Views\Mantenimientos\Create.cshtml" />
-    <Content Include="Views\Mantenimientos\Delete.cshtml" />
-    <Content Include="Views\Mantenimientos\Details.cshtml" />
-    <Content Include="Views\Mantenimientos\Edit.cshtml" />
-    <Content Include="Views\Mantenimientos\Index.cshtml" />
     <Content Include="Views\Shared\_OrdenesDeTrabajoEquipo.cshtml" />
-    <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Create.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Delete.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Details.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Edit.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Index.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\IndexForMantenimiento.cshtml" />
     <Content Include="Views\Fabricantes\Create.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
     <Content Include="Views\Fabricantes\Details.cshtml" />
@@ -1333,12 +1323,6 @@
     <Content Include="Views\Shared\EditorTemplates\Equipo.cshtml" />
     <Content Include="Views\Shared\_GastoOrden.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Equipo.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\CreateForMantenimiento.cshtml" />
-    <Content Include="Views\InformacionHardware\Create.cshtml" />
-    <Content Include="Views\InformacionHardware\Delete.cshtml" />
-    <Content Include="Views\InformacionHardware\Details.cshtml" />
-    <Content Include="Views\InformacionHardware\Edit.cshtml" />
-    <Content Include="Views\InformacionHardware\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionHardware.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajoMantenimientoCorrectivo.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionHardware.cshtml" />
@@ -1475,6 +1459,30 @@
     <Content Include="Views\Shared\_ListODTsMP.cshtml" />
     <Content Include="Views\Shared\_SearchODTsMP.cshtml" />
     <Content Include="Views\Shared\_SearchODTsMC.cshtml" />
+    <Content Include="Views\Sectores\Create.cshtml" />
+    <Content Include="Views\Sectores\Delete.cshtml" />
+    <Content Include="Views\Sectores\Details.cshtml" />
+    <Content Include="Views\Sectores\Edit.cshtml" />
+    <Content Include="Views\Sectores\Index.cshtml" />
+    <Content Include="Views\Sectores\_SectoresList.cshtml" />
+    <Content Include="Views\Umdns\Create.cshtml" />
+    <Content Include="Views\Umdns\Delete.cshtml" />
+    <Content Include="Views\Umdns\Details.cshtml" />
+    <Content Include="Views\Umdns\Edit.cshtml" />
+    <Content Include="Views\Umdns\Index.cshtml" />
+    <Content Include="Views\Umdns\_UmdnsList.cshtml" />
+    <Content Include="Views\Ubicaciones\_UbicacionesList.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\_ChecklistsList.cshtml" />
+    <Content Include="Views\Repuestos\_RepuestosList.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\Delete.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Ubicacion.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Sector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Ubicacion.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Sector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Umdns.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Umdns.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Repuesto.cshtml" />
+    <Content Include="Views\StockRepuestos\_StockRepuestosList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1495,8 +1503,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609012259171_CreateInicial.resx">
-      <DependentUpon>201609012259171_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609022212540_CreateInicial.resx">
+      <DependentUpon>201609022212540_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

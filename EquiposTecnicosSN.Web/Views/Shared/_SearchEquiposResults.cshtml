@@ -55,7 +55,7 @@
                 <td id="ubicacionEquipoId-@item.EquipoId">
                     @Html.DisplayFor(modelItem => item.Ubicacion.Nombre)
                 </td>
-                <td>
+                <td class="action-columns">
                     <a class="btn btn-default btn-xs btn-list"
                        href="@Url.Action("Edit", item.WebController(), new { id = item.EquipoId })"
                        title="Editar Equipo">

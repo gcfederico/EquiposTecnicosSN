@@ -4,6 +4,7 @@
         var $form = $(this);
         var targetRow = Boolean($form.attr("data-nqn-target-row"));
         var $target = $($form.attr("data-nqn-target"));
+        var modalId = $form.attr("data-nqn-modal");
         $target.html("<div class='loader'></div>");
 
         var options = {
@@ -19,6 +20,10 @@
                 $target.html(data.Value);
             } else {
                 $target.html(data);
+            }
+
+            if (modalId) {
+                $(modalId).modal("hide");
             }
 
             $target.effect("highlight");

@@ -1,6 +1,6 @@
 ﻿@model EquiposTecnicosSN.Entities.Mantenimiento.ChecklistMantenimientoPreventivo
 
-<div class="panel panel-default">
+<div class="panel panel-@(ViewBag.PanelStyle != null ? ViewBag.PanelStyle : "default" )">
     <div class="panel-heading"><i class="fa fa-list-alt fa-fw"></i> @ViewBag.Title</div>
     <div class="panel-body">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -10,73 +10,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>
-                        @Html.DisplayNameFor(model => model.Equipo)
+                        @Html.DisplayNameFor(model => model.Nombre)
                     </label>
                     <p class="form-control-static">
-                        @Html.DisplayFor(model => model.Equipo.NombreCompleto)
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        @Html.DisplayNameFor(model => model.NumeroReferencia)
-                    </label>
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.NumeroReferencia)
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        @Html.DisplayNameFor(model => model.FechaDeInicio)
-                    </label>
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.FechaDeInicio)
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        @Html.DisplayNameFor(model => model.MantenimientoTipo)
-                    </label>
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.MantenimientoTipo)
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        @Html.DisplayNameFor(model => model.Estado)
-                    </label>
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.Estado)
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        @Html.DisplayNameFor(model => model.FechaDeFin)
-                    </label>
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.FechaDeFin)
+                        @Html.DisplayFor(model => model.Nombre)
                     </p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>
-                        @Html.DisplayNameFor(model => model.Descripcion)
-                    </label>
-                    <p class="form-control-static">
-                        @Html.DisplayFor(model => model.Descripcion)
-                    </p>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>

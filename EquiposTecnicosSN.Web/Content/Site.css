@@ -130,3 +130,7 @@ textarea {
 .pagedList {
     text-align: center;
 }
+
+.action-columns {
+    text-align: right;
+}

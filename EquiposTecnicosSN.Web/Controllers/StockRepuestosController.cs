@@ -1,4 +1,5 @@
 ﻿using EquiposTecnicosSN.Web.DataContexts;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,23 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         EquiposDbContext db = new EquiposDbContext();
         // GET: StockRepuestos
-        public ActionResult Index()
+        public ActionResult Index(string searchCodigoRepuesto = null, int repuestoId = 0, int proveedorId = 0, int page = 1)
         {
-            var model = db.StockRepuestos.ToList();
-            return View(model);
+            var listPage = db.StockRepuestos
+                .Where(sr => searchCodigoRepuesto == null || sr.Repuesto.Codigo.Contains(searchCodigoRepuesto))
+                .Where(sr => proveedorId == 0 || sr.Repuesto.ProveedorId == proveedorId)
+                .Where(sr => repuestoId == 0 || sr.Repuesto.RepuestoId == repuestoId)
+                .OrderBy(sr => sr.Repuesto.Nombre)
+                .ToPagedList(page, 10);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_StockRepuestosList", listPage);
+            }
+
+            ViewBag.proveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
+            ViewBag.repuestoId = new SelectList(db.Repuestos, "RepuestoId", "Nombre");
+            return View(listPage);
         }
 
         // GET: StockRepuestos/Details/5

@@ -70,7 +70,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaInicio)
                 </td>
-                <td>
+                <td class="action-columns">
                     <a class="btn btn-default btn-xs"
                         href="@Url.Action("Details", item.WebController(), new { id = item.OrdenDeTrabajoId }, null)"
                         title="Ver Orden de trabajo">

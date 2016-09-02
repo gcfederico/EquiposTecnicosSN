@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquiposTecnicosSN.Entities.Equipos.Info
 {
@@ -15,9 +11,11 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public int UmdnsId { get; set; }
 
         [Required]
+        [DisplayName("Código")]
         public string Codigo { get; set; }
 
         [Required]
+        [DisplayName("Nombre Completo")]
         public string NombreCompleto { get; set; }
     }
 }
