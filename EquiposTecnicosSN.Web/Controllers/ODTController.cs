@@ -158,10 +158,16 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="buscarNumeroReferencia"></param>
         /// <param name="EstadoODT"></param>
         /// <returns></returns>
-        public ActionResult SearchODT(string buscarNumeroReferencia = "", int? EstadoODT = 0, int? TipoODT = 0, int page = 1)
+        public ActionResult SearchODT(string FechaInicio = "", string buscarNumeroReferencia = "", int? EstadoODT = 0, int? TipoODT = 0, int page = 1)
         {
             var result = db.OrdenesDeTrabajo
                 .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia));
+
+            if (FechaInicio != "")
+            {
+                var fecha = DateTime.Parse(FechaInicio);
+                result = result.Where(odt => DateTime.Compare(odt.FechaInicio, fecha) >= 0);
+            }
 
             if (EstadoODT != 0)
             {

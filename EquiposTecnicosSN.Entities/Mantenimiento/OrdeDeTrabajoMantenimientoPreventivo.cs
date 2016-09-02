@@ -26,5 +26,13 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayName("Checklist Completo")]
         public bool ChecklistCompleto { get; set; }
 
+        [StringLength(100)]
+        public string ChecklistCompletoContentType { get; set; }
+
+        public byte[] ChecklistCompletoContent { get; set; }
+
+        [StringLength(5)]
+        public string ChecklistCompletoFileExtension { get; set; }
+
     }
 }

@@ -459,6 +459,9 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         fechaCreacion = c.DateTime(nullable: false),
                         UsuarioCreacionId = c.Int(nullable: false),
                         ChecklistCompleto = c.Boolean(nullable: false),
+                        ChecklistCompletoContentType = c.String(maxLength: 100),
+                        ChecklistCompletoContent = c.Binary(),
+                        ChecklistCompletoFileExtension = c.String(maxLength: 5),
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId)

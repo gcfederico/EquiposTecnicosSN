@@ -9,11 +9,20 @@
 <!-- BUSCAR -->
 @Html.Partial("_SearchODTsMC", Model.Search)
 
+@{ 
+    ViewBag.SubTitle = "Emergencia";
+}
 <!-- EMERGENCIAS -->
 @Html.Partial("_ListODTsMC", Model.Emergencias)
 
+@{
+    ViewBag.SubTitle = "Urgencia";
+}
 <!-- URGENCIAS -->
 @Html.Partial("_ListODTsMC", Model.Urgencias)
 
+@{
+    ViewBag.SubTitle = "Normal";
+}
 <!-- NORMALES -->
 @Html.Partial("_ListODTsMC", Model.Normales)

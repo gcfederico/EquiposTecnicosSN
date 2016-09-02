@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System;
+using System.Web;
 
 namespace EquiposTecnicosSN.Web.Models
 {
@@ -10,6 +11,8 @@ namespace EquiposTecnicosSN.Web.Models
         public OrdenDeTrabajoEstado EstadoODT { get; set; }
 
         public OrdenDeTrabajoTipo TipoODT { get; set; }
+
+        public DateTime? FechaInicio { get; set; }
     }
 
     public class NewOrdenDeTrabajoViewModel
@@ -33,6 +36,8 @@ namespace EquiposTecnicosSN.Web.Models
     public class MPViewModel : MViewModel
     {
         public  OrdenDeTrabajoMantenimientoPreventivo Odt { get; set; }
+
+        public HttpPostedFileBase ChecklistCompletoFile { get; set; }
     }
 
     public class  MCIndexViewModel

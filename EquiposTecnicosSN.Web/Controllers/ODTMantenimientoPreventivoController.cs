@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -162,6 +163,18 @@ namespace EquiposTecnicosSN.Web.Controllers
                 //observaciones
                 SaveNuevaObservacion(vm.NuevaObservacion, orden);
 
+                //archivo
+                if (vm.ChecklistCompletoFile != null && vm.ChecklistCompletoFile.ContentLength > 0)
+                {
+                    orden.ChecklistCompletoFileExtension = Path.GetExtension(vm.ChecklistCompletoFile.FileName);
+                    orden.ChecklistCompletoContentType = vm.ChecklistCompletoFile.ContentType;
+
+                    using (var reader = new BinaryReader(vm.ChecklistCompletoFile.InputStream))
+                    {
+                        orden.ChecklistCompletoContent = reader.ReadBytes(vm.ChecklistCompletoFile.ContentLength);
+                    }
+                }
+
                 db.Entry(orden).State = EntityState.Modified;
                 await db.SaveChangesAsync();
 
@@ -171,6 +184,18 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Debug.WriteLine(e.Data);
             }
             return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
+        }
+
+        public FileResult DownloadChecklistCompleto(int odtId)
+        {
+            var orden = db.ODTMantenimientosPreventivos.Find(odtId);
+
+            if (orden != null)
+            {
+                return File(orden.ChecklistCompletoContent, orden.ChecklistCompletoContentType, "ODT " + orden.NumeroReferencia + orden.ChecklistCompletoFileExtension);
+            }
+
+            return null;
         }
 
 

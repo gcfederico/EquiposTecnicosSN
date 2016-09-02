@@ -6,7 +6,7 @@
     ViewBag.Title = "Cerrar Orden de trabajo Nº " + Model.Odt.NumeroReferencia;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm())
+@using (Html.BeginForm("Close", "ODTMantenimientoPreventivo", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -98,9 +98,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     @Html.Partial("_ListObservaciones", Model.Odt)
@@ -111,6 +108,10 @@
                             <div class="form-group">
                                 <label class="control-label switch-label">Checklist Completo</label>
                                 @Html.EditorFor(model => model.Odt.ChecklistCompleto, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="ChecklistFile">Subir una copia del archivo completo</label>
+                                <input type="file" id="@Html.IdFor(model => model.ChecklistCompletoFile)" name="@Html.NameFor(model => model.ChecklistCompletoFile)" accept="application/pdf, image/jpeg, image/png" required />
                             </div>
                         </div>
                     </div>
@@ -149,6 +150,8 @@
                 offText: "No",
                 offColor: "danger"
             });
+
+            $("#@Html.IdFor(model => model.ChecklistCompletoFile)").filestyle({ buttonText: "Seleccionar archivo" });
         });
     </script>
 }
