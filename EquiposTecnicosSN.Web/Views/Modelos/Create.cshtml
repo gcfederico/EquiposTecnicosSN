@@ -25,8 +25,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.MarcaId, "Marca", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("MarcaId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.MarcaId, "", new { @class = "text-danger" })
+                                @Html.DropDownList("MarcaId", null, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                                @Html.HiddenFor(model => model.MarcaId)
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
+                <a href="@Url.Action("Index", new { marcaId = Model.MarcaId })" class="btn btn-default"> Volver</a>
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </div>

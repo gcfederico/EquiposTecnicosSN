@@ -16,6 +16,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public int StockRepuestoId { get; set; }
 
         [DisplayName("Cantidad disponible")]
+        [Required(ErrorMessage = "El campo Cantidad Disponible es requerido.")]
         public int CantidadDisponible { get; set; }
 
         [ForeignKey("Repuesto")]

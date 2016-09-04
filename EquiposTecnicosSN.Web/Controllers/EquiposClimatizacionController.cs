@@ -73,7 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.Entry(equipoClimatizacion.InformacionHardware).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "EquiposBase");
             }
             base.SetViewBagValues(equipoClimatizacion);
             return View(equipoClimatizacion);

@@ -74,7 +74,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.Entry(equipo.InformacionHardware).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "EquiposBase");
             }
             base.SetViewBagValues(equipo);
             return View(equipo);

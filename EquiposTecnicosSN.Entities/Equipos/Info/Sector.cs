@@ -16,7 +16,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         [Required]
         public int SectorId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es requerido.")]
         [StringLength(150)]
         [DisplayName("Nombre")]
         public string Nombre { get; set; }

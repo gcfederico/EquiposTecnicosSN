@@ -12,11 +12,11 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public int RepuestoId { get; set; }
 
         [DisplayName("Código")]
-        [Required]
+        [Required(ErrorMessage = "El campo Código es requerido.")]
         public string Codigo { get; set; }
 
         [StringLength(255)]
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es requerido.")]
         public string Nombre { get; set; }
 
         [ForeignKey("Proveedor")]

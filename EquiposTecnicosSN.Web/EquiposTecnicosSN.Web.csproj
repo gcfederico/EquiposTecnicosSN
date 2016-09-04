@@ -287,9 +287,9 @@
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609022212540_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609022212540_CreateInicial.Designer.cs">
-      <DependentUpon>201609022212540_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201609031514216_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201609031514216_CreateInicial.Designer.cs">
+      <DependentUpon>201609031514216_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -1286,7 +1286,6 @@
     <Content Include="Views\Proveedores\Index.cshtml" />
     <Content Include="Views\Ubicaciones\Create.cshtml" />
     <Content Include="Views\Ubicaciones\Delete.cshtml" />
-    <Content Include="Views\Ubicaciones\Details.cshtml" />
     <Content Include="Views\Ubicaciones\Edit.cshtml" />
     <Content Include="Views\Ubicaciones\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionComercial.cshtml" />
@@ -1304,17 +1303,14 @@
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
     <Content Include="Views\Fabricantes\Create.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
-    <Content Include="Views\Fabricantes\Details.cshtml" />
     <Content Include="Views\Fabricantes\Edit.cshtml" />
     <Content Include="Views\Fabricantes\Index.cshtml" />
     <Content Include="Views\Marcas\Create.cshtml" />
     <Content Include="Views\Marcas\Delete.cshtml" />
-    <Content Include="Views\Marcas\Details.cshtml" />
     <Content Include="Views\Marcas\Edit.cshtml" />
     <Content Include="Views\Marcas\Index.cshtml" />
     <Content Include="Views\Modelos\Create.cshtml" />
     <Content Include="Views\Modelos\Delete.cshtml" />
-    <Content Include="Views\Modelos\Details.cshtml" />
     <Content Include="Views\Modelos\Edit.cshtml" />
     <Content Include="Views\Modelos\Index.cshtml" />
     <Content Include="Views\Shared\_AddGastoToOrden.cshtml" />
@@ -1483,6 +1479,21 @@
     <Content Include="Views\Shared\DisplayTemplates\Umdns.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Repuesto.cshtml" />
     <Content Include="Views\StockRepuestos\_StockRepuestosList.cshtml" />
+    <Content Include="Views\Proveedores\_ProveedoresList.cshtml" />
+    <Content Include="Views\Fabricantes\_FabricantesList.cshtml" />
+    <Content Include="Views\Marcas\_MarcasList.cshtml" />
+    <Content Include="Views\Modelos\_ModelosList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Modelo.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Modelo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Marca.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Marca.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Fabricante.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Fabricante.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\StockRepuesto.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StockRepuesto.cshtml" />
+    <Content Include="Views\StockRepuestos\Create.cshtml" />
+    <Content Include="Views\StockRepuestos\Edit.cshtml" />
+    <Content Include="Views\StockRepuestos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1503,8 +1514,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609022212540_CreateInicial.resx">
-      <DependentUpon>201609022212540_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609031514216_CreateInicial.resx">
+      <DependentUpon>201609031514216_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

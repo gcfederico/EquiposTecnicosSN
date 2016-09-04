@@ -134,3 +134,7 @@ textarea {
 .action-columns {
     text-align: right;
 }
+
+.ajax-result-list {
+    margin-top: 10px;
+}

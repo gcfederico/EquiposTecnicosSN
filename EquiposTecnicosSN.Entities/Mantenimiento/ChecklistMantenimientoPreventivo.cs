@@ -16,7 +16,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public int ChecklistMantenimientoPreventivoId { get; set; }
 
         [StringLength(255)]
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es requerido.")]
         public string Nombre { get; set; }
 
         [StringLength(100)]

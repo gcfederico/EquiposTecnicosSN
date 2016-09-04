@@ -9,11 +9,11 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         [Key]
         public int ModeloId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es requerido.")]
         [StringLength(150)]
         public string Nombre { get; set; }
 
-        public int? MarcaId { get; set; }
+        public int MarcaId { get; set; }
 
         [ForeignKey("MarcaId")]
         public virtual Marca Marca { get; set; }

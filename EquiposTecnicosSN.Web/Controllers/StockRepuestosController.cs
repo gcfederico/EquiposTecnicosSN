@@ -1,8 +1,11 @@
-﻿using EquiposTecnicosSN.Web.DataContexts;
+﻿using EquiposTecnicosSN.Entities.Mantenimiento;
+using EquiposTecnicosSN.Web.DataContexts;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -31,76 +34,120 @@ namespace EquiposTecnicosSN.Web.Controllers
             return View(listPage);
         }
 
-        // GET: StockRepuestos/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: StockRepuestos/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.RepuestoId = new SelectList(db.Repuestos, "RepuestoId", "Nombre");
+            return View(new StockRepuesto());
         }
 
         // POST: StockRepuestos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(StockRepuesto stock)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            bool stockExistente = StockRepuestoExistente(stock.RepuestoId);
 
+            if (ModelState.IsValid && !stockExistente)
+            {
+                db.StockRepuestos.Add(stock);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+
+            if (stockExistente)
             {
-                return View();
+                ModelState.AddModelError("", "Ya existe un stock asociado a este repuesto.");
             }
+
+            ViewBag.RepuestoId = new SelectList(db.Repuestos, "RepuestoId", "Nombre", stock.RepuestoId);
+            return View(stock);
         }
 
         // GET: StockRepuestos/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var stock = db.StockRepuestos.Find(id);
+            if (stock == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RepuestoId = new SelectList(db.Repuestos, "RepuestoId", "Nombre", stock.RepuestoId);
+            return View(stock);
         }
 
         // POST: StockRepuestos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(StockRepuesto stock)
         {
-            try
-            {
-                // TODO: Add update logic here
+            bool stockExistente = StockRepuestoExistente(stock.RepuestoId);
 
+            if (ModelState.IsValid && !stockExistente)
+            {
+                db.Entry(stock).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+
+            if (stockExistente)
             {
-                return View();
+                ModelState.AddModelError("", "Ya existe un stock asociado a este repuesto.");
             }
+
+            ViewBag.RepuestoId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", stock.RepuestoId);
+            return View(stock);
         }
 
         // GET: StockRepuestos/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var stock = db.StockRepuestos.Find(id);
+            if (stock == null)
+            {
+                return HttpNotFound();
+            }
+            return View(stock);
         }
 
         // POST: StockRepuestos/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var stock = db.StockRepuestos.Find(id);
+                db.StockRepuestos.Remove(stock);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
+        }
+
+        private bool StockRepuestoExistente(int repuestoId)
+        {
+            var stockDeRepuesto = db.StockRepuestos
+            .Where(sr => sr.RepuestoId == repuestoId)
+            .Count();
+
+            return stockDeRepuesto > 0;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

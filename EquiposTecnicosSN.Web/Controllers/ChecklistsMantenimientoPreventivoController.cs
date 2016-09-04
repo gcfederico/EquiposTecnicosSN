@@ -80,6 +80,9 @@ namespace EquiposTecnicosSN.Web.Controllers
                     db.ChecklistsMantenimientoPreventivo.Add(checklistMP);
                     db.SaveChanges();
                     return RedirectToAction("Index");
+                } else
+                {
+                    ModelState.AddModelError("", "Debe seleccionar un archivo para el checklist.");
                 }
 
             }

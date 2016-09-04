@@ -4,6 +4,8 @@ using System.Net;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using System.Linq;
+using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -13,46 +15,46 @@ namespace EquiposTecnicosSN.Web.Controllers
         private EquiposDbContext db = new EquiposDbContext();
 
         // GET: Modelos
-        public async Task<ActionResult> Index()
+        public ActionResult Index(int marcaId, string searchNombre = null, int page = 1)
         {
-            var modelos = db.Modelos.Include(m => m.Marca);
-            return View(await modelos.ToListAsync());
-        }
+            var listPage = db.Modelos
+                .Where(m => m.MarcaId == marcaId)
+                .Where(m => (searchNombre == null || searchNombre == "") || m.Nombre.Contains(searchNombre))
+                .OrderBy(m => m.Nombre)
+                .ToPagedList(page, 10);
 
-        // GET: Modelos/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
+            if (Request.IsAjaxRequest())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return PartialView("ModelosList", listPage);
             }
-            Modelo modelo = await db.Modelos.FindAsync(id);
-            if (modelo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(modelo);
+
+            ViewBag.MarcaId = marcaId;
+            ViewBag.NombreMarca = db.Marcas.Where(m => m.MarcaId == marcaId).Select(f => f.Nombre).Single();
+            ViewBag.FabricanteId = db.Marcas.Where(m => m.MarcaId == marcaId).Select(f => f.FabricanteId).Single();
+            return View(listPage);
         }
 
         // GET: Modelos/Create
-        public ActionResult Create()
+        public ActionResult Create(int marcaId)
         {
             ViewBag.MarcaId = new SelectList(db.Marcas, "MarcaId", "Nombre");
-            return View();
+            var modelo = new Modelo
+            {
+                MarcaId = marcaId
+            };
+            return View(modelo);
         }
 
         // POST: Modelos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ModeloId,Nombre,MarcaId")] Modelo modelo)
+        public ActionResult Create(Modelo modelo)
         {
             if (ModelState.IsValid)
             {
                 db.Modelos.Add(modelo);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                db.SaveChanges();
+                return RedirectToAction("Index", new { marcaId = modelo.MarcaId});
             }
 
             ViewBag.MarcaId = new SelectList(db.Marcas, "MarcaId", "Nombre", modelo.MarcaId);
@@ -60,13 +62,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: Modelos/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Modelo modelo = await db.Modelos.FindAsync(id);
+            Modelo modelo = db.Modelos.Find(id);
             if (modelo == null)
             {
                 return HttpNotFound();
@@ -76,30 +78,28 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // POST: Modelos/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ModeloId,Nombre,MarcaId")] Modelo modelo)
+        public ActionResult Edit(Modelo modelo)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(modelo).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                db.SaveChanges();
+                return RedirectToAction("Index", new { marcaId = modelo.MarcaId });
             }
             ViewBag.MarcaId = new SelectList(db.Marcas, "MarcaId", "Nombre", modelo.MarcaId);
             return View(modelo);
         }
 
         // GET: Modelos/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Modelo modelo = await db.Modelos.FindAsync(id);
+            Modelo modelo = db.Modelos.Find(id);
             if (modelo == null)
             {
                 return HttpNotFound();
@@ -110,12 +110,25 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: Modelos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Modelo modelo = await db.Modelos.FindAsync(id);
-            db.Modelos.Remove(modelo);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            var equiposCount = db.Equipos
+                .Where(e => e.InformacionHardware.ModeloId == id)
+                .Count();
+
+            var modelo = db.Modelos.Find(id);
+
+            if (equiposCount == 0)
+            {
+                ViewBag.MarcaId = modelo.MarcaId;
+                ViewBag.FabricanteId = modelo.Marca.FabricanteId;
+                db.Modelos.Remove(modelo);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { marcaId = ViewBag.MarcaId });
+            }
+
+            ModelState.AddModelError("", "El Modelo no puede eliminarse ya que posee equipos asociados.");
+            return View(modelo);
         }
 
         protected override void Dispose(bool disposing)

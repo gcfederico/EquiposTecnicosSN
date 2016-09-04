@@ -66,13 +66,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: Repuestos/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = await db.Repuestos.FindAsync(id);
+            Repuesto repuesto = db.Repuestos.Find(id);
             if (repuesto == null)
             {
                 return HttpNotFound();
@@ -84,7 +84,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
-            return View();
+            return View(new Repuesto());
         }
 
         // POST: Repuestos/Create
@@ -92,12 +92,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RepuestoId,Codigo,Nombre,ProveedorId,Costo")] Repuesto repuesto)
+        public ActionResult Create( Repuesto repuesto)
         {
             if (ModelState.IsValid)
             {
                 db.Repuestos.Add(repuesto);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -106,13 +106,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: Repuestos/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = await db.Repuestos.FindAsync(id);
+            Repuesto repuesto = db.Repuestos.Find(id);
             if (repuesto == null)
             {
                 return HttpNotFound();
@@ -126,12 +126,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RepuestoId,Codigo,Nombre,ProveedorId,Costo")] Repuesto repuesto)
+        public ActionResult Edit(Repuesto repuesto)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(repuesto).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", repuesto.ProveedorId);
