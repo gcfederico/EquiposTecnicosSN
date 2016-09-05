@@ -1,13 +1,11 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
+using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,10 +16,19 @@ namespace EquiposTecnicosSN.Web.Controllers
         protected EquiposDbContext db = new EquiposDbContext();
 
         // GET: ChecklistsMantenimientoPreventivo
-        public ActionResult Index()
+        public ActionResult Index(string searchChecklist = null, int page = 1)
         {
-            var model = db.ChecklistsMantenimientoPreventivo.ToList();
-            return View(model);
+            var listPage = db.ChecklistsMantenimientoPreventivo
+                .Where(cl => searchChecklist == null || cl.Nombre.Contains(searchChecklist))
+                .OrderBy(cl => cl.Nombre)
+                .ToPagedList(page, 10);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_ChecklistsList", listPage);
+            }
+
+            return View(listPage);
         }
 
         // GET: ChecklistsMantenimientoPreventivo/Details/5
@@ -73,6 +80,9 @@ namespace EquiposTecnicosSN.Web.Controllers
                     db.ChecklistsMantenimientoPreventivo.Add(checklistMP);
                     db.SaveChanges();
                     return RedirectToAction("Index");
+                } else
+                {
+                    ModelState.AddModelError("", "Debe seleccionar un archivo para el checklist.");
                 }
 
             }
@@ -132,23 +142,28 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET: ChecklistsMantenimientoPreventivo/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(db.ChecklistsMantenimientoPreventivo.Find(id));
         }
 
         // POST: ChecklistsMantenimientoPreventivo/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
+            var ordenesCount = db.ODTMantenimientosPreventivos
+                .Where(odt => odt.ChecklistId == id)
+                .Count();
+            var checklist = db.ChecklistsMantenimientoPreventivo.Find(id);
+
+            if (ordenesCount == 0)
+            {
+                db.ChecklistsMantenimientoPreventivo.Remove(checklist);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            ModelState.AddModelError("", "El checklist no puede eliminarse ya que existen ordenes de trabajo que lo utilizan.");
+            return View(checklist);
         }
     }
 }

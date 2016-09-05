@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+/// <summary>
+/// Clase que representa una orden de trabajo para mantenimiento preventivo.
+/// </summary>
 namespace EquiposTecnicosSN.Entities.Mantenimiento
 {
     [Table("OrdenesDeTrabajoMantenimientoPreventivo")]
@@ -23,6 +25,14 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
 
         [DisplayName("Checklist Completo")]
         public bool ChecklistCompleto { get; set; }
+
+        [StringLength(100)]
+        public string ChecklistCompletoContentType { get; set; }
+
+        public byte[] ChecklistCompletoContent { get; set; }
+
+        [StringLength(5)]
+        public string ChecklistCompletoFileExtension { get; set; }
 
     }
 }

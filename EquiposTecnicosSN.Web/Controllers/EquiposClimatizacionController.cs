@@ -1,48 +1,14 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
-using EquiposTecnicosSN.Web.Services;
-using System.Diagnostics;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     [Authorize]
     public class EquiposClimatizacionController : EquiposBaseController
     {
-        private EquiposDbContext db = new EquiposDbContext();
-        private IdentityDb identityDb = new IdentityDb();
-        private EquiposService equiposService = new EquiposService();
-        // GET: EquiposClimatizacion
-        public override ActionResult Index()
-        {
-            var appuser = identityDb.Users.Where(u => u.UserName == User.Identity.Name).Single();
-            var equipos = equiposService.EquiposClimatizacionDeUbicacion(appuser.UbicacionId);
-            return View(equipos);
-        }
-
-        // GET: EquiposClimatizacion/Details/5
-        public override ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Include(e => e.Traslados).Where(e => e.EquipoId == id).Single();
-            //equipoClimatizacion.OrdenesDeTrabajo = equipoClimatizacion.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
-            var model = equiposService.GetEquipo((int) id);
-
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(model);
-        }
-
         // GET: EquiposClimatizacion/Create
         public ActionResult Create()
         {
@@ -58,7 +24,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroMatricula,NumeroInventario,UbicacionId,Estado,ProveedorId,InformacionComercial,InformacionHardware")] EquipoClimatizacion equipoClimatizacion)
+        public ActionResult Create(EquipoClimatizacion equipoClimatizacion)
         {
             
             if (ModelState.IsValid)//validaciones
@@ -68,7 +34,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 ViewBag.CssClass = "success";
                 ViewBag.Message = "Equipo creado.";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "EquiposBase");
             }
 
             base.SetViewBagValues(equipoClimatizacion);
@@ -107,7 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 db.Entry(equipoClimatizacion.InformacionHardware).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "EquiposBase");
             }
             base.SetViewBagValues(equipoClimatizacion);
             return View(equipoClimatizacion);
@@ -144,7 +110,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (disposing)
             {
                 db.Dispose();
-                identityDb.Dispose();
             }
             base.Dispose(disposing);
         }

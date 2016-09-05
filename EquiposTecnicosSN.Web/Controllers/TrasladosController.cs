@@ -17,6 +17,52 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         private EquiposDbContext db = new EquiposDbContext();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="equipoId"></param>
+        /// <returns></returns>
+        public ActionResult LoadTrasladarEquipo(int equipoId)
+        {
+            var equipo = db.Equipos.Find(equipoId);
+            var model = new Traslado
+            {
+                EquipoId = equipo.EquipoId,
+                UbicacionOrigenId = equipo.UbicacionId
+            };
+            ViewBag.UbicacionOrigenId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre", equipo.UbicacionId);
+            ViewBag.UbicacionDestinoId = new SelectList(db.Ubicaciones, "UbicacionId", "Nombre");
+            return PartialView("_TrasladarEquipoContent", model);
+        }
+
+        [HttpPost]
+        public JsonResult TrasladarEquipo(int EquipoId, int UbicacionOrigenId, int UbicacionDestinoId)
+        {
+            var equipo = db.Equipos.Find(EquipoId);
+            equipo.UbicacionId = UbicacionDestinoId;
+            db.Entry(equipo).State = EntityState.Modified;
+
+            var traslado = new Traslado
+            {
+                EquipoId = equipo.EquipoId,
+                UbicacionOrigenId = UbicacionOrigenId,
+                UbicacionDestinoId = UbicacionDestinoId,
+                FechaTraslado = DateTime.Now
+            };
+
+            db.Traslados.Add(traslado);
+            db.SaveChanges();
+
+            var result = new {
+                RowId = EquipoId,
+                Value = db.Ubicaciones.Find(UbicacionDestinoId).Nombre
+            };
+
+            return Json(result);
+        }
+
+
+
         // GET: Traslados
         public async Task<ActionResult> Index()
         {

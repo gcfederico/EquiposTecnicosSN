@@ -1,5 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities.Equipos.Info;
 using EquiposTecnicosSN.Entities.Mantenimiento;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -34,6 +35,13 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [DisplayName("Ubicación")]
         public virtual Ubicacion Ubicacion { get; set; }
 
+        [Required]
+        public int SectorId { get; set; }
+
+        [ForeignKey("SectorId")]
+        public virtual Sector Sector { get; set; }
+
+        [Required]
         public EstadoDeEquipo Estado { get; set; }
 
         [ForeignKey("InformacionComercialId")]
@@ -46,6 +54,6 @@ namespace EquiposTecnicosSN.Entities.Equipos
 
         public virtual ICollection<Traslado> Traslados { get; set; }
 
-        public abstract string Tipo();
+        public abstract TipoEquipo Tipo();
     }
 }

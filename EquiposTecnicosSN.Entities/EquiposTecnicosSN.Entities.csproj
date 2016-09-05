@@ -62,8 +62,11 @@
     <Compile Include="Equipos\Info\GarantiaContrato.cs" />
     <Compile Include="Equipos\Info\InformacionComercial.cs" />
     <Compile Include="Equipos\Info\InformacionHardware.cs" />
+    <Compile Include="Equipos\Info\Sector.cs" />
     <Compile Include="Equipos\Info\Umdns.cs" />
+    <Compile Include="Equipos\TipoEquipo.cs" />
     <Compile Include="Mantenimiento\ChecklistMantenimientoPreventivo.cs" />
+    <Compile Include="Mantenimiento\ObservacionOrdenDeTrabajo.cs" />
     <Compile Include="Mantenimiento\OrdeDeTrabajoMantenimientoPreventivo.cs" />
     <Compile Include="Mantenimiento\OrdenDeTrabajo.cs" />
     <Compile Include="Mantenimiento\OrdenDeTrabajoPrioridad.cs" />
@@ -71,7 +74,7 @@
     <Compile Include="Mantenimiento\Repuesto.cs" />
     <Compile Include="Mantenimiento\SolicitudRepuestoServicio.cs" />
     <Compile Include="Mantenimiento\GastoOrdenDeTrabajo.cs" />
-    <Compile Include="Mantenimiento\MantenimientoTipo.cs" />
+    <Compile Include="Mantenimiento\OrdenDeTrabajoTipo.cs" />
     <Compile Include="Mantenimiento\OrdenDeTrabajoEstado.cs" />
     <Compile Include="Mantenimiento\OrdenDeTrabajoMantenimientoCorrectivo.cs" />
     <Compile Include="Equipos\Info\Fabricante.cs" />

@@ -14,7 +14,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         [Key]
         public int FabricanteId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es requerido.")]
         [StringLength(150)]
         public string Nombre { get; set; }
 

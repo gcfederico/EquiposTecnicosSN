@@ -1,8 +1,8 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @using EquiposTecnicosSN.Entities.Mantenimiento
-@model OrdenDeTrabajoMantenimientoCorrectivo
+@model EquiposTecnicosSN.Web.Models.MCViewModel
 @{
-    ViewBag.Title = "Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Correctivo";
+    ViewBag.Title = "Orden de Trabajo Nº " + Model.Odt.NumeroReferencia + " para Mantenimiento Correctivo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm())
@@ -15,40 +15,40 @@
                 <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> @ViewBag.Title</div>
                 <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+                    @Html.HiddenFor(model => Model.Odt.OrdenDeTrabajoId)
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => Model.Odt.NumeroReferencia)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.NumeroReferencia)
+                                    @Html.DisplayFor(model => Model.Odt.NumeroReferencia)
                                 </p>
                             </div>
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.Equipo)
+                                    @Html.DisplayNameFor(model => Model.Odt.Equipo)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+                                    @Html.DisplayFor(model => Model.Odt.Equipo.NombreCompleto)
                                 </p>
                             </div>
                             <div class="form-group">
                                 <label class="control-label switch-label">¿El equipo se encuentra parado?</label>
-                                @Html.EditorFor(model => model.EquipoParado, new { @class = "form-control bootstrap-switch-readonly" })
+                                @Html.EditorFor(model => Model.Odt.EquipoParado, new { @class = "form-control bootstrap-switch-readonly" })
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.FechaInicio)
-                                    @Html.HiddenFor(model => model.FechaInicio)
+                                    @Html.DisplayNameFor(model => Model.Odt.FechaInicio)
+                                    @Html.HiddenFor(model => Model.Odt.FechaInicio)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.FechaInicio)
+                                    @Html.DisplayFor(model => Model.Odt.FechaInicio)
                                 </p>
                             </div>
 
@@ -60,14 +60,14 @@
                                 <div class="form-group">
                                     <label class="control-label switch-label">Prioridad</label>
                                     <div class="btn-group" data-toggle="buttons">
-                                        <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Prioridad) ? " active" : "")">
-                                            @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
+                                        <label class="disabled btn btn-success-outline@(OrdenDeTrabajoPrioridad.Normal.Equals(Model.Odt.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Normal, new { @id = "Normal", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Normal.ToString()
                                         </label>
-                                        <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Prioridad) ? " active" : "")">
-                                            @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
+                                        <label class="disabled btn btn-warning-outline @(OrdenDeTrabajoPrioridad.Urgencia.Equals(Model.Odt.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Urgencia, new { @id = "Urgencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Urgencia.ToString()
                                         </label>
-                                        <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Prioridad) ? " active" : "")">
-                                            @Html.RadioButtonFor(model => model.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
+                                        <label class="disabled btn btn-danger-outline @(OrdenDeTrabajoPrioridad.Emergencia.Equals(Model.Odt.Prioridad) ? " active" : "")">
+                                            @Html.RadioButtonFor(model => model.Odt.Prioridad, OrdenDeTrabajoPrioridad.Emergencia, new { @id = "Emergencia", @name = "Prioridad" }) @OrdenDeTrabajoPrioridad.Emergencia.ToString()
                                         </label>
                                     </div>
                                 </div>
@@ -78,10 +78,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label>
-                                @Html.DisplayNameFor(model => model.Descripcion)
+                                @Html.DisplayNameFor(model => Model.Odt.Descripcion)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Descripcion)
+                                @Html.DisplayFor(model => Model.Odt.Descripcion)
                             </p>
                         </div>
                     </div>
@@ -89,27 +89,27 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label>
-                                @Html.DisplayNameFor(model => model.Diagnostico)
+                                @Html.DisplayNameFor(model => Model.Odt.Diagnostico)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Diagnostico)
+                                @Html.DisplayFor(model => Model.Odt.Diagnostico)
                             </p>
                         </div>
                     </div>
                     <hr />
                     <div class="row">
                         <div class="col-md-12">
-                            @Html.LabelFor(model => model.DetalleReparacion, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.DetalleReparacion, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.DetalleReparacion, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => Model.Odt.DetalleReparacion, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => Model.Odt.DetalleReparacion, htmlAttributes: new { @class = "form-control", rows = 5, data_val = "true", data_val_required = "El Detalle de la reparación es requerido." })
+                            @Html.ValidationMessageFor(model => Model.Odt.DetalleReparacion, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <hr />
                     <div class="row">
                         <div class="col-md-12">
-                            @Html.LabelFor(model => model.CausaRaiz, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.CausaRaiz, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CausaRaiz, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => Model.Odt.CausaRaiz, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => Model.Odt.CausaRaiz, htmlAttributes: new { @class = "form-control", rows = 5 })
+                            @Html.ValidationMessageFor(model => Model.Odt.CausaRaiz, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <hr />
@@ -117,37 +117,29 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label switch-label">El equipo queda funcionando</label>
-                                @Html.EditorFor(model => model.VerificacionFuncionamiento, new { @class = "form-control" })
+                                @Html.EditorFor(model => Model.Odt.VerificacionFuncionamiento, new { @class = "form-control" })
                             </div>
                             <div class="form-group">
                                 <label class="control-label switch-label">Se le ha realizado limpieza al equipo</label>
-                                @Html.EditorFor(model => model.Limpieza, new { @class = "form-control" })
+                                @Html.EditorFor(model => Model.Odt.Limpieza, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-md-6">
 
                         </div>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label" })
-                                @Html.TextAreaFor(model => model.Observaciones, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
+                   @Html.Partial("_ListObservaciones", Model.Odt)
+                   @Html.Partial("_AddObservaciones", Model)
                 </div>
             </div>
         </div>
     </div>
-    @Html.Partial("_EditGastos", Model.Gastos)
-    @Html.Partial("_ListSolicitudes", Model.SolicitudesRespuestos)
+    @Html.Partial("_EditGastos", Model.Odt.Gastos)
+    @Html.Partial("_ListSolicitudes", Model.Odt.SolicitudesRespuestos)
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <a href="@Url.Action("Details", Model.WebController(), new { id = Model.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
+                <a href="@Url.Action("Details", Model.Odt.WebController(), new { id = Model.Odt.OrdenDeTrabajoId })" class="btn btn-default"> Volver</a>
                 <input type="submit" value="Cerrar Orden de Trabajo" class="btn btn-primary" />
             </div>
         </div>
@@ -159,21 +151,21 @@
 
         $(function () {
 
-            $("#@Html.IdFor(model  => model.EquipoParado)").bootstrapSwitch({
+            $("#@Html.IdFor(model  => Model.Odt.EquipoParado)").bootstrapSwitch({
                 onColor: "danger",
                 onText: "Si",
                 offText: "No",
                 disabled: "disabled"
             });
 
-            $("#@Html.IdFor(model  => model.VerificacionFuncionamiento)").bootstrapSwitch({
+            $("#@Html.IdFor(model  => Model.Odt.VerificacionFuncionamiento)").bootstrapSwitch({
                 onColor: "success",
                 onText: "Si",
                 offColor: "danger",
                 offText: "No"
             });
 
-            $("#@Html.IdFor(model  => model.Limpieza)").bootstrapSwitch({
+            $("#@Html.IdFor(model  => Model.Odt.Limpieza)").bootstrapSwitch({
                 onColor: "success",
                 onText: "Si",
                 offColor: "primary",

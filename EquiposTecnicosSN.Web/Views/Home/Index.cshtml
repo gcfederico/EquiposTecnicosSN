@@ -1,10 +1,10 @@
-﻿@{
-    ViewBag.Title = "Inicio";
+﻿@model EquiposTecnicosSN.Web.Models.HomeViewModel
+@{
+    ViewBag.Title = "Bienvenido";
 }
 
 <div class="row">
     <div class="col-md-3">
-            
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -12,20 +12,19 @@
                         <i class="fa fa-medkit fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="EquiposUsuarioCount" class="big">1</div>
-                        <div>Equipos</div>
+                        <div class="big">@Html.DisplayFor(model => model.EquiposFuncionalesCount)</div>
+                        <div>Funcionales</div>
                     </div>
                 </div>
             </div>
             <a href="@Url.Action("Index", "EquiposBase")">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Todos</span>
+                    <span class="pull-left">Equipos</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
             </a>
         </div>
-
     </div>
 
     <div class="col-md-3">
@@ -36,14 +35,14 @@
                         <i class="fa fa-wrench fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="ODTMantenimientoPreventivoCount" class="big"></div>
-                        <div>Mantenimientos Correctivos</div>
+                        <div class="big">@Html.DisplayFor(model => model.CorrectivosCount)</div>
+                        <div>Emergencias</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Index", "ODTMantenimientoCorrectivo")">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Urgentes</span>
+                    <span class="pull-left"> Mant. Correctivos</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -51,7 +50,7 @@
         </div>
     </div>
 
-    <div class="col-md-3">            
+    <div class="col-md-3">
         <div class="panel panel-green">
             <div class="panel-heading">
                 <div class="row">
@@ -59,14 +58,14 @@
                         <i class="fa fa-calendar fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="ODTMantenimientoPreventivoCount"class="huge"></div>
-                        <div>Mantenimientos Preventivos</div>
+                        <div class="big">@Html.DisplayFor(model => model.PreventivosCount)</div>
+                        <div>Pr&oacute;ximos</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Index", "ODTMantenimientoPreventivo")">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Próximas</span>
+                    <span class="pull-left">Mant. Preventivos</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
@@ -83,51 +82,26 @@
                         <i class="fa fa-gears fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div id="StockRepuestosCount" class="huge"></div>
+                        <div class="big">@Html.DisplayFor(model => model.RepuestosCount)</div>
                         <div>Repuestos</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Index", "StockRepuestos")">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Críticos</span>
+                    <span class="pull-left">Ver Stock</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                     <div class="clearfix"></div>
                 </div>
             </a>
         </div>
-
-    </div>
-
-</div>
-<!--
-
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
--->
+<hr />
+<!-- BUSCAR ODT -->
+@Html.Partial("_SearchODTs", Model.searchOdt)
+<hr />
+<!-- BUSCAR EQUIPO -->
+@Html.Partial("_SearchEquipos", Model.searchEquipo)
+<!-- TRASLADAR EQUIPO -->
+@Html.Partial("_TrasladarEquipoModal")

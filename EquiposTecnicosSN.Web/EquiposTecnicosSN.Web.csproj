@@ -109,6 +109,14 @@
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -257,6 +265,7 @@
     <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
+    <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\InformacionHardwareController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -265,21 +274,22 @@
     <Compile Include="Controllers\ODTController.cs" />
     <Compile Include="Controllers\ODTMantenimientoCorrectivoController.cs" />
     <Compile Include="Controllers\ODTMantenimientoPreventivoController.cs" />
-    <Compile Include="Controllers\OrdenesDeTrabajoController_old.cs" />
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\RepuestosController.cs" />
+    <Compile Include="Controllers\SectoresController.cs" />
     <Compile Include="Controllers\SolicitudesRepuestoServicioController.cs" />
     <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\StockRepuestosController.cs" />
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
+    <Compile Include="Controllers\UmdnsController.cs" />
     <Compile Include="CustomExtensions\EnumExtension.cs" />
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201607141902189_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201607141902189_CreateInicial.Designer.cs">
-      <DependentUpon>201607141902189_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201609041510112_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201609041510112_CreateInicial.Designer.cs">
+      <DependentUpon>201609041510112_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -297,9 +307,13 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrdenDeTrabajoViewModel.cs" />
+    <Compile Include="Models\ParetoChartModel.cs" />
     <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\EquiposService.cs" />
+    <Compile Include="Services\IndicadoresService.cs" />
+    <Compile Include="Services\ODTsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +330,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\logo-nqn.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\sb-admin-2.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -1138,6 +1153,7 @@
     <Content Include="Scripts\date-picker-ready.js" />
     <Content Include="Scripts\ddl-traslado.js" />
     <Content Include="Scripts\ddls-info-hardware.js" />
+    <Content Include="Scripts\indicadores.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
     <Content Include="Scripts\jquery-2.2.2.min.js" />
     <Content Include="Scripts\jquery-2.2.2.min.map" />
@@ -1216,11 +1232,15 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modal-detalle-solicitud.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\odts.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
     <Content Include="Scripts\start-home.js" />
     <Content Include="Scripts\tooltips.js" />
+    <Content Include="Scripts\zingchart.min.js" />
+    <Content Include="Scripts\zingmodules\zingchart-grid.min.js" />
+    <Content Include="Scripts\zingmodules\zingchart-pareto.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1266,7 +1286,6 @@
     <Content Include="Views\Proveedores\Index.cshtml" />
     <Content Include="Views\Ubicaciones\Create.cshtml" />
     <Content Include="Views\Ubicaciones\Delete.cshtml" />
-    <Content Include="Views\Ubicaciones\Details.cshtml" />
     <Content Include="Views\Ubicaciones\Edit.cshtml" />
     <Content Include="Views\Ubicaciones\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionComercial.cshtml" />
@@ -1276,37 +1295,22 @@
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
-    <Content Include="Views\Mantenimientos\Create.cshtml" />
-    <Content Include="Views\Mantenimientos\Delete.cshtml" />
-    <Content Include="Views\Mantenimientos\Details.cshtml" />
-    <Content Include="Views\Mantenimientos\Edit.cshtml" />
-    <Content Include="Views\Mantenimientos\Index.cshtml" />
     <Content Include="Views\Shared\_OrdenesDeTrabajoEquipo.cshtml" />
-    <Content Include="Views\Mantenimientos\CreateForEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Create.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Delete.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Details.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Edit.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\Index.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\IndexForMantenimiento.cshtml" />
     <Content Include="Views\Fabricantes\Create.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
-    <Content Include="Views\Fabricantes\Details.cshtml" />
     <Content Include="Views\Fabricantes\Edit.cshtml" />
     <Content Include="Views\Fabricantes\Index.cshtml" />
     <Content Include="Views\Marcas\Create.cshtml" />
     <Content Include="Views\Marcas\Delete.cshtml" />
-    <Content Include="Views\Marcas\Details.cshtml" />
     <Content Include="Views\Marcas\Edit.cshtml" />
     <Content Include="Views\Marcas\Index.cshtml" />
     <Content Include="Views\Modelos\Create.cshtml" />
     <Content Include="Views\Modelos\Delete.cshtml" />
-    <Content Include="Views\Modelos\Details.cshtml" />
     <Content Include="Views\Modelos\Edit.cshtml" />
     <Content Include="Views\Modelos\Index.cshtml" />
     <Content Include="Views\Shared\_AddGastoToOrden.cshtml" />
@@ -1315,12 +1319,6 @@
     <Content Include="Views\Shared\EditorTemplates\Equipo.cshtml" />
     <Content Include="Views\Shared\_GastoOrden.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Equipo.cshtml" />
-    <Content Include="Views\OrdenesDeTrabajo_old\CreateForMantenimiento.cshtml" />
-    <Content Include="Views\InformacionHardware\Create.cshtml" />
-    <Content Include="Views\InformacionHardware\Delete.cshtml" />
-    <Content Include="Views\InformacionHardware\Details.cshtml" />
-    <Content Include="Views\InformacionHardware\Edit.cshtml" />
-    <Content Include="Views\InformacionHardware\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InformacionHardware.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OrdenDeTrabajoMantenimientoCorrectivo.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionHardware.cshtml" />
@@ -1333,7 +1331,6 @@
     <Content Include="Views\Shared\_TrasladosEquipoModal.cshtml" />
     <Content Include="Views\EquiposBase\ShowTraslados.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ChecklistMantenimientoPreventivo.cshtml" />
-    <Content Include="Views\Shared\_OrdenesDeTrabajo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\CreateUser.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Create.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Delete.cshtml" />
@@ -1443,11 +1440,65 @@
     <Content Include="Views\EquiposOtros\Details.cshtml" />
     <Content Include="Views\EquiposOtros\Edit.cshtml" />
     <Content Include="Views\EquiposOtros\Index.cshtml" />
+    <Content Include="Views\Shared\_ListObservaciones.cshtml" />
+    <Content Include="Views\Shared\_AddObservaciones.cshtml" />
+    <Content Include="Views\Shared\_SearchEquiposResults.cshtml" />
+    <Content Include="Views\Indicadores\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchODTsResults.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchEquipos.cshtml" />
+    <Content Include="Views\Shared\_SearchODTs.cshtml" />
+    <Content Include="Views\Shared\_TrasladarEquipoModal.cshtml" />
+    <Content Include="Views\Shared\_TrasladarEquipoContent.cshtml" />
+    <Content Include="Views\Indicadores\TiempoMedioReparacion.cshtml" />
+    <Content Include="Views\Shared\_ListODTsMC.cshtml" />
+    <Content Include="Views\Shared\_ListODTsMP.cshtml" />
+    <Content Include="Views\Shared\_SearchODTsMP.cshtml" />
+    <Content Include="Views\Shared\_SearchODTsMC.cshtml" />
+    <Content Include="Views\Sectores\Create.cshtml" />
+    <Content Include="Views\Sectores\Delete.cshtml" />
+    <Content Include="Views\Sectores\Details.cshtml" />
+    <Content Include="Views\Sectores\Edit.cshtml" />
+    <Content Include="Views\Sectores\Index.cshtml" />
+    <Content Include="Views\Sectores\_SectoresList.cshtml" />
+    <Content Include="Views\Umdns\Create.cshtml" />
+    <Content Include="Views\Umdns\Delete.cshtml" />
+    <Content Include="Views\Umdns\Details.cshtml" />
+    <Content Include="Views\Umdns\Edit.cshtml" />
+    <Content Include="Views\Umdns\Index.cshtml" />
+    <Content Include="Views\Umdns\_UmdnsList.cshtml" />
+    <Content Include="Views\Ubicaciones\_UbicacionesList.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\_ChecklistsList.cshtml" />
+    <Content Include="Views\Repuestos\_RepuestosList.cshtml" />
+    <Content Include="Views\ChecklistsMantenimientoPreventivo\Delete.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Ubicacion.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Sector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Ubicacion.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Sector.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Umdns.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Umdns.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Repuesto.cshtml" />
+    <Content Include="Views\StockRepuestos\_StockRepuestosList.cshtml" />
+    <Content Include="Views\Proveedores\_ProveedoresList.cshtml" />
+    <Content Include="Views\Fabricantes\_FabricantesList.cshtml" />
+    <Content Include="Views\Marcas\_MarcasList.cshtml" />
+    <Content Include="Views\Modelos\_ModelosList.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Modelo.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Modelo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Marca.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Marca.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Fabricante.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Fabricante.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\StockRepuesto.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StockRepuesto.cshtml" />
+    <Content Include="Views\StockRepuestos\Create.cshtml" />
+    <Content Include="Views\StockRepuestos\Edit.cshtml" />
+    <Content Include="Views\StockRepuestos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\custom\" />
-    <Folder Include="Views\ODT\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1463,8 +1514,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201607141902189_CreateInicial.resx">
-      <DependentUpon>201607141902189_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609041510112_CreateInicial.resx">
+      <DependentUpon>201609041510112_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

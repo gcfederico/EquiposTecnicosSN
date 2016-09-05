@@ -13,39 +13,22 @@ using EquiposTecnicosSN.Web.DataContexts;
 
 namespace EquiposTecnicosSN.Web.Services
 {
-    public class EquiposService
+    public class EquiposService : BaseService
     {
-        private EquiposDbContext equiposDb = new EquiposDbContext();
-        private IdentityDb identityDb = new IdentityDb();
-
-        public List<EquipoClimatizacion> EquiposClimatizacionDeUbicacion(int ubicacionId)
+        public List<Equipo> EquiposFuncionales ()
         {
-            var equiposC = equiposDb.EquiposDeClimatizacion
-                .Include(e => e.InformacionComercial)
-                .Include(e => e.Ubicacion)
-                .Include(e => e.OrdenesDeTrabajo);
-
-            if (ubicacionId != 0)
-            {
-                equiposC = equiposC.Where(e => e.UbicacionId == ubicacionId);
-            }
-
-            return equiposC.ToList();
+            return db.Equipos
+                .Where(e => e.Estado == EstadoDeEquipo.Funcional || e.Estado == EstadoDeEquipo.FuncionalRequiereReparacion)
+                .OrderBy(e => e.NombreCompleto)
+                .ToList();
         }
 
-
-        public Equipo GetEquipo(int id)
+        public int EquiposFuncionalesCount()
         {
-            var equipo = equiposDb.Equipos
-                .Include(e => e.Traslados)
-                .Include(e => e.OrdenesDeTrabajo)
-                .Include(e => e.InformacionComercial)
-                .Include(e => e.InformacionHardware)
-                .Where(e => e.EquipoId == id).Single();
-
-            equipo.OrdenesDeTrabajo = equipo.OrdenesDeTrabajo.OrderByDescending(o => o.FechaInicio).ToList();
-
-            return equipo;
+            return db.Equipos
+                .Where(e => e.Estado == EstadoDeEquipo.Funcional || e.Estado == EstadoDeEquipo.FuncionalRequiereReparacion)
+                .OrderBy(e => e.NombreCompleto)
+                .Count();
         }
     }
 }

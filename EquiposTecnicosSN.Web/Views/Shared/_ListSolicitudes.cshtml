@@ -15,19 +15,31 @@
                                     <th>Código</th>
                                     <th>Cantidad</th>
                                     <th>Repuesto</th>
+                                    <th>Proveedor</th>
+                                    <th>Comentarios</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Model != null)
+                                @if (Model == null)
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            No se registraron solicitudes.
+                                        </td>
+                                    </tr>
+                                }
+                                else
                                 {
                                     foreach (var sr in Model)
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(item => sr.Repuesto.Codigo)</td>
-                                            <td>@Html.DisplayFor(item => sr.CantidadRepuesto)</td>
-                                            <td>@Html.DisplayFor(item => sr.Repuesto.Nombre)</td>
-                                            <td>
+                                            <td>@(sr.CantidadRepuesto != 0 ? sr.CantidadRepuesto.ToString() : "")</td>
+                                            <td>@(sr.Repuesto != null ? sr.Repuesto.Nombre : "")</td>
+                                            <td>@(sr.Proveedor != null ? sr.Proveedor.Nombre : "")</td>
+                                            <td>@Html.DisplayFor(item => sr.Comentarios)</td>
+                                            <td class="action-columns">
                                                 <a class="btn btn-default btn-xs"
                                                    data-toggle="modal" data-target="#modalSolicitudRepuestoServicioEquipo"
                                                    data-solicitud-id="@sr.SolicitudRepuestoServicioId"

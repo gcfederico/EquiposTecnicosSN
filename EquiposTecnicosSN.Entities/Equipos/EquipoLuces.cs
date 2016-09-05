@@ -5,9 +5,9 @@ namespace EquiposTecnicosSN.Entities.Equipos
     [Table("EquiposLuces")]
     public class EquipoLuces : Equipo
     {
-        public override string Tipo()
+        public override TipoEquipo Tipo()
         {
-            return "Equipo de Luces";
+            return TipoEquipo.Luces;
         }
     }
 }

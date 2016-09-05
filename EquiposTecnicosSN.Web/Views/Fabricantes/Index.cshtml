@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EquiposTecnicosSN.Entities.Equipos.Info.Fabricante>
+﻿@model IPagedList<EquiposTecnicosSN.Entities.Equipos.Info.Fabricante>
 
 @{
     ViewBag.Title = "Fabricantes";
@@ -7,55 +7,49 @@
 
 <div class="row">
     <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar Fabricante</div>
+            <div class="panel-body">
+                <form id="formBuscarRepuestos" method="get" data-nqn-ajax="true" action="@Url.Action("Index", "Fabricantes")" data-nqn-target="#fabricantesList">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label" style="margin-top: 5px;">Nombre</label>
+                                <input type="text" id="searchNombre" name="searchNombre" class="form-control text-box single-line" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="margin-top: 5px;">Marca</label>
+                                <input type="text" id="searchMarca" name="searchMarca" class="form-control text-box single-line" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="control-label" style="margin-top: 5px;">Modelo</label>
+                                <input type="text" id="searchModelo" name="searchModelo" class="form-control text-box single-line" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="buscarFabricante" type="submit" value="Buscar" class="btn btn-primary pull-right" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Listado de @ViewBag.Title</div>
+            <div class="panel-heading"><i class="fa fa-building-o fa-fw"></i> Listado de @ViewBag.Title</div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        @Html.ActionLink("Nuevo", "Create", null, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table class="table table-hover table-responsive table-condensed table-striped">
-                            <thead>
-
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Nombre)
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Nombre)
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-default btn-xs"
-                                               href="@Url.Action("Edit", new { id = item.FabricanteId })"
-                                               title="Editar Fabricante">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </a>
-
-                                            <a class="btn btn-default btn-xs"
-                                               href="@Url.Action("Details", new { id = item.FabricanteId })"
-                                               title="Ver Fabricante">
-                                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                            </a>
-                                            <a class="btn btn-default btn-xs"
-                                               href="@Url.Action("Delete", new { id = item.FabricanteId })"
-                                               title="Eliminar Fabricante">
-                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                        <div id="fabricantesList">
+                            @Html.Partial("_FabricantesList", Model)
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,4 @@
-﻿using EquiposTecnicosSN.Entities.Equipos.Info;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,11 +11,11 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [Required]
         public int ProveedorId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre es requerido.")]
         [StringLength(50)]
         public string Nombre { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Tipo es requerido.")]
         public ProveedorTipo Tipo { get; set; }
 
         [DisplayName("Dirección")]
@@ -25,14 +23,14 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public string Direccion { get; set; }
 
         [DisplayName("Teléfono")]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Telefono { get; set; }
 
         [StringLength(255)]
         public string Website { get; set; }
 
         [DisplayName("Email")]
-        [StringLength(50)]
+        [StringLength(100)]
         [EmailAddress]
         public string Email { get; set; }
 

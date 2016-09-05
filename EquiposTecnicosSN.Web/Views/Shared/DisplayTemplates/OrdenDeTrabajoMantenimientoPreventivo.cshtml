@@ -90,21 +90,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                @if (Model.Observaciones != null)
-                {
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.LabelFor(model => model.Observaciones)
-                            <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Observaciones)
-                            </p>
-                        </div>
-                    </div>
-                }
+                @Html.Partial("_ListObservaciones", Model)
+
                 @if (OrdenDeTrabajoEstado.Cerrada.Equals(Model.Estado))
                 {
                     <hr />
@@ -113,6 +102,12 @@
                             <div class="form-group">
                                 <label class="control-label switch-label">Checklist Completo</label>
                                 @Html.EditorFor(model => model.ChecklistCompleto, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Archivo Checklist Final</label>
+                                <p class="form-control-static">
+                                    @Html.ActionLink("Descargar", "DownloadChecklistCompleto", "ODTMantenimientoPreventivo", new { odtId = Model.OrdenDeTrabajoId }, null)
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 ﻿$(function () {
+    // DETALLE DE SOLICITUD DE REPUESTO O SERVICIO
     $('#modalSolicitudRepuestoServicioEquipo').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var solicitudId = button.data('solicitud-id'); // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var button = $(event.relatedTarget);
+        var solicitudId = button.data('solicitud-id');
 
-        $(".modal-body").html("Cargando...");
+
+        $(".modal-body").html("<div class='loader'></div>");
 
         $.ajax({
             type: 'GET',
@@ -18,5 +18,26 @@
                 $(".modal-body").html(ex.responseText);
             }
         });
-    })
+    });
+
+    // TRASLADAR EQUIPO
+    $('#modalTrasladarEquipo').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var equipoId = button.data('equipo-id');
+
+
+        $(".modal-body").html("<div class='loader'></div>");
+
+        $.ajax({
+            type: 'GET',
+            url: '/Traslados/LoadTrasladarEquipo',
+            data: { equipoId: equipoId },
+            success: function (view) {
+                $(".modal-body").html(view);
+            },
+            error: function (ex) {
+                $(".modal-body").html(ex.responseText);
+            }
+        });
+    });
 });

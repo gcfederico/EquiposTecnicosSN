@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EquiposTecnicosSN.Entities.Equipos.Info
 {
@@ -14,10 +10,12 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         [Key]
         public int UmdnsId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Código es requerido.")]
+        [DisplayName("Código")]
         public string Codigo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Nombre Completo es requerido.")]
+        [DisplayName("Nombre Completo")]
         public string NombreCompleto { get; set; }
     }
 }

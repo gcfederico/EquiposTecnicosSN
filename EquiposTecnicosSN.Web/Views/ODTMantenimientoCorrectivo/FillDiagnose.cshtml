@@ -1,6 +1,6 @@
-﻿@model EquiposTecnicosSN.Entities.Mantenimiento.OrdenDeTrabajoMantenimientoCorrectivo
+﻿@model EquiposTecnicosSN.Web.Models.MCViewModel
 @{
-    ViewBag.Title = "Orden de Trabajo Nº " + Model.NumeroReferencia + " para Mantenimiento Correctivo";
+    ViewBag.Title = "Orden de Trabajo Nº " + Model.Odt.NumeroReferencia + " para Mantenimiento Correctivo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginForm())
@@ -13,25 +13,25 @@
                 <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> @ViewBag.Title</div>
                 <div class="panel-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.OrdenDeTrabajoId)
+                    @Html.HiddenFor(model => Model.Odt.OrdenDeTrabajoId)
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.NumeroReferencia)
+                                    @Html.DisplayNameFor(model => Model.Odt.NumeroReferencia)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.NumeroReferencia)
+                                    @Html.DisplayFor(model => Model.Odt.NumeroReferencia)
                                 </p>
                             </div>
 
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.Equipo)
+                                    @Html.DisplayNameFor(model => Model.Odt.Equipo)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.Equipo.NombreCompleto)
+                                    @Html.DisplayFor(model => Model.Odt.Equipo.NombreCompleto)
                                 </p>
                             </div>
                         </div>
@@ -39,11 +39,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    @Html.DisplayNameFor(model => model.FechaInicio)
-                                    @Html.HiddenFor(model => model.FechaInicio)
+                                    @Html.DisplayNameFor(model => Model.Odt.FechaInicio)
+                                    @Html.HiddenFor(model => Model.Odt.FechaInicio)
                                 </label>
                                 <p class="form-control-static">
-                                    @Html.DisplayFor(model => model.FechaInicio)
+                                    @Html.DisplayFor(model => Model.Odt.FechaInicio)
                                 </p>
                             </div>
 
@@ -56,72 +56,45 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label>
-                                @Html.DisplayNameFor(model => model.Descripcion)
+                                @Html.DisplayNameFor(model => Model.Odt.Descripcion)
                             </label>
                             <p class="form-control-static">
-                                @Html.DisplayFor(model => model.Descripcion)
+                                @Html.DisplayFor(model => Model.Odt.Descripcion)
                             </p>
                         </div>
                     </div>
                     <hr />
                     <div class="row">
                         <div class="col-md-12">
-                            @Html.LabelFor(model => model.Diagnostico, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.Diagnostico, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Diagnostico, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => Model.Odt.Diagnostico, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => Model.Odt.Diagnostico, htmlAttributes: new { @class = "form-control", rows = 5, data_val_required = "El diagnóstico es requerido." })
+                            @Html.ValidationMessageFor(model => Model.Odt.Diagnostico, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    @Html.Partial("_AddObservaciones", Model)
+                    <!--
                     <hr />
+                        
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label" })
+                    -->
+                                @*
+                                Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label" })
                                 @Html.TextAreaFor(model => model.Observaciones, htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                                *@
+                    <!--
                             </div>
                         </div>
                     </div>
+                    -->        
                 </div>
             </div>
         </div>
     </div>
 
-    @Html.Partial("_EditGastos", Model.Gastos)
-
-    <!--
-        
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Gastos</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @*Html.ActionLink("Añadir Gasto", "AddGasto", null, new { @id = "addGasto", @class = "btn btn-default" })*@
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Concepto</th>
-                                        <th>Monto</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaGastos">
-                                    @*foreach (var gasto in Model.Gastos) *@
-                                    {
-                                        <tr class="gastoRow">
-                                            @*Html.Partial("_AddGasto", gasto)*@
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
+    @Html.Partial("_EditGastos", Model.Odt.Gastos)
 
     <div class="row">
         <div class="col-md-6">

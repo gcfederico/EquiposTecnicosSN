@@ -3,8 +3,8 @@
     var autocompleteNombreOptions = {
         source: $("input[data-umdns-autocomplete-nombre]").attr("data-umdns-autocomplete-nombre"),
         select: function (event, ui) {
-            $("#NombreCompleto").val(ui.item.label);
-            $("#UMDNS").val(ui.item.value);
+            $("input[data-umdns-autocomplete-nombre]").val(ui.item.label);
+            $("input[data-umdns-autocomplete-codigo]").val(ui.item.value);
             event.stopPropagation();
             return false;
         },
@@ -16,8 +16,8 @@
     var autocompleteCodigoOptions = {
         source: $("input[data-umdns-autocomplete-codigo]").attr("data-umdns-autocomplete-codigo"),
         select: function (event, ui) {
-            $("#NombreCompleto").val(ui.item.value);
-            $("#UMDNS").val(ui.item.label);
+            $("input[data-umdns-autocomplete-nombre]").val(ui.item.value);
+            $("input[data-umdns-autocomplete-codigo]").val(ui.item.label);
             event.stopPropagation();
             return false;
         },
@@ -56,15 +56,22 @@
             },
             success: function (response) {
 
-                var color, mensaje;
-                if (response.hayStock) {
-                    color = "success";
-                    mensaje = "Hay en stock";
+                var alertHTML, color, mensaje;
+                if (response.existeRepuesto) {
+
+                    if (response.hayStock) {
+                        color = "success";
+                        mensaje = "Hay en stock";
+                    } else {
+                        color = "danger";
+                        mensaje = "No hay stock";
+                    }
                 } else {
-                    color = "danger";
-                    mensaje = "No hay stock";
+                    color = "warning";
+                    mensaje = "El código de repuesto ingresado no se encuentra en el sistema. Es recomendado primero registrar el repuesto y luego ingresar la solicitud.";
                 }
-                var alertHTML = '<div class="alert alert-' + color + ' alert-dismissable">' +
+
+                alertHTML = '<div class="alert alert-' + color + ' alert-dismissable">' +
                                     '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
                                     mensaje +
                                 '</div>';

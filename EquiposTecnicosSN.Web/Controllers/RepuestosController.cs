@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
+using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -21,9 +19,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             var stock = await db.StockRepuestos.Where(s => s.Repuesto.Codigo == codigo).SingleOrDefaultAsync();
 
+            var repuesto = await db.Repuestos.Where(r => r.Codigo == codigo).SingleOrDefaultAsync();
+
             var response = new {
+                existeRepuesto = repuesto != null,
                 hayStock = stock != null && stock.CantidadDisponible >= cantidad,
-                proveedorId = stock.Repuesto.ProveedorId
+                proveedorId = (repuesto != null ? repuesto.ProveedorId : null)
             };
 
             return Json(response, JsonRequestBehavior.AllowGet);
@@ -49,20 +50,32 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: Repuestos
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string searchNombre = null, string searchCodigo = null, int proveedorId = 0, int page = 1)
         {
-            var repuestos = db.Repuestos.Include(r => r.Proveedor);
-            return View(await repuestos.ToListAsync());
+            var listPage = db.Repuestos.Include(r => r.Proveedor)
+                .Where(r => searchNombre == null || r.Nombre.Contains(searchNombre))
+                .Where(r => searchCodigo == null || r.Codigo.Contains(searchCodigo))
+                .Where(r => proveedorId == 0 || r.ProveedorId == proveedorId)
+                .OrderBy(r => r.Nombre)
+                .ToPagedList(page, 10);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_RepuestosList", listPage);
+            }
+            
+            ViewBag.proveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
+            return View(listPage);
         }
 
         // GET: Repuestos/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = await db.Repuestos.FindAsync(id);
+            Repuesto repuesto = db.Repuestos.Find(id);
             if (repuesto == null)
             {
                 return HttpNotFound();
@@ -74,7 +87,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre");
-            return View();
+            return View(new Repuesto());
         }
 
         // POST: Repuestos/Create
@@ -82,13 +95,21 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RepuestoId,Codigo,Nombre,ProveedorId,Costo")] Repuesto repuesto)
+        public ActionResult Create( Repuesto repuesto)
         {
-            if (ModelState.IsValid)
+
+            var codigoRepetido = CodigoRepetido(repuesto.Codigo);
+
+            if (ModelState.IsValid && !codigoRepetido)
             {
                 db.Repuestos.Add(repuesto);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+
+            if (codigoRepetido)
+            {
+                ModelState.AddModelError("", "Ya se ha registrado un repuesto con el código ingresado.");
             }
 
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", repuesto.ProveedorId);
@@ -96,13 +117,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // GET: Repuestos/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = await db.Repuestos.FindAsync(id);
+            Repuesto repuesto = db.Repuestos.Find(id);
             if (repuesto == null)
             {
                 return HttpNotFound();
@@ -116,26 +137,34 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RepuestoId,Codigo,Nombre,ProveedorId,Costo")] Repuesto repuesto)
+        public ActionResult Edit(Repuesto repuesto)
         {
-            if (ModelState.IsValid)
+            var codigoRepetido = CodigoRepetido(repuesto.Codigo);
+
+            if (ModelState.IsValid && !codigoRepetido)
             {
                 db.Entry(repuesto).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            if (codigoRepetido)
+            {
+                ModelState.AddModelError("", "Ya se ha registrado un repuesto con el código ingresado.");
+            }
+
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", repuesto.ProveedorId);
             return View(repuesto);
         }
 
         // GET: Repuestos/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Repuesto repuesto = await db.Repuestos.FindAsync(id);
+            Repuesto repuesto = db.Repuestos.Find(id);
             if (repuesto == null)
             {
                 return HttpNotFound();
@@ -146,12 +175,54 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: Repuestos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Repuesto repuesto = await db.Repuestos.FindAsync(id);
-            db.Repuestos.Remove(repuesto);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            var stockCount = db.StockRepuestos
+                .Where(sr => sr.RepuestoId == id)
+                .Count();
+
+            var solicitudesCount = db.SolicitudesRepuestosServicios
+                .Where(sr => sr.RepuestoId == id)
+                .Count();
+
+            var equiposCount = db.InformacionesComerciales
+                .Where(ic => ic.ProveedorId == id)
+                .Count();
+
+            var repuesto = db.Repuestos.Find(id);
+
+            if (equiposCount == 0 && solicitudesCount == 0 && stockCount == 0)
+            {
+                db.Repuestos.Remove(repuesto);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            if (equiposCount != 0)
+            {
+                ModelState.AddModelError("", "El repuesto no puede eliminarse ya que posee equipos asociados.");
+            }
+
+            if (solicitudesCount != 0)
+            {
+                ModelState.AddModelError("", "El repuesto no puede eliminarse ya que posee pedidos asociados.");
+            }
+
+            if (stockCount != 0)
+            {
+                ModelState.AddModelError("", "El repuesto no puede eliminarse ya que posee un stock asociado.");
+            }
+
+            return View(repuesto);
+        }
+
+        private bool CodigoRepetido(string codigo)
+        {
+            var repuestosMismoCodigoCount = db.Repuestos
+                .Where(r => r.Codigo == codigo)
+                .Count();
+
+            return repuestosMismoCodigoCount > 0;
         }
 
         protected override void Dispose(bool disposing)

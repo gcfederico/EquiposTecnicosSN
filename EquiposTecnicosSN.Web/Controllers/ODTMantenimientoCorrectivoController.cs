@@ -5,30 +5,31 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Mantenimiento;
-using EquiposTecnicosSN.Web.DataContexts;
-using EquiposTecnicosSN.Web.CustomExtensions;
+using EquiposTecnicosSN.Web.Models;
+using EquiposTecnicosSN.Entities.Equipos;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     [Authorize]
     public class ODTMantenimientoCorrectivoController : ODTController
     {
-
-        // GET: OrdenesDeTrabajo/OrdenesPorPrioridadCount
-        [HttpPost]
-        public JsonResult OrdenesPorPrioridadCount()
+        /// <summary>
+        /// Action Index
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
         {
-            var counts = new
+            var model = new MCIndexViewModel
             {
-                Emergencia = db.ODTMantenimientosCorrectivos.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Emergencia).Count(),
-                Urgente = db.ODTMantenimientosCorrectivos.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Urgencia).Count(),
-                Normal = db.ODTMantenimientosCorrectivos.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Normal).Count()
+                Emergencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Emergencia),
+                Urgencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Urgencia),
+                Normales = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Normal),
+                Search = new SearchOdtViewModel()
             };
 
-            return Json(counts);
+            return View(model);
         }
 
         // GET: OrdenesDeTrabajo/Details/5
@@ -54,7 +55,8 @@ namespace EquiposTecnicosSN.Web.Controllers
         override public ActionResult CreateForEquipo(int id)
         {
             var equipo = db.Equipos.Find(id);
-            var model = new OrdenDeTrabajoMantenimientoCorrectivo
+            var vm = new MCViewModel();
+            vm.Odt = new OrdenDeTrabajoMantenimientoCorrectivo
             {
                 EquipoId = equipo.EquipoId,
                 Equipo = equipo,
@@ -63,60 +65,63 @@ namespace EquiposTecnicosSN.Web.Controllers
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal
             };
-            return View(model);
+
+            vm.NuevaObservacion = NuevaObservacion();
+            
+            return View(vm);
         }
 
         // POST: OrdenesDeTrabajo/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateForEquipo(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo)
+        public async Task<ActionResult> CreateForEquipo(MCViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                ordenDeTrabajo.FechaInicio = DateTime.Now;
-                ordenDeTrabajo.UsuarioInicioId = 1; //TODO: hardcode
-                db.ODTMantenimientosCorrectivos.Add(ordenDeTrabajo);
+                vm.Odt.FechaInicio = DateTime.Now;
+                vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
+                //estado del equipo
+                var equipo = db.Equipos.Find(vm.Odt.EquipoId);
+                equipo.Estado = (vm.Odt.EquipoParado ? EstadoDeEquipo.NoFuncionalRequiereReparacion : EstadoDeEquipo.FuncionalRequiereReparacion);
+                db.Entry(equipo).State = EntityState.Modified;
+
+                db.ODTMantenimientosCorrectivos.Add(vm.Odt);
+                //Observacion
+                SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
+
                 await db.SaveChangesAsync();
-
-                return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
-
-                /*if (action.Equals("Guardar"))
-                {
-                    return RedirectToAction("Details", "EquiposClimatizacion", new { id = ordenDeTrabajo.EquipoId });
-                }
-                else
-                {
-                    return RedirectToAction("FillDiagnose", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
-                }*/
+                return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
             }
 
-            return View(ordenDeTrabajo);
+            return View(vm);
         }
 
         // GET: OrdenesDeTrabajo/FillDiagnose/id
         [HttpGet]
         public ActionResult FillDiagnose(int id)
         {
-            var model = db.ODTMantenimientosCorrectivos.Find(id);
+            var odt = db.ODTMantenimientosCorrectivos.Find(id);
+            var model = new MCViewModel();
+            model.Odt = odt;
+            model.NuevaObservacion = NuevaObservacion();
             return View(model);
         }
 
         // POST: OrdenesDeTrabajo/FillDiagnose
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> FillDiagnose(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> FillDiagnose(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            if (ordenDeTrabajo.Diagnostico == null &&
-                ordenDeTrabajo.Gastos == null &&
+            if (vm.Odt.Diagnostico == null &&
+                vm.Odt.Gastos == null &&
                 gastos == null)
             {
-                return View(ordenDeTrabajo);
+                return View(vm);
             }
 
-
-            var orden = db.ODTMantenimientosCorrectivos.Find(ordenDeTrabajo.OrdenDeTrabajoId);
+            var orden = db.ODTMantenimientosCorrectivos.Find(vm.Odt.OrdenDeTrabajoId);
             //datos de diagnostico
-            orden.Diagnostico = ordenDeTrabajo.Diagnostico;
+            orden.Diagnostico = vm.Odt.Diagnostico;
             orden.FechaDiagnostico = DateTime.Now;
             orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
             //gastos
@@ -124,6 +129,8 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 SaveGastos(gastos, orden.OrdenDeTrabajoId);
             }
+            //nueva observacion
+            SaveNuevaObservacion(vm.NuevaObservacion, orden);
 
             db.Entry(orden).State = EntityState.Modified;
             await db.SaveChangesAsync();
@@ -134,18 +141,21 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult Close(int id)
         {
-            var model = db.ODTMantenimientosCorrectivos.Find(id);
+            var odt = db.ODTMantenimientosCorrectivos.Find(id);
+            var model = new MCViewModel();
+            model.Odt = odt;
+            model.NuevaObservacion = NuevaObservacion();
             return View(model);
         }
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Close(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
-                .Where(o => o.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId)
+                .Where(o => o.OrdenDeTrabajoId == vm.Odt.OrdenDeTrabajoId)
                 .SingleOrDefaultAsync();
 
             if (orden == null)
@@ -153,36 +163,39 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return HttpNotFound();
             }
 
-            if (ordenDeTrabajo.DetalleReparacion != null &&
-                ordenDeTrabajo.CausaRaiz != null)
+            if (vm.Odt.DetalleReparacion != null)
             {
-                orden.DetalleReparacion = ordenDeTrabajo.DetalleReparacion;
-                orden.CausaRaiz = ordenDeTrabajo.CausaRaiz;
-                orden.Limpieza = ordenDeTrabajo.Limpieza;
-                orden.VerificacionFuncionamiento = ordenDeTrabajo.VerificacionFuncionamiento;
-                if (ordenDeTrabajo.Observaciones != null)
-                {
-                    orden.Observaciones = ordenDeTrabajo.Observaciones;
-                }
+                orden.DetalleReparacion = vm.Odt.DetalleReparacion;
+                orden.CausaRaiz = vm.Odt.CausaRaiz;
+                orden.Limpieza = vm.Odt.Limpieza;
+                orden.VerificacionFuncionamiento = vm.Odt.VerificacionFuncionamiento;
+               
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
                 orden.FechaCierre = DateTime.Now;
                 orden.UsuarioReparacionId = 1; //HARDCODE
                 orden.UsuarioCierreId = 1; //HARDCODE
 
+                //estado del equipo
+                var equipo = db.Equipos.Find(orden.EquipoId);
+                equipo.Estado = (vm.Odt.VerificacionFuncionamiento ? EstadoDeEquipo.Funcional : EstadoDeEquipo.NoFuncionalRequiereReparacion);
+                db.Entry(equipo).State = EntityState.Modified;
+
                 //gastos
                 SaveGastos(gastos, orden.OrdenDeTrabajoId);
+
+                //observaciones
+                SaveNuevaObservacion(vm.NuevaObservacion, orden);
 
                 //solicitudes
                 CloseSolicitudesRepuestos(orden);
 
                 db.Entry(orden).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+                return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
             }
 
-
-            return View(ordenDeTrabajo);
+            return View(vm);
         }
 
         // GET: OrdenesDeTrabajo/EditGastos/id
@@ -207,41 +220,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             return RedirectToAction("Details", new { id = orden.OrdenDeTrabajoId });
         }
 
-
-
-        // GET: OrdenesDeTrabajo/CountOrdenesPrioridad
-        [HttpGet]
-        override public ActionResult CountOrdenesPrioridad(String prioridad)
-        {
-            var count = db.ODTMantenimientosCorrectivos.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Emergencia).Count();
-            return Json(count);
-        }
-
-        // GET: OrdenesDeTrabajo/Create
-        public ActionResult Create()
-        {
-            ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto");
-            return View();
-        }
-
-        // POST: OrdenesDeTrabajo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ODTMantenimientosCorrectivos.Add(ordenDeTrabajo);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", ordenDeTrabajo.EquipoId);
-            return View(ordenDeTrabajo);
-        }
-
         // GET: OrdenesDeTrabajo/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -259,15 +237,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         // POST: OrdenesDeTrabajo/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo)
         {
             if (ModelState.IsValid)
             {
-
                 //gastos
                 SaveGastos(ordenDeTrabajo.Gastos, ordenDeTrabajo.OrdenDeTrabajoId);
 
@@ -278,28 +253,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", ordenDeTrabajo.EquipoId);
             return View(ordenDeTrabajo);
         }
-
-        // GET: OrdenesDeTrabajo
-        public async Task<ActionResult> Index(String prioridad)
-        {
-            if (prioridad == null)
-            {
-                var ordenesDeTrabajo = db.ODTMantenimientosCorrectivos;
-                return View(await ordenesDeTrabajo.ToListAsync());
-            }
-            else if (prioridad.Equals(OrdenDeTrabajoPrioridad.Emergencia.DisplayName()))
-            {
-                var ordenesDeTrabajo = db.ODTMantenimientosCorrectivos.Where(o => o.Prioridad == OrdenDeTrabajoPrioridad.Emergencia);
-                return View(await ordenesDeTrabajo.ToListAsync());
-            }
-            else
-            {
-                var ordenesDeTrabajo = db.ODTMantenimientosCorrectivos.Include(o => o.Equipo);
-                return View(await ordenesDeTrabajo.ToListAsync());
-            }
-        }
-
-
 
         // GET: OrdenesDeTrabajo/Delete/5
         public async Task<ActionResult> Delete(int? id)

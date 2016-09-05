@@ -1,9 +1,11 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
+using EquiposTecnicosSN.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,10 +16,20 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class ODTMantenimientoPreventivoController : ODTController
     {
-
-        public override ActionResult CountOrdenesPrioridad(string prioridad)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
         {
-            throw new NotImplementedException();
+            var model = new MPIndexViewModel
+            {
+                Search = new SearchOdtViewModel(),
+                Proximas = odtsService.MPreventivosProximos(),
+                Abiertas = odtsService.MPreventivosAbiertos(null)
+            };
+
+            return View(model);
         }
 
         [HttpGet]
@@ -26,7 +38,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre");
 
             var equipo = db.Equipos.Find(id);
-            var model = new OrdenDeTrabajoMantenimientoPreventivo
+            var odt = new OrdenDeTrabajoMantenimientoPreventivo
             {
                 EquipoId = equipo.EquipoId,
                 Equipo = equipo,
@@ -35,29 +47,33 @@ namespace EquiposTecnicosSN.Web.Controllers
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal
             };
+
+            var model = new MPViewModel();
+            model.Odt = odt;
+            model.NuevaObservacion = NuevaObservacion();
             return View(model);
         }
 
         // POST: ODTMantenimientoPreventivoController/CreateForEquipo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateForEquipo(OrdenDeTrabajoMantenimientoPreventivo ordenDeTrabajo)
+        public ActionResult CreateForEquipo(MPViewModel vm)
         {
-            if (ordenDeTrabajo.ChecklistId != 0)
+            if (vm.Odt.ChecklistId != 0)
             {
-                ordenDeTrabajo.Checklist = db.ChecklistsMantenimientoPreventivo.Find(ordenDeTrabajo.ChecklistId);
-                ordenDeTrabajo.FechaInicio = DateTime.Now;
-                ordenDeTrabajo.UsuarioInicioId = 1; //TODO: hardcode
-                ordenDeTrabajo.fechaCreacion = ordenDeTrabajo.FechaInicio;
-                ordenDeTrabajo.UsuarioInicioId = 1; //TODO: hardcode
-                db.ODTMantenimientosPreventivos.Add(ordenDeTrabajo);
-                await db.SaveChangesAsync();
+                vm.Odt.Checklist = db.ChecklistsMantenimientoPreventivo.Find(vm.Odt.ChecklistId);
+                vm.Odt.FechaInicio = DateTime.Now;
+                vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
+                vm.Odt.fechaCreacion = vm.Odt.FechaInicio;
+                SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
+                db.ODTMantenimientosPreventivos.Add(vm.Odt);
+                db.SaveChanges();
 
-                return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+                return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
             }
 
-            ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre", ordenDeTrabajo.ChecklistId);
-            return View(ordenDeTrabajo);
+            ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre", vm.Odt.ChecklistId);
+            return View(vm);
         }
 
         public override ActionResult Details(int? id)
@@ -72,8 +88,9 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ordenDeTrabajo.SolicitudesRespuestos = db.SolicitudesRepuestosServicios.Where(s => s.OrdenDeTrabajoId == id).ToList();
+            ordenDeTrabajo.SolicitudesRespuestos = odtsService.BuscarSolicitudes(id);
             ordenDeTrabajo.Equipo = db.Equipos.Find(ordenDeTrabajo.EquipoId);
+
             return View(ordenDeTrabajo);
         }
 
@@ -87,14 +104,16 @@ namespace EquiposTecnicosSN.Web.Controllers
         // POST: OrdenesDeTrabajo/EditGastos
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public ActionResult EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);
+            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);//odtsService.BuscarMPreventivo(ordenDeTrabajoId);
+
             //gastos
             SaveGastos(gastos, orden.OrdenDeTrabajoId);
 
-            db.Entry(orden).State = EntityState.Modified;
-            await db.SaveChangesAsync();
+            //db.Entry(orden).State = EntityState.Modified;
+            //db.SaveChanges();
+            odtsService.Update(orden);
             return RedirectToAction("Details", new { id = orden.OrdenDeTrabajoId });
         }
 
@@ -102,34 +121,32 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult Close(int id)
         {
-            var model = db.ODTMantenimientosPreventivos.Find(id);
+            var odt = db.ODTMantenimientosPreventivos.Find(id);
+            var model = new MPViewModel();
+            model.Odt = odt;
+            model.NuevaObservacion = NuevaObservacion();
             return View(model);
         }
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Close(OrdenDeTrabajoMantenimientoPreventivo ordenDeTrabajo, IEnumerable<GastoOrdenDeTrabajo> gastos)
+        public async Task<ActionResult> Close(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
             try
             {
-
                 OrdenDeTrabajoMantenimientoPreventivo orden = await db.ODTMantenimientosPreventivos
                     .Include(o => o.SolicitudesRespuestos)
-                    .Where(o => o.OrdenDeTrabajoId == ordenDeTrabajo.OrdenDeTrabajoId)
+                    .Where(o => o.OrdenDeTrabajoId == vm.Odt.OrdenDeTrabajoId)
                     .SingleOrDefaultAsync();
 
                 if (orden == null)
                 {
                     return HttpNotFound();
                 }
-
-                if (ordenDeTrabajo.Observaciones != null)
-                {
-                    orden.Observaciones = ordenDeTrabajo.Observaciones;
-                }
-                orden.ChecklistCompleto = ordenDeTrabajo.ChecklistCompleto;
+                
+                orden.ChecklistCompleto = vm.Odt.ChecklistCompleto;
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaCierre = DateTime.Now;
                 orden.UsuarioCierreId = 1; //HARDCODE
@@ -143,16 +160,44 @@ namespace EquiposTecnicosSN.Web.Controllers
                 //solicitudes
                 CloseSolicitudesRepuestos(orden);
 
+                //observaciones
+                SaveNuevaObservacion(vm.NuevaObservacion, orden);
+
+                //archivo
+                if (vm.ChecklistCompletoFile != null && vm.ChecklistCompletoFile.ContentLength > 0)
+                {
+                    orden.ChecklistCompletoFileExtension = Path.GetExtension(vm.ChecklistCompletoFile.FileName);
+                    orden.ChecklistCompletoContentType = vm.ChecklistCompletoFile.ContentType;
+
+                    using (var reader = new BinaryReader(vm.ChecklistCompletoFile.InputStream))
+                    {
+                        orden.ChecklistCompletoContent = reader.ReadBytes(vm.ChecklistCompletoFile.ContentLength);
+                    }
+                }
+
                 db.Entry(orden).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-
 
             }
             catch (DbEntityValidationException e)
             {
                 Debug.WriteLine(e.Data);
             }
-            return RedirectToAction("Details", new { id = ordenDeTrabajo.OrdenDeTrabajoId });
+            return RedirectToAction("Details", new { id = vm.Odt.OrdenDeTrabajoId });
         }
+
+        public FileResult DownloadChecklistCompleto(int odtId)
+        {
+            var orden = db.ODTMantenimientosPreventivos.Find(odtId);
+
+            if (orden != null)
+            {
+                return File(orden.ChecklistCompletoContent, orden.ChecklistCompletoContentType, "ODT " + orden.NumeroReferencia + orden.ChecklistCompletoFileExtension);
+            }
+
+            return null;
+        }
+
+
     }
 }

@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using EquiposTecnicosSN.Entities;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
     [Authorize]
     public class EquiposBaseController : Controller
     {
-        private EquiposDbContext db = new EquiposDbContext();
+        protected EquiposDbContext db = new EquiposDbContext();
 
         // GET: EquiposBase
         public virtual ActionResult Index()
         {
+            ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
+            ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
             return View(db.Equipos.ToList());
         }
 
@@ -44,15 +43,15 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET
         public ActionResult AutocompleteCodigoUMDNS(string term)
         {
-         var model =
-                db.Umdns
-                .Where(u => u.Codigo.StartsWith(term))
-                .Take(6)
-                .Select(e => new
-                {
-                    label = e.Codigo,
-                    value = e.NombreCompleto
-                });
+            var model =
+                   db.Umdns
+                   .Where(u => u.Codigo.StartsWith(term))
+                   .Take(6)
+                   .Select(e => new
+                   {
+                       label = e.Codigo,
+                       value = e.NombreCompleto
+                   });
 
             return Json(model, JsonRequestBehavior.AllowGet);
 
@@ -64,6 +63,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (equipo.EquipoId == 0)
             {
                 ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
+                ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
                 ViewBag.ProveedorId = new SelectList(db.Proveedores.OrderBy(u => u.Nombre), "ProveedorId", "Nombre");
                 ViewBag.FabricanteId = new SelectList(db.Fabricantes.OrderBy(u => u.Nombre), "FabricanteId", "Nombre");
                 ViewBag.MarcaId = new SelectList(Enumerable.Empty<Marca>(), "MarcaId", "Nombre");
@@ -75,6 +75,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 ViewBag.MarcaId = new SelectList(db.Marcas.OrderBy(u => u.Nombre).Where(m => m.FabricanteId == equipo.InformacionHardware.FabricanteId), "MarcaId", "Nombre", equipo.InformacionHardware.MarcaId);
                 ViewBag.ModeloId = new SelectList(db.Modelos.Where(m => m.MarcaId == equipo.InformacionHardware.MarcaId), "ModeloId", "Nombre", equipo.InformacionHardware.ModeloId);
                 ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre", equipo.UbicacionId);
+                ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre", equipo.SectorId);
                 ViewBag.ProveedorId = new SelectList(db.Proveedores.OrderBy(u => u.Nombre), "ProveedorId", "Nombre", equipo.InformacionComercial.ProveedorId);
             }
         }
@@ -92,6 +93,104 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return HttpNotFound();
             }
             return View(equipoBase);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buscarNombreCompleto"></param>
+        /// <param name="buscarUMDNS"></param>
+        /// <param name="UbicacionId"></param>
+        /// <param name="SectorId"></param>
+        /// <param name="Estado"></param>
+        /// <param name="NumeroMatricula"></param>
+        /// <returns></returns>
+        public ActionResult SearchEquipos(int? UbicacionId, int? SectorId, int? NumeroMatricula, int? SearchTipoEquipo = 0, int? EstadoEquipo = 0, string buscarNombreCompleto = "", string buscarUMDNS = "", int page = 1)
+        {
+
+            var result = db.Equipos
+                .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Contains(buscarNombreCompleto))
+                .Where(e => buscarUMDNS.Equals("") || e.UMDNS.Contains(buscarUMDNS))
+                .Where(e => UbicacionId == null || e.UbicacionId == UbicacionId)
+                .Where(e => SectorId == null || e.SectorId == SectorId)
+                .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula));
+
+
+            if (EstadoEquipo != 0)
+            {
+                EstadoDeEquipo estadoFiltro = (EstadoDeEquipo)EstadoEquipo;
+                result = result.Where(e => e.Estado == estadoFiltro);
+            }
+
+            if (SearchTipoEquipo != 0)
+            {
+                TipoEquipo tipo = (TipoEquipo)SearchTipoEquipo;
+
+                switch (tipo)
+                {
+                    case TipoEquipo.Cirugia:
+                        result = result.Where(e => e is EquipoCirugia);
+                        break;
+
+                    case TipoEquipo.Climatizacion:
+                        result = result.Where(e => e is EquipoClimatizacion);
+                        break;
+
+                    case TipoEquipo.Edilicio:
+                        result = result.Where(e => e is EquipamientoEdilicio);
+                        break;
+
+                    case TipoEquipo.Endoscopia:
+                        result = result.Where(e => e is EquipoEndoscopia);
+                        break;
+
+                    case TipoEquipo.GasesMedicinales:
+                        result = result.Where(e => e is EquipoGasesMedicinales);
+                        break;
+
+                    case TipoEquipo.Imagenes:
+                        result = result.Where(e => e is EquipoImagen);
+                        break;
+
+                    case TipoEquipo.Informatica:
+                        result = result.Where(e => e is EquipoInformatica);
+                        break;
+
+                    case TipoEquipo.Luces:
+                        result = result.Where(e => e is EquipoLuces);
+                        break;
+
+                    case TipoEquipo.Monitoreo:
+                        result = result.Where(e => e is EquipoMonitoreo);
+                        break;
+
+                    case TipoEquipo.Odontologia:
+                        result = result.Where(e => e is EquipoOdontologia);
+                        break;
+
+                    case TipoEquipo.Otros:
+                        result = result.Where(e => e is EquipoOtro);
+                        break;
+
+                    case TipoEquipo.PruebasDeDiagnostico:
+                        result = result.Where(e => e is EquipoPruebaDeDiagnostico);
+                        break;
+
+                    case TipoEquipo.Rehabilitacion:
+                        result = result.Where(e => e is EquipoRehabilitacion);
+                        break;
+
+                    case TipoEquipo.SoporteDeVida:
+                        result = result.Where(e => e is EquipoSoporteDeVida);
+                        break;
+
+                    case TipoEquipo.Terapeutica:
+                        result = result.Where(e => e is EquipoTerapeutica);
+                        break;
+                }
+            }
+
+            return PartialView("_SearchEquiposResults", result.OrderByDescending(e => e.NombreCompleto).ToPagedList(page, 5));
         }
 
         protected override void Dispose(bool disposing)

@@ -35,7 +35,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [ForeignKey("ProveedorId")]
         public virtual Proveedor Proveedor { get; set; }
 
-        public int RepuestoId { get; set; }
+        public int? RepuestoId { get; set; }
 
         [ForeignKey("RepuestoId")]
         public virtual Repuesto Repuesto { get; set; }

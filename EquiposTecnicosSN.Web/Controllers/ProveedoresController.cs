@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Entities.Mantenimiento;
+using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -13,9 +14,21 @@ namespace EquiposTecnicosSN.Web.Controllers
         private EquiposDbContext db = new EquiposDbContext();
 
         // GET: Proveedores
-        public ActionResult Index()
+        public ActionResult Index(string searchNombre = null, string searchServicios = null, int searchTipo = 0, int page = 1)
         {
-            return View(db.Proveedores.ToList());
+            var listPage = db.Proveedores
+                .Where(p => (searchNombre == "" || searchNombre == null) || p.Nombre.Contains(searchNombre))
+                .Where(p => (searchServicios == "" || searchServicios == null) || p.Servicios.Contains(searchServicios))
+                .Where(r => searchTipo == 0 || (int)r.Tipo == searchTipo)
+                .OrderBy(r => r.Nombre)
+                .ToPagedList(page, 10);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_ProveedoresList", listPage);
+            }
+
+            return View(listPage);
         }
 
         // GET: Proveedores/Details/5
@@ -36,7 +49,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // GET: Proveedores/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Proveedor());
         }
 
         // POST: Proveedores/Create
@@ -44,7 +57,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Proveedor proveedor)
+        public ActionResult Create(Proveedor proveedor)
         {
             if (ModelState.IsValid)
             {
@@ -107,10 +120,44 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Proveedor proveedor = db.Proveedores.Find(id);
-            db.Proveedores.Remove(proveedor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            var equiposCount = db.Equipos
+                .Where(e => e.InformacionComercial.ProveedorId == id)
+                .Count();
+
+            var repuestosCount = db.Repuestos
+                .Where(r => r.ProveedorId == id)
+                .Count();
+
+            var solicitudesCount = db.SolicitudesRepuestosServicios
+                .Where(sr => sr.ProveedorId == id)
+                .Count();
+            
+            var proveedor = db.Proveedores.Find(id);
+
+            if (equiposCount == 0 && repuestosCount == 0 && solicitudesCount == 0)
+            {
+                db.Proveedores.Remove(proveedor);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            if (equiposCount != 0)
+            {
+                ModelState.AddModelError("", "El proveedor no puede eliminarse ya que posee equipos asociados.");
+            }
+
+            if (repuestosCount != 0)
+            {
+                ModelState.AddModelError("", "El proveedor no puede eliminarse ya que posee repuestos asociados.");
+            }
+
+            if (solicitudesCount != 0)
+            {
+                ModelState.AddModelError("", "El proveedor no puede eliminarse ya que posee solicitudes asociadas.");
+            }
+
+            return View(proveedor);
         }
 
         protected override void Dispose(bool disposing)

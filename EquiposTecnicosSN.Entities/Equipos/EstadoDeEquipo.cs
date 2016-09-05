@@ -4,12 +4,12 @@ namespace EquiposTecnicosSN.Entities.Equipos
 {
     public enum EstadoDeEquipo
     {
-        Funcional,
+        Funcional = 1,
         [Display(Name="No Funcional")]
-        NoFuncional,
+        NoFuncional = 2,
         [Display(Name = "Funciona Pero Requiere Reparacion")]
-        FuncionalRequiereReparacion,
+        FuncionalRequiereReparacion = 3,
         [Display(Name = "No Funciona. Requiere Reparacion")]
-        NoFuncionalRequiereReparacion
+        NoFuncionalRequiereReparacion = 4
     }
 }

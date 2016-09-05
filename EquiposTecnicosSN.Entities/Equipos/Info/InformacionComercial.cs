@@ -21,10 +21,10 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         public DateTime? FechaCompra { get; set; }
 
         [DisplayName("Precio de compra")]
-        public Decimal PrecioCompra { get; set; }
+        public decimal? PrecioCompra { get; set; }
 
         [DisplayName("Valor restante")]
-        public Decimal ValorRestante { get; set; }
+        public decimal? ValorRestante { get; set; }
 
         [DisplayName("Garantía/Contrato")]
         public GarantiaContrato? EsGrantiaContrato { get;set; }
