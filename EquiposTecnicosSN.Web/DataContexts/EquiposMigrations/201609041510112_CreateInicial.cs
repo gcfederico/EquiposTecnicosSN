@@ -155,13 +155,13 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         FechaCierre = c.DateTime(),
                         ProveedorId = c.Int(),
                         CantidadRepuesto = c.Int(nullable: false),
-                        RepuestoId = c.Int(nullable: false),
+                        RepuestoId = c.Int(),
                         UsuarioSolicitudId = c.Int(),
                     })
                 .PrimaryKey(t => t.SolicitudRepuestoServicioId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId, cascadeDelete: false)
                 .ForeignKey("dbo.Proveedores", t => t.ProveedorId)
-                .ForeignKey("dbo.Repuestos", t => t.RepuestoId, cascadeDelete: false)
+                .ForeignKey("dbo.Repuestos", t => t.RepuestoId)
                 .Index(t => t.OrdenDeTrabajoId)
                 .Index(t => t.ProveedorId)
                 .Index(t => t.RepuestoId);
@@ -465,7 +465,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId)
-                .ForeignKey("dbo.ChecklistsMantenimientoPreventivo", t => t.ChecklistId, cascadeDelete: true)
+                .ForeignKey("dbo.ChecklistsMantenimientoPreventivo", t => t.ChecklistId, cascadeDelete: false)
                 .Index(t => t.OrdenDeTrabajoId)
                 .Index(t => t.ChecklistId);
             

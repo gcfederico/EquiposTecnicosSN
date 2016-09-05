@@ -56,15 +56,22 @@
             },
             success: function (response) {
 
-                var color, mensaje;
-                if (response.hayStock) {
-                    color = "success";
-                    mensaje = "Hay en stock";
+                var alertHTML, color, mensaje;
+                if (response.existeRepuesto) {
+
+                    if (response.hayStock) {
+                        color = "success";
+                        mensaje = "Hay en stock";
+                    } else {
+                        color = "danger";
+                        mensaje = "No hay stock";
+                    }
                 } else {
-                    color = "danger";
-                    mensaje = "No hay stock";
+                    color = "warning";
+                    mensaje = "El código de repuesto ingresado no se encuentra en el sistema. Es recomendado primero registrar el repuesto y luego ingresar la solicitud.";
                 }
-                var alertHTML = '<div class="alert alert-' + color + ' alert-dismissable">' +
+
+                alertHTML = '<div class="alert alert-' + color + ' alert-dismissable">' +
                                     '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' +
                                     mensaje +
                                 '</div>';

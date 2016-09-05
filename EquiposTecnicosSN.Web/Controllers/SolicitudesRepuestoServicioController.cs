@@ -45,6 +45,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> OrderReplacementService(SolicitudRepuestoServicio solicitud)
         {
             var orden = db.OrdenesDeTrabajo.Find(solicitud.OrdenDeTrabajoId);
+            solicitud.OrdenDeTrabajo = orden;
 
             if (solicitud.Repuesto.Codigo != null && solicitud.Repuesto.Nombre != null)
             {
@@ -52,17 +53,30 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 if (repuesto != null)
                 {
-                    solicitud.OrdenDeTrabajo = orden;
                     solicitud.Repuesto = repuesto;
-                    solicitud.UsuarioSolicitudId = 1; //HARDCODE
-                    db.SolicitudesRepuestosServicios.Add(solicitud);
-                    orden.Estado = OrdenDeTrabajoEstado.EsperaRepuesto;
-                    db.Entry(orden).State = EntityState.Modified;
-
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Details", orden.WebController() ,new { id = solicitud.OrdenDeTrabajoId });
                 }
             }
+            else
+            {
+                solicitud.Repuesto = null;
+            }
+
+            //Es necesario que haya algun dato para guardar la solicitud
+            if (solicitud.ProveedorId != null 
+                || solicitud.Comentarios != null
+                || solicitud.Repuesto != null)
+            {
+                solicitud.UsuarioSolicitudId = 1; //HARDCODE
+                db.SolicitudesRepuestosServicios.Add(solicitud);
+                orden.Estado = OrdenDeTrabajoEstado.EsperaRepuesto;
+
+                db.Entry(orden).State = EntityState.Modified;
+
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", orden.WebController() ,new { id = solicitud.OrdenDeTrabajoId });
+            }
+
+            ModelState.AddModelError("", "Para guardar la solicitud debe registrarse el proveedor, las observaciones o el repuesto.");
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", solicitud.ProveedorId);
             return View(solicitud);
         }
@@ -81,15 +95,35 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<JsonResult> Close(int solicitudId)
         {
             var sRespuestoServicio = db.SolicitudesRepuestosServicios.Find(solicitudId);
+
+            //Descuento del stock la cantidad de repuestos
+            if (sRespuestoServicio.RepuestoId != null)
+            {
+                var stockRepuesto = await db.StockRepuestos
+                    .Where(sr => sr.RepuestoId == sRespuestoServicio.RepuestoId)
+                    .SingleOrDefaultAsync();
+
+                if (stockRepuesto != null) 
+                {
+                    if (stockRepuesto.CantidadDisponible <= sRespuestoServicio.CantidadRepuesto)
+                    {
+                        stockRepuesto.CantidadDisponible -= sRespuestoServicio.CantidadRepuesto;
+                        db.Entry(stockRepuesto).State = EntityState.Modified;
+                    }                   
+                }
+            }
+
             sRespuestoServicio.FechaCierre = DateTime.Now;            
             db.Entry(sRespuestoServicio).State = EntityState.Modified;
+            await db.SaveChangesAsync();
 
-            var solicitudesAbiertas = await db.SolicitudesRepuestosServicios.Where(s => 
-                s.OrdenDeTrabajoId == sRespuestoServicio.OrdenDeTrabajoId &&
-                s.FechaInicio == null)
-                .ToListAsync();
+            //Valido si hay solicitudes abiertas para la orden de trabajo
+            var solicitudesAbiertasCount = await db.SolicitudesRepuestosServicios
+                .Where(s => s.OrdenDeTrabajoId == sRespuestoServicio.OrdenDeTrabajoId)
+                .Where(s => s.FechaCierre == null)
+                .CountAsync();
 
-            if (solicitudesAbiertas.Count == 0)
+            if (solicitudesAbiertasCount == 0)
             {
                 var orden = db.OrdenesDeTrabajo.Find(sRespuestoServicio.OrdenDeTrabajoId);
                 orden.Estado = OrdenDeTrabajoEstado.Abierta;
@@ -102,7 +136,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 result = "success",
                 solicitudId = solicitudId,
-                updateEstado = solicitudesAbiertas.Count == 0
+                updateEstado = solicitudesAbiertasCount == 0
             });
         }
 

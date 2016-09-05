@@ -19,9 +19,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         {
             var stock = await db.StockRepuestos.Where(s => s.Repuesto.Codigo == codigo).SingleOrDefaultAsync();
 
+            var repuesto = await db.Repuestos.Where(r => r.Codigo == codigo).SingleOrDefaultAsync();
+
             var response = new {
+                existeRepuesto = repuesto != null,
                 hayStock = stock != null && stock.CantidadDisponible >= cantidad,
-                proveedorId = stock.Repuesto.ProveedorId
+                proveedorId = (repuesto != null ? repuesto.ProveedorId : null)
             };
 
             return Json(response, JsonRequestBehavior.AllowGet);
@@ -94,11 +97,19 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create( Repuesto repuesto)
         {
-            if (ModelState.IsValid)
+
+            var codigoRepetido = CodigoRepetido(repuesto.Codigo);
+
+            if (ModelState.IsValid && !codigoRepetido)
             {
                 db.Repuestos.Add(repuesto);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+
+            if (codigoRepetido)
+            {
+                ModelState.AddModelError("", "Ya se ha registrado un repuesto con el código ingresado.");
             }
 
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", repuesto.ProveedorId);
@@ -128,12 +139,20 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Repuesto repuesto)
         {
-            if (ModelState.IsValid)
+            var codigoRepetido = CodigoRepetido(repuesto.Codigo);
+
+            if (ModelState.IsValid && !codigoRepetido)
             {
                 db.Entry(repuesto).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            if (codigoRepetido)
+            {
+                ModelState.AddModelError("", "Ya se ha registrado un repuesto con el código ingresado.");
+            }
+
             ViewBag.ProveedorId = new SelectList(db.Proveedores, "ProveedorId", "Nombre", repuesto.ProveedorId);
             return View(repuesto);
         }
@@ -195,6 +214,15 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
 
             return View(repuesto);
+        }
+
+        private bool CodigoRepetido(string codigo)
+        {
+            var repuestosMismoCodigoCount = db.Repuestos
+                .Where(r => r.Codigo == codigo)
+                .Count();
+
+            return repuestosMismoCodigoCount > 0;
         }
 
         protected override void Dispose(bool disposing)

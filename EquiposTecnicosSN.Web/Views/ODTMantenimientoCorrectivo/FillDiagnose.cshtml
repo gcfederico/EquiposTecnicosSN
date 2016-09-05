@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             @Html.LabelFor(model => Model.Odt.Diagnostico, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => Model.Odt.Diagnostico, htmlAttributes: new { @class = "form-control" })
+                            @Html.TextAreaFor(model => Model.Odt.Diagnostico, htmlAttributes: new { @class = "form-control", rows = 5, data_val_required = "El diagnóstico es requerido." })
                             @Html.ValidationMessageFor(model => Model.Odt.Diagnostico, "", new { @class = "text-danger" })
                         </div>
                     </div>

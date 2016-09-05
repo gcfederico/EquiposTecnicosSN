@@ -73,8 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="ordenDeTrabajoId">Id de la orden de trabajo</param>
         protected void SaveGastos(IEnumerable<GastoOrdenDeTrabajo> gastos, int ordenDeTrabajoId)
         {
-            var gastosEntidad = odtsService.BuscarGastos(ordenDeTrabajoId);
-                //db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajoId).ToList();
+            var gastosEntidad = db.GastosOrdenesDeTrabajo.Where(g => g.OrdenDeTrabajoId == ordenDeTrabajoId).ToList();
 
             foreach (var gastoE in gastosEntidad)
             {

@@ -15,7 +15,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// Descripción del problema que dispara la orden de trabajo.
         /// </summary>
         [DisplayName("Descripción del problema")]
-        [Required]
+        [Required(ErrorMessage = "La descripción del problema es requerida.")]
         [StringLength(500)]
         public string Descripcion { get; set; }
         /// <summary>

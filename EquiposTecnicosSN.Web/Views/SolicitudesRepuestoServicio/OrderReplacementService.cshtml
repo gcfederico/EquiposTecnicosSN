@@ -13,6 +13,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">@ViewBag.Title</div>
                 <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.OrdenDeTrabajoId)
 
                     <div class="row">
@@ -47,6 +48,7 @@
                     <hr />
                     <h2>Repuesto</h2>
                     @Html.EditorFor(model => model)
+                      
                 </div>
             </div>
         </div>
