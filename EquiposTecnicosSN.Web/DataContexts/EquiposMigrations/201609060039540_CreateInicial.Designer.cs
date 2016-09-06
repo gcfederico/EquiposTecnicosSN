@@ -13,7 +13,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201609041510112_CreateInicial"; }
+            get { return "201609060039540_CreateInicial"; }
         }
         
         string IMigrationMetadata.Source

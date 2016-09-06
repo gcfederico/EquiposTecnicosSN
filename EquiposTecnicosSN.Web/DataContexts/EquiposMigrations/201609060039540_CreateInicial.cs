@@ -171,7 +171,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 c => new
                     {
                         ProveedorId = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false, maxLength: 50),
+                        Nombre = c.String(nullable: false, maxLength: 100),
                         Tipo = c.Int(nullable: false),
                         Direccion = c.String(maxLength: 255),
                         Telefono = c.String(maxLength: 100),
@@ -229,7 +229,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         UbicacionDestinoId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TrasladoId)
-                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: true)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: false)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionDestinoId, cascadeDelete: false)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionOrigenId, cascadeDelete: false)
                 .Index(t => t.EquipoId)
@@ -465,7 +465,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId)
-                .ForeignKey("dbo.ChecklistsMantenimientoPreventivo", t => t.ChecklistId, cascadeDelete: false)
+                .ForeignKey("dbo.ChecklistsMantenimientoPreventivo", t => t.ChecklistId, cascadeDelete: true)
                 .Index(t => t.OrdenDeTrabajoId)
                 .Index(t => t.ChecklistId);
             
