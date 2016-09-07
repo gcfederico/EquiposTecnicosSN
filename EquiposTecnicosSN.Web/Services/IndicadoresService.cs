@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EquiposTecnicosSN.Entities.Equipos;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EquiposTecnicosSN.Web.Services
@@ -8,77 +10,140 @@ namespace EquiposTecnicosSN.Web.Services
     /// </summary>
     public class IndicadoresService : BaseService
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="umdns"></param>
+        /// <param name="ubicacionId"></param>
+        /// <returns></returns>
+        public double TiempoIndisponibilidadEquipos(string umdns, int ubicacionId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            var equiposIds = db.Equipos
+                .Where(e => umdns == "" || e.UMDNS == umdns)
+                .Where(e => ubicacionId == 0 || e.UbicacionId == ubicacionId)
+                .Select(e => e.EquipoId)
+                .ToList();
+
+            double sumaTiemposEntreFallas = 0;
+            foreach (var id in equiposIds)
+            {
+                sumaTiemposEntreFallas += TiempoMedioEntreFallas(id, fechaInicio, fechaFin);
+            }
+
+            return sumaTiemposEntreFallas;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="umdns"></param>
+        /// <param name="ubicacionId"></param>
+        /// <returns></returns>
+        public double TiempoMedioEntreFallasEquipos(string umdns, int ubicacionId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            var equiposIds = db.Equipos
+                .Where(e => umdns == "" || e.UMDNS == umdns)
+                .Where(e => ubicacionId == 0 || e.UbicacionId == ubicacionId)
+                .Select(e => e.EquipoId)
+                .ToList();
+
+            double sumaTiemposEntreFallas = 0;
+            foreach (var id in equiposIds)
+            {
+                sumaTiemposEntreFallas += TiempoMedioEntreFallas(id, fechaInicio, fechaFin);
+            }
+
+            return sumaTiemposEntreFallas;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="equipoId"></param>
         /// <returns></returns>
-        private double TiempoMedioEntreFallas(int equipoId)
+        public double TiempoMedioEntreFallas(int equipoId, DateTime fechaInicio, DateTime fechaFin)
         {
-            var odtsMc = db.ODTMantenimientosCorrectivos.Where(odt => odt.EquipoId == equipoId && odt.FechaCierre != null).ToList();
+            var odts = db.OrdenesDeTrabajo
+                .Where(odt => odt.EquipoId == equipoId)
+                .Where(odt => odt.FechaCierre != null)
+                .Where(odt => DateTime.Compare(odt.FechaInicio, fechaInicio) > 0)
+                .Where(odt => DateTime.Compare(odt.FechaCierre.Value, fechaFin) < 0)
+                .ToList();
 
-            if (odtsMc.Count == 0)
+            if (odts.Count == 0)
             {
                 return 0;
             }
 
             double sumaTiemposEntreFallas = 0;
-            for (int i = 0; i < odtsMc.Count - 1; i++)
+            for (int i = 0; i < odts.Count - 1; i++)
             {
-                var current = odtsMc[i];                    
-                var next = odtsMc[i + 1];
+                var current = odts[i];                    
+                var next = odts[i + 1];
 
                 sumaTiemposEntreFallas += (next.FechaInicio - current.FechaInicio).TotalDays;
             }
 
-            return sumaTiemposEntreFallas / odtsMc.Count;
+            return sumaTiemposEntreFallas / odts.Count;
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="equipoId"></param>
         /// <returns></returns>
-        private double TiempoMedioDeReparacion(int equipoId)
+        public double TiempoMedioDeReparacion(int equipoId, DateTime fechaInicio, DateTime fechaFin)
         {
-            var odtsMc = db.ODTMantenimientosCorrectivos.Where(odt => odt.EquipoId == equipoId && odt.FechaCierre != null).ToList();
+            var odts = db.OrdenesDeTrabajo
+                .Where(odt => odt.EquipoId == equipoId)
+                .Where(odt => odt.FechaCierre != null)
+                .Where(odt => DateTime.Compare(odt.FechaInicio, fechaInicio) > 0)
+                .Where(odt => DateTime.Compare(odt.FechaCierre.Value, fechaFin) < 0)
+                .ToList();
 
-            if (odtsMc.Count == 0)
+            if (odts.Count == 0)
             {
                 return 0;
             }
 
             double sumaTiemposOdts = 0;
-            foreach(var odt in odtsMc)
+            foreach(var odt in odts)
             {
                 sumaTiemposOdts += (odt.FechaCierre.Value - odt.FechaInicio).TotalDays;
             }
 
-            return sumaTiemposOdts / odtsMc.Count;
+            return sumaTiemposOdts / odts.Count;
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="equipoId"></param>
         /// <returns></returns>
-        private double TiempoIndisponibilidad(int equipoId)
+        public double TiempoIndisponibilidad(int equipoId, DateTime fechaInicio, DateTime fechaFin)
         {
-            var odtsMc = db.ODTMantenimientosCorrectivos.Where(odt => odt.EquipoId == equipoId && odt.FechaCierre != null).ToList();
+            var odts = db.OrdenesDeTrabajo
+                .Where(odt => odt.EquipoId == equipoId)
+                .Where(odt => odt.FechaCierre != null)
+                .Where(odt => DateTime.Compare(odt.FechaInicio, fechaInicio) > 0)
+                .Where(odt => DateTime.Compare(odt.FechaCierre.Value, fechaFin) < 0)
+                .ToList();
 
-            if (odtsMc.Count == 0)
+            if (odts.Count == 0)
             {
                 return 0;
             }
 
             var fechaCarga = db.Equipos.Find(equipoId).InformacionComercial.FechaCompra != null ? db.Equipos.Find(equipoId).InformacionComercial.FechaCompra : DateTime.MinValue;
-            var tFuncionamientoEsperado = (DateTime.Now - fechaCarga.Value).TotalDays;
+            var tFuncionamientoEsperado = (fechaFin - fechaInicio).TotalMinutes;
 
             double sumaTiemposOdts = 0;
-            foreach (var odt in odtsMc)
+            foreach (var odt in odts)
             {
-                sumaTiemposOdts += (odt.FechaCierre.Value - odt.FechaInicio).TotalDays;
+                sumaTiemposOdts += (odt.FechaCierre.Value - odt.FechaInicio).TotalMinutes;
             }
 
-            return sumaTiemposOdts / tFuncionamientoEsperado;
+            return Math.Round((sumaTiemposOdts / tFuncionamientoEsperado) * 100, 2);
         }
 
         /// <summary>
@@ -86,7 +151,7 @@ namespace EquiposTecnicosSN.Web.Services
         /// </summary>
         /// <param name="sectorId"></param>
         /// <returns></returns>
-        public double TiempoMedioDeReparacionPorSector(int sectorId, int? ubicacionId)
+        public double TiempoMedioDeReparacionPorSector(int sectorId, int? ubicacionId, DateTime fechaInicio, DateTime fechaFin)
         {
             var equipos = db.Equipos
                 .Where(e => e.SectorId == sectorId)
@@ -96,7 +161,7 @@ namespace EquiposTecnicosSN.Web.Services
             double tmrPorSector = 0;
             foreach(var equipo in equipos)
             {
-                tmrPorSector += TiempoMedioDeReparacion(equipo.EquipoId);
+                tmrPorSector += TiempoMedioDeReparacion(equipo.EquipoId, fechaInicio, fechaFin);
             }
 
             return tmrPorSector;
@@ -107,7 +172,7 @@ namespace EquiposTecnicosSN.Web.Services
         /// <param name="sectorId"></param>
         /// <param name="ubicacionId"></param>
         /// <returns></returns>
-        public double TiempoMedioEntreFallasPorSector(int sectorId, int? ubicacionId)
+        public double TiempoMedioEntreFallasPorSector(int sectorId, int? ubicacionId, DateTime fechaInicio, DateTime fechaFin)
         {
             var equipos = db.Equipos
                 .Where(e => e.SectorId == sectorId)
@@ -117,7 +182,7 @@ namespace EquiposTecnicosSN.Web.Services
             double tmefPorSector = 0;
             foreach (var equipo in equipos)
             {
-                tmefPorSector += TiempoMedioEntreFallas(equipo.EquipoId);
+                tmefPorSector += TiempoMedioEntreFallas(equipo.EquipoId, fechaInicio, fechaFin);
             }
 
             return tmefPorSector;
@@ -128,7 +193,7 @@ namespace EquiposTecnicosSN.Web.Services
         /// <param name="sectorId"></param>
         /// <param name="ubicacionId"></param>
         /// <returns></returns>
-        public double TiempoIndisponibilidadPorSector(int sectorId, int? ubicacionId)
+        public double TiempoIndisponibilidadPorSector(int sectorId, int? ubicacionId, DateTime fechaInicio, DateTime fechaFin)
         {
             var equipos = db.Equipos
                 .Where(e => e.SectorId == sectorId)
@@ -138,7 +203,7 @@ namespace EquiposTecnicosSN.Web.Services
             double tmefPorSector = 0;
             foreach (var equipo in equipos)
             {
-                tmefPorSector += TiempoIndisponibilidad(equipo.EquipoId);
+                tmefPorSector += TiempoIndisponibilidad(equipo.EquipoId, fechaInicio, fechaFin);
             }
 
             return tmefPorSector;

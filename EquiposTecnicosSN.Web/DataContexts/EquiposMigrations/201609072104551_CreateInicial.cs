@@ -30,6 +30,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         UbicacionId = c.Int(nullable: false),
                         SectorId = c.Int(nullable: false),
                         Estado = c.Int(nullable: false),
+                        Notas = c.String(maxLength: 500),
                     })
                 .PrimaryKey(t => t.EquipoId)
                 .ForeignKey("dbo.Sectores", t => t.SectorId, cascadeDelete: false)
@@ -229,7 +230,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         UbicacionDestinoId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TrasladoId)
-                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: false)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: true)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionDestinoId, cascadeDelete: false)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionOrigenId, cascadeDelete: false)
                 .Index(t => t.EquipoId)

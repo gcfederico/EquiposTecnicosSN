@@ -287,9 +287,9 @@
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609060039540_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609060039540_CreateInicial.Designer.cs">
-      <DependentUpon>201609060039540_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201609072104551_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201609072104551_CreateInicial.Designer.cs">
+      <DependentUpon>201609072104551_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityDb.cs" />
@@ -305,9 +305,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipoViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IndicadoresViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrdenDeTrabajoViewModel.cs" />
-    <Compile Include="Models\ParetoChartModel.cs" />
     <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
@@ -1291,9 +1291,7 @@
     <Content Include="Views\Shared\EditorTemplates\InformacionComercial.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Create.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Delete.cshtml" />
-    <Content Include="Views\EquiposClimatizacion\Details.cshtml" />
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
-    <Content Include="Views\EquiposClimatizacion\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
     <Content Include="Views\Shared\_OrdenesDeTrabajoEquipo.cshtml" />
     <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
@@ -1372,78 +1370,50 @@
     <Content Include="Views\Shared\EditorTemplates\Repuesto.cshtml" />
     <Content Include="Views\EquiposCirugia\Create.cshtml" />
     <Content Include="Views\EquiposCirugia\Delete.cshtml" />
-    <Content Include="Views\EquiposCirugia\Details.cshtml" />
     <Content Include="Views\EquiposCirugia\Edit.cshtml" />
-    <Content Include="Views\EquiposCirugia\Index.cshtml" />
     <Content Include="Views\EquiposEndoscopia\Create.cshtml" />
     <Content Include="Views\EquiposEndoscopia\Delete.cshtml" />
-    <Content Include="Views\EquiposEndoscopia\Details.cshtml" />
     <Content Include="Views\EquiposEndoscopia\Edit.cshtml" />
-    <Content Include="Views\EquiposEndoscopia\Index.cshtml" />
     <Content Include="Views\EquipamientosEdilicios\Create.cshtml" />
     <Content Include="Views\EquipamientosEdilicios\Delete.cshtml" />
-    <Content Include="Views\EquipamientosEdilicios\Details.cshtml" />
     <Content Include="Views\EquipamientosEdilicios\Edit.cshtml" />
-    <Content Include="Views\EquipamientosEdilicios\Index.cshtml" />
     <Content Include="Views\EquiposSoporteDeVida\Create.cshtml" />
     <Content Include="Views\EquiposSoporteDeVida\Delete.cshtml" />
-    <Content Include="Views\EquiposSoporteDeVida\Details.cshtml" />
     <Content Include="Views\EquiposSoporteDeVida\Edit.cshtml" />
-    <Content Include="Views\EquiposSoporteDeVida\Index.cshtml" />
     <Content Include="Views\EquiposGasesMedicinales\Create.cshtml" />
     <Content Include="Views\EquiposGasesMedicinales\Delete.cshtml" />
-    <Content Include="Views\EquiposGasesMedicinales\Details.cshtml" />
     <Content Include="Views\EquiposGasesMedicinales\Edit.cshtml" />
-    <Content Include="Views\EquiposGasesMedicinales\Index.cshtml" />
     <Content Include="Views\EquiposLuces\Create.cshtml" />
     <Content Include="Views\EquiposLuces\Delete.cshtml" />
-    <Content Include="Views\EquiposLuces\Details.cshtml" />
     <Content Include="Views\EquiposLuces\Edit.cshtml" />
-    <Content Include="Views\EquiposLuces\Index.cshtml" />
     <Content Include="Views\EquiposImagenes\Create.cshtml" />
     <Content Include="Views\EquiposImagenes\Delete.cshtml" />
-    <Content Include="Views\EquiposImagenes\Details.cshtml" />
     <Content Include="Views\EquiposImagenes\Edit.cshtml" />
-    <Content Include="Views\EquiposImagenes\Index.cshtml" />
     <Content Include="Views\EquiposMonitoreo\Create.cshtml" />
     <Content Include="Views\EquiposMonitoreo\Delete.cshtml" />
-    <Content Include="Views\EquiposMonitoreo\Details.cshtml" />
     <Content Include="Views\EquiposMonitoreo\Edit.cshtml" />
-    <Content Include="Views\EquiposMonitoreo\Index.cshtml" />
     <Content Include="Views\EquiposInformatica\Create.cshtml" />
     <Content Include="Views\EquiposInformatica\Delete.cshtml" />
-    <Content Include="Views\EquiposInformatica\Details.cshtml" />
     <Content Include="Views\EquiposInformatica\Edit.cshtml" />
-    <Content Include="Views\EquiposInformatica\Index.cshtml" />
     <Content Include="Views\EquiposOdontologia\Create.cshtml" />
     <Content Include="Views\EquiposOdontologia\Delete.cshtml" />
-    <Content Include="Views\EquiposOdontologia\Details.cshtml" />
     <Content Include="Views\EquiposOdontologia\Edit.cshtml" />
-    <Content Include="Views\EquiposOdontologia\Index.cshtml" />
     <Content Include="Views\EquiposPruebasDeDiagnostico\Create.cshtml" />
     <Content Include="Views\EquiposPruebasDeDiagnostico\Delete.cshtml" />
-    <Content Include="Views\EquiposPruebasDeDiagnostico\Details.cshtml" />
     <Content Include="Views\EquiposPruebasDeDiagnostico\Edit.cshtml" />
-    <Content Include="Views\EquiposPruebasDeDiagnostico\Index.cshtml" />
     <Content Include="Views\EquiposRehabilitacion\Create.cshtml" />
     <Content Include="Views\EquiposRehabilitacion\Delete.cshtml" />
-    <Content Include="Views\EquiposRehabilitacion\Details.cshtml" />
     <Content Include="Views\EquiposRehabilitacion\Edit.cshtml" />
-    <Content Include="Views\EquiposRehabilitacion\Index.cshtml" />
     <Content Include="Views\EquiposTerapeutica\Create.cshtml" />
     <Content Include="Views\EquiposTerapeutica\Delete.cshtml" />
-    <Content Include="Views\EquiposTerapeutica\Details.cshtml" />
     <Content Include="Views\EquiposTerapeutica\Edit.cshtml" />
-    <Content Include="Views\EquiposTerapeutica\Index.cshtml" />
     <Content Include="Views\EquiposOtros\Create.cshtml" />
     <Content Include="Views\EquiposOtros\Delete.cshtml" />
-    <Content Include="Views\EquiposOtros\Details.cshtml" />
     <Content Include="Views\EquiposOtros\Edit.cshtml" />
-    <Content Include="Views\EquiposOtros\Index.cshtml" />
     <Content Include="Views\Shared\_ListObservaciones.cshtml" />
     <Content Include="Views\Shared\_AddObservaciones.cshtml" />
     <Content Include="Views\Shared\_SearchEquiposResults.cshtml" />
-    <Content Include="Views\Indicadores\Index.cshtml" />
+    <Content Include="Views\Indicadores\PorUbicacion.cshtml" />
     <Content Include="Views\Shared\_SearchODTsResults.cshtml" />
     <Content Include="Views\ODTMantenimientoPreventivo\Index.cshtml" />
     <Content Include="Views\Shared\_SearchEquipos.cshtml" />
@@ -1494,6 +1464,11 @@
     <Content Include="Views\StockRepuestos\Create.cshtml" />
     <Content Include="Views\StockRepuestos\Edit.cshtml" />
     <Content Include="Views\StockRepuestos\Delete.cshtml" />
+    <Content Include="Views\Shared\_NotasEquipo.cshtml" />
+    <Content Include="Views\Shared\_DisplayNotasEquipo.cshtml" />
+    <Content Include="Views\Indicadores\PorUMDNS.cshtml" />
+    <Content Include="Views\Shared\_IndicadoresTable.cshtml" />
+    <Content Include="Views\Shared\_IndicadoresEquipoModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1514,8 +1489,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609060039540_CreateInicial.resx">
-      <DependentUpon>201609060039540_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609072104551_CreateInicial.resx">
+      <DependentUpon>201609072104551_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
       <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>

@@ -36,6 +36,15 @@
             return false;
         }
 
+        var fechaInicio = $("#fechaInicio").val();
+        var fechaFin = $("#fechaFin").val();
+
+        if (fechaInicio == "" || fechaFin == "") {
+            var errorContent = "<div class='alert alert-danger'>Debe seleccionar las fechas de inicio y fin.</div>";
+            $("#ParetoChartContainer").html(errorContent);
+            return false;
+        }
+
         $("#ParetoChart").html("<div class='loader'></div>");
 
         $.ajax({
@@ -44,7 +53,9 @@
             dataType: 'json',
             data: {
                 sectoresIds: JSON.stringify(sectoresIds),
-                ubicacionId: $("#UbicacionId").val()
+                ubicacionId: $("#UbicacionId").val(),
+                fechaInicio: fechaInicio,
+                fechaFin: fechaFin
             },
             success: function (response) {
                 var keys = [];

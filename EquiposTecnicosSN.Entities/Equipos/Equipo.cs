@@ -50,6 +50,9 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [ForeignKey("EquipoId")]
         public virtual InformacionHardware InformacionHardware { get; set; }
 
+        [StringLength(500)]
+        public string Notas { get; set; }
+
         public virtual ICollection<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }
 
         public virtual ICollection<Traslado> Traslados { get; set; }
