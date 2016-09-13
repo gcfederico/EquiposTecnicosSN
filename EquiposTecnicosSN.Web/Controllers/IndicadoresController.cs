@@ -1,10 +1,8 @@
-﻿using EquiposTecnicosSN.Entities.Equipos;
-using EquiposTecnicosSN.Entities.Equipos.Info;
-using EquiposTecnicosSN.Web.DataContexts;
+﻿using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.Services;
+using PagedList;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -23,6 +21,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         public ActionResult PorUbicacion()
         {
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
+            ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
             return View();
         }
 
@@ -37,7 +36,88 @@ namespace EquiposTecnicosSN.Web.Controllers
         }
 
         /// <summary>
-        /// Acción AJAX IndicadoresUMDNS
+        /// Devuelve una tabla con los indicadores de los equipos que resulten de la consulta.
+        /// </summary>
+        /// <param name="fechaInicio"></param>
+        /// <param name="fechaFin"></param>
+        /// <param name="SectorId"></param>
+        /// <param name="UbicacionId"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult IndicadoresPorUbicacion(string fechaInicio, string fechaFin, int SectorId = 0, int UbicacionId = 0, int page = 1)
+        {
+            var fechaInicioDT = DateTime.Parse(fechaInicio);
+            var fechaFinDT = DateTime.Parse(fechaFin);
+
+            var modelList = db.Equipos
+                .Where(e => UbicacionId == 0 || e.UbicacionId == UbicacionId)
+                .Where(e => SectorId == 0 || e.SectorId == SectorId)
+                .OrderBy(e => e.Ubicacion.Nombre).OrderBy(e => e.Sector.Nombre)
+                .Select(e => new IndicadoresEquipoPorUbicacionViewModel
+                {
+                    EquipoId = e.EquipoId,
+                    NombreEquipo = e.NombreCompleto,
+                    UbicacionEquipo = e.Ubicacion.Nombre,
+                    SectorEquipo = e.Sector.Nombre
+                })
+                .ToPagedList(page, 10);
+
+            CalcularIndicadoresParaEquipos(fechaInicioDT, fechaFinDT, modelList);
+
+            return PartialView("_IndicadoresPorUbicacionTable", modelList);
+        }
+
+        /// <summary>
+        /// Devuelve una tabla con los indicadores de los equipos que resulten de la consulta.
+        /// </summary>
+        /// <param name="fechaInicio"></param>
+        /// <param name="fechaFin"></param>
+        /// <param name="SectorId"></param>
+        /// <param name="UbicacionId"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult IndicadoresPorUMDNS(string fechaInicio, string fechaFin, string umdns, int UbicacionId = 0, int page = 1)
+        {
+            var fechaInicioDT = DateTime.Parse(fechaInicio);
+            var fechaFinDT = DateTime.Parse(fechaFin);
+
+            var modelList = db.Equipos
+                .Where(e => UbicacionId == 0 || e.UbicacionId == UbicacionId)
+                .Where(e => e.UMDNS == umdns)
+                .OrderBy(e => e.UMDNS)
+                .Select(e => new IndicadoresEquipoPorUbicacionViewModel
+                {
+                    EquipoId = e.EquipoId,
+                    NombreEquipo = e.NombreCompleto,
+                    UbicacionEquipo = e.Ubicacion.Nombre,
+                    SectorEquipo = e.Sector.Nombre
+                })
+                .ToPagedList(page, 10);
+
+            CalcularIndicadoresParaEquipos(fechaInicioDT, fechaFinDT, modelList);
+
+            return PartialView("_IndicadoresPorUMDNSTable", modelList);
+        }
+
+        /// <summary>
+        /// Agrega los valores de los indicadores para los elementos de la IPagedList pasada como parámetro.
+        /// </summary>
+        /// <param name="fechaInicioDT"></param>
+        /// <param name="fechaFinDT"></param>
+        /// <param name="modelList"></param>
+        private void CalcularIndicadoresParaEquipos(DateTime fechaInicioDT, DateTime fechaFinDT, IPagedList<IndicadoresEquipoPorUbicacionViewModel> modelList)
+        {
+            foreach (var i in modelList)
+            {
+                i.TiempoIndisponibilidad = indicadoresSrv.TiempoIndisponibilidad(i.EquipoId, fechaInicioDT, fechaFinDT);
+                i.TiempoMedioEntreFallas = indicadoresSrv.TiempoMedioEntreFallas(i.EquipoId, fechaInicioDT, fechaFinDT);
+                i.TiempoMedioReparacion = indicadoresSrv.TiempoMedioDeReparacion(i.EquipoId, fechaInicioDT, fechaFinDT);
+            }
+        }
+
+
+        /// <summary>
+        /// Acción AJAX que devuelve los indicadores para un equipo.
         /// </summary>
         /// <returns></returns>
         public ActionResult IndicadoresEquipo(int equipoId, string fechaInicio, string fechaFin)
@@ -47,13 +127,11 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             var equipo = db.Equipos.Find(equipoId);
 
-
-
             var model = new IndicadoresEquipoViewModel
             {
                 TiempoIndisponibilidad = indicadoresSrv.TiempoIndisponibilidad(equipoId, fechaInicioDT, fechaFinDT),
-                TiempoMedioEntreFallas = 0,
-                TiempoMedioReparacion = 0
+                TiempoMedioEntreFallas = indicadoresSrv.TiempoMedioEntreFallas(equipoId, fechaInicioDT, fechaFinDT),
+                TiempoMedioReparacion = indicadoresSrv.TiempoMedioDeReparacion(equipoId, fechaInicioDT, fechaFinDT)
             };
 
             return PartialView("_IndicadoresTable", model);
@@ -83,106 +161,53 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             return PartialView("_IndicadoresUMDNS", model);
         }
-
-        /// <summary>
-        /// Devuelve la lista de todos los sectores.
-        /// </summary>
-        /// <returns>Lista de Sectores JSON.</returns>
-        public JsonResult GetSectores()
-        {
-            var sectores = db.Sectores
-                .Select(s => new
-                {
-                    nombre = s.Nombre,
-                    id = s.SectorId
-                });
-            return Json(sectores, JsonRequestBehavior.AllowGet);
-        }
         
 
         /// <summary>
-        /// Calcula los tiempos medios de reparación de los equipos para los sectores y ubicación pasadas como parámetros.
+        /// Calcula los tiempos medios de reparación de los equipos para los sectores y ubicación
+        /// entre las fechas pasadas como parámetros.
         /// </summary>
         /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
         /// <param name="ubicacionId">Id de la ubicación seleccionada por el usuario.</param>
         /// <returns>Devuelve un diccionario en formato JSON con los tiempos medios de reparación de los equipos.</returns>
-        public JsonResult ParetoTMRData(string sectoresIds, string fechaInicio, string fechaFin, int? ubicacionId)
+        public JsonResult ParetoTMRData(string fechaInicio, string fechaFin, int? ubicacionId, int? sectorId)
         {
-            Dictionary<string, double> chartData = new Dictionary<string, double>();
-            List<Sector> sectores = GetSectoresList(sectoresIds);
-
             var fechaInicioDT = DateTime.Parse(fechaInicio);
             var fechaFinDT = DateTime.Parse(fechaFin);
+            var chartData = indicadoresSrv.ParetoChartDataTMR(ubicacionId, sectorId, fechaInicioDT, fechaFinDT);
 
-            foreach (var sector in sectores)
-            {
-                chartData.Add(sector.Nombre, indicadoresSrv.TiempoMedioDeReparacionPorSector(sector.SectorId, ubicacionId, fechaInicioDT, fechaFinDT));
-            }
-
-            var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key,r => r.Value);
-
-            return Json(orderedData, JsonRequestBehavior.AllowGet);
+            return Json(chartData, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Calcula los tiempos de medios entre fallas de los equipos para los sectores y ubicación pasadas como parámetros.
+        /// Calcula los tiempos de medios entre fallas de los equipos para los sectores y ubicación 
+        /// entre las fechas pasadas como parámetros.
         /// </summary>
         /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
         /// <param name="ubicacionId">Id de la ubicación seleccionada por el usuario.</param>
         /// <returns>Devuelve un diccionario en formato JSON con los tiempos medios entre fallas de los equipos.</returns>
-        public JsonResult ParetoTMEFData(string sectoresIds, string fechaInicio, string fechaFin, int? ubicacionId)
+        public JsonResult ParetoTMEFData(string fechaInicio, string fechaFin, int? ubicacionId, int? sectorId)
         {
-            Dictionary<string, double> chartData = new Dictionary<string, double>();
-            List<Sector> sectores = GetSectoresList(sectoresIds);
-
             var fechaInicioDT = DateTime.Parse(fechaInicio);
             var fechaFinDT = DateTime.Parse(fechaFin);
+            var chartData = indicadoresSrv.ParetoChartDataTMEF(ubicacionId, sectorId, fechaInicioDT, fechaFinDT);
 
-            foreach (var sector in sectores)
-            {
-                chartData.Add(sector.Nombre, indicadoresSrv.TiempoMedioEntreFallasPorSector(sector.SectorId, ubicacionId, fechaInicioDT, fechaFinDT));
-            }
-
-            var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key, r => r.Value);
-
-            return Json(orderedData, JsonRequestBehavior.AllowGet);
+            return Json(chartData, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
-        /// Calcula los tiempos de indisponibolidad de los equipos para los sectores y ubicación pasadas como parámetros.
+        /// Calcula los tiempos de indisponibolidad de los equipos para los sectores y ubicación 
+        /// entre las fechas pasadas como parámetros.
         /// </summary>
         /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
         /// <param name="ubicacionId">Id de la ubicación seleccionada por el usuario.</param>
         /// <returns>Devuelve un diccionario en formato JSON con los tiempos de indisponibilidad de los equipos.</returns>
-        public JsonResult ParetoTIData(string sectoresIds, string fechaInicio, string fechaFin, int? ubicacionId)
+        public JsonResult ParetoTIData(string fechaInicio, string fechaFin, int? ubicacionId, int? sectorId)
         {
-            Dictionary<string, double> chartData = new Dictionary<string, double>();
-            List<Sector> sectores = GetSectoresList(sectoresIds);
-
             var fechaInicioDT = DateTime.Parse(fechaInicio);
             var fechaFinDT = DateTime.Parse(fechaFin);
+            var chartData = indicadoresSrv.ParetoChartDataTI(ubicacionId, sectorId, fechaInicioDT, fechaFinDT);
 
-            foreach (var sector in sectores)
-            {
-                chartData.Add(sector.Nombre, indicadoresSrv.TiempoIndisponibilidadPorSector(sector.SectorId, ubicacionId, fechaInicioDT, fechaFinDT));
-            }
-
-            var orderedData = chartData.OrderByDescending(x => x.Value).ToDictionary(r => r.Key, r => r.Value);
-
-            return Json(orderedData, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// Devuelve una lista de objetos de tipo Serctor a partir de un string con todos los ids separados por coma.
-        /// </summary>
-        /// <param name="sectoresIds">String con los ids de los sectores a buscar separados por coma.</param>
-        /// <returns>Lista de objetos de tipo Sector.</returns>
-        private List<Sector> GetSectoresList(string sectoresIds)
-        {
-            var noBrackets = sectoresIds.Substring(1, sectoresIds.Length - 2);
-            string[] stringIds = noBrackets.Split(',');
-            int[] idsSectores = Array.ConvertAll(stringIds, s => int.Parse(s));
-            var sectores = db.Sectores.Where(s => idsSectores.Contains(s.SectorId)).ToList();
-            return sectores;
+            return Json(chartData, JsonRequestBehavior.AllowGet);
         }
     }
 }

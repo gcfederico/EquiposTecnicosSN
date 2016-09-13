@@ -20,21 +20,7 @@
 
         var indicador = $(this).data("nqn-indicador");
 
-        var sectoresIds = [];
-
-        $("[name='sectores']").each(function (i, e) {
-            if (e.checked) {
-                sectoresIds.push(parseInt(e.value));
-            }
-        });
-
         $("#ParetoChartContainer").empty();
-
-        if (sectoresIds.length < 2) {
-            var errorContent = "<div class='alert alert-danger'>Debe seleccionar al menos dos sectores.</div>";
-            $("#ParetoChartContainer").html(errorContent);
-            return false;
-        }
 
         var fechaInicio = $("#fechaInicio").val();
         var fechaFin = $("#fechaFin").val();
@@ -52,8 +38,8 @@
             url: '/Indicadores/Pareto' + indicador + 'Data',
             dataType: 'json',
             data: {
-                sectoresIds: JSON.stringify(sectoresIds),
                 ubicacionId: $("#UbicacionId").val(),
+                sectorId: $("#SectorId").val(),
                 fechaInicio: fechaInicio,
                 fechaFin: fechaFin
             },
@@ -68,6 +54,9 @@
 
                 var paretoChartConfig = {
                     "type": "pareto",
+                    "plotarea": {
+                        "margin-bottom": "150px"
+                    },
                     "options": {
                         "line-plot": {
                             "line-color": "#FF7F45",
@@ -86,6 +75,7 @@
                         "tooltip": {
                             "text": "%v"
                         },
+                        "margin-bottom": "200px",
                         "line-width": 1,
                         "line-color": "#3285A6",
                         "items-overlap": true,
@@ -113,7 +103,7 @@
                 zingchart.render({
                     id: 'ParetoChartContainer',
                     data: paretoChartConfig,
-                    height: "100%",
+                    height: "700px",
                     width: "100%"
                 });
 
