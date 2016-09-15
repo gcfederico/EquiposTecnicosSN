@@ -1,10 +1,9 @@
 ﻿$(function () {
     // This will make every element with the class "date-picker" into a DatePicker element
-    $('.date-picker').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es",
-        autoclose: true,
-        todayHighlight: true
+    $('.date-picker').datetimepicker({
+        locale: 'es',
+        format: 'D/M/YYYY hh:mm a',
+        keepOpen: false,
+        useCurrent: false
     });
-
 })

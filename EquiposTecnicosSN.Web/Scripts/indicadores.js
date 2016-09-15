@@ -1,51 +1,31 @@
 ﻿$(function () {
 
-    $("#seleccionarSectoresToggle").on("click", function () {
-        var check = $("[name='sectores']").is(":checked");
-        
-        $("[name='sectores']").each(function (i, element) {
-            element.checked = !check;            
-        });
-    });
-
-    $("#seleccionarUbicacionesToggle").on("click", function () {
-        var check = $("[name='ubicaciones']").is(":checked");
-
-        $("[name='ubicaciones']").each(function (i, element) {
-            element.checked = !check;
-        });
-    });
     
     var getChartData = function () {
 
+        var $form = $("form.consulta-indicadores");
+
         var indicador = $(this).data("nqn-indicador");
 
-        var sectoresIds = [];
-
-        $("[name='sectores']").each(function (i, e) {
-            if (e.checked) {
-                sectoresIds.push(parseInt(e.value));
-            }
-        });
+        var indicadorTipo = $form.data("nqn-tipo-indicador")
 
         $("#ParetoChartContainer").empty();
 
-        if (sectoresIds.length < 2) {
-            var errorContent = "<div class='alert alert-danger'>Debe seleccionar al menos dos sectores.</div>";
-            $("#ParetoChartContainer").html(errorContent);
+        if (!$form.valid()) {
             return false;
         }
+
+        var fechaInicio = $("#fechaInicio").val();
+        var fechaFin = $("#fechaFin").val();
+
 
         $("#ParetoChart").html("<div class='loader'></div>");
 
         $.ajax({
             type: 'GET',
-            url: '/Indicadores/Pareto' + indicador + 'Data',
+            url: '/Indicadores/Pareto' + indicador + 'Data' + indicadorTipo,
             dataType: 'json',
-            data: {
-                sectoresIds: JSON.stringify(sectoresIds),
-                ubicacionId: $("#UbicacionId").val()
-            },
+            data: $form.serialize(),
             success: function (response) {
                 var keys = [];
                 var values = [];
@@ -75,6 +55,7 @@
                         "tooltip": {
                             "text": "%v"
                         },
+                        "margin-bottom": "200px",
                         "line-width": 1,
                         "line-color": "#3285A6",
                         "items-overlap": true,
@@ -108,7 +89,7 @@
 
             },
             error: function (ex) {
-                alert('Failed to retrieve data.' + ex);
+                alert('Ocurrió un error. Inténtelo de nuevo.');
             }
         });
 

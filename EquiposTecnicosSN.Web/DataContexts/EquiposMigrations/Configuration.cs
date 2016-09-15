@@ -2,13 +2,14 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
 {
     using Entities.Equipos.Info;
     using Entities.Mantenimiento;
+    using System;
     using System.Data.Entity.Migrations;
-
+    using System.Data.Entity.Validation;
     internal sealed class Configuration : DbMigrationsConfiguration<EquiposTecnicosSN.Web.DataContexts.EquiposDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
             MigrationsDirectory = @"DataContexts\EquiposMigrations";
         }
@@ -27,11 +28,177 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Proveedores.AddOrUpdate(
+
+            /*if (System.Diagnostics.Debugger.IsAttached == false)
+            {
+
+                System.Diagnostics.Debugger.Launch();
+
+            }*/
+
+            var proveedores = new[]
+             {
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Pedro Daniel Mazzoni", Direccion = "Santa Cruz 1629 - Neuquén - C P8300", Telefono = "54 299 448 7723", Servicios = "Servicio técnico de equipos médicos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Bio Analítica Argentina S.A.", Direccion = "Av. Boedo 1813 - CABA - C P C1239AAI", Telefono = "54 11 4909 2600/ Fax:  54 11 4922 4837", Website = "www.bioanalitica.com.ar", Email = "info@bioanalitica.com.ar", Servicios = "Equipamiento para Laboratorio y Endoscopia/Cirugía" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Tecmes Instrumentos Especiales", Direccion = "Av. Belgrano 1380 - CABA - C P C1093AAO", Telefono = "54 11 5272 5104/ Fax:  54 11 4383 7206", Website = "www.tecmes.com", Email = "tecmes@tecmes.com", Servicios = "Desarrollo, fabricación e instalación de instrumentos y equipos destinados a medición, monitoreo y control de variables ambientales e industriales" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "B.G. Analizadores", Direccion = "Santa Cruz 1629 - Neuquén - C P8300", Telefono = "54 299 447 1385", Website = "www.bganalizadores.com.ar", Email = "bganqn@bganalizadores.com.ar" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "MAP Tecnología S.R.L.", Direccion = "Carlos Tejedor 5591 - Caseros - C P B1678BWY", Telefono = "54 11 4139 4696 / 4734 8279 / Fax:  54 11 4139 4698", Website = "www.maptecnologia.com.ar", Email = "stecnico@maptecnologia.com.ar", Servicios = "Lámparas de polimerización - Equipamiento odontológico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Medix I.C.S.A.", Direccion = "Marcos Sastre 1675 - El Talar - Tigre - C P B1618EWC", Telefono = "54 11 5354 3700/ Fax:  54 11 5354 3770", Website = "www.medix.com.ar", Email = "medix@medix.com.ar", Servicios = "Equipamiento Medix Natus F&P - Servicio técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ETYC S.A.", Direccion = "Av. Rivadavia 2358 Piso 3º Of. 2 - CABA - C P C1034ACP", Telefono = "54 11 4953 3040", Website = "www.etyc.com.ar", Email = "etyc@etyc.com.ar", Servicios = "Grupo DYNE - Equipamiento médico - Fabricación - Comercialización - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Philips Argentina S.A.", Direccion = "Vedia 3892 - CABA - C P1430", Telefono = "54 11 4546 7777/ Fax:  54 11 4546 7697", Website = "www.philips.com", Email = "healthcare.argentina@philips.com", Servicios = "Productos médicos - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Casadent S.R.L.", Direccion = "L. de La Torre 166 - Santa Rosa - C P6300", Telefono = "54 2954 455800", Website = "www.casadent.com.ar.ybsitecenter.com", Email = "casadent@speedy.com.ar", Servicios = "Equipamiento e insumos médicos y odontológicos. Indumentaria médica y aparatos de rayos X." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Digital Dinamic Sistem S.A.", Direccion = "Espinosa 2383  - CABA - C P C1416CEY", Telefono = "54 11 4582 6523", Servicios = "Productos, accesorios y soporte técnico para unidades de electrocirugía" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ingeniería Bahía", Direccion = "Charlone 165 - Bahía Blanca", Telefono = "54 291 451 3349/ Fax:  54 291 451 3349", Website = "www.ingenieriabahia.com.ar", Email = "info@ingenieriabahia.com.ar", Servicios = "Equipamiento hospitalario - Representante de las marcas Kodak y Dräger" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Carl Zeiss Argentina S.A.", Direccion = "Nahuel Huapi 4015 - CABA - C P1430", Telefono = "54 11 4545 6661/ Fax:  54 11 4545 3355", Website = "www.zeiss.com.ar", Email = "czeiss@zeiss.com.ar", Servicios = "Microscopía - Tecnología médica - Espectroscopía - Oftalmología" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ecleris S.R.L.", Direccion = "Angel J. Carranza 2386 - CABA", Telefono = "54 11 4775 4222/ Fax:  54 11 4775 4222", Website = "www.ecleris.com", Email = "info@ecleris.com", Servicios = "Equipamiento Óptico para medicina y odontología - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ASINTEG S.R.L.", Direccion = "Yerbal 2110 - CABA - C P C1406GJX", Telefono = "54 11 4634 0910/ Fax:  54 11 4634 1089", Servicios = "Equipamiento y reactivos para Laboratorios" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Tecnoimagen S.A.", Direccion = "Galicia 1627 - CABA - C P1416", Telefono = "54 11 4582 2222/ Fax:  0810 333 8273", Website = "www.tecnoimagen.com.ar", Email = "info@tecnoimagen.com.ar", Servicios = "Equipamiento médico - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Proimagen S.A.", Direccion = "Bocaya 971 - CABA", Telefono = "54 11 4585 0285/4582 3558", Servicios = "Equipamiento médico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Del Giudice S.R.L.", Direccion = "Calle 125 Nº 3052 - Villa Libertad - San Martín - C P1650", Telefono = "54 11 4753 0805/8589", Website = "www.delgiudice.com.ar", Email = "mh@delgiudice.com.ar", Servicios = "Esterilizadores para hospitales y laboratorios - Centrales de lavado por ultrasonido" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ELABIO" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ISOPHAR", Direccion = "Carlos Villate 3182 - Olivos - C P B1636GQB", Telefono = "54 11 4115 7377/9655", Servicios = "Validaciones - Calificaciones - Capacitaciones - Auditorías" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Promedon S.A.", Direccion = "Av. Gral. Manuel Savio s/n Lote 3 - Manzana 3 - Córdoba - C P X5925XAD", Telefono = "54 351 4502100/4502130", Website = "www.promedon.com", Email = "promedon@promedon.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Instruequipos S.A.", Direccion = "Iguazú 218/220 - CABA - C P C1437ETB", Telefono = "54 11 4911 3051/ Fax:  54 11 4912 0119", Email = "info@instruequipos.com.ar", Servicios = "Instrumentos y equipos médico-quirúrgicos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Tecnomedica S.R.L.", Direccion = "Belgrano 150 - Neuquén - C P8300", Telefono = "54 299 4422895/4471910/4482671/ Fax:  54 299 4422895/4471910/4482671", Servicios = "Equipamiento médico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Hospira Argentina", Servicios = "El distribuidor de Hospira es Laboratorios Bagó de Argentina" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "AGIMED", Direccion = "Cullen 5769 - Villa Urquiza - CABA - C P C1431BXS", Telefono = "54 11 4573 6600", Servicios = "Servicio técnico post venta Phillips Maquet Getinge" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Werfen Medical" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Electromedicina HPN", Telefono = "54 299 449 089170822", Servicios = "Servicio de Electromedicina" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "bioMérieux Argentina S.A.", Direccion = "Arias 3751 3º piso - Edificio Intercons - CABA - C P1430", Telefono = "54 11 5555 6800/ Fax:  54 11 5555 6888" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "CEC Electrónica", Direccion = "Bv. Los Húngaros 5027 - Los Boulevares - Córdoba - C P X5022ESC", Telefono = "54 3543 422492/422719/440011/ Fax:  54 3543 420986", Website = "www.cec.com.ar", Email = "cec@cec.com.ar", Servicios = "Equipos de Electrocirugía, Fisioterapia y Estática. Servicio post venta." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Abbott Laboratorios" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Air Liquide Argentina", Direccion = "Felix San Martín 1490 - Neuquén - C P8300", Telefono = "54 299 4435369/4487180/4423744" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "All Medic S.A.", Direccion = "Bvd. Rosario Vera Peñaloza 450 - Piso 1 of 102 - CABA", Telefono = "54 11 5787 1815/1681", Servicios = "Venta - Instalación - Puesta a punto - Aplicación - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "APEMA", Direccion = "Gral. Arredondo 5141 - Villa Dominico - C P B1874ASW", Telefono = "54 11 4207 0854/ Fax:  54 11 4206 3853", Website = "www.apema.com.ar", Email = "info@apema.com.ar", Servicios = "Hemodialisis - Infusion - Tratamiento de Agua - Movimiento de Fluidos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "B. Braun Medical S.A.", Direccion = "José Evaristo Uriburu 663 5º Piso - CABA - C P C1027AAM", Telefono = "54 11 4954 2030", Website = "www.bbraun.com.ar", Email = "info_ar@bbraun.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Bernardo Lew e Hijos S.R.L.", Direccion = "Perú 150 - Bahía Blanca", Telefono = "54 291 455 1794/ Fax:  54 291 451 4416 ", Website = "www.bernardolew.com.ar", Email = "info@bernardolew.com.ar" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Bras Med S.A.", Direccion = "Talcahuano 970 - L. 267 - CABA - C P C1013AAT", Telefono = "54 11 4814 3677", Website = "www.brasmed.com.ar", Email = "info@brasmed.com.ar", Servicios = "Medicion y Control - Espirometria - Monitores - Mesas de Anestesia" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Cardiotécnica S.R.L.", Direccion = "Mercedes 2211 - CABA - C P C1417AUC", Telefono = "54 11 4639 9559", Website = "www.cardiotecnica.com", Email = "info@cardiotecnica.com.ar", Servicios = "Equipos - Accesorios - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Centro de Servicios Hospitalarios S.A.", Direccion = "Av. Córdoba 2300 - CABA", Telefono = "54 11 4951 1815/ Fax:  54 11 4953 8047", Servicios = "Equipamiento integral hospitalario - Soporte post venta Mindray" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "CICAS S.R.L.", Direccion = "Montevideo 418 Piso 12 - CABA", Telefono = "54 11 4374 7508", Servicios = "Sistemas endoscópicos - Servicio técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "División Ingeniería HHH", Telefono = "54 299 4490700", Servicios = "Servicio Electromedicina" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Dräger Argentina S.A.", Direccion = "Colectora Panamericana Este 1717 - San Isidro - C P B1607BLF", Telefono = "54 11 4836 8300/ Fax:  54 11 4836 8321", Website = "www.draeger.com.ar", Email = "customer-support.csa@draeger.com", Servicios = "Anestesia - Ventilación y monitorización respiratoria - Terapia de calor y cuidados neonatales - Monitorización de paciente - Soluciones de soft y TI - Lámparas y sistemas arquitectónicos - Consumibles y accesorios - Gestión de gas" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Dental San Justo S.A.", Direccion = "Santander 1951 - San Justo - CABA - C P1754", Telefono = "54 11 4461 2626/5992", Website = "www.dentalsanjusto.com.ar", Email = "info@dentalsanjusto.com.ar", Servicios = "Fabricación de equipos de RX dentales - Servicios técnicos de reparación de equipos nacionales e importados - Equipos y partes a medida" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Electrotecnia Fiorino", Direccion = "Condarco 1832 - CABA - C P C1416AQP", Telefono = "54 11 4581 3700/4583 5575", Website = "www.fiorinoelect.com.ar", Email = "fiorino@sion.com", Servicios = "Equipamiento integral para emergencias y rescates" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Faeta S.A.", Direccion = "Vicente Lopez 1364 - Avellaneda - C P1870", Telefono = "54 11 4205 0729", Website = "www.faeta.com.ar", Email = "faeta@faeta.com.ar", Servicios = "Autoclaves - Estufas de esterilización y cultivo - Lavadores de instrumental - Lavachatas - Accesorios para esterilización" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "GEMATEC", Direccion = "Avalos 3651 - Munro - C P1605", Telefono = "54 11 4512 5666", Servicios = "Equipamiento para Laboratorio - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "GRIENSU S.A.", Direccion = "Av. Julio A. Roca 636 Pisos 10, 11 y 12 - CABA - C P C1067ABO", Telefono = "54 11 4342 8818/19/20/ Fax:  54 11 4331 0225", Website = "www.griensu.com", Email = "infogeneral@griensu.com", Servicios = "Equipamiento y software para diagnóstico por imágenes - Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Laboratorios Bagó de Argentina", Direccion = "Bernardo de Irigoyen 248", Telefono = "54 11 4344 2104 / 2289/ Fax:  54 11 4334 2118", Servicios = "Productos farmacológicos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ingeniería del Comahue", Direccion = "Córdoba 214 - Neuquén - C P8300", Telefono = "54 299 443 3657/ Fax:  54 299 443 3657", Website = "www.ingenieriabahia.com.ar", Email = "info@ingdelcomahue.com.ar", Servicios = "Forma parte del Grupo IB (Grupo Ingeniería Bahía, siendo el representante para la zona del Comahue" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "JAEJ S.A.", Direccion = "Catamarca 3426 - Martinez - C P B1640FWB", Telefono = "54 11 4717 1011", Servicios = "Ingeniería de producto - Comercialización - Soporte técnico - Importaciones - Gestión de la calidad - Alquileres de equipos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Jorge Anain", Direccion = "J. Cortejarena 3873 PA - Córdoba", Telefono = "54 351 482 4245", Servicios = "Equipos y elementos para medicina y salud" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Karl Storz Endoscopia Argentina S.A.", Direccion = "Zufriategui 627 Piso 6º - Vicente Lopez - C P B1638CAA", Telefono = "54 11 4718 0919/ Fax:  54 11 4718 2773", Website = "www.karlstorz.com/de/es/argentina-buenos-aires.htm", Email = "info@karlstorz.com.ar", Servicios = "Mercadotecnia y servicio técnico de productos Karl Storz" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "LAE S.R.L.", Direccion = "Paraná 425 Piso 11 - CABA - C P1017", Telefono = "54 11 4373 1772/ Fax:  54 11 4374 1116", Servicios = "Venta y soporte técnico de equipos para fonoaudiología" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "NB Electrónica", Direccion = "9 de Julio 318 - Huerta Grande - C P X5174ALH", Telefono = "54 3548 423973", Website = "www.nbelectronica.com.ar", Email = "servicio@nbelectronica.com.ar", Servicios = "Fabricación de bombas de infusión" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Zingoni Mario Héctor", Direccion = "Eva Perón 111 - Zapala - C P8300", Telefono = "54 299 4431385 / 2942 432445", Servicios = "Soporte técnico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Tecnotech", Servicios = "Averiguar" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Topcon", Servicios = "Averiguar" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Valleylab", Servicios = "Averiguar" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Welch Allyn", Servicios = "Averiguar. El representante en Argentina es Tecnoimagen." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "3 M ARGENTINA SACIFIA", Direccion = "Los Arboles 842 - Hurlingham - C P B1686HDF", Telefono = "54 11 4339 2400/ Fax:  54 11 4469 8301", Servicios = "Fabricante de productos y repuestos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ADOX S.A.", Direccion = "Cerrito 1225 - Ituzaingó - C P1714", Telefono = "54 11 4481 6120/ Fax:  54 11 4481 6190", Website = "www.adox.com.ar", Email = "info@adoxweb.com.ar", Servicios = "Fabricante de unidades de anestesia y bombas de perfusión" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Advanced Medical System", Direccion = "C/ Narciso Serra, 5 - Local Bajo 4  - Madrid - C P28007", Telefono = "34 91 433 5248/ Fax:  34 91 433 5248", Website = "www.advancedmedicalsystems.es", Email = "info@advancedmedicalsystems.es", Servicios = "Equipamiento para biomecánica y cardiología" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "HP Agilent" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "CareFusion Switzerland", Direccion = "317 Särl - Rolle - C P CH-1180", Servicios = "Fabricación bombas de infusión Alaris" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Alison Argentina S.A.", Direccion = "J. Newbery 2762 (Alt. Uruguay 2602  - Beccar", Telefono = "54 11 4892 0729/ Fax:  54 11 4892 0916", Servicios = "Fabricación de equipos de terapia intensiva neonatal" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ALSA Apparecchi Medicali S.R.L.", Direccion = "Via Bonazzi, 16 - Castel Maggiore (BO - C P40013", Telefono = "39 51 700 101/ Fax:  39 51 702 182", Servicios = "Equipamiento para cirugía" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Altronix" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ambu" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Angelantoni Life Science S.R.L.", Direccion = "Loc. Cimacolle, 464 - Massa Martana (PG - C P6056", Servicios = "Fabricación de equipamiento para laboratorios y hospitales, especialmente cámaras frías" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Anthos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Arcomed AG", Direccion = "Althardstrasse 150 - Regensdorf - C P8105", Telefono = "41 43 388 90 30/ Fax:  41 43 388 90 40", Website = "www.arcomed.com", Email = "info@arcomed.com", Servicios = "Fabricación de bombas de infusión" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "ARDET Dental & Medical Devices S.R.L.", Direccion = "Via Galvani, 15 - Assago (Milano - C P20090", Telefono = "39 02 9443 5294/ Fax:  39 02 9443 5296", Website = "www.ardetsrl.com", Email = "ardet@ardetsrl.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Minicomp", Direccion = "Espinosa 2383 - CABA - C P C1416CEY", Telefono = "54 11 4582 6523", Servicios = "Fabricante electrobisturíes Kairos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Art Processor Technik GMBH CO. KG", Direccion = "117 Neunkirchner Strasse - Wiener Neustadt - C P A-2700" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Atom Medical Corporation" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Villar y Zaurdo S.R.L.", Direccion = "25 de Mayo 813 - Ciudadela", Telefono = "54 11 4653 4518/ Fax:  54 11 4657 2826", Website = "www.autoclavesvz.com.ar", Email = "info@autoclavesvz.com.ar", Servicios = "Fabricante de autoclaves" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Awareness Technology, Inc.", Direccion = "1935 S.W. Martin Hwy. - Palm City - C P FL 34990", Telefono = "01 772 283 6540/ Fax:  01 772 283 8020", Servicios = "Equipos para teste de ELISA" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Bauch & Lomb" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Bayer S.A." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Beijing Choice Electronic Technology" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "BCI International" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Fukuda Denshi", Servicios = "Fabricante electrocardiógrafos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "E&M Electromedicina", Direccion = "Fonrouge 1839 - CABA - C P C1440CYU", Telefono = "54 11 4635 2977/ Fax:  54 11 4635 6873", Servicios = "E&M Electromedicina es una empresa argentina que desarrolla, fabrica y comercializa equipamiento electromédico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Dong Jiang" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Datex-Ohmeda" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Wiener Laboratorios S.A.I.C.", Direccion = "Riobamba 2944 - Rosario - C P S2003GSD", Telefono = "54 341 432-9191/ Fax:  54 341 432-5555/5454", Servicios = "Kits diagnósticos e instrumental analítico, para química clínica, hematología, coagulación y ensayos inmunológicos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Leistung Ingeniería S.R.L.", Direccion = "Bv. Los Venecianos 6595 - Bº Los Boulevares - Córdoba - C P5147", Telefono = "54 0351 475 9112/ Fax:  54 0351 475 9112", Website = "www.leistungingenieria.com", Email = "leistung@leistungargentina.com.ar", Servicios = "Diseño, producción y comercialización de Equipamiento Ventilatorio de uso médico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Weros S.A.", Direccion = "Santa Rosa 3976/80 - CABA - C P B1604BWH", Telefono = "54 11 4760 1211", Servicios = "CON SUMARIO ANMAT: http://www.anmat.gov.ar/boletin_anmat/BO/Disposicion_5037-2013.pdf" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ernst Leitz - Wetzlar",  Telefono = "1 800 535 6663", Website = "www.welchallyn.com", Email = "customerservice@welchallyn.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Covidien", Direccion = "710 Medtronic Parkway - Minneapolis, Minnesota", Telefono = "1 5 5432 5604", Servicios = "Dispositivos biomédicos " },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Nihon Kohden Corporation" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Toshiba America Medical  Systems, Inc.", Direccion = "2441 Michelle Drive - Tustin - C P CA 92780", Telefono = "1 800 421 1968", Servicios = "Fabricante de equipos médicos" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Tecme S.A.", Direccion = "Barrio Los Boulevares - Córdoba - C P X5008HJY", Telefono = "54 351 4144600/ Fax:  54 351 4144605", Website = "www.neumovent.com/es", Email = "info@tecme.com.ar", Servicios = "Fabricante de respiradores Neumovent" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ohaus Corporation", Direccion = "7 Campus Drive, Suite 310 - Parsippany - C P NJ 07054", Servicios = "Fabricante de balanzas" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Olympus Corporation", Servicios = "Equipamiento para endoscopía y endocirugía" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Talleres Industriales SBZ S.R.L.", Direccion = "Boulevard Los Polacos 6338 - Córdoba - C P X5021IOP", Telefono = "54 3543 404184/404126", Website = "www.tisbz.com.ar", Email = "info@tisbz.com.ar", Servicios = "Fabricante de sillones odontológicos y sus accesorios" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "SAN JOR", Direccion = "Joaquín V. González 1115 - San Andrés - Buenos Aires - C P B1651DJO", Telefono = "54 11 4738 3398/ Fax:  54 11 4768 7911", Website = "www.sanjor.com.ar", Email = "sanjor@sanjor.com.ar", Servicios = "Fábrica de estufas para cultivo, esterilización, secado y cajas de acero inoxidable." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Rolco S.R.L.", Direccion = "Tonelero 6512 - CABA", Telefono = "54 11 4644 4303/4642 6446/ Fax:  54 11 4961 7283/4961 1887", Website = "www.rolcosrl.com", Email = "info@rolcosrl.com", Servicios = "Fabricante de Centrífugas, Destiladores, Agitadores, otros equipos y sus componentes." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Industrias Rosch S.H.", Direccion = "Intendente Boers 1244 - San Martín - C P1650", Telefono = "54 11 4754 1595/ Fax:  54 11 4754 1589", Servicios = "Fabricante equipamiento neonatología. REVISAR SITUACION ANTE ANMAT." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Shimadzu Corporation", Direccion = "1 Nishinokyo Kuwabara-cho - Nakagyo-ku, Kyoto - C P 604-8511", Telefono = "81 75 823 1111/ Fax:  81 75 823 3188", Servicios = "Fabricación de equipamiento para el diagnóstico por imágenes." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Siemens Healthcare GmbH", Direccion = "Henkestr. 127 - Erlangen - C P91052", Telefono = "49 69 6682 6602", Servicios = "Fabricación de equipamiento médico y desarrollo de soluciones técnicas para la salud." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Metrolab UV Vis S.A.", Direccion = "Herrera 2246 - CABA - C P C1295ACR", Telefono = "54 11 4302 8433", Website = "www.metrolab.com.ar", Email = "informes@metrolab.com.ar", Servicios = "Fabricación de equipos de análisis de química clínica." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Meditea Electromédica S.R.L.", Direccion = "Viamonte 2255 / 2265 - CABA", Telefono = "54 11 4953 6114/4951 9079/ Fax:  54 11 4953 6111 ", Servicios = "Desarrollo de tecnología aplicada a la rehabilitación y estética. Ventas: 0810-666-9097" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Mikrodenta S.R.L.", Direccion = "Virrey Vértiz 1054 - Villa Adelina - C P B1607ABF", Telefono = "54 11 4766 4402/4763 6506/ Fax:  54 11 4766 4402", Website = "www.mikrodenta.com", Email = "info@mikrodenta.com", Servicios = "Fabricación de sillones para odontología y sus periféricos." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Matachana S.A.", Direccion = "Almogávares, 174 - Barcelona - C P8018", Telefono = "34 934 868 700/ Fax:  34 933 098 692", Website = "www.matachanagroup.com", Email = "info@matachana.com", Servicios = "Fabricante de equipamiento para la esterilización." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "MSE Ltd", Direccion = "Worsley Bridge Road - Lower Sydenham - Londres - C P SE26 5AZ", Telefono = "44 (020 8663 4610 / Fax:  44 (020 8650 8408", Website = "www.mseuk.co.uk", Email = "info@mseuk.co.uk", Servicios = "Centrífugas, cabinas, aisladores y otro equipamiento para laboratorio." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Nova Metrix LLC", Direccion = "600 Unicorn Park Drive - Woburn, MA - C P MA 01801", Telefono = "1 781 897 1200/ Fax:  1 781 897 1218" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Presvac S.R.L.", Direccion = "Calle 34 (Ex Francia Nº 3917 - San Martín - C P1650", Telefono = "54 11 4755 7780/4004/3532", Website = "www.presvac.net", Email = "presvac@presvac.net", Servicios = "Bancos de Sangre y Servicios de Hemoterapia llave en mano" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Cobams S.R.L.", Direccion = "Via Cicogna, 20 - San Lazzaro di Savena  - C P 40068 Bologna", Telefono = "39 051 6259292 / Fax:  39 051 6284162", Website = "www.cobams.com", Email = "cobams@cobams.com", Servicios = "Equipamiento para neonatología." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Denimed S.A.", Direccion = "Bv. Los Alemanes 3485 - Bo. Los Boulevares - Córdoba - C P5022", Telefono = "54 351 4750950/0810 777 8787", Website = "www.denimed.com", Email = "ventas@denimed.com", Servicios = "Fabricación de equipamiento odontológico y mobiliario hospitalario." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Sysmex Corporation", Direccion = "4-4-4 Takatsukadai - Nishi-ku - Kobe - C P 651-2271", Telefono = "81 78 991 1911", Servicios = "Equipamiento para laboratorios" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Sony Corporation", Servicios = "Fabricante de equipamiento médico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ultraschall S.A.", Direccion = "Av. Juan B Justo 2499 - CABA - C P1414", Telefono = "54 11 4856 9941 / 4137 5717/ Fax:  54 11 4137 5999", Servicios = "Tels: (0114856-9941 (0114137-5717 Fax: (0114137-5999 | " },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Esaote SpA", Servicios = "ESAOTE LATINOAMÉRICA S.A. es la subsidiaria Argentina del Grupo ESAOTE con base en Buenos Aires." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ktk Ind/ Imp/ Exp/ e Com/ de Equipamentos-Takaoka", Direccion = "Rua Antonio Gomes Ferreira, 39 - SÃ£o JoÃ£o Clímaco - SÃ£o Paulo SP", Telefono = "55 11 2948 5900", Website = "www.ktk.ind.br", Email = "ktk@ktk.ind.br" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Fukuda M-E Cogyo Co., Ltd.", Servicios = "Equipos para electrocardiología" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Gran Buenos Aires Rayos X S.A.", Direccion = "Puerto Rico 1597 - Martínez - C P1640", Telefono = "54 11 4717 1111", Website = "www.gba-rayosx.com.ar", Email = "consulta@gba-rayosx.com.ar", Servicios = "Fabricación de equipos de rayos X" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "GE Healthcare", Servicios = "División Salud de General Electric Co." },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Industrias Högner ", Direccion = "Calle 23 Nº 1446 Villa Maipú  - San Martín  - C P B1650LVD", Telefono = "54 11 4753 1300/ Fax:  54 11 4753 1360", Website = "www.hogner.com", Email = "industrias@hogner.com", Servicios = "Fabricante de autoclaves sanitarios" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Ingest S.A.", Direccion = "Calle 40 (ex Roma 1643 Villa Maipú - San Martín - C P1650", Telefono = "54 11 4754 1616/ Fax:  54 11 4752 1807", Website = "www.ingestsa.com.ar", Email = "info@ingestsa.com.ar", Servicios = "Fabricación de autoclaves, destiladores y estufas de esterilización" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Interacoustics AS", Direccion = "Audiometer Allé 1 - Middelfart - C P5500", Telefono = "45 6371 3555", Website = "www.interacoustics.com", Email = "info@interacoustics.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Kontron AG", Direccion = "Oskar-von-Miller-Str. 1 - Munich - C P 85386 Eching", Telefono = "49 0 8165 / 77 777/ Fax:  49 0 8165 / 77 219", Website = "www.kontron.com", Email = "info@kontron.com", Servicios = "Equipamiento para diagnóstico por ultrasonido, comunicaciones para odontología y soluciones para cirugía oftalmológica " },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Infunix Technology Co., Ltd", Direccion = "Seokjin B/D 2F, 11, Bongeunsa-ro 69-gil, Gangnam-gu - Seoul", Telefono = "82 2 3448 2800/ Fax:  82 2 546 8346", Website = "www.infunix.com", Email = "sales@infunix.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Fisher & Paykel Healthcare Limited", Direccion = "15 Maurice Paykel Place, East Tamaki - Auckland - C P2013", Telefono = "64 9 574 0100/ Fax:  64 9 574 0158", Servicios = "Fabricante de equipamiento para asistencia respiratoria de pacientes" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Feas Electrónica S.A.", Direccion = "Av. Colón 5760 - Córdoba  - C P X5003DPF", Telefono = "54 351 4848016", Website = "www.feaselectronica.com.ar", Email = "ventas@feaselectronica.com.ar", Servicios = "Fabricante de:     Monitor Desfibrilador /Cardioversor Bifásico.    Central de Monitoreo para el monitoreo de  4, 8, 12, 16 pacientes. Monitor Multiparámetros.   Micromotor Fisiodispenser para Implantología Odontologica " },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Productos Roche S.A.Q. e I.", Direccion = "Rawson 3150 - Panamericana R9 KM 34,5 - Ricardo Rojas - C P B1610BAL", Website = "www.roche.com.ar", Email = "argentina.diagnostics@roche.com" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Mindray Medical Int. Ltd.", Direccion = "Mindray Building, Keji 12th Road South, High-tech Industrial Park, Nanshan - Shenzhen  - C P518057", Website = "www.mindray.com", Email = "service@mindray.com", Servicios = "Fabricación de equipamiento médico de soporte, monitoreo y diagnóstico" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Gabriel", Direccion = "Servicio de Electromedicina - Hospital Castro Rendón;2995284071" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "Obras Publicas", Direccion = "Neuquén - C P8300" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "OPTI Medical", Direccion = "Atlanta" },
+                new Proveedor { Tipo = ProveedorTipo.Proveedor , Nombre = "BG Analizadores", Direccion = "Santa Cruz 1629 - Neuquen - C P8300", Telefono = "0299-4487723" },
+            };
+
+
+            try
+            {
+                context.Proveedores.AddOrUpdate(
                 u => u.Nombre,
-                new Proveedor { Nombre = "3M" },
-                new Proveedor { Nombre = "Obras Públicas" }
+                proveedores
                 );
+            } catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                                ve.PropertyName,
+                                eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                                ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            
+
+
+            /*context.Proveedores.AddOrUpdate(
+                u => u.Nombre,
+                proveedores
+            );*/
 
             var repuestos = new[]
             {

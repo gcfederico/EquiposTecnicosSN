@@ -138,3 +138,7 @@ textarea {
 .ajax-result-list {
     margin-top: 10px;
 }
+
+.centered-column {
+    text-align: center;
+}

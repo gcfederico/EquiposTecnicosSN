@@ -2,6 +2,10 @@
 
     var ajaxSubmit = function () {
         var $form = $(this);
+        if (!$form.valid()) {
+            return false;
+        }
+
         var targetRow = Boolean($form.attr("data-nqn-target-row"));
         var $target = $($form.attr("data-nqn-target"));
         var modalId = $form.attr("data-nqn-modal");

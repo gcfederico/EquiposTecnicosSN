@@ -4,16 +4,16 @@
 
 <div class="row" style="margin-bottom: 20px;">
 
-    <div class="col-lg-1">
+    <div class="col-md-1">
         <label style="margin-top: 5px;">Ubicaci&oacute;n</label>
     </div>
-    <div class="col-lg-11">
+    <div class="col-md-11">
         @Html.DropDownList("UbicacionId", null, "Todas", htmlAttributes: new { @class = "form-control" })
     </div>
 
 </div>
 <div class="row" style="margin-bottom: 5px;">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <a style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseSectores" aria-expanded="true" class=""><i class="fa fa-bar-chart fa-fw"></i> Sectores</a>
@@ -23,7 +23,7 @@
                     <input id="seleccionarSectoresToggle" type="button" value="Seleccionar Todos/Ninguno" class="btn btn-default" />
                     <hr />
                     <div id="Sectores" class="row">
-                        <div id="loaderSectores" class="col-lg-12">
+                        <div id="loaderSectores" class="col-md-12">
                             <div class="loader"></div>
                         </div>
                         <div id="col-1-sectores" class="col-md-3"></div>
@@ -38,12 +38,12 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12" style="margin-bottom: 5px;">
+    <div class="col-md-12" style="margin-bottom: 5px;">
         <input id="GenerateParetoChart" type="button" value="Generar Gr&aacute;fico de Pareto" class="btn btn-primary" />
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <div id='ParetoChart'></div>
     </div>
 </div>

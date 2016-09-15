@@ -3,18 +3,18 @@
 @model EquiposTecnicosSN.Entities.Equipos.Equipo
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-wrench fa-fw"></i> Listado de Ordenes de trabajo para Mantenimientos Correctivos</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         @Html.ActionLink("Nueva Orden para Mantenimiento Correctivo", "CreateForEquipo", "ODTMantenimientoCorrectivo", new { id = Model.EquipoId }, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <table class="table table-hover table-responsive table-condensed table-striped">
                             <thead>
 
@@ -94,19 +94,19 @@
 
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading"><i class="fa fa-calendar fa-fw"></i> Listado de Ordenes de trabajo para Mantenimientos Preventivos</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
 
                         @Html.ActionLink("Nueva Orden para Mantenimiento Preventivo", "CreateForEquipo", "ODTMantenimientoPreventivo", new { id = Model.EquipoId }, htmlAttributes: new { @type = "button", @class = "btn btn-primary btn-table-create" })
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <table class="table table-hover table-responsive table-condensed table-striped">
                             <thead>
 

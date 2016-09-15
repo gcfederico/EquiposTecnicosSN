@@ -1,6 +1,6 @@
 ﻿@model EquiposTecnicosSN.Web.Models.SearchEquipoViewModel
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar equipo</div>
 
@@ -14,9 +14,6 @@
 
                                 <input class="form-control text-box single-line"
                                        data-umdns-autocomplete-nombre="@Url.Action("AutocompleteNombreUMDNS", "EquiposBase")"
-                                       data-val="true"
-                                       data-val-maxlength="The field Nombre completo must be a string or array type with a maximum length of '255'."
-                                       data-val-maxlength-max="255" data-val-required="The Nombre completo field is required."
                                        id="buscarNombreCompleto"
                                        name="buscarNombreCompleto" type="text" value="">
 
@@ -26,14 +23,10 @@
                                 <label class="control-label">UMDNS</label>
                                 <input class="form-control text-box single-line"
                                        data-umdns-autocomplete-codigo="@Url.Action("AutocompleteCodigoUMDNS", "EquiposBase")"
-                                       data-val="true"
-                                       data-val-maxlength="The field UMDNS must be a string or array type with a maximum length of '255'."
-                                       data-val-maxlength-max="255" data-val-required="The UMDNS field is required."
                                        id="buscarUMDNS"
                                        name="buscarUMDNS" type="text" value="">
-
-
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label">Estado</label>
                                 @Html.EnumDropDownListFor(model => model.EstadoEquipo, "Todos", htmlAttributes: new { @class = "form-control" })
@@ -59,7 +52,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <input id="buscarEquipo" type="submit" value="Buscar" class="btn btn-primary pull-right" />
                             </div>
@@ -67,7 +60,7 @@
                     </div>
                 </form>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <div id="searchEquipoResults" class="ajax-result-list">
                         </div>
                     </div>

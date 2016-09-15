@@ -34,8 +34,9 @@ namespace EquiposTecnicosSN.Web
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
-                        "~/Scripts/bootstrap-datepicker*",
-                        "~/Scripts/locales/bootstrap-datepicker.es.min.js",
+                        "~/Scripts/moment*",
+                        "~/Scripts/bootstrap-datetimepicker*",
+                        "~/Scripts/es.js",
                         "~/Scripts/date-picker-ready.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -55,6 +56,7 @@ namespace EquiposTecnicosSN.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/timeline.css",
                         "~/Content/bootstrap*",
+                        "~/Content/bootstrap-datetimepicker*",
                         "~/Content/site.css",
                         "~/Content/themes/base/all.css",
                         "~/Content/bootstrap-switch.css",

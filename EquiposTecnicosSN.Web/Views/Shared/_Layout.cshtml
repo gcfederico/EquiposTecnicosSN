@@ -43,7 +43,11 @@
                                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i> Inicio</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Index", "Indicadores")"><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores</a>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Indicadores</a>
+                                <ul class="nav nav-second-level">
+                                    <li>@Html.ActionLink("Por Ubicación", "PorUbicacion", "Indicadores")</li>
+                                    <li>@Html.ActionLink("Por Equipos", "PorUMDNS", "Indicadores")</li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "EquiposBase")"><i class="fa fa-medkit fa-fw"></i> Equipos</a>
@@ -98,7 +102,7 @@
     <div id="page-wrapper">
         <div class="container body-content">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <h3 class="page-header">@ViewBag.Title</h3>
                 </div>
             </div>

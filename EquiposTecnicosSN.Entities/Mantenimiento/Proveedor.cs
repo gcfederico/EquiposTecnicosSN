@@ -12,7 +12,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public int ProveedorId { get; set; }
 
         [Required(ErrorMessage = "El campo Nombre es requerido.")]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "El campo Tipo es requerido.")]
