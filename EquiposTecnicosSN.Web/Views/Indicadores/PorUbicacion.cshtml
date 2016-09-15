@@ -6,14 +6,9 @@
 <div class="row" style="margin-bottom: 5px;">
     <div class="col-md-12">
         <div class="panel panel-info">
-            <div class="panel-heading">
-                <a style="text-decoration: none" data-toggle="collapse" data-parent="#accordion" href="#collapseSectores" aria-expanded="true" class="">
-                    <i class="fa fa-hospital-o fa-fw"></i> Ubicaci&oacute;n y Sectores
-                </a>
-            </div>
-            <div id="collapseSectores" class="panel-collapse collapse" aria-expanded="true">
-                <div class="panel-body">
-                    <form id="formIndicadoresEquipoPorUbicacion" method="get" data-nqn-ajax="true" action="@Url.Action("IndicadoresPorUbicacion", "Indicadores")" data-nqn-target="#indicadoresEquipoPorUbicacion">
+            <div class="panel-heading"><i class="fa fa-hospital-o fa-fw"></i> Ubicaci&oacute;n y Sectores</div>
+            <div class="panel-body">
+                <form id="formIndicadoresEquipoPorUbicacion" class="consulta-indicadores" method="get" data-nqn-ajax="true" action="@Url.Action("IndicadoresPorUbicacion", "Indicadores")" data-nqn-target="#indicadoresEquipoPorUbicacion" data-nqn-tipo-indicador="Ubicacion">
 
                     <div class="row" style="margin-bottom: 20px;">
                         <div class="col-md-6">
@@ -33,8 +28,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label style="margin-top: 5px;">Fecha de Incio</label>
-                                <input class="form-control date-picker text-box single-line" 
-                                       id="fechaInicio" name="fechaInicio" type="datetime" 
+                                <input class="form-control date-picker text-box single-line"
+                                       id="fechaInicio" name="fechaInicio" type="datetime"
                                        data-val="true" data-val-required="Debe seleccionar la fecha de inicio."
                                        value="">
                                 <span class="field-validation-valid text-danger" data-valmsg-for="fechaInicio" data-valmsg-replace="true"></span>
@@ -43,8 +38,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label style="margin-top: 5px;">Fecha de Fin</label>
-                                <input class="form-control date-picker text-box single-line" 
-                                       id="fechaFin" name="fechaFin" type="datetime" 
+                                <input class="form-control date-picker text-box single-line"
+                                       id="fechaFin" name="fechaFin" type="datetime"
                                        data-val="true" data-val-required="Debe seleccionar la fecha de fin."
                                        value="">
                                 <span class="field-validation-valid text-danger" data-valmsg-for="fechaFin" data-valmsg-replace="true"></span>
@@ -56,112 +51,16 @@
                             <input id="calcularIndicadores" type="submit" value="Calcular Indicadores" class="btn btn-primary pull-right" />
                         </div>
                     </div>
-                    </form>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="indicadoresEquipoPorUbicacion" class="ajax-result-list">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- GRAFICOS -->
-<div class="row" style="margin-bottom: 5px;">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart fa-fw"></i> Gr&aacute;ficos
-            </div>
-
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12" style="margin-bottom: 15px;">
-                        <div class="btn-group btn-group-justified" role="group">
-                            <a href="#" data-nqn-indicador="TMR" id="TMRChart" class="btn btn-info">Tiempo Medio de Reparación</a>
-                            <a href="#" data-nqn-indicador="TMEF" id="TMEFChart" class="btn btn-info">Tiempo Entre Fallas</a>
-                            <a href="#" data-nqn-indicador="TI" id="TIChart" class="btn btn-info">Tiempo de Indisponibilidad</a>
-                        </div>
-                    </div>
-                </div>
+                </form>
                 <div class="row">
                     <div class="col-md-12">
-                        <div id='ParetoChartContainer'></div>
+                        <div id="indicadoresEquipoPorUbicacion" class="ajax-result-list">
+
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-@*section Scripts {
-        <script type="text/javascript">
-
-            $(function () {
-
-                $.ajax({
-                    type: 'GET',
-                    url: '/Indicadores/GetSectores',
-                    dataType: 'json',
-                    success: function (response) {
-
-                        var colSize = Math.ceil(response.length / 4);
-                        var sector, html, group;
-
-                        var col1 = response.splice(0, colSize);
-                        group = $("<div class='form-group'>");
-                        for (i in col1) {
-                            sector = col1[i];
-
-                            html = $("<div class='checkbox'>")
-                            html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
-                            group.append(html);
-                        }
-                        $("#col-1-sectores").append(group);
-
-                        var col2 = response.splice(0, colSize)
-                        group = $("<div class='form-group'>");
-                        for (i in col2) {
-                            sector = col2[i];
-
-                            html = $("<div class='checkbox'>")
-                            html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
-                            group.append(html);
-                        }
-                        $("#col-2-sectores").append(group);
-
-                        var col3 = response.splice(0, colSize);
-                        group = $("<div class='form-group'>");
-                        for (i in col3) {
-                            sector = col3[i];
-
-                            html = $("<div class='checkbox'>")
-                            html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
-                            group.append(html);
-                        }
-                        $("#col-3-sectores").append(group);
-
-                        group = $("<div class='form-group'>");
-                        for (i in response) {
-                            sector = response[i];
-
-                            html = $("<div class='checkbox'>")
-                            html.append("<input type='checkbox' value='" + sector.id + "' name='sectores'>" + sector.nombre);
-                            group.append(html);
-                        }
-                        $("#col-4-sectores").append(group);
-
-                        $("#loaderSectores").remove();
-
-                    },
-                    error: function (ex) {
-                        alert('Failed to retrieve data.' + ex);
-                    }
-                });
-
-            });
-        </script>
-    }*@
+@Html.Partial("_ParetoIndicadores")

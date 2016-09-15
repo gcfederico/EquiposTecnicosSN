@@ -1,48 +1,31 @@
 ﻿$(function () {
 
-    $("#seleccionarSectoresToggle").on("click", function () {
-        var check = $("[name='sectores']").is(":checked");
-        
-        $("[name='sectores']").each(function (i, element) {
-            element.checked = !check;            
-        });
-    });
-
-    $("#seleccionarUbicacionesToggle").on("click", function () {
-        var check = $("[name='ubicaciones']").is(":checked");
-
-        $("[name='ubicaciones']").each(function (i, element) {
-            element.checked = !check;
-        });
-    });
     
     var getChartData = function () {
 
+        var $form = $("form.consulta-indicadores");
+
         var indicador = $(this).data("nqn-indicador");
 
+        var indicadorTipo = $form.data("nqn-tipo-indicador")
+
         $("#ParetoChartContainer").empty();
+
+        if (!$form.valid()) {
+            return false;
+        }
 
         var fechaInicio = $("#fechaInicio").val();
         var fechaFin = $("#fechaFin").val();
 
-        if (fechaInicio == "" || fechaFin == "") {
-            var errorContent = "<div class='alert alert-danger'>Debe seleccionar las fechas de inicio y fin.</div>";
-            $("#ParetoChartContainer").html(errorContent);
-            return false;
-        }
 
         $("#ParetoChart").html("<div class='loader'></div>");
 
         $.ajax({
             type: 'GET',
-            url: '/Indicadores/Pareto' + indicador + 'Data',
+            url: '/Indicadores/Pareto' + indicador + 'Data' + indicadorTipo,
             dataType: 'json',
-            data: {
-                ubicacionId: $("#UbicacionId").val(),
-                sectorId: $("#SectorId").val(),
-                fechaInicio: fechaInicio,
-                fechaFin: fechaFin
-            },
+            data: $form.serialize(),
             success: function (response) {
                 var keys = [];
                 var values = [];
@@ -54,9 +37,6 @@
 
                 var paretoChartConfig = {
                     "type": "pareto",
-                    "plotarea": {
-                        "margin-bottom": "150px"
-                    },
                     "options": {
                         "line-plot": {
                             "line-color": "#FF7F45",
@@ -103,13 +83,13 @@
                 zingchart.render({
                     id: 'ParetoChartContainer',
                     data: paretoChartConfig,
-                    height: "700px",
+                    height: "100%",
                     width: "100%"
                 });
 
             },
             error: function (ex) {
-                alert('Failed to retrieve data.' + ex);
+                alert('Ocurrió un error. Inténtelo de nuevo.');
             }
         });
 

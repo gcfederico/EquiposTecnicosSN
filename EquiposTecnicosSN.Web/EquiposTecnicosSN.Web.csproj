@@ -117,6 +117,15 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Salud.Applications.Shared">
+      <HintPath>..\..\libs\Salud.Applications.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Salud.Security.SSO">
+      <HintPath>..\..\libs\Salud.Security.SSO.dll</HintPath>
+    </Reference>
+    <Reference Include="Salud.Security.SSO.Core">
+      <HintPath>..\..\libs\Salud.Security.SSO.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -1563,6 +1572,7 @@
     <Content Include="Views\Shared\_IndicadoresEquipoModal.cshtml" />
     <Content Include="Views\Indicadores\_IndicadoresPorUbicacionTable.cshtml" />
     <Content Include="Views\Indicadores\_IndicadoresPorUMDNSTable.cshtml" />
+    <Content Include="Views\Indicadores\_ParetoIndicadores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

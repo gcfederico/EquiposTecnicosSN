@@ -4,13 +4,13 @@
 }
 <div class="row" style="margin-bottom: 5px;">
     <div class="col-md-12">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
             <div class="panel-heading">
-                <i class="fa fa-bar-chart fa-fw"></i> Seleccionar un Equipo
+                <i class="fa fa-bar-chart fa-fw"></i> UMDNS y Ubicación
             </div>
 
             <div class="panel-body">
-                <form id="formIndicadoresUMDNS" method="get" data-nqn-ajax="true" action="@Url.Action("IndicadoresPorUMDNS", "Indicadores")" data-nqn-target="#indicadoresEquipoUMDNS">
+                <form id="formIndicadoresUMDNS" class="consulta-indicadores" method="get" data-nqn-ajax="true" action="@Url.Action("IndicadoresPorUMDNS", "Indicadores")" data-nqn-target="#indicadoresEquipoUMDNS" data-nqn-tipo-indicador="UMDNS">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -70,3 +70,4 @@
         </div>
     </div>
 </div>
+@Html.Partial("_ParetoIndicadores")
