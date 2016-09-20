@@ -1,23 +1,11 @@
 ﻿@using Microsoft.AspNet.Identity
 
-@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-            {
+
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                @Html.AntiForgeryToken()
-                <li>
-                    <a href="@Url.Action("Index", "Manage", routeValues: null)"><i class="fa fa-user fa-fw"></i> Perfil</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Log off</a>
-                </li>
-            </ul>
-            <!-- /.dropdown-user -->
+            <i class="fa fa-user fa-fw"></i> @ViewBag.CurrentIdentity  
+        </li>
+        <li>
+            <a href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out fa-fw"></i></a> 
         </li>
     </ul>
-}

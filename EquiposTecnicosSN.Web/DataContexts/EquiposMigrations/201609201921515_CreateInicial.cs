@@ -157,7 +157,8 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         ProveedorId = c.Int(),
                         CantidadRepuesto = c.Int(nullable: false),
                         RepuestoId = c.Int(),
-                        UsuarioSolicitudId = c.Int(),
+                        UsuarioInicio = c.String(),
+                        UsuarioCierre = c.String(),
                     })
                 .PrimaryKey(t => t.SolicitudRepuestoServicioId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId, cascadeDelete: false)

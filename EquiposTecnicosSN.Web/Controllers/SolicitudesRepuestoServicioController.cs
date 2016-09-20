@@ -1,6 +1,7 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.CustomExtensions;
 using EquiposTecnicosSN.Web.DataContexts;
+using Salud.Security.SSO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -66,7 +67,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 || solicitud.Comentarios != null
                 || solicitud.Repuesto != null)
             {
-                solicitud.UsuarioSolicitudId = 1; //HARDCODE
+                solicitud.UsuarioInicio = "Federico González Carman";//SSOHelper.CurrentIdentity.Fullname; 
                 db.SolicitudesRepuestosServicios.Add(solicitud);
                 orden.Estado = OrdenDeTrabajoEstado.EsperaRepuesto;
 
@@ -113,7 +114,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 }
             }
 
-            sRespuestoServicio.FechaCierre = DateTime.Now;            
+            sRespuestoServicio.FechaCierre = DateTime.Now;
+            sRespuestoServicio.UsuarioCierre = "Federico González Carman";//SSOHelper.CurrentIdentity.Fullname;          
             db.Entry(sRespuestoServicio).State = EntityState.Modified;
             await db.SaveChangesAsync();
 

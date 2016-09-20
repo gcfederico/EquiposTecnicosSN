@@ -63,8 +63,9 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Estado = OrdenDeTrabajoEstado.Abierta,
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
-                Prioridad = OrdenDeTrabajoPrioridad.Normal
-            };
+                Prioridad = OrdenDeTrabajoPrioridad.Normal,
+                UsuarioInicio = "Federico González Carman"//SSOHelper.CurrentIdentity.Fullname;
+        };
 
             vm.NuevaObservacion = NuevaObservacion();
             
@@ -79,7 +80,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (ModelState.IsValid)
             {
                 vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.UsuarioInicio = SSOHelper.CurrentIdentity.Fullname;
+
                 //estado del equipo
                 var equipo = db.Equipos.Find(vm.Odt.EquipoId);
                 equipo.Estado = (vm.Odt.EquipoParado ? EstadoDeEquipo.NoFuncionalRequiereReparacion : EstadoDeEquipo.FuncionalRequiereReparacion);
@@ -123,7 +124,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             //datos de diagnostico
             orden.Diagnostico = vm.Odt.Diagnostico;
             orden.FechaDiagnostico = DateTime.Now;
-            orden.UsuarioDiagnostico = SSOHelper.CurrentIdentity.Fullname;
+            orden.UsuarioDiagnostico = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
             //gastos
             if (gastos != null)
             {
@@ -173,8 +174,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioReparacion = SSOHelper.CurrentIdentity.Fullname;
-                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioReparacion = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioCierre = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
 
                 //estado del equipo
                 var equipo = db.Equipos.Find(orden.EquipoId);

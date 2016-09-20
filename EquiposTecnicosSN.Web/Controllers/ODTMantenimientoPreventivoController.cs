@@ -46,8 +46,9 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Estado = OrdenDeTrabajoEstado.Abierta,
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
-                Prioridad = OrdenDeTrabajoPrioridad.Normal
-            };
+                Prioridad = OrdenDeTrabajoPrioridad.Normal,
+                UsuarioInicio = "Federico González Carman" //SSOHelper.CurrentIdentity.Fullname;
+        };
 
             var model = new MPViewModel();
             model.Odt = odt;
@@ -64,7 +65,6 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 vm.Odt.Checklist = db.ChecklistsMantenimientoPreventivo.Find(vm.Odt.ChecklistId);
                 vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.UsuarioInicio = SSOHelper.CurrentIdentity.Fullname;
                 vm.Odt.fechaCreacion = vm.Odt.FechaInicio;
                 SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
                 db.ODTMantenimientosPreventivos.Add(vm.Odt);
@@ -150,7 +150,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.ChecklistCompleto = vm.Odt.ChecklistCompleto;
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioCierre = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
 
                 //gastos
                 if (gastos != null && gastos.Count() > 0)

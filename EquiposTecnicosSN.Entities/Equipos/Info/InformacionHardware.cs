@@ -19,19 +19,19 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
         [Required(ErrorMessage = "El campo Nº de Serie es requerido.")]
         public string NumeroSerie { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Fabricante es requerido.")]
         public int FabricanteId { get; set; }
 
         [ForeignKey("FabricanteId")]
         public virtual Fabricante Fabricante { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Marca es requerido.")]
         public int MarcaId { get; set; }
 
         [ForeignKey("MarcaId")]
         public virtual Marca Marca { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo Modelo es requerido.")]
         public int ModeloId { get; set; }
 
         [ForeignKey("ModeloId")]

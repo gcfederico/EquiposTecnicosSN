@@ -212,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Filters\CurrentIdentityActionFilter.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChecklistsMantenimientoPreventivoController.cs" />
@@ -253,9 +254,9 @@
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609201611048_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609201611048_CreateInicial.Designer.cs">
-      <DependentUpon>201609201611048_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201609201921515_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201609201921515_CreateInicial.Designer.cs">
+      <DependentUpon>201609201921515_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -1496,6 +1497,8 @@
     <Content Include="Views\Indicadores\_IndicadoresPorUbicacionTable.cshtml" />
     <Content Include="Views\Indicadores\_IndicadoresPorUMDNSTable.cshtml" />
     <Content Include="Views\Indicadores\_ParetoIndicadores.cshtml" />
+    <Content Include="Views\ODTMantenimientoCorrectivo\_ODTMCUsersDetails.cshtml" />
+    <Content Include="Views\ODTMantenimientoPreventivo\_ODTMPUsersDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1516,8 +1519,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609201611048_CreateInicial.resx">
-      <DependentUpon>201609201611048_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609201921515_CreateInicial.resx">
+      <DependentUpon>201609201921515_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
