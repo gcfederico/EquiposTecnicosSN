@@ -9,7 +9,6 @@ using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class InformacionHardwareController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();

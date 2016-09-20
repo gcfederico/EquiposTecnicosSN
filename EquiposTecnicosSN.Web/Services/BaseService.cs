@@ -10,7 +10,6 @@ namespace EquiposTecnicosSN.Web.Services
     public class BaseService
     {
         protected EquiposDbContext db = new EquiposDbContext();
-        protected IdentityDb usersDb = new IdentityDb();
 
         public void Update (object entity)
         {

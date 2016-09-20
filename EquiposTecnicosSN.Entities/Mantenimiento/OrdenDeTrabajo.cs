@@ -35,7 +35,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public DateTime FechaInicio { get; set; }
 
         [Required]
-        public int UsuarioInicioId { get; set; }
+        public string UsuarioInicio { get; set; }
 
         public virtual ICollection<GastoOrdenDeTrabajo> Gastos { get; set; }
 
@@ -47,7 +47,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime? FechaCierre { get; set; }
 
-        public int? UsuarioCierreId { get; set; }
+        public string UsuarioCierre { get; set; }
 
         public OrdenDeTrabajoPrioridad Prioridad { get; set; }
 

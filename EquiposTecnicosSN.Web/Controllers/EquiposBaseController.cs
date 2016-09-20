@@ -10,7 +10,6 @@ using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class EquiposBaseController : Controller
     {
         protected EquiposDbContext db = new EquiposDbContext();

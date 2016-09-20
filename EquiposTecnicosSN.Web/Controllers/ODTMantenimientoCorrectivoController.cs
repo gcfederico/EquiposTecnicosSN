@@ -9,10 +9,10 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Entities.Equipos;
+using Salud.Security.SSO;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class ODTMantenimientoCorrectivoController : ODTController
     {
         /// <summary>
@@ -79,7 +79,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             if (ModelState.IsValid)
             {
                 vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
+                vm.Odt.UsuarioInicio = SSOHelper.CurrentIdentity.Fullname;
                 //estado del equipo
                 var equipo = db.Equipos.Find(vm.Odt.EquipoId);
                 equipo.Estado = (vm.Odt.EquipoParado ? EstadoDeEquipo.NoFuncionalRequiereReparacion : EstadoDeEquipo.FuncionalRequiereReparacion);
@@ -123,7 +123,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             //datos de diagnostico
             orden.Diagnostico = vm.Odt.Diagnostico;
             orden.FechaDiagnostico = DateTime.Now;
-            orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
+            orden.UsuarioDiagnostico = SSOHelper.CurrentIdentity.Fullname;
             //gastos
             if (gastos != null)
             {
@@ -173,8 +173,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioReparacionId = 1; //HARDCODE
-                orden.UsuarioCierreId = 1; //HARDCODE
+                orden.UsuarioReparacion = SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
 
                 //estado del equipo
                 var equipo = db.Equipos.Find(orden.EquipoId);

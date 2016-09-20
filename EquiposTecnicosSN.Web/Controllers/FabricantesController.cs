@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
     public class FabricantesController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();

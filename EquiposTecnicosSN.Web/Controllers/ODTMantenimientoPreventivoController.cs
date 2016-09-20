@@ -1,5 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.Models;
+using Salud.Security.SSO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -63,7 +64,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 vm.Odt.Checklist = db.ChecklistsMantenimientoPreventivo.Find(vm.Odt.ChecklistId);
                 vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
+                vm.Odt.UsuarioInicio = SSOHelper.CurrentIdentity.Fullname;
                 vm.Odt.fechaCreacion = vm.Odt.FechaInicio;
                 SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
                 db.ODTMantenimientosPreventivos.Add(vm.Odt);
@@ -106,7 +107,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);//odtsService.BuscarMPreventivo(ordenDeTrabajoId);
+            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);
 
             //gastos
             SaveGastos(gastos, orden.OrdenDeTrabajoId);
@@ -149,7 +150,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.ChecklistCompleto = vm.Odt.ChecklistCompleto;
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioCierreId = 1; //HARDCODE
+                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
 
                 //gastos
                 if (gastos != null && gastos.Count() > 0)

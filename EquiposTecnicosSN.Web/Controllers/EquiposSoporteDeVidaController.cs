@@ -6,7 +6,6 @@ using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class EquiposSoporteDeVidaController : EquiposBaseController
     {
         // GET: EquiposClimatizacion/Create

@@ -3,12 +3,12 @@ using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.Services;
+using Salud.Security.SSO;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
@@ -36,6 +36,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <returns>Index View Model</returns>
         public ActionResult Index()
         {
+
+            /*SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                SSOHelper.RedirectToSSOPage("Login.aspx", Request.Url.ToString());
+            }*/
+
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");

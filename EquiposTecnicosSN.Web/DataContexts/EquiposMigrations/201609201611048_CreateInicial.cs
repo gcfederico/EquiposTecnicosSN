@@ -119,9 +119,9 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         NumeroReferencia = c.String(nullable: false, maxLength: 20),
                         EquipoId = c.Int(nullable: false),
                         FechaInicio = c.DateTime(nullable: false),
-                        UsuarioInicioId = c.Int(nullable: false),
+                        UsuarioInicio = c.String(nullable: false),
                         FechaCierre = c.DateTime(),
-                        UsuarioCierreId = c.Int(),
+                        UsuarioCierre = c.String(),
                         Prioridad = c.Int(nullable: false),
                         Estado = c.Int(nullable: false),
                     })
@@ -230,7 +230,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         UbicacionDestinoId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TrasladoId)
-                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: true)
+                .ForeignKey("dbo.Equipos", t => t.EquipoId, cascadeDelete: false)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionDestinoId, cascadeDelete: false)
                 .ForeignKey("dbo.Ubicaciones", t => t.UbicacionOrigenId, cascadeDelete: false)
                 .Index(t => t.EquipoId)
@@ -438,10 +438,10 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         Descripcion = c.String(nullable: false, maxLength: 500),
                         Diagnostico = c.String(maxLength: 500),
                         FechaDiagnostico = c.DateTime(),
-                        UsuarioDiagnosticoId = c.Int(),
+                        UsuarioDiagnostico = c.String(),
                         DetalleReparacion = c.String(maxLength: 500),
                         FechaReparacion = c.DateTime(),
-                        UsuarioReparacionId = c.Int(),
+                        UsuarioReparacion = c.String(),
                         CausaRaiz = c.String(maxLength: 500),
                         Limpieza = c.Boolean(nullable: false),
                         VerificacionFuncionamiento = c.Boolean(nullable: false),
@@ -458,7 +458,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         OrdenDeTrabajoId = c.Int(nullable: false),
                         ChecklistId = c.Int(nullable: false),
                         fechaCreacion = c.DateTime(nullable: false),
-                        UsuarioCreacionId = c.Int(nullable: false),
+                        UsuarioCreacion = c.String(nullable: false),
                         ChecklistCompleto = c.Boolean(nullable: false),
                         ChecklistCompletoContentType = c.String(maxLength: 100),
                         ChecklistCompletoContent = c.Binary(),
@@ -466,7 +466,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                     })
                 .PrimaryKey(t => t.OrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId)
-                .ForeignKey("dbo.ChecklistsMantenimientoPreventivo", t => t.ChecklistId, cascadeDelete: true)
+                .ForeignKey("dbo.ChecklistsMantenimientoPreventivo", t => t.ChecklistId, cascadeDelete: false)
                 .Index(t => t.OrdenDeTrabajoId)
                 .Index(t => t.ChecklistId);
             

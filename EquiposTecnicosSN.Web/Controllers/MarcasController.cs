@@ -8,7 +8,6 @@ using PagedList;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
     public class MarcasController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();

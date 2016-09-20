@@ -12,7 +12,6 @@ using EquiposTecnicosSN.Web.DataContexts;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class TrasladosController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();

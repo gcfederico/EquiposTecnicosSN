@@ -105,10 +105,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -213,47 +209,11 @@
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Twitter">
-      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
-      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChecklistsMantenimientoPreventivoController.cs" />
     <Compile Include="Controllers\EquiposBaseController.cs" />
     <Compile Include="Controllers\EquipamientosEdiliciosController.cs" />
@@ -273,11 +233,9 @@
     <Compile Include="Controllers\EquiposClimatizacionController.cs" />
     <Compile Include="Controllers\FabricantesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\IndicadoresController.cs" />
     <Compile Include="Controllers\InformacionesComercialesController.cs" />
     <Compile Include="Controllers\InformacionHardwareController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
     <Compile Include="Controllers\ODTController.cs" />
@@ -287,7 +245,6 @@
     <Compile Include="Controllers\RepuestosController.cs" />
     <Compile Include="Controllers\SectoresController.cs" />
     <Compile Include="Controllers\SolicitudesRepuestoServicioController.cs" />
-    <Compile Include="Controllers\SolicitudesUsuariosController.cs" />
     <Compile Include="Controllers\StockRepuestosController.cs" />
     <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UbicacionesController.cs" />
@@ -296,26 +253,17 @@
     <Compile Include="CustomExtensions\EquiposExtension.cs" />
     <Compile Include="CustomExtensions\ODTExtension.cs" />
     <Compile Include="DataContexts\EquiposDb.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609072104551_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201609072104551_CreateInicial.Designer.cs">
-      <DependentUpon>201609072104551_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201609201611048_CreateInicial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201609201611048_CreateInicial.Designer.cs">
+      <DependentUpon>201609201611048_CreateInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\EquiposMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\IdentityDb.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.Designer.cs">
-      <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EquipoViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IndicadoresViewModel.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrdenDeTrabajoViewModel.cs" />
     <Compile Include="Models\SolicitudUsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -323,7 +271,6 @@
     <Compile Include="Services\EquiposService.cs" />
     <Compile Include="Services\IndicadoresService.cs" />
     <Compile Include="Services\ODTsService.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -1359,24 +1306,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\EquiposBase\Index.cshtml" />
@@ -1395,11 +1324,6 @@
     <Content Include="Views\EquiposClimatizacion\Edit.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\InformacionComercial.cshtml" />
     <Content Include="Views\Shared\_OrdenesDeTrabajoEquipo.cshtml" />
-    <Content Include="Views\SolicitudesUsuarios\Create.cshtml" />
-    <Content Include="Views\SolicitudesUsuarios\Index.cshtml" />
-    <Content Include="Views\SolicitudesUsuarios\CreatePassword.cshtml" />
-    <Content Include="Views\SolicitudesUsuarios\CreatePasswordConfirmation.cshtml" />
-    <Content Include="Views\SolicitudesUsuarios\_SolicitudesCount.cshtml" />
     <Content Include="Views\Fabricantes\Create.cshtml" />
     <Content Include="Views\Fabricantes\Delete.cshtml" />
     <Content Include="Views\Fabricantes\Edit.cshtml" />
@@ -1430,7 +1354,6 @@
     <Content Include="Views\Shared\_TrasladosEquipoModal.cshtml" />
     <Content Include="Views\EquiposBase\ShowTraslados.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ChecklistMantenimientoPreventivo.cshtml" />
-    <Content Include="Views\SolicitudesUsuarios\CreateUser.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Create.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Delete.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Details.cshtml" />
@@ -1593,11 +1516,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609072104551_CreateInicial.resx">
-      <DependentUpon>201609072104551_CreateInicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201604272326154_CreateInicial.resx">
-      <DependentUpon>201604272326154_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201609201611048_CreateInicial.resx">
+      <DependentUpon>201609201611048_CreateInicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

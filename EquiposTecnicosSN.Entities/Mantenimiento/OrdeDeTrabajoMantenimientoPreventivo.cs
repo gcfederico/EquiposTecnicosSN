@@ -21,7 +21,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         public DateTime fechaCreacion { get; set; }
 
         [Required]
-        public int UsuarioCreacionId { get; set; }
+        public string UsuarioCreacion { get; set; }
 
         [DisplayName("Checklist Completo")]
         public bool ChecklistCompleto { get; set; }
