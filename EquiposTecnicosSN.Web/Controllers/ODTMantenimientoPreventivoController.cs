@@ -47,7 +47,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
-                UsuarioInicio = "Federico González Carman" //SSOHelper.CurrentIdentity.Fullname;
+                UsuarioInicio = SSOHelper.CurrentIdentity.Fullname
         };
 
             var model = new MPViewModel();
@@ -150,7 +150,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.ChecklistCompleto = vm.Odt.ChecklistCompleto;
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioCierre = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
 
                 //gastos
                 if (gastos != null && gastos.Count() > 0)

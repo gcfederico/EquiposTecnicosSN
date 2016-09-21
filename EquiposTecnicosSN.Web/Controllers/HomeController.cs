@@ -36,13 +36,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <returns>Index View Model</returns>
         public ActionResult Index()
         {
-            /*
+            
             SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 SSOHelper.RedirectToSSOPage("Login.aspx", Request.Url.ToString());
             }
-            */
+            
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
@@ -61,10 +61,8 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         public void Logout()
         {
-            string strsso = SSOHelper.Configuration["Publicacion_SSO"] as string;
-            Response.Redirect("~/" + strsso + "/Logout.aspx");
-
-            //SSOHelper.RedirectToSSOPage("Logout.aspx", Request.Url.ToString());
+            Session.Abandon();
+            SSOHelper.RedirectToSSOPage("Logout.aspx", Request.Url.ToString());
         }
 
     }

@@ -15,7 +15,10 @@ namespace EquiposTecnicosSN.Web.Filters
     {
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            filterContext.Controller.ViewBag.CurrentIdentity = "Federico Gonzalez Carman";//SSOHelper.CurrentIdentity.Fullname;
+            if (SSOHelper.CurrentIdentity != null)
+            {
+                filterContext.Controller.ViewBag.CurrentIdentity = SSOHelper.CurrentIdentity.Fullname;
+            }
         }
 
     }

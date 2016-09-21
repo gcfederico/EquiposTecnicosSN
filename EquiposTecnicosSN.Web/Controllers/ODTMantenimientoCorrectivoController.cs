@@ -64,7 +64,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
-                UsuarioInicio = "Federico González Carman"//SSOHelper.CurrentIdentity.Fullname;
+                UsuarioInicio = SSOHelper.CurrentIdentity.Fullname
         };
 
             vm.NuevaObservacion = NuevaObservacion();
@@ -124,7 +124,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             //datos de diagnostico
             orden.Diagnostico = vm.Odt.Diagnostico;
             orden.FechaDiagnostico = DateTime.Now;
-            orden.UsuarioDiagnostico = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
+            orden.UsuarioDiagnostico = SSOHelper.CurrentIdentity.Fullname;
             //gastos
             if (gastos != null)
             {
@@ -174,8 +174,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioReparacion = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
-                orden.UsuarioCierre = "Federico González Carman"; //SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioReparacion = SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
 
                 //estado del equipo
                 var equipo = db.Equipos.Find(orden.EquipoId);

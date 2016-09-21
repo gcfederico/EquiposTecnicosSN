@@ -113,14 +113,17 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Salud.Applications.Shared">
-      <HintPath>..\..\libs\Salud.Applications.Shared.dll</HintPath>
+    <Reference Include="Salud.Applications.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Salud.Applications.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="Salud.Security.SSO">
-      <HintPath>..\..\libs\Salud.Security.SSO.dll</HintPath>
+    <Reference Include="Salud.Security.SSO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Salud.Security.SSO.dll</HintPath>
     </Reference>
-    <Reference Include="Salud.Security.SSO.Core">
-      <HintPath>..\..\libs\Salud.Security.SSO.Core.dll</HintPath>
+    <Reference Include="Salud.Security.SSO.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Salud.Security.SSO.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -776,6 +779,9 @@
     <Content Include="lib\bower_components\raphael\license.txt" />
     <Content Include="lib\bower_components\raphael\raphael-min.js" />
     <Content Include="lib\bower_components\raphael\raphael.js" />
+    <Content Include="lib\Salud.Applications.Shared.dll" />
+    <Content Include="lib\Salud.Security.SSO.Core.dll" />
+    <Content Include="lib\Salud.Security.SSO.dll" />
     <Content Include="Scripts\add-gasto.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -1190,6 +1196,7 @@
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <None Include="Properties\PublishProfiles\neuquen.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\close-solicitud.js" />
