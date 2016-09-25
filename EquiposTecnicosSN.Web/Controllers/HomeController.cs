@@ -21,28 +21,20 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// </summary>
         protected EquiposService equiposService = new EquiposService();
 
-        // POST: EquiposBase/EquiposDeUsuarioCount
-        [HttpPost]
-        public JsonResult EquiposDeUsuarioCount()
-        {
-            //Get ubicacion de Usuario
-            var count = db.Equipos.Count();
-            return Json(count);
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns>Index View Model</returns>
+        [HttpGet]
         public ActionResult Index()
         {
-            
-            SSOHelper.Authenticate();
+
+            /*SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
-                SSOHelper.RedirectToSSOPage("Login.aspx", Request.Url.ToString());
-            }
-            
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }*/
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
@@ -57,12 +49,14 @@ namespace EquiposTecnicosSN.Web.Controllers
             };
 
             return View(vm);
+
         }
 
         public void Logout()
         {
             Session.Abandon();
-            SSOHelper.RedirectToSSOPage("Logout.aspx", Request.Url.ToString());
+            string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            Response.Redirect(ssoUrl + "/Logout.aspx");
         }
 
     }

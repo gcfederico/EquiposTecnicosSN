@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using EquiposTecnicosSN.Web.Wrappers;
 using System.Web.Optimization;
 
 namespace EquiposTecnicosSN.Web
@@ -53,27 +53,22 @@ namespace EquiposTecnicosSN.Web
                       "~/Scripts/bootstrap-switch.js",
                       "~/Scripts/bootstrap-filestyle.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/timeline.css",
-                        "~/Content/bootstrap*",
-                        "~/Content/bootstrap-datetimepicker*",
-                        "~/Content/site.css",
-                        "~/Content/themes/base/all.css",
-                        "~/Content/bootstrap-switch.css",
-                        "~/Content/sb-admin-2.css"));
+            bundles.Add(new StyleBundle("~/Content/css")
+                .Include("~/Content/timeline.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/bootstrap*", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/bootstrap-datetimepicker*", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/site.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/themes/base/all.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/bootstrap-switch.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/sb-admin-2.css", new CssRewriteUrlTransformWrapper()));
 
-            bundles.Add(new StyleBundle("~/lib/bower_components/css").Include(
-                        "~/lib/bower_components/font-awesome/css/font-awesome.css",
-                        "~/lib/bower_components/metisMenu/dist/metisMenu.css"//,
-//                         "~/lib/bower_components/datatables/media/js/dataTables.bootstrap.css",
-//                         "~/lib/bower_components/datatables/media/js/jquery.dataTables.css"
-                         ));
+            bundles.Add(new StyleBundle("~/lib/bower_components/css")
+                .Include("~/lib/bower_components/font-awesome/css/font-awesome.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/lib/bower_components/metisMenu/dist/metisMenu.css", new CssRewriteUrlTransformWrapper()));
 
-            bundles.Add(new ScriptBundle("~/lib/bower_components").Include(
-                        "~/lib/bower_components/metisMenu/dist/metisMenu.js",
-                        "~/lib/bower_components/datatables/media/js/jquery.dataTables.js"//,
-//                        "~/lib/bower_components/datatables/media/js/dataTables.bootstrap.js"
-                        ));
+            bundles.Add(new ScriptBundle("~/lib/bower_components")
+                .Include("~/lib/bower_components/metisMenu/dist/metisMenu.js", new CssRewriteUrlTransformWrapper())
+                .Include("~/lib/bower_components/datatables/media/js/jquery.dataTables.js", new CssRewriteUrlTransformWrapper()));
 
         }
     }
