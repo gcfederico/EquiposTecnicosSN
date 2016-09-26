@@ -36,6 +36,14 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         public override ActionResult CreateForEquipo(int id)
         {
+
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre");
 
             var equipo = db.Equipos.Find(id);
@@ -47,7 +55,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
-                UsuarioInicio = SSOHelper.CurrentIdentity.Fullname
+                UsuarioInicio = SSOHelper.CurrentIdentity.Fullname,
+                UsuarioCreacion = SSOHelper.CurrentIdentity.Fullname
         };
 
             var model = new MPViewModel();
@@ -58,14 +67,13 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: ODTMantenimientoPreventivoController/CreateForEquipo
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult CreateForEquipo(MPViewModel vm)
         {
             if (vm.Odt.ChecklistId != 0)
             {
                 vm.Odt.Checklist = db.ChecklistsMantenimientoPreventivo.Find(vm.Odt.ChecklistId);
-                vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.fechaCreacion = vm.Odt.FechaInicio;
+                vm.Odt.FechaInicio = DateTime.Now; 
+                vm.Odt.fechaCreacion = DateTime.Now;
                 SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
                 db.ODTMantenimientosPreventivos.Add(vm.Odt);
                 db.SaveChanges();
@@ -104,7 +112,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/EditGastos
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
             var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);
@@ -131,9 +138,15 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Close(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
 
             try
             {

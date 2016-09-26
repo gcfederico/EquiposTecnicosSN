@@ -58,7 +58,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: ChecklistsMantenimientoPreventivo/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(ChecklistMantenimientoPreventivo checklist, HttpPostedFileBase checklistFile)
         {
             try

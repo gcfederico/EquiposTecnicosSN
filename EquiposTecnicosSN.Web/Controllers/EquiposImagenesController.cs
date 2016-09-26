@@ -23,7 +23,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(EquipoImagen equipo)
         {
             
@@ -62,7 +61,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(EquipoImagen equipo)
         {
 
@@ -96,7 +94,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: EquiposClimatizacion/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             EquipoImagen equipo = db.EquiposDeImagenes.Find(id);

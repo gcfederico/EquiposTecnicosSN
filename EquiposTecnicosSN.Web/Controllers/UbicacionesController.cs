@@ -53,7 +53,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UbicacionId,Nombre")] Ubicacion ubicacion)
         {
             if (ModelState.IsValid)
@@ -85,7 +84,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UbicacionId,Nombre")] Ubicacion ubicacion)
         {
             if (ModelState.IsValid)
@@ -114,7 +112,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Ubicaciones/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             var equiposCount = db.Equipos

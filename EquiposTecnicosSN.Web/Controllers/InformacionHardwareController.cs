@@ -64,7 +64,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "EquipoId,NumeroSerie,FabricanteId,MarcaId,ModeloId")] InformacionHardware informacionHardware)
         {
             if (ModelState.IsValid)
@@ -104,7 +103,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "EquipoId,NumeroSerie,FabricanteId,MarcaId,ModeloId")] InformacionHardware informacionHardware)
         {
             if (ModelState.IsValid)
@@ -137,7 +135,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: InformacionHardwar/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             InformacionHardware informacionHardware = await db.InformacionesHardware.FindAsync(id);

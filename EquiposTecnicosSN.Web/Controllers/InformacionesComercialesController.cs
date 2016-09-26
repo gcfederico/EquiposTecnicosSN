@@ -45,7 +45,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "EquipoId,FechaCompra,PrecioCompra,ValorRestante,EsGrantiaContrato,FechaFinGarantia,NotasGarantia,ProveedorId")] InformacionComercial informacionComercial)
         {
             if (ModelState.IsValid)
@@ -81,7 +80,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "EquipoId,FechaCompra,PrecioCompra,ValorRestante,EsGrantiaContrato,FechaFinGarantia,NotasGarantia,ProveedorId")] InformacionComercial informacionComercial)
         {
             if (ModelState.IsValid)
@@ -112,7 +110,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: InformacionesComerciales/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             InformacionComercial informacionComercial = await db.InformacionesComerciales.FindAsync(id);

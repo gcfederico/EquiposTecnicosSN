@@ -42,9 +42,15 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: */OrderReplacementService
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> OrderReplacementService(SolicitudRepuestoServicio solicitud)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             var orden = db.OrdenesDeTrabajo.Find(solicitud.OrdenDeTrabajoId);
             solicitud.OrdenDeTrabajo = orden;
 
@@ -95,6 +101,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> Close(int solicitudId)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             var sRespuestoServicio = db.SolicitudesRepuestosServicios.Find(solicitudId);
 
             //Descuento del stock la cantidad de repuestos

@@ -105,7 +105,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "TrasladoId,EquipoId,FechaTraslado,UbicacionOrigenId,UbicacionDestinoId")] Traslado traslado)
         {
             if (ModelState.IsValid)
@@ -148,7 +147,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "TrasladoId,EquipoId,FechaTraslado,UbicacionOrigenId,UbicacionDestinoId")] Traslado traslado)
         {
             if (ModelState.IsValid)
@@ -180,7 +178,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Traslados/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Traslado traslado = await db.Traslados.FindAsync(id);

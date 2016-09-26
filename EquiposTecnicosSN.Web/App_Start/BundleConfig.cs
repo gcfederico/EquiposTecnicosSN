@@ -8,67 +8,61 @@ namespace EquiposTecnicosSN.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/myBundle").Include(
-                        "~/Scripts/sb-admin-2.js",
-                        "~/Scripts/autocomplete.js",
-                        "~/Scripts/ddls-info-hardware.js",
-                        "~/Scripts/ddl-traslado.js",
-                        "~/Scripts/modal-detalle-solicitud.js",
-                        "~/Scripts/start-home.js",
-                        "~/Scripts/add-gasto.js",
-                        "~/Scripts/close-solicitud.js",
-                        "~/Scripts/tooltips.js",
-                        "~/Scripts/zingchart.min.js",
-                        "~/Scripts/indicadores.js",
-                        "~/Scripts/odts.js"));
+            BundleTable.EnableOptimizations = false;
 
-            bundles.Add(new ScriptBundle("~/bundles/zingCharts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/nqn-js").Include(
+                        "~/Scripts/layout.js",
+                        "~/Scripts/equipos-tecnicos-nqn.js",
+                        "~/Scripts/charts-indicadores.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/zing-charts-js").Include(
                         "~/Scripts/zingchart.min.js",
                         "~/Scripts/zingmodules/zingchart-pareto.min.js",
                         "~/Scripts/zingmodules/zingchart-grid.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui-js").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            bundles.Add(new ScriptBundle("~/bundles/jquery-js").Include(
                         "~/Scripts/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker-js").Include(
                         "~/Scripts/moment*",
                         "~/Scripts/bootstrap-datetimepicker*",
                         "~/Scripts/es.js",
                         "~/Scripts/date-picker-ready.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval-js").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-js").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-switch.js",
                       "~/Scripts/bootstrap-filestyle.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css")
-                .Include("~/Content/timeline.css", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/bootstrap*", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/bootstrap-datetimepicker*", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/site.css", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/themes/base/all.css", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/bootstrap-switch.css", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/sb-admin-2.css", new CssRewriteUrlTransformWrapper()));
+            bundles.Add(new ScriptBundle("~/bundles/bower-components-js").Include(
+                "~/Content/bower_components/metisMenu/dist/metisMenu.js",
+                "~/Content/bower_components/datatables/media/js/jquery.dataTables.js"));
 
-            bundles.Add(new StyleBundle("~/lib/bower_components/css")
-                .Include("~/lib/bower_components/font-awesome/css/font-awesome.css", new CssRewriteUrlTransformWrapper())
-                .Include("~/lib/bower_components/metisMenu/dist/metisMenu.css", new CssRewriteUrlTransformWrapper()));
+            // Use the development version of Modernizr to develop with and learn from. Then, when you're
+            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            bundles.Add(new ScriptBundle("~/bundles/modernizr-js").Include(
+                        "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/lib/bower_components")
-                .Include("~/lib/bower_components/metisMenu/dist/metisMenu.js", new CssRewriteUrlTransformWrapper())
-                .Include("~/lib/bower_components/datatables/media/js/jquery.dataTables.js", new CssRewriteUrlTransformWrapper()));
+            bundles.Add(new StyleBundle("~/bundles/nqn-css").Include(
+                "~/Content/timeline.css",
+                "~/Content/bootstrap*",
+                "~/Content/bootstrap-datetimepicker*",
+                "~/Content/site.css",
+                "~/Content/themes/base/all.css", 
+                "~/Content/bootstrap-switch.css",
+                "~/Content/sb-admin-2.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/bower-components-css").Include(
+                "~/Content/bower_components/font-awesome/css/font-awesome.css",
+                "~/Content/bower_components/metisMenu/dist/metisMenu.css"));
+
 
         }
     }

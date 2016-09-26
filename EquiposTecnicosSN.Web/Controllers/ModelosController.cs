@@ -46,7 +46,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Modelos/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(Modelo modelo)
         {
             if (ModelState.IsValid)
@@ -78,7 +77,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Modelos/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Modelo modelo)
         {
             if (ModelState.IsValid)
@@ -108,7 +106,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Modelos/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             var equiposCount = db.Equipos

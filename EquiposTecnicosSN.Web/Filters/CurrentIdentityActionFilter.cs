@@ -13,12 +13,20 @@ namespace EquiposTecnicosSN.Web.Filters
     /// </summary>
     public class CurrentIdentityActionFilter : System.Web.Mvc.ActionFilterAttribute
     {
+        private string currentIdFullName { get; set; }
+
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            if (SSOHelper.CurrentIdentity != null)
+
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
             {
-                filterContext.Controller.ViewBag.CurrentIdentity = SSOHelper.CurrentIdentity.Fullname;
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                filterContext.RequestContext.HttpContext.Response.Redirect(ssoUrl + "/Login.aspx");
             }
+
+            filterContext.Controller.ViewBag.CurrentIdentity = SSOHelper.CurrentIdentity.Fullname;
+            
         }
 
     }

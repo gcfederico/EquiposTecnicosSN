@@ -43,6 +43,7 @@
                                                 <a class="btn btn-default btn-xs"
                                                    data-toggle="modal" data-target="#modalSolicitudRepuestoServicioEquipo"
                                                    data-solicitud-id="@sr.SolicitudRepuestoServicioId"
+                                                   data-nqn-action="@Url.Action("DetailsSolicitud", "SolicitudesRepuestoServicio")"
                                                    title="Ver Detalles">
                                                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                 </a>
@@ -52,6 +53,7 @@
                                                        data-action="close-solicitud"
                                                        data-solicitud-id="@sr.SolicitudRepuestoServicioId"
                                                        data-toggle="tooltip"
+                                                       data-nqn-action="@Url.Action("Close", "SolicitudesRepuestoServicio")"
                                                        title="Cerrar Orden">
                                                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                                     </a>

@@ -23,7 +23,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '/Indicadores/Pareto' + indicador + 'Data' + indicadorTipo,
+            url: window.location.pathname.split('/')[1] + '/Indicadores/Pareto' + indicador + 'Data' + indicadorTipo,
             dataType: 'json',
             data: $form.serialize(),
             success: function (response) {
@@ -97,8 +97,6 @@
     };
 
 
-    $("[id$=Chart]").on("click", getChartData);
-
-    
+    $("[id$=Chart]").on("click", getChartData);    
 });
 

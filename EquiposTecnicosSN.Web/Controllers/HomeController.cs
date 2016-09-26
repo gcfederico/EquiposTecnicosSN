@@ -1,5 +1,4 @@
-﻿using EquiposTecnicosSN.Entities.Equipos;
-using EquiposTecnicosSN.Entities.Mantenimiento;
+﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.Services;
@@ -28,13 +27,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-
-            /*SSOHelper.Authenticate();
-            if (SSOHelper.CurrentIdentity == null)
-            {
-                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-                Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
 
             ViewBag.UbicacionId = new SelectList(db.Ubicaciones.OrderBy(u => u.Nombre), "UbicacionId", "Nombre");
             ViewBag.SectorId = new SelectList(db.Sectores.OrderBy(u => u.Nombre), "SectorId", "Nombre");
