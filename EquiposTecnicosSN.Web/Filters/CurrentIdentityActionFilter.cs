@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace EquiposTecnicosSN.Web.Filters
 {
     /// <summary>
-    /// Filtro que agrega el nombre del usuario logueado en el ViewBag de cada pagina.
+    /// Filtro que valida la autenticacion con el SSO y agrega el nombre del usuario logueado en el ViewBag de cada pagina.
     /// </summary>
     public class CurrentIdentityActionFilter : System.Web.Mvc.ActionFilterAttribute
     {
