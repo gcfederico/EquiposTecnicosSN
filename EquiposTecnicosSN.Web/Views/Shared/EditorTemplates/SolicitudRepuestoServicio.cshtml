@@ -6,6 +6,7 @@
             @Html.LabelFor(model => model.Repuesto.Codigo, htmlAttributes: new { @class = "control-label" })
             <input class="form-control text-box single-line"
                    data-autocomplete-codigo-repuesto="@Url.Action("AutocompleteCodigoRepuesto", "Repuestos")"
+                   data-nqn-check-stock="@Url.Action("CheckStockRepuesto", "Repuestos")"
                    data-val="false"
                    id="@Html.IdFor(model => model.Repuesto.Codigo)"
                    name="@Html.NameFor(model => model.Repuesto.Codigo)" type="text" value="@Model.Repuesto.Codigo">

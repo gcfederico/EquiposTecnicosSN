@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize(Roles = "admin")]
     public class FabricantesController : Controller
     {
         private EquiposDbContext db = new EquiposDbContext();
@@ -100,7 +99,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(Fabricante fabricante)
         {
             if (ModelState.IsValid)
@@ -130,7 +128,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Fabricantes/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(Fabricante fabricante)
         {
             if (ModelState.IsValid)
@@ -159,7 +156,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Fabricantes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             var equiposCount = db.Equipos

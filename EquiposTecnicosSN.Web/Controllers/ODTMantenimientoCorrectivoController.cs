@@ -9,10 +9,10 @@ using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Entities.Equipos;
+using Salud.Security.SSO;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class ODTMantenimientoCorrectivoController : ODTController
     {
         /// <summary>
@@ -54,6 +54,14 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult CreateForEquipo(int id)
         {
+
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");                
+            }
+
             var equipo = db.Equipos.Find(id);
             var vm = new MCViewModel();
             vm.Odt = new OrdenDeTrabajoMantenimientoCorrectivo
@@ -63,8 +71,9 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Estado = OrdenDeTrabajoEstado.Abierta,
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
-                Prioridad = OrdenDeTrabajoPrioridad.Normal
-            };
+                Prioridad = OrdenDeTrabajoPrioridad.Normal,
+                UsuarioInicio = SSOHelper.CurrentIdentity.Fullname
+        };
 
             vm.NuevaObservacion = NuevaObservacion();
             
@@ -73,13 +82,12 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/CreateForEquipo
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateForEquipo(MCViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
+
                 //estado del equipo
                 var equipo = db.Equipos.Find(vm.Odt.EquipoId);
                 equipo.Estado = (vm.Odt.EquipoParado ? EstadoDeEquipo.NoFuncionalRequiereReparacion : EstadoDeEquipo.FuncionalRequiereReparacion);
@@ -109,9 +117,15 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/FillDiagnose
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> FillDiagnose(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             if (vm.Odt.Diagnostico == null &&
                 vm.Odt.Gastos == null &&
                 gastos == null)
@@ -123,7 +137,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             //datos de diagnostico
             orden.Diagnostico = vm.Odt.Diagnostico;
             orden.FechaDiagnostico = DateTime.Now;
-            orden.UsuarioDiagnosticoId = 1; //HARDCODE!!
+            orden.UsuarioDiagnostico = SSOHelper.CurrentIdentity.Fullname;
             //gastos
             if (gastos != null)
             {
@@ -150,9 +164,16 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
+
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
                 .Where(o => o.OrdenDeTrabajoId == vm.Odt.OrdenDeTrabajoId)
@@ -173,8 +194,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioReparacionId = 1; //HARDCODE
-                orden.UsuarioCierreId = 1; //HARDCODE
+                orden.UsuarioReparacion = SSOHelper.CurrentIdentity.Fullname;
+                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
 
                 //estado del equipo
                 var equipo = db.Equipos.Find(orden.EquipoId);
@@ -208,7 +229,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/EditGastos
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
             var orden = db.ODTMantenimientosCorrectivos.Find(ordenDeTrabajoId);
@@ -238,7 +258,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo)
         {
             if (ModelState.IsValid)
@@ -271,7 +290,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);

@@ -59,7 +59,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SectorId,Nombre")] Sector sector)
         {
             if (ModelState.IsValid)
@@ -91,7 +90,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SectorId,Nombre")] Sector sector)
         {
             if (ModelState.IsValid)
@@ -120,7 +118,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: Sectores/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Sector sector = db.Sectores.Find(id);

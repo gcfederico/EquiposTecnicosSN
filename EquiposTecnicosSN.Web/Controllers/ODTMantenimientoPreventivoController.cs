@@ -1,5 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.Models;
+using Salud.Security.SSO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,6 +36,14 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         public override ActionResult CreateForEquipo(int id)
         {
+
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre");
 
             var equipo = db.Equipos.Find(id);
@@ -45,8 +54,10 @@ namespace EquiposTecnicosSN.Web.Controllers
                 Estado = OrdenDeTrabajoEstado.Abierta,
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
-                Prioridad = OrdenDeTrabajoPrioridad.Normal
-            };
+                Prioridad = OrdenDeTrabajoPrioridad.Normal,
+                UsuarioInicio = SSOHelper.CurrentIdentity.Fullname,
+                UsuarioCreacion = SSOHelper.CurrentIdentity.Fullname
+        };
 
             var model = new MPViewModel();
             model.Odt = odt;
@@ -56,15 +67,13 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: ODTMantenimientoPreventivoController/CreateForEquipo
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult CreateForEquipo(MPViewModel vm)
         {
             if (vm.Odt.ChecklistId != 0)
             {
                 vm.Odt.Checklist = db.ChecklistsMantenimientoPreventivo.Find(vm.Odt.ChecklistId);
-                vm.Odt.FechaInicio = DateTime.Now;
-                vm.Odt.UsuarioInicioId = 1; //TODO: hardcode
-                vm.Odt.fechaCreacion = vm.Odt.FechaInicio;
+                vm.Odt.FechaInicio = DateTime.Now; 
+                vm.Odt.fechaCreacion = DateTime.Now;
                 SaveNuevaObservacion(vm.NuevaObservacion, vm.Odt);
                 db.ODTMantenimientosPreventivos.Add(vm.Odt);
                 db.SaveChanges();
@@ -103,10 +112,9 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/EditGastos
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult EditGastos(int ordenDeTrabajoId, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);//odtsService.BuscarMPreventivo(ordenDeTrabajoId);
+            var orden = db.ODTMantenimientosPreventivos.Find(ordenDeTrabajoId);
 
             //gastos
             SaveGastos(gastos, orden.OrdenDeTrabajoId);
@@ -130,9 +138,15 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: OrdenesDeTrabajo/FillRepair
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Close(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
 
             try
             {
@@ -149,7 +163,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.ChecklistCompleto = vm.Odt.ChecklistCompleto;
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioCierreId = 1; //HARDCODE
+                orden.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;
 
                 //gastos
                 if (gastos != null && gastos.Count() > 0)

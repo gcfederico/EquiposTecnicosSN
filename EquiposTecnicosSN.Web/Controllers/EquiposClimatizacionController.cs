@@ -6,7 +6,6 @@ using EquiposTecnicosSN.Entities.Equipos.Info;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
-    [Authorize]
     public class EquiposClimatizacionController : EquiposBaseController
     {
         // GET: EquiposClimatizacion/Create
@@ -23,7 +22,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(EquipoClimatizacion equipoClimatizacion)
         {
             
@@ -62,7 +60,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EquipoId,NombreCompleto,UMDNS,Tipo,NumeroMatricula,NumeroInventario,UbicacionId,Estado,InformacionComercial,InformacionHardware")] EquipoClimatizacion equipoClimatizacion)
         {
 
@@ -96,7 +93,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: EquiposClimatizacion/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             EquipoClimatizacion equipoClimatizacion = db.EquiposDeClimatizacion.Find(id);

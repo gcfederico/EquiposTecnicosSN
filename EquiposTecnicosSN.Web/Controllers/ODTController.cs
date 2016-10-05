@@ -20,10 +20,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// </summary>
         protected EquiposDbContext db = new EquiposDbContext();
         /// <summary>
-        /// DbContext de usuarios
-        /// </summary>
-        protected IdentityDb usuariosdb = new IdentityDb();
-        /// <summary>
         /// 
         /// </summary>
         protected ODTsService odtsService = new ODTsService();

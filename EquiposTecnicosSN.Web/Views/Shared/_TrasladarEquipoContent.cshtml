@@ -5,7 +5,7 @@
         @Html.HiddenFor(model => model.EquipoId)
         <div class="form-group">
             @Html.LabelFor(model => model.UbicacionOrigenId, "Ubicación de origen", htmlAttributes: new { @class = "control-label" })
-            @Html.DropDownList("UbicacionOrigenId", null, htmlAttributes: new { @class = "form-control  ddl-traslado-origen", disabled = "disabled" })
+            @Html.DropDownList("UbicacionOrigenId", null, htmlAttributes: new { @class = "form-control  ddl-traslado-origen", disabled = "disabled", data_nqn_action = Url.Action("GetUbicacionEquipo", "Traslados") })
             @Html.HiddenFor(model => model.UbicacionOrigenId)
         </div>
     </div>

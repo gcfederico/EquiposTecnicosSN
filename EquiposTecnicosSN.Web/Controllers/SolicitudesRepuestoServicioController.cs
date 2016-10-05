@@ -1,6 +1,7 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.CustomExtensions;
 using EquiposTecnicosSN.Web.DataContexts;
+using Salud.Security.SSO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -41,9 +42,15 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         // POST: */OrderReplacementService
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> OrderReplacementService(SolicitudRepuestoServicio solicitud)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             var orden = db.OrdenesDeTrabajo.Find(solicitud.OrdenDeTrabajoId);
             solicitud.OrdenDeTrabajo = orden;
 
@@ -66,7 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 || solicitud.Comentarios != null
                 || solicitud.Repuesto != null)
             {
-                solicitud.UsuarioSolicitudId = 1; //HARDCODE
+                solicitud.UsuarioInicio = SSOHelper.CurrentIdentity.Fullname; 
                 db.SolicitudesRepuestosServicios.Add(solicitud);
                 orden.Estado = OrdenDeTrabajoEstado.EsperaRepuesto;
 
@@ -94,6 +101,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> Close(int solicitudId)
         {
+            SSOHelper.Authenticate();
+            if (SSOHelper.CurrentIdentity == null)
+            {
+                string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+                Response.Redirect(ssoUrl + "/Login.aspx");
+            }
+
             var sRespuestoServicio = db.SolicitudesRepuestosServicios.Find(solicitudId);
 
             //Descuento del stock la cantidad de repuestos
@@ -113,7 +127,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 }
             }
 
-            sRespuestoServicio.FechaCierre = DateTime.Now;            
+            sRespuestoServicio.FechaCierre = DateTime.Now;
+            sRespuestoServicio.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;          
             db.Entry(sRespuestoServicio).State = EntityState.Modified;
             await db.SaveChangesAsync();
 

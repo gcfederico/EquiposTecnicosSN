@@ -40,6 +40,8 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [ForeignKey("RepuestoId")]
         public virtual Repuesto Repuesto { get; set; }
 
-        public int? UsuarioSolicitudId { get; set; }
+        public string UsuarioInicio { get; set; }
+
+        public string UsuarioCierre { get; set; }
     }
 }

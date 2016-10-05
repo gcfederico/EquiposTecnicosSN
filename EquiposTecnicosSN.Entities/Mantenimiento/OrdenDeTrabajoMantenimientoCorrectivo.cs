@@ -33,7 +33,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// <summary>
         /// Usuario que realiza el diagnóstico del problema.
         /// </summary>
-        public int? UsuarioDiagnosticoId { get; set; }
+        public string UsuarioDiagnostico { get; set; }
         /// <summary>
         /// Detalle de la reparación.
         /// </summary>
@@ -49,7 +49,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// <summary>
         /// Usuario que realiza la reparación.
         /// </summary>
-        public int? UsuarioReparacionId { get; set; }
+        public string UsuarioReparacion { get; set; }
         /// <summary>
         /// Cauza raíz que generó el problema. Se completa al moento del cierre de la orden de trabajo.
         /// </summary>
