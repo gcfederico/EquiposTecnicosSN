@@ -44,12 +44,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> OrderReplacementService(SolicitudRepuestoServicio solicitud)
         {
-            SSOHelper.Authenticate();
+            /*SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            }*/
 
             var orden = db.OrdenesDeTrabajo.Find(solicitud.OrdenDeTrabajoId);
             solicitud.OrdenDeTrabajo = orden;
@@ -73,7 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 || solicitud.Comentarios != null
                 || solicitud.Repuesto != null)
             {
-                solicitud.UsuarioInicio = SSOHelper.CurrentIdentity.Fullname; 
+                solicitud.UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"); 
                 db.SolicitudesRepuestosServicios.Add(solicitud);
                 orden.Estado = OrdenDeTrabajoEstado.EsperaRepuesto;
 
@@ -101,12 +101,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> Close(int solicitudId)
         {
-            SSOHelper.Authenticate();
+            /*SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            }*/
 
             var sRespuestoServicio = db.SolicitudesRepuestosServicios.Find(solicitudId);
 
@@ -128,7 +128,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
 
             sRespuestoServicio.FechaCierre = DateTime.Now;
-            sRespuestoServicio.UsuarioCierre = SSOHelper.CurrentIdentity.Fullname;          
+            sRespuestoServicio.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");          
             db.Entry(sRespuestoServicio).State = EntityState.Modified;
             await db.SaveChangesAsync();
 

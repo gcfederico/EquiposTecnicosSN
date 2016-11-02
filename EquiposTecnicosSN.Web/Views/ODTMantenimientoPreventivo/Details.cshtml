@@ -22,6 +22,7 @@
 
             @if (OrdenDeTrabajoEstado.Abierta.Equals(Model.Estado) || OrdenDeTrabajoEstado.EsperaRepuesto.Equals(Model.Estado))
             {
+                <a href="@Url.Action("Edit", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar</a>
                 <a href="@Url.Action("EditGastos", new { id = Model.OrdenDeTrabajoId})" class="btn btn-info">Editar Gastos</a>
                 <a href="@Url.Action("OrderReplacementService", "SolicitudesRepuestoServicio", new { id = Model.OrdenDeTrabajoId }, null)" class="btn btn-info"> Solicitar Repuesto</a>
                 <a href="@Url.Action("Close", new { id = Model.OrdenDeTrabajoId})" class="btn btn-primary">Cerrar Orden</a>

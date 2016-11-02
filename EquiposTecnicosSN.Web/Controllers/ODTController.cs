@@ -143,7 +143,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             return new ObservacionOrdenDeTrabajo
             {
                 Fecha = DateTime.Now,
-                UsuarioId = 1 //TODO: hardcode
+                Usuario = "Fede Desarrollo" //TODO: hardcode
             };
         }
 

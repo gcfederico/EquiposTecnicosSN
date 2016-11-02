@@ -11,10 +11,10 @@ namespace EquiposTecnicosSN.Web.Services
     {
         protected EquiposDbContext db = new EquiposDbContext();
 
-        public void Update (object entity)
+        /*public void Update (object entity)
         {
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
-        }
+        }*/
     }
 }

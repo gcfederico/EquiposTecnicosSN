@@ -47,6 +47,9 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<OrdenDeTrabajoMantenimientoPreventivo> ODTMantenimientosPreventivos { get; set; }
         public DbSet<GastoOrdenDeTrabajo> GastosOrdenesDeTrabajo { get; set; }
         public DbSet<SolicitudRepuestoServicio> SolicitudesRepuestosServicios { get; set; }
+        public DbSet<ChecklistMantenimientoPreventivo> ChecklistsMantenimientoPreventivo { get; set; }
+        public DbSet<ObservacionOrdenDeTrabajo> ObservacionesOrdenesDeTrabajo { get; set; }
+
 
         public DbSet<Repuesto> Repuestos { get; set; }
         public DbSet<StockRepuesto> StockRepuestos { get; set; }
@@ -58,7 +61,6 @@ namespace EquiposTecnicosSN.Web.DataContexts
         public DbSet<Fabricante> Fabricantes { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Modelo> Modelos { get; set; }
-        public DbSet<ChecklistMantenimientoPreventivo> ChecklistsMantenimientoPreventivo { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

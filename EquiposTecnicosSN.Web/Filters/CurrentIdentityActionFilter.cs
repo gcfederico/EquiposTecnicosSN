@@ -18,14 +18,14 @@ namespace EquiposTecnicosSN.Web.Filters
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
 
-            SSOHelper.Authenticate();
+            /*SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 filterContext.RequestContext.HttpContext.Response.Redirect(ssoUrl + "/Login.aspx");
-            }
+            }*/
 
-            filterContext.Controller.ViewBag.CurrentIdentity = SSOHelper.CurrentIdentity.Fullname;
+            filterContext.Controller.ViewBag.CurrentIdentity = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
             
         }
 

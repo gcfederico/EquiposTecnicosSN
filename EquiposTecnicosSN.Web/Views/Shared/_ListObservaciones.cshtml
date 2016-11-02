@@ -13,7 +13,7 @@
                     @Html.HiddenFor(model => model.OrdenDeTrabajoId)
                     @Html.HiddenFor(model => observacion.ObservacionOrdenDeTrabajoId)
                     @Html.HiddenFor(model => observacion.Fecha)
-                    @Html.HiddenFor(model => observacion.UsuarioId)
+                    @Html.HiddenFor(model => observacion.Usuario)
 
                     if (observacion.Observacion != null)
                     {
@@ -23,7 +23,7 @@
                             @Html.DisplayFor(obs => observacion.Fecha)
                             <br />
                             <label>Usuario: </label>
-                            @Html.DisplayFor(obs => observacion.UsuarioId)
+                            @Html.DisplayFor(obs => observacion.Usuario)
                             <br />
                             @Html.DisplayFor(obs => observacion.Observacion)
 

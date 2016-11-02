@@ -205,7 +205,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                         OrdenDeTrabajoId = c.Int(nullable: false),
                         Observacion = c.String(maxLength: 500),
                         Fecha = c.DateTime(nullable: false),
-                        UsuarioId = c.Int(nullable: false),
+                        Usuario = c.String(),
                     })
                 .PrimaryKey(t => t.ObservacionOrdenDeTrabajoId)
                 .ForeignKey("dbo.OrdenesDeTrabajo", t => t.OrdenDeTrabajoId, cascadeDelete: false)
