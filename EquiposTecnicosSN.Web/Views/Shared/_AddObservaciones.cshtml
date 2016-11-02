@@ -7,7 +7,7 @@
 
             @Html.HiddenFor(model => model.NuevaObservacion.ObservacionOrdenDeTrabajoId)
             @Html.HiddenFor(model => model.NuevaObservacion.Fecha)
-            @Html.HiddenFor(model => model.NuevaObservacion.UsuarioId)
+            @Html.HiddenFor(model => model.NuevaObservacion.Usuario)
             @Html.LabelFor(model => model.NuevaObservacion, htmlAttributes: new { @class = "control-label" })
             @Html.TextAreaFor(model => model.NuevaObservacion.Observacion, htmlAttributes: new { @class = "form-control", rows = "5" })
         </div>

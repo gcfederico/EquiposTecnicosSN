@@ -2,6 +2,7 @@
 using EquiposTecnicosSN.Web.DataContexts;
 using EquiposTecnicosSN.Web.Services;
 using PagedList;
+using Salud.Security.SSO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -143,8 +144,8 @@ namespace EquiposTecnicosSN.Web.Controllers
             return new ObservacionOrdenDeTrabajo
             {
                 Fecha = DateTime.Now,
-                UsuarioId = 1 //TODO: hardcode
-            };
+                Usuario = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+        };
         }
 
         /// <summary>

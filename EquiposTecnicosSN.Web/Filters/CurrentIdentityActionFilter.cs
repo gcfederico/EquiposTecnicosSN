@@ -25,7 +25,7 @@ namespace EquiposTecnicosSN.Web.Filters
                 filterContext.RequestContext.HttpContext.Response.Redirect(ssoUrl + "/Login.aspx");
             }
 
-            filterContext.Controller.ViewBag.CurrentIdentity = SSOHelper.CurrentIdentity.Fullname;
+            filterContext.Controller.ViewBag.CurrentIdentity = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
             
         }
 

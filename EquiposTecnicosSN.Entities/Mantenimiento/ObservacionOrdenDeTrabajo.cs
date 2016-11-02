@@ -27,6 +27,6 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true)]
         public DateTime Fecha { get; set; }
 
-        public int UsuarioId { get; set; }
+        public string Usuario { get; set; }
     }
 }
