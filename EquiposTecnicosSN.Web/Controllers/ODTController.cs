@@ -144,7 +144,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             return new ObservacionOrdenDeTrabajo
             {
                 Fecha = DateTime.Now,
-                Usuario = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                Usuario = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
         };
         }
 

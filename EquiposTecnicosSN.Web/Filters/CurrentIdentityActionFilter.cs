@@ -18,6 +18,7 @@ namespace EquiposTecnicosSN.Web.Filters
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
 
+            /**
             SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
@@ -26,7 +27,10 @@ namespace EquiposTecnicosSN.Web.Filters
             }
 
             filterContext.Controller.ViewBag.CurrentIdentity = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
-            
+            **/
+            filterContext.Controller.ViewBag.CurrentIdentity = "Usuario Anónimo";
+
+
         }
 
     }

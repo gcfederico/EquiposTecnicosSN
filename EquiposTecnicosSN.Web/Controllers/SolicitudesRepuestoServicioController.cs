@@ -73,7 +73,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 || solicitud.Comentarios != null
                 || solicitud.Repuesto != null)
             {
-                solicitud.UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"); 
+                solicitud.UsuarioInicio = "Usuario Anónimo";//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"); 
                 db.SolicitudesRepuestosServicios.Add(solicitud);
                 orden.Estado = OrdenDeTrabajoEstado.EsperaRepuesto;
 
@@ -128,7 +128,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
 
             sRespuestoServicio.FechaCierre = DateTime.Now;
-            sRespuestoServicio.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");          
+            sRespuestoServicio.UsuarioCierre = "Usuario Anónimo";//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");          
             db.Entry(sRespuestoServicio).State = EntityState.Modified;
             await db.SaveChangesAsync();
 

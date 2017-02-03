@@ -55,8 +55,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
-                UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"),
-                UsuarioCreacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                UsuarioInicio = "Usuario Anónimo",//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"),
+                UsuarioCreacion = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
             };
 
             var model = new MPViewModel();
@@ -230,7 +230,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 {
                     Fecha = DateTime.Now,
                     OrdenDeTrabajoId = ordenDeTrabajo.OrdenDeTrabajoId,
-                    Usuario = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                    Usuario = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
                 });
             }
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre", ordenDeTrabajo.ChecklistId);
