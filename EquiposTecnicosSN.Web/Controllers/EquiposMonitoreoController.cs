@@ -25,7 +25,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public ActionResult Create(EquipoMonitoreo equipo)
         {
-            
+            if (EquipoDuplicado(equipo))
+            {
+                ModelState.AddModelError("", "Ya se encuentra ingresado un equipo de la misma marca y modelo con el nº de serie ingresado");
+                base.SetViewBagValues(equipo);
+                return View(equipo);
+            }
+
             if (ModelState.IsValid)//validaciones
             {
                 db.EquiposDeMonitoreo.Add(equipo);

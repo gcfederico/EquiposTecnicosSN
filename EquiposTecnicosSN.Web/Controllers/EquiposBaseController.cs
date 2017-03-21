@@ -14,6 +14,42 @@ namespace EquiposTecnicosSN.Web.Controllers
     {
         protected EquiposDbContext db = new EquiposDbContext();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public ActionResult AutocompleteMarca(string term)
+        {
+            var model = db.Marcas.Where(m => m.Nombre.Contains(term))
+                .Take(6)
+                .Select(m => new
+                {
+                    label = m.Nombre,
+                    value = m.MarcaId
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public ActionResult AutocompleteModelo(string term)
+        {
+            var model = db.Modelos.Where(m => m.Nombre.Contains(term))
+                .Take(6)
+                .Select(m => new
+                {
+                    label = m.Nombre,
+                    value = m.ModeloId
+                });
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: EquiposBase
         public virtual ActionResult Index()
         {
@@ -104,12 +140,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="Estado"></param>
         /// <param name="NumeroMatricula"></param>
         /// <returns></returns>
-        public ActionResult SearchEquipos(int? UbicacionId, int? SectorId, int? NumeroMatricula, int? SearchTipoEquipo = 0, int? EstadoEquipo = 0, string buscarNombreCompleto = "", string buscarUMDNS = "", int page = 1)
+        public ActionResult SearchEquipos(int? UbicacionId, int? SectorId, int? NumeroMatricula, int? SearchTipoEquipo = 0, int? EstadoEquipo = 0, string buscarMarca = "", string buscarModelo = "", int page = 1)
         {
 
             var result = db.Equipos
-                .Where(e => buscarNombreCompleto.Equals("") || e.NombreCompleto.Contains(buscarNombreCompleto))
-                .Where(e => buscarUMDNS.Equals("") || e.UMDNS.Contains(buscarUMDNS))
+                .Where(e => buscarMarca.Equals("") || e.InformacionHardware.Marca.Nombre.Contains(buscarMarca))
+                .Where(e => buscarModelo.Equals("") || e.InformacionHardware.Modelo.Nombre.Contains(buscarModelo))
                 .Where(e => UbicacionId == null || e.UbicacionId == UbicacionId)
                 .Where(e => SectorId == null || e.SectorId == SectorId)
                 .Where(e => NumeroMatricula == null || e.NumeroMatricula.Equals(NumeroMatricula));
@@ -190,6 +226,23 @@ namespace EquiposTecnicosSN.Web.Controllers
             }
 
             return PartialView("_SearchEquiposResults", result.OrderByDescending(e => e.NombreCompleto).ToPagedList(page, 5));
+        }
+
+        protected bool EquipoDuplicado(Equipo equipo)
+        {
+            var count = db.Equipos.Where(e => e.InformacionHardware.MarcaId == equipo.InformacionHardware.MarcaId)
+                    .Where(e => e.InformacionHardware.ModeloId == equipo.InformacionHardware.ModeloId)
+                    .Where(e => e.InformacionHardware.NumeroSerie == equipo.InformacionHardware.NumeroSerie)
+                    .Count();
+            return count != 0;
+        }
+
+        public void Baja(int id)
+        {
+            var equipo = db.Equipos.Find(id);
+            equipo.Estado = EstadoDeEquipo.NoFuncional;
+            db.Entry(equipo).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)

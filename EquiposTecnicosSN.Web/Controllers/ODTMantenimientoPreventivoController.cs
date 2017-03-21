@@ -17,21 +17,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class ODTMantenimientoPreventivoController : ODTController
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            var model = new MPIndexViewModel
-            {
-                Search = new SearchOdtViewModel(),
-                Proximas = odtsService.MPreventivosProximos(),
-                Abiertas = odtsService.MPreventivosAbiertos(null)
-            };
-
-            return View(model);
-        }
 
         [HttpGet]
         public override ActionResult CreateForEquipo(int id)
@@ -251,7 +236,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 db.Entry(ordenDeTrabajo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexMantenimientos");
             }
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre", ordenDeTrabajo.ChecklistId);
             return View(ordenDeTrabajo);

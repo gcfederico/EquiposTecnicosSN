@@ -22,12 +22,17 @@ namespace EquiposTecnicosSN.Web.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(EquipoCirugia equipoCirugia)
+        public ActionResult Create(EquipoCirugia equipo)
         {
-            
+            if (EquipoDuplicado(equipo))
+            {
+                ModelState.AddModelError("", "Ya se encuentra ingresado un equipo de la misma marca y modelo con el nº de serie ingresado");
+                base.SetViewBagValues(equipo);
+                return View(equipo);
+            }
             if (ModelState.IsValid)//validaciones
             {
-                db.EquiposDeCirugia.Add(equipoCirugia);
+                db.EquiposDeCirugia.Add(equipo);
                 db.SaveChanges();
                 ViewBag.CssClass = "success";
                 ViewBag.Message = "Equipo creado.";
@@ -35,8 +40,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 return RedirectToAction("Index", "EquiposBase");
             }
 
-            base.SetViewBagValues(equipoCirugia);
-            return View(equipoCirugia);
+            base.SetViewBagValues(equipo);
+            return View(equipo);
         }
 
         // GET: EquiposClimatizacion/Edit/5

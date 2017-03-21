@@ -66,6 +66,30 @@
     $(".body-content").on("click", ".pagedList a", getPage)
 
     //Autocompletes
+    var autocompleteMarcaOptions = {
+        source: $("input[data-umdns-autocomplete-marca]").attr("data-umdns-autocomplete-marca"),
+        select: function (event, ui) {
+            $("input[data-umdns-autocomplete-marca]").val(ui.item.label);
+            event.stopPropagation();
+            return false;
+        },
+        focus: function (event, ui) {
+                event.preventDefault();
+            }
+        };
+    var autocompleteModeloOptions = {
+            source: $("input[data-umdns-autocomplete-modelo]").attr("data-umdns-autocomplete-modelo"),
+            select: function (event, ui) {
+                $("input[data-umdns-autocomplete-modelo]").val(ui.item.label);
+                event.stopPropagation();
+                return false;
+            },
+            focus: function (event, ui) {
+                event.preventDefault();
+            }
+        };
+
+
     var autocompleteNombreOptions = {
         source: $("input[data-umdns-autocomplete-nombre]").attr("data-umdns-autocomplete-nombre"),
         select: function (event, ui) {
@@ -152,10 +176,17 @@
             }
         });
     };
+    $(".btn-baja").click(function () {
+        console.log('baja')
+    })
+
 
     $("input[data-umdns-autocomplete-nombre]").autocomplete(autocompleteNombreOptions);
     $("input[data-umdns-autocomplete-codigo]").autocomplete(autocompleteCodigoOptions);
     $("input[data-autocomplete-codigo-repuesto]").autocomplete(autocompleteCodigoRepuestoOptions);
+
+    $("input[data-umdns-autocomplete-marca]").autocomplete(autocompleteMarcaOptions);
+    $("input[data-umdns-autocomplete-modelo]").autocomplete(autocompleteModeloOptions);
 
     $("#CantidadRepuesto").on("input", function (event, ui) {
         checkStock($("#CantidadRepuesto").val());
@@ -380,5 +411,12 @@
 
     //Tooltips
     $('[data-toggle="tooltip"]').tooltip();
+
+    //Confirms
+    $('[data-toggle=confirmation]').confirmation({
+        rootSelector: '[data-toggle=confirmation]',
+        title: '¿Está seguro?',
+        btnOkLabel: 'Si'
+    });
 });
 

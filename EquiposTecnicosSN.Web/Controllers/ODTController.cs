@@ -1,5 +1,6 @@
 ﻿using EquiposTecnicosSN.Entities.Mantenimiento;
 using EquiposTecnicosSN.Web.DataContexts;
+using EquiposTecnicosSN.Web.Models;
 using EquiposTecnicosSN.Web.Services;
 using PagedList;
 using Salud.Security.SSO;
@@ -189,5 +190,50 @@ namespace EquiposTecnicosSN.Web.Controllers
 
             return PartialView("_SearchODTsResults", result.OrderByDescending(odt => odt.FechaInicio).ToPagedList(page, 5));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private MPIndexViewModel IndexMP()
+        {
+            var model = new MPIndexViewModel
+            {
+                Search = new SearchOdtViewModel(),
+                Proximas = odtsService.MPreventivosProximos(),
+                Abiertas = odtsService.MPreventivosAbiertos(null)
+            };
+
+            return model;
+        }
+
+        /// <summary>
+        /// Action Index
+        /// </summary>
+        /// <returns></returns>
+        private MCIndexViewModel IndexMC()
+        {
+            var model = new MCIndexViewModel
+            {
+                Emergencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Emergencia),
+                Urgencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Urgencia),
+                Normales = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Normal),
+                Search = new SearchOdtViewModel()
+            };
+
+            return model;
+        }
+
+        public ActionResult IndexMantenimientos()
+        {
+
+            var model = new ODTIndexModel
+            {
+                mcViewModel = IndexMC(),
+                mpViewModel = IndexMP()
+            };
+            return View(model);
+        }
+
     }
 }

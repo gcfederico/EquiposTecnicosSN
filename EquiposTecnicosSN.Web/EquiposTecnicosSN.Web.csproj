@@ -825,6 +825,7 @@
     <Content Include="lib\Salud.Security.SSO.dll" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\bootstrap-confirmation.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -1399,7 +1400,7 @@
     <Content Include="Views\ODTMantenimientoCorrectivo\Delete.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Details.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Edit.cshtml" />
-    <Content Include="Views\ODTMantenimientoCorrectivo\Index.cshtml" />
+    <Content Include="Views\Shared\_IndexMC.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\CreateForEquipo.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\FillDiagnose.cshtml" />
     <Content Include="Views\ODTMantenimientoCorrectivo\Close.cshtml" />
@@ -1480,7 +1481,7 @@
     <Content Include="Views\Shared\_SearchEquiposResults.cshtml" />
     <Content Include="Views\Indicadores\PorUbicacion.cshtml" />
     <Content Include="Views\Shared\_SearchODTsResults.cshtml" />
-    <Content Include="Views\ODTMantenimientoPreventivo\Index.cshtml" />
+    <Content Include="Views\Shared\_IndexMP.cshtml" />
     <Content Include="Views\Shared\_SearchEquipos.cshtml" />
     <Content Include="Views\Shared\_SearchODTs.cshtml" />
     <Content Include="Views\Shared\_TrasladarEquipoModal.cshtml" />
@@ -1542,6 +1543,7 @@
     <Content Include="Views\ODTMantenimientoPreventivo\Edit.cshtml" />
     <Content Include="Views\Shared\_EditObservaciones.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ObservacionOrdenDeTrabajo.cshtml" />
+    <Content Include="Views\Shared\IndexMantenimientos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

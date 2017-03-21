@@ -39,6 +39,7 @@ namespace EquiposTecnicosSN.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/bootstrap-switch.js",
+                      "~/Scripts/bootstrap-confirmation.min.js",
                       "~/Scripts/bootstrap-filestyle.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bower-components-js").Include(

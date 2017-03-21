@@ -15,22 +15,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class ODTMantenimientoCorrectivoController : ODTController
     {
-        /// <summary>
-        /// Action Index
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            var model = new MCIndexViewModel
-            {
-                Emergencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Emergencia),
-                Urgencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Urgencia),
-                Normales = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Normal),
-                Search = new SearchOdtViewModel()
-            };
-
-            return View(model);
-        }
 
         // GET: OrdenesDeTrabajo/Details/5
         [HttpGet]
@@ -267,7 +251,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 db.Entry(ordenDeTrabajo).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexMantenimientos");
             }
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", ordenDeTrabajo.EquipoId);
             return View(ordenDeTrabajo);
@@ -295,7 +279,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);
             db.ODTMantenimientosCorrectivos.Remove(ordenDeTrabajo);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexMantenimientos");
         }
 
         protected override void Dispose(bool disposing)
