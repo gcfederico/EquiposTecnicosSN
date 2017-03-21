@@ -38,14 +38,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult CreateForEquipo(int id)
         {
-            /*
             SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");                
             }
-            */
+
             var equipo = db.Equipos.Find(id);
             var vm = new MCViewModel();
             vm.Odt = new OrdenDeTrabajoMantenimientoCorrectivo
@@ -56,7 +55,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
-                UsuarioInicio = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
         };
 
             vm.NuevaObservacion = NuevaObservacion();
@@ -103,12 +102,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> FillDiagnose(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            /*SSOHelper.Authenticate();
+            SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
+            }
 
             if (vm.Odt.Diagnostico == null &&
                 vm.Odt.Gastos == null &&
@@ -121,7 +120,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             //datos de diagnostico
             orden.Diagnostico = vm.Odt.Diagnostico;
             orden.FechaDiagnostico = DateTime.Now;
-            orden.UsuarioDiagnostico = "Usuario Anónimo";//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+            orden.UsuarioDiagnostico = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
             //gastos
             if (gastos != null)
             {
@@ -151,12 +150,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            /*SSOHelper.Authenticate();
+            SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
+            }
 
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
@@ -178,8 +177,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 orden.Estado = OrdenDeTrabajoEstado.Cerrada;
                 orden.FechaReparacion = DateTime.Now;
                 orden.FechaCierre = DateTime.Now;
-                orden.UsuarioReparacion = "Usuario Anónimo";//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
-                orden.UsuarioCierre = "Usuario Anónimo";//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+                orden.UsuarioReparacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
+                orden.UsuarioCierre = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
 
                 //estado del equipo
                 var equipo = db.Equipos.Find(orden.EquipoId);

@@ -22,12 +22,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public override ActionResult CreateForEquipo(int id)
         {
 
-            /*SSOHelper.Authenticate();
+            SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
+            }
 
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre");
 
@@ -40,8 +40,8 @@ namespace EquiposTecnicosSN.Web.Controllers
                 FechaInicio = DateTime.Now,
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
-                UsuarioInicio = "Usuario Anónimo",//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"),
-                UsuarioCreacion = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo"),
+                UsuarioCreacion = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
             };
 
             var model = new MPViewModel();
@@ -124,13 +124,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Close(MPViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            /*SSOHelper.Authenticate();
+            SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
-
+            }
 
             try
             {
@@ -215,7 +214,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 {
                     Fecha = DateTime.Now,
                     OrdenDeTrabajoId = ordenDeTrabajo.OrdenDeTrabajoId,
-                    Usuario = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                    Usuario = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
                 });
             }
             ViewBag.ChecklistId = new SelectList(db.ChecklistsMantenimientoPreventivo, "ChecklistMantenimientoPreventivoId", "Nombre", ordenDeTrabajo.ChecklistId);
