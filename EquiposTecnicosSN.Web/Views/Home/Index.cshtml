@@ -98,10 +98,27 @@
     </div>
 </div>
 <hr />
-<!-- BUSCAR ODT -->
-@Html.Partial("_SearchODTs", Model.searchOdt)
-<hr />
-<!-- BUSCAR EQUIPO -->
-@Html.Partial("_SearchEquipos", Model.searchEquipo)
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"  class="active">
+        <a href="#equipos" aria-controls="equipos" role="tab" data-toggle="tab">Equipos</a>
+    </li>
+    <li role="presentation">
+        <a href="#odts" aria-controls="odts" role="tab" data-toggle="tab">Ordenes de Trabajo</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="equipos">
+    <!-- BUSCAR EQUIPO -->
+    @Html.Partial("_SearchEquipos", Model.searchEquipo)
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="odts">
+        <!-- BUSCAR ODT -->
+        @Html.Partial("_SearchODTs", Model.searchOdt)
+    </div>
+</div>
+
 <!-- TRASLADAR EQUIPO -->
 @Html.Partial("_TrasladarEquipoModal")

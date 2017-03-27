@@ -49,6 +49,7 @@ namespace EquiposTecnicosSN.Entities.Mantenimiento
         /// <summary>
         /// Usuario que realiza la reparación.
         /// </summary>
+        /// 
         public string UsuarioReparacion { get; set; }
         /// <summary>
         /// Cauza raíz que generó el problema. Se completa al moento del cierre de la orden de trabajo.

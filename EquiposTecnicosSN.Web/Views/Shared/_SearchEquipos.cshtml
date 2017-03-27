@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">
-            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar equipo</div>
+            <div class="panel-heading"><i class="fa fa-search fa-fw"></i> Buscar</div>
 
             <div class="panel-body">
                 <form id="formBuscarEquipo" method="get" data-nqn-ajax="true" action="@Url.Action("SearchEquipos", "EquiposBase")" data-nqn-target="#searchEquipoResults">
@@ -10,21 +10,23 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label">Nombre Completo</label>
+                                <label class="control-label">Marca</label>
 
                                 <input class="form-control text-box single-line"
-                                       data-umdns-autocomplete-nombre="@Url.Action("AutocompleteNombreUMDNS", "EquiposBase")"
-                                       id="buscarNombreCompleto"
-                                       name="buscarNombreCompleto" type="text" value="">
-
+                                       data-umdns-autocomplete-marca="@Url.Action("AutocompleteMarca", "EquiposBase")"
+                                       id="buscarMarca"
+                                       name="buscarMarca" type="text" value="">
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">UMDNS</label>
+                                <label class="control-label">Modelo</label>
+                                 
                                 <input class="form-control text-box single-line"
-                                       data-umdns-autocomplete-codigo="@Url.Action("AutocompleteCodigoUMDNS", "EquiposBase")"
-                                       id="buscarUMDNS"
-                                       name="buscarUMDNS" type="text" value="">
+                                       data-umdns-autocomplete-modelo="@Url.Action("AutocompleteModelo", "EquiposBase")"
+                                       id="buscarModelo"
+                                       name="buscarModelo" type="text" value="">
+                                
+                                
                             </div>
 
                             <div class="form-group">

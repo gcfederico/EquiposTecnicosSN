@@ -15,22 +15,6 @@ namespace EquiposTecnicosSN.Web.Controllers
 {
     public class ODTMantenimientoCorrectivoController : ODTController
     {
-        /// <summary>
-        /// Action Index
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            var model = new MCIndexViewModel
-            {
-                Emergencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Emergencia),
-                Urgencias = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Urgencia),
-                Normales = odtsService.MCorrectivosAbiertos(OrdenDeTrabajoPrioridad.Normal),
-                Search = new SearchOdtViewModel()
-            };
-
-            return View(model);
-        }
 
         // GET: OrdenesDeTrabajo/Details/5
         [HttpGet]
@@ -54,7 +38,6 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpGet]
         override public ActionResult CreateForEquipo(int id)
         {
-
             SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
@@ -73,7 +56,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
                 UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
-            };
+        };
 
             vm.NuevaObservacion = NuevaObservacion();
             
@@ -119,12 +102,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> FillDiagnose(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
-            /*SSOHelper.Authenticate();
+            SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
+            }
 
             if (vm.Odt.Diagnostico == null &&
                 vm.Odt.Gastos == null &&
@@ -167,12 +150,12 @@ namespace EquiposTecnicosSN.Web.Controllers
         public async Task<ActionResult> Close(MCViewModel vm, IEnumerable<GastoOrdenDeTrabajo> gastos)
         {
 
-            /*SSOHelper.Authenticate();
+            SSOHelper.Authenticate();
             if (SSOHelper.CurrentIdentity == null)
             {
                 string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
                 Response.Redirect(ssoUrl + "/Login.aspx");
-            }*/
+            }
 
             OrdenDeTrabajoMantenimientoCorrectivo orden = await db.ODTMantenimientosCorrectivos
                 .Include(o => o.SolicitudesRespuestos)
@@ -267,7 +250,7 @@ namespace EquiposTecnicosSN.Web.Controllers
 
                 db.Entry(ordenDeTrabajo).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexMantenimientos");
             }
             ViewBag.EquipoId = new SelectList(db.Equipos, "EquipoId", "NombreCompleto", ordenDeTrabajo.EquipoId);
             return View(ordenDeTrabajo);
@@ -295,7 +278,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             OrdenDeTrabajoMantenimientoCorrectivo ordenDeTrabajo = await db.ODTMantenimientosCorrectivos.FindAsync(id);
             db.ODTMantenimientosCorrectivos.Remove(ordenDeTrabajo);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexMantenimientos");
         }
 
         protected override void Dispose(bool disposing)

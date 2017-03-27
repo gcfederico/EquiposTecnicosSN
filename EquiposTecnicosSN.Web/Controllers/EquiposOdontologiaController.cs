@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Mvc;
 using EquiposTecnicosSN.Entities.Equipos;
 using EquiposTecnicosSN.Entities.Equipos.Info;
+using System.Data.Entity.Infrastructure;
 
 namespace EquiposTecnicosSN.Web.Controllers
 {
@@ -25,7 +26,13 @@ namespace EquiposTecnicosSN.Web.Controllers
         [HttpPost]
         public ActionResult Create(EquipoOdontologia equipoCirugia)
         {
-            
+            if (EquipoDuplicado(equipoCirugia))
+            {
+                ModelState.AddModelError("", "Ya se encuentra ingresado un equipo de la misma marca y modelo con el nº de serie ingresado");
+                base.SetViewBagValues(equipoCirugia);
+                return View(equipoCirugia);
+            }
+
             if (ModelState.IsValid)//validaciones
             {
                 db.EquiposDeOdontologia.Add(equipoCirugia);

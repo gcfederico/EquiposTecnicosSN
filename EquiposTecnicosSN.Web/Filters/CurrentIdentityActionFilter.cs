@@ -26,7 +26,9 @@ namespace EquiposTecnicosSN.Web.Filters
             }
 
             filterContext.Controller.ViewBag.CurrentIdentity = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo");
-            
+            filterContext.Controller.ViewBag.CurrentIdentity = "Usuario Anónimo";
+
+
         }
 
     }

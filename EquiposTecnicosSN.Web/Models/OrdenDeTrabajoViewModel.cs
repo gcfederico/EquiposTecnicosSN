@@ -65,4 +65,11 @@ namespace EquiposTecnicosSN.Web.Models
 
         public IEnumerable<OrdenDeTrabajoMantenimientoPreventivo> Abiertas { get; set; }
     }
+
+    public class ODTIndexModel
+    {
+        public MCIndexViewModel mcViewModel { get; set; }
+
+        public MPIndexViewModel mpViewModel { get; set; }
+    }
 }
