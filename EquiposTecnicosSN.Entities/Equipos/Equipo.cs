@@ -17,16 +17,17 @@ namespace EquiposTecnicosSN.Entities.Equipos
         public int EquipoId { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [Column(TypeName = "varchar"), StringLength(255)]
         [DisplayName("Nombre completo")]
         public string NombreCompleto { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [Column(TypeName = "varchar"), StringLength(50)]
         public string UMDNS { get; set; }
 
         [DisplayName("Nº de matrícula")]
-        public int? NumeroMatricula { get; set; }
+        [Column(TypeName = "varchar"), StringLength(50)]
+        public string NumeroMatricula { get; set; }
 
         [Required]
         public int UbicacionId { get; set; }
@@ -50,7 +51,7 @@ namespace EquiposTecnicosSN.Entities.Equipos
         [ForeignKey("EquipoId")]
         public virtual InformacionHardware InformacionHardware { get; set; }
 
-        [StringLength(500)]
+        [Column(TypeName = "varchar"), StringLength(500)]
         public string Notas { get; set; }
 
         public virtual ICollection<OrdenDeTrabajo> OrdenesDeTrabajo { get; set; }

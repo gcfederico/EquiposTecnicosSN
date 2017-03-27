@@ -14,7 +14,7 @@ namespace EquiposTecnicosSN.Entities.Equipos.Info
 
         public virtual Equipo Equipo { get; set; }
 
-        [MaxLength(255)]
+        [StringLength(255)]
         [DisplayName("Nº de serie")]
         [Required(ErrorMessage = "El campo Nº de Serie es requerido.")]
         public string NumeroSerie { get; set; }

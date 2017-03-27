@@ -255,9 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201610281603238_CreateInicial.cs" />
-    <Compile Include="DataContexts\EquiposMigrations\201610281603238_CreateInicial.Designer.cs">
-      <DependentUpon>201610281603238_CreateInicial.cs</DependentUpon>
+    <Compile Include="DataContexts\EquiposMigrations\201703231448248_createIncial.cs" />
+    <Compile Include="DataContexts\EquiposMigrations\201703231448248_createIncial.Designer.cs">
+      <DependentUpon>201703231448248_createIncial.cs</DependentUpon>
     </Compile>
     <Compile Include="Filters\CurrentIdentityActionFilter.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -1564,8 +1564,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\EquiposMigrations\201610281603238_CreateInicial.resx">
-      <DependentUpon>201610281603238_CreateInicial.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\EquiposMigrations\201703231448248_createIncial.resx">
+      <DependentUpon>201703231448248_createIncial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

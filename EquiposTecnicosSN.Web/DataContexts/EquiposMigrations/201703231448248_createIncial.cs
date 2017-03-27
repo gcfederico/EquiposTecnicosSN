@@ -3,7 +3,7 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateInicial : DbMigration
+    public partial class createIncial : DbMigration
     {
         public override void Up()
         {
@@ -24,13 +24,13 @@ namespace EquiposTecnicosSN.Web.DataContexts.EquiposMigrations
                 c => new
                     {
                         EquipoId = c.Int(nullable: false, identity: true),
-                        NombreCompleto = c.String(nullable: false, maxLength: 255),
-                        UMDNS = c.String(nullable: false, maxLength: 50),
-                        NumeroMatricula = c.Int(),
+                        NombreCompleto = c.String(nullable: false, maxLength: 255, unicode: false),
+                        UMDNS = c.String(nullable: false, maxLength: 50, unicode: false),
+                        NumeroMatricula = c.String(maxLength: 50, unicode: false),
                         UbicacionId = c.Int(nullable: false),
                         SectorId = c.Int(nullable: false),
                         Estado = c.Int(nullable: false),
-                        Notas = c.String(maxLength: 500),
+                        Notas = c.String(maxLength: 500, unicode: false),
                     })
                 .PrimaryKey(t => t.EquipoId)
                 .ForeignKey("dbo.Sectores", t => t.SectorId, cascadeDelete: false)
