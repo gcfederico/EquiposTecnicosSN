@@ -1,21 +1,42 @@
 ﻿@using EquiposTecnicosSN.Web.CustomExtensions
 @model IPagedList<EquiposTecnicosSN.Entities.Equipos.Equipo>
 <div class="pagedList" data-nqn-target="#searchEquipoResults" data-nqn-form="#formBuscarEquipo">
-    @Html.PagedListPager(Model, page => Url.Action("SearchEquipos", "EquiposBase", new { page = page }), PagedListRenderOptions.Classic)
+    @Html.PagedListPager(Model, page => Url.Action("SearchEquipos", "EquiposBase", new { page = page, pageSize = Model.PageSize }), PagedListRenderOptions.Classic)
 </div>
 
-<table class="table table-striped table-hover table-responsive table-condensed">
+<div class="pagedList" style="text-align: right !important" data-nqn-target="#searchEquipoResults" data-nqn-form="#formBuscarEquipo">
+    <label>Mostrando</label>
+    <div class="btn-group">
+
+    @for (int i = 25; i <= 100; i += 25)
+    {
+        if (Model.PageSize == i)
+        {
+            <a href="@Url.Action("SearchEquipos", "EquiposBase", new { pageSize = i })" class="btn btn-xs disabled">@i.ToString()</a>
+        }
+        else
+        {
+            <a href="@Url.Action("SearchEquipos", "EquiposBase", new { pageSize = i })" class="btn btn-xs">@i.ToString()</a>
+        }
+    }
+    </div>
+</div>
+
+<table class="table table-striped table-hover table-responsive table-condensed search-equipos">
     <thead>
 
         <tr>
             <th>
-                Tipo
-            </th>
-            <th>
                 Nombre Completo
             </th>
             <th>
-                UMDNS
+                Tipo
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Modelo
             </th>
             <th>
                 Estado
@@ -32,7 +53,7 @@
         @if (Model.Count() == 0)
         {
             <tr>
-                <td colspan="6" style="text-align: center">
+                <td colspan="7" style="text-align: center" class="no-results">
                     No se encontraron resultados.
                 </td>
             </tr>
@@ -41,13 +62,16 @@
         {
             <tr>
                 <td>
-                    @item.Tipo().DisplayName()
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.NombreCompleto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UMDNS)
+                    @item.Tipo().DisplayName()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InformacionHardware.Marca.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InformacionHardware.Modelo.Nombre)
                 </td>
                 <td>
                     @item.Estado.DisplayName()
@@ -87,4 +111,4 @@
         }
     </tbody>
 </table>
-
+<strong>Total:&nbsp;</strong>@Model.TotalItemCount registros.

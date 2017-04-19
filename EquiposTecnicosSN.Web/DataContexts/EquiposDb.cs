@@ -64,7 +64,8 @@ namespace EquiposTecnicosSN.Web.DataContexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
+            Database.SetInitializer<EquiposDbContext>(null);
         }
     }
 }

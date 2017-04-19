@@ -56,6 +56,8 @@ namespace EquiposTecnicosSN.Web.Models
         public EstadoDeEquipo EstadoEquipo { get; set; }
 
         public TipoEquipo SearchTipoEquipo { get; set; }
+
+        public int PageSize { get; set; }
     }
 
 

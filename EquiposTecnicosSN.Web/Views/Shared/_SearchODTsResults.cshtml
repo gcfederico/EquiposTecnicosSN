@@ -5,7 +5,19 @@
 <div class="pagedList" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
     @Html.PagedListPager(Model, page => Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { page = page }), PagedListRenderOptions.Classic)
 </div>
-<table class="table table-hover table-responsive table-condensed table-striped">
+
+<div class="pagedList" style="text-align: right !important" data-nqn-target="#searchODTResults" data-nqn-form="#formBuscarODT">
+    <label>Mostrando</label>
+
+    @for (int i = 25; i <= 100; i += 25)
+    {
+        <span class="@(Model.PageSize == i ? "disabeld": "")">
+            <a href="@Url.Action("SearchODT", "ODTMantenimientoPreventivo", new { pageSize = i })" class="btn-group-sm">@i.ToString()</a>
+        </span>
+    }
+</div>
+
+<table class="table table-hover table-responsive table-condensed table-striped search-odts">
     <thead>
 
         <tr>
@@ -24,8 +36,8 @@
     <tbody>
         @if (Model.Count() == 0)
         {
-            <tr>
-                <td colspan="4" style="text-align: center">
+            <tr class="no-results">
+                <td colspan="4" style="text-align: center" class="no-results">
                     No se encontraron resultados.
                 </td>
             </tr>
@@ -81,3 +93,4 @@
         }
     </tbody>
 </table>
+<strong>Total:&nbsp;</strong>@Model.TotalItemCount registros.

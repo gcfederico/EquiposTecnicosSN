@@ -1,4 +1,5 @@
 ﻿@model EquiposTecnicosSN.Entities.Equipos.Equipo
+@using EquiposTecnicosSN.Entities.Equipos
 
 @{
     ViewBag.Title = "Detalle de Equipo";
@@ -45,5 +46,9 @@
     <div class="col-md-12">
         <a href="@Url.Action("Index")" class="btn btn-default"> Volver</a>
         <input id="indicadoresBtn" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalIndicadoresEquipo" data-equipo-id="@Model.EquipoId" value="Calcular Indicadores" />
+        @if(Model.Estado != EstadoDeEquipo.NoFuncional)
+        {
+            Html.ActionLink("Dar de Baja", "BajaEquipo", "EquiposBase", new { id = Model.EquipoId }, new { @class = "btn btn-danger" });
+        }
     </div>
 </div>

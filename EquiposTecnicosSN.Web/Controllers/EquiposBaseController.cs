@@ -140,7 +140,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="Estado"></param>
         /// <param name="NumeroMatricula"></param>
         /// <returns></returns>
-        public ActionResult SearchEquipos(int? UbicacionId, int? SectorId, int? NumeroMatricula, int? SearchTipoEquipo = 0, int? EstadoEquipo = 0, string buscarMarca = "", string buscarModelo = "", int page = 1)
+        public ActionResult SearchEquipos(int? UbicacionId, int? SectorId, int? NumeroMatricula, int? SearchTipoEquipo = 0, int? EstadoEquipo = 0, string buscarMarca = "", string buscarModelo = "", int page = 1, int pageSize = 25)
         {
 
             var result = db.Equipos
@@ -225,7 +225,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 }
             }
 
-            return PartialView("_SearchEquiposResults", result.OrderByDescending(e => e.NombreCompleto).ToPagedList(page, 5));
+            return PartialView("_SearchEquiposResults", result.OrderByDescending(e => e.NombreCompleto).ToPagedList(page, pageSize));
         }
 
         protected bool EquipoDuplicado(Equipo equipo)
@@ -237,12 +237,13 @@ namespace EquiposTecnicosSN.Web.Controllers
             return count != 0;
         }
 
-        public void Baja(int id)
+        public ActionResult BajaEquipo(int id)
         {
             var equipo = db.Equipos.Find(id);
             equipo.Estado = EstadoDeEquipo.NoFuncional;
             db.Entry(equipo).State = EntityState.Modified;
             db.SaveChanges();
+            return RedirectToAction("Details", new { id = id });
         }
 
         protected override void Dispose(bool disposing)

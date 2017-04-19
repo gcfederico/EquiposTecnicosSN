@@ -51,8 +51,11 @@
                                 @Html.LabelFor(model => model.NumeroMatricula, htmlAttributes: new { @class = "control-label" })
                                 @Html.EditorFor(model => model.NumeroMatricula, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                             </div>
+                            
                         </div>
                     </div>
+
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -60,13 +63,13 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="searchEquipoResults" class="ajax-result-list">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="searchEquipoResults" class="ajax-result-list">
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

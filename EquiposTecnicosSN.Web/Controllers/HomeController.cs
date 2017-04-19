@@ -46,9 +46,9 @@ namespace EquiposTecnicosSN.Web.Controllers
 
         public void Logout()
         {
-            //Session.Abandon();
-            //string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
-            //Response.Redirect(ssoUrl + "/Logout.aspx");
+            string ssoUrl = SSOHelper.Configuration["SSO_URL"] as string;
+            Response.Redirect(ssoUrl + "/Logout.aspx");
+            Session.Abandon();
         }
 
     }

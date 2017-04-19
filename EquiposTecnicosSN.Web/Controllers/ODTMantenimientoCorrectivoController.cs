@@ -56,7 +56,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 NumeroReferencia = DateTime.Now.ToString("yyyyMMddHHmmssff"),
                 Prioridad = OrdenDeTrabajoPrioridad.Normal,
                 UsuarioInicio = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
-        };
+            };
 
             vm.NuevaObservacion = NuevaObservacion();
             

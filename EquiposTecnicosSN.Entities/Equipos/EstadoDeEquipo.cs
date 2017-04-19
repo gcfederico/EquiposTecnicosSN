@@ -4,12 +4,15 @@ namespace EquiposTecnicosSN.Entities.Equipos
 {
     public enum EstadoDeEquipo
     {
+        [Display(Name = "Operativo")]
         Funcional = 1,
-        [Display(Name="No Funcional")]
+        [Display(Name="Fuera de servicio")]
         NoFuncional = 2,
-        [Display(Name = "Funciona Pero Requiere Reparacion")]
+        [Display(Name = "Operativo condicional")]
         FuncionalRequiereReparacion = 3,
-        [Display(Name = "No Funciona. Requiere Reparacion")]
-        NoFuncionalRequiereReparacion = 4
+        [Display(Name = "Fuera de servicio")]
+        NoFuncionalRequiereReparacion = 4,
+        [Display(Name = "Baja de equipo")]
+        Baja = 5
     }
 }

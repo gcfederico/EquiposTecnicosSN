@@ -145,7 +145,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             return new ObservacionOrdenDeTrabajo
             {
                 Fecha = DateTime.Now,
-                Usuario = "Usuario Anónimo"//(SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
+                Usuario = (SSOHelper.CurrentIdentity != null ? SSOHelper.CurrentIdentity.Fullname : "Usuario Anónimo")
         };
         }
 
@@ -155,7 +155,7 @@ namespace EquiposTecnicosSN.Web.Controllers
         /// <param name="buscarNumeroReferencia"></param>
         /// <param name="EstadoODT"></param>
         /// <returns></returns>
-        public ActionResult SearchODT(string FechaInicio = "", string buscarNumeroReferencia = "", int? EstadoODT = 0, int? TipoODT = 0, int page = 1)
+        public ActionResult SearchODT(string FechaInicio = "", string buscarNumeroReferencia = "", int? EstadoODT = 0, int? TipoODT = 0, int page = 1, int pageSize = 25)
         {
             var result = db.OrdenesDeTrabajo
                 .Where(odt => buscarNumeroReferencia.Equals("") || odt.NumeroReferencia.Contains(buscarNumeroReferencia));
@@ -188,7 +188,7 @@ namespace EquiposTecnicosSN.Web.Controllers
                 }
             }
 
-            return PartialView("_SearchODTsResults", result.OrderByDescending(odt => odt.FechaInicio).ToPagedList(page, 5));
+            return PartialView("_SearchODTsResults", result.OrderByDescending(odt => odt.FechaInicio).ToPagedList(page, pageSize));
         }
 
         /// <summary>
