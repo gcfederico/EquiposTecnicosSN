@@ -83,7 +83,7 @@ namespace EquiposTecnicosSN.Web.Controllers
             {
                 db.Entry(marca).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { fabricanteId = marca.FabricanteId });
             }
             ViewBag.FabricanteId = new SelectList(db.Fabricantes, "FabricanteId", "Nombre", marca.FabricanteId);
             return View(marca);
